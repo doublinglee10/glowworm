@@ -14,7 +14,7 @@ export class GWButtonComponent {
     @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
     clear() {
-        this.values = [];
+        this.values.splice(0, this.values.length);
         this.onClear.emit();
     }
 

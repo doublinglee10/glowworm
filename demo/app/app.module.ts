@@ -2,7 +2,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 
 import {AppComponent} from "./app.component";
-import {GWButtonModule} from "../../src/button/button.module";
+import {GlowwormModule} from "../../src/glowworm.module";
 
 @NgModule({
     declarations: [
@@ -10,7 +10,7 @@ import {GWButtonModule} from "../../src/button/button.module";
     ],
     imports: [
         BrowserModule,
-        GWButtonModule
+        GlowwormModule
     ],
     providers: [],
     bootstrap: [AppComponent]

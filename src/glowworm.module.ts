@@ -2,11 +2,13 @@ import {NgModule} from "@angular/core";
 import {GWButtonModule} from "./button/button.module";
 import {GWInputModule} from "./input/input.module";
 import {GWSelectModule} from "./select/select.module";
+import {GWToolbarModule} from "./toolbar/toolbar.module";
 
 let GLOWWORM_MODULES = [
     GWButtonModule,
     GWSelectModule,
-    GWInputModule
+    GWInputModule,
+    GWToolbarModule
 ];
 
 @NgModule({

@@ -1,5 +1,7 @@
-<gw-button [label]="'作者'" [values]="['值1','值2']"></gw-button>
+<gw-toolbar>
+    <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel"></gw-input>
+    <gw-select #gwcontrol [label]="'配置'" [data]="selectData" [(ngModel)]="selectModel" [showSelect]="true"></gw-select>
+</gw-toolbar>
 
-<gw-input [label]="'公司'"></gw-input>
-
-<gw-select [label]="'公司'" [data]="[{label: '全部', value: 0}, {label: '启用', value: 1}]"></gw-select>
+{{inputModel}}
+{{selectModel|json}}

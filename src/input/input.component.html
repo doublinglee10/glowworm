@@ -1,24 +1,25 @@
-<button type="button" class="btn btn-default btn-xs">
+<ng-container *ngIf="enabled">
+    <button type="button" class="btn btn-default btn-xs">
     <span [popover]="popTemplate" placement="bottom" #pop="bs-popover" containerClass="popover-input">
         <span class="author">{{label}}</span>
-        <span class="value">{{value}}</span>
+        <span class="value">{{_value}}</span>
         <span class="arrow"><span class="caret"></span></span>
     </span>
-    <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
-</button>
+        <span class="glyphicon glyphicon-remove" (click)="remove(pop);"></span>
+    </button>
+</ng-container>
 
 <ng-template #popTemplate>
-
     <div class="popover-container">
-        <div class="popover-top">
-            <span class="top-label">{{label}}</span>:
-            <ng-container *ngIf="showSelect">
+        <ng-container *ngIf="showSelect">
+            <div class="popover-top">
+                <span class="top-label">{{label}}</span>:
                 <select class="top-select" [(ngModel)]="selectValue">
                     <option *ngFor="let item of selectData" [attr.value]="item.value">{{item.label}}</option>
                 </select>
-            </ng-container>
-        </div>
-        <div class="popover-hr"></div>
+            </div>
+            <div class="popover-hr"></div>
+        </ng-container>
         <div class="popover-main">
             <input type="text" [(ngModel)]="_tmp_value" name="value">
         </div>
@@ -28,10 +29,9 @@
                 <a class="btn btn-xs" (click)="clear()">清除</a>
             </div>
             <div class="right">
-                <button class="btn btn-primary btn-xs" (click)="pop.hide();save()">保存</button>
-                <button class="btn btn-default btn-xs" (click)="pop.hide();cancel()">取消</button>
+                <button class="btn btn-primary btn-xs" (click)="save(pop)">保存</button>
+                <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
             </div>
         </div>
     </div>
-
 </ng-template>

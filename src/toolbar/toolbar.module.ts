@@ -2,12 +2,12 @@ import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {PopoverModule} from "ngx-bootstrap";
-import {GWSelectComponent} from "./select.component";
+import {GWToolbarComponent} from "./toolbar.component";
 import {GWUtilModule} from "../utils/util.module";
 
 @NgModule({
     declarations: [
-        GWSelectComponent
+        GWToolbarComponent
     ],
     imports: [
         CommonModule,
@@ -16,8 +16,8 @@ import {GWUtilModule} from "../utils/util.module";
         GWUtilModule
     ],
     exports: [
-        GWSelectComponent
+        GWToolbarComponent
     ]
 })
-export class GWSelectModule {
+export class GWToolbarModule {
 }

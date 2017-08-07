@@ -1,30 +1,32 @@
-<button type="button" class="btn btn-default btn-xs">
+<ng-container *ngIf="enabled">
+    <button type="button" class="btn btn-default btn-xs">
     <span [popover]="popTemplate" placement="bottom" #pop="bs-popover" containerClass="popover-input">
         <span class="author">{{label}}</span>
-        <span class="value">{{value}}</span>
+        <span class="value">{{labels}}</span>
         <span class="arrow"><span class="caret"></span></span>
     </span>
-    <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
-</button>
+        <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
+    </button>
+</ng-container>
 
 <ng-template #popTemplate>
 
     <div class="popover-container">
-        <div class="popover-top">
-            <span class="top-label">{{label}}</span>:
-            <ng-container *ngIf="showSelect">
+        <ng-container *ngIf="showSelect">
+            <div class="popover-top">
+                <span class="top-label">{{label}}</span>:
                 <select class="top-select" [(ngModel)]="selectValue">
-                    <option *ngFor="let item of selectData" [attr.value]="item.value">{{item.label}}</option>
+                    <option *ngFor="let item of selectData" [attr.value]="item.id">{{item.label}}</option>
                 </select>
-            </ng-container>
-        </div>
-        <div class="popover-hr"></div>
+            </div>
+            <div class="popover-hr"></div>
+        </ng-container>
         <div class="popover-main">
-            <input type="text" [(ngModel)]="_tmp_value" name="value" placeholder="过滤...">
+            <div class="input"><input type="text" [(ngModel)]="_filter" name="value" placeholder="过滤..."></div>
             <ul>
-                <li *ngFor="let item of data">
+                <li *ngFor="let item of (data | gwSelectFilter:_filter)">
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" [(ngModel)]="item.__checked__" name="checkbox" (change)="onSelect(item)">
                         <span>{{item.label}}</span>
                     </label>
                 </li>
@@ -36,8 +38,8 @@
                 <a class="btn btn-xs" (click)="clear()">清除</a>
             </div>
             <div class="right">
-                <button class="btn btn-primary btn-xs" (click)="pop.hide();save()">保存</button>
-                <button class="btn btn-default btn-xs" (click)="pop.hide();cancel()">取消</button>
+                <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
+                <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
             </div>
         </div>
     </div>

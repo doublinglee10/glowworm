@@ -7,21 +7,23 @@ import {Component} from "@angular/core";
 })
 export class AppComponent {
     title = 'app';
+    dateModel:string = "2017-08-06";
 
     inputModel: string = 'app';
 
     selectData = [
-        {text: '012', id: 0},
-        {text: '1', id: 1},
-        {text: '2', id: 2},
-        {text: '3', id: 3},
-        {text: '445', id: 4},
-        {text: '5', id: 5},
-        {text: '6', id: 6},
-        {text: '7', id: 7},
-        {text: '8', id: 8}
+        {label: '012', id: 0},
+        {label: '1', id: 1},
+        {label: '2', id: 2},
+        {label: '3', id: 3},
+        {label: '445', id: 4},
+        {label: '5', id: 5},
+        {label: '6', id: 6},
+        {label: '7', id: 7},
+        {label: '8', id: 8}
     ];
-    selectModel: string = '0';
+    selectModel: any[] = [{label: '0', id: 0}];
+
     multiSelectModel: any;
 
     log() {

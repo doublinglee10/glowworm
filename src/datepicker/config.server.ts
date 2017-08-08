@@ -14,6 +14,10 @@ export interface locale {
 
 @Injectable()
 export class DatepickerConfig {
+
+  jqueryPath?:string = '';
+  momentPath?:string = '';
+  datepickerPath?:string = '';
   singleDatePicker?: boolean = false;
   timePicker?: boolean = true;
   timePickerIncrement?: number = 5;

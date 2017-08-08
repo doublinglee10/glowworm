@@ -1,0 +1,48 @@
+button .author {
+    padding-right: 5px;
+}
+
+button .value {
+    color: #797979;
+}
+
+button .arrow {
+    padding: 0px 2px;
+}
+
+button /deep/ .popover-content {
+    padding: 9px 0 !important;
+}
+
+.popover-container .popover-top, .popover-container .popover-main, .popover-container .popover-footer {
+    font-size: 12px;
+    padding: 0px 10px;
+}
+
+.popover-container .popover-top .top-select {
+    width: 100px;
+}
+
+.popover-container .popover-hr {
+    width: 100%;
+    border-top: 1px solid #aaaaaa;
+    margin: 10px 0px;
+}
+
+.popover-container .popover-main input {
+    border: 1px solid #cccccc;
+    width: 100%;
+}
+
+.popover-container .popover-footer {
+    display: inline-block;
+    width: 100%;
+}
+
+.popover-container .popover-footer .left {
+    float: left;
+}
+
+.popover-container .popover-footer .right {
+    float: right;
+}

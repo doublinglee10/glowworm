@@ -16,14 +16,16 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'gw-datepicker',
   template: `
-    <button type="button" class="btn btn-default btn-xs" [hidden]="!enabled">
-      <span id="dateHost">
-        <span class="author">{{label}}</span>
-        <span class="value">{{_value}}</span>
-        <span class="arrow"><span class="caret"></span></span>
-      </span>
-      <span class="glyphicon glyphicon-remove" (click)="remove()"></span>
-    </button>
+      <button type="button" class="btn btn-default btn-xs" [hidden]="!enabled">
+            <span id="dateHost">
+                <span class="author">{{label}}</span>
+                <span class="value">{{_value}}</span>
+                <span class="arrow"><span class="caret"></span></span>
+            </span>
+          <ng-container *ngIf="closeable">
+              <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
+          </ng-container>
+      </button>
   `,
   styles: ['[hidden] { display: none !important;}'],
   providers: [GW_DATE_VALUE_ACCESSOR]

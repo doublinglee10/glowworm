@@ -8,6 +8,9 @@ export interface locale {
     firstDay?: number;
 }
 export declare class DatepickerConfig {
+    jqueryPath?: string;
+    momentPath?: string;
+    datepickerPath?: string;
     singleDatePicker?: boolean;
     timePicker?: boolean;
     timePickerIncrement?: number;

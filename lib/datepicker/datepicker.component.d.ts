@@ -1,4 +1,4 @@
-import { ElementRef, OnInit } from "@angular/core";
+import { ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { DatepickerConfig } from "./config.server";
 import { ScriptLoaderService } from "../utils/script-loader.service";
 import { ControlValueAccessor } from "@angular/forms";
@@ -9,8 +9,8 @@ export declare class GWDatepickerComponent extends GWControl implements OnInit, 
     private input;
     private loader;
     options: DatepickerConfig | string;
-    JsPath: any;
     label: string;
+    showCalendarDaterangepicker: EventEmitter<{}>;
     _value: string;
     onChange: any;
     onTouched: any;

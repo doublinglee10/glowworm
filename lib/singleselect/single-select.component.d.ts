@@ -9,7 +9,7 @@ export declare class GWSingleSelectComponent extends GWControl implements Contro
     onSelectEvent: EventEmitter<string>;
     _filter: string;
     data: GWSelect[];
-    value: string;
+    value: any;
     onChange: any;
     onTouched: any;
     _data: any[];
@@ -19,7 +19,7 @@ export declare class GWSingleSelectComponent extends GWControl implements Contro
     cancel(): void;
     remove(): void;
     onSelect(item: any): void;
-    writeValue(obj: any): void;
+    writeValue(obj: string): void;
     refreshUI(): void;
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;

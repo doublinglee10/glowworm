@@ -4,6 +4,6 @@ export interface ScriptModel {
     loaded?: boolean;
 }
 export declare class ScriptLoaderService {
-    private scripts;
+    scripts: ScriptModel[];
     load(script: ScriptModel): Observable<ScriptModel>;
 }

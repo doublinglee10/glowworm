@@ -6,6 +6,6 @@ import {Pipe, PipeTransform} from "@angular/core";
 })
 export class GWSelectFilter implements PipeTransform {
     transform(data: any[], name: string): any {
-        return !name ? data : data.filter(item => item.label.includes(name));
+        return !name ? data : data.filter(item => item.text.includes(name));
     }
 }

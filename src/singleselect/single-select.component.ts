@@ -25,7 +25,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     _filter: string;
 
     data: GWSelect[];
-    value: string;
+    value: any;
     onChange: any;
     onTouched: any;
 
@@ -41,14 +41,15 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     }
 
     updateNgModel() {
+        let id = this.value ? this.value.id : '';
         this.onTouched();
-        this.onChange(this.value);
+        this.onChange(id);
     }
 
     save() {
         this.popover.hide();
         let checkeds = this.data.filter((value: any) => value.__checked__);
-        this.value = checkeds.length > 0 ? checkeds[0].id : '';
+        this.value = checkeds.length > 0 ? checkeds[0] : {};
         this.updateNgModel();
         this.onSelectEvent.emit(this.value);
     }
@@ -60,7 +61,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     }
 
     remove() {
-        this.value = '';
+        this.value = {};
         this.enabled = false;
         this.clear();
         this.updateNgModel();
@@ -76,15 +77,19 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
         }
     }
 
-    writeValue(obj: any): void {
-        this.value = obj;
+    writeValue(obj: string): void {
+        this.data.forEach((item: any) => {
+            if (item.id == obj) {
+                this.value = item;
+            }
+        });
         this.refreshUI();
     }
 
     refreshUI() {
         this.data.forEach((item: any) => item.__checked__ = false);
         this.data.forEach((item: any) => {
-            if (this.value == item.id) {
+            if (this.value && this.value.id == item.id) {
                 item.__checked__ = true;
             }
         });

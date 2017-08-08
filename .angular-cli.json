@@ -22,8 +22,7 @@
         "styles.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.js",
-        "assets/datepicker/daterangepicker.js"
+        "../node_modules/jquery/dist/jquery.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

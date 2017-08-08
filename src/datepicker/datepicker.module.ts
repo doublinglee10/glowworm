@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {GWDatepickerComponent} from "./datepicker.component";
 import {DatepickerConfig} from "./config.server";
@@ -12,4 +12,6 @@ import {ScriptLoaderService} from "../utils/script-loader.service";
   exports:[GWDatepickerComponent],
   providers:[DatepickerConfig,ScriptLoaderService]
 })
-export class DatepickerModule { }
+export class DatepickerModule {
+
+}

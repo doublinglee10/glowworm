@@ -42,11 +42,10 @@
                      (onSelect)="log($event)"
     >
     </gw-multi-select>
-    {{multiSelectModel|json}}
-
-    <gw-datepicker #gwcontrol label="日期" options="{singleDatePicker:true}" JsPath="/assets/jquery.min.js,/assets/datepicker/moment.min.js,/assets/datepicker/daterangepicker.js">
+    <gw-datepicker #gwcontrol label="日期" [(ngModel)]="dateModel" >
     </gw-datepicker>
 </gw-toolbar>
+
 
 
 

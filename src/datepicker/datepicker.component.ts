@@ -1,9 +1,10 @@
-import {Component, ElementRef, forwardRef, Input, OnInit} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, forwardRef, ViewChild} from '@angular/core';
 import {DatepickerConfig} from "./config.server";
 import {ScriptLoaderService, ScriptModel} from "../utils/script-loader.service";
 import {Observable} from "rxjs/Observable";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
+import {PopoverDirective} from "ngx-bootstrap";
 
 declare let moment: any, $: any, daterangepicker: any;
 
@@ -16,16 +17,16 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'gw-datepicker',
   template: `
-      <button type="button" class="btn btn-default btn-xs" [hidden]="!enabled">
-            <span id="dateHost">
-                <span class="author">{{label}}</span>
-                <span class="value">{{_value}}</span>
-                <span class="arrow"><span class="caret"></span></span>
-            </span>
-          <ng-container *ngIf="closeable">
-              <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
-          </ng-container>
-      </button>
+    <button type="button"  class="btn btn-default {{btnSize}}" [hidden]="!enabled">
+      <span id="dateHost">
+        <span class="author">{{label}}</span>
+        <span class="value">{{_value}}</span>
+        <span class="arrow"><span class="caret"></span></span>
+      </span>
+      <ng-container *ngIf="closeable">
+        <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
+      </ng-container>
+    </button>
   `,
   styles: ['[hidden] { display: none !important;}'],
   providers: [GW_DATE_VALUE_ACCESSOR]
@@ -34,11 +35,10 @@ export class GWDatepickerComponent extends GWControl implements OnInit, ControlV
   @Input()
   options: DatepickerConfig | string;
 
-  @Input()
-  JsPath: any;
+
   @Input()
   label: string;
-
+  @Output() showCalendarDaterangepicker = new EventEmitter();
 
   _value: string;
   onChange: any;
@@ -60,6 +60,8 @@ export class GWDatepickerComponent extends GWControl implements OnInit, ControlV
     this.config = options;
 
     (<any>$(this.input.nativeElement).find('#dateHost')).daterangepicker(options, this.callback.bind(this));
+
+
   }
 
   private callback(start?: any, end?: any): void {
@@ -75,20 +77,29 @@ export class GWDatepickerComponent extends GWControl implements OnInit, ControlV
   //检查依赖插件  若不存在异步加载
   datepickerPreInit(config: DatepickerConfig) {
     if (typeof moment === 'undefined' || typeof $ === 'undefined' || typeof daterangepicker === 'undefined') {
-      if (this.JsPath && this.JsPath.split(',').length >= 2) {
-        const _path: string[] = this.JsPath.split(',');
+      let {  jqueryPath,momentPath,datepickerPath } = config;
+      if (jqueryPath||momentPath||datepickerPath) {
 
+        if(typeof $ !== 'undefined'){
+          this.loader.scripts.push({src:jqueryPath,loaded:true});
+        }
+        if(typeof moment !== 'undefined'){
+          this.loader.scripts.push({src:momentPath,loaded:true});
+        }
+        if(typeof daterangepicker !== 'undefined'){
+          this.loader.scripts.push({src:datepickerPath,loaded:true});
+        }
 
         let jq$: Observable<ScriptModel> = this.loader.load({
-          src: _path[0]
+          src: jqueryPath
         })
 
         let moment$: Observable<ScriptModel> = this.loader.load({
-          src: _path[1]
+          src: momentPath
         })
 
         let daterangepicker$: Observable<ScriptModel> = this.loader.load({
-          src: _path[2]
+          src:datepickerPath
         })
 
         jq$.subscribe(res1 => {
@@ -101,7 +112,7 @@ export class GWDatepickerComponent extends GWControl implements OnInit, ControlV
 
 
       } else {
-        console.warn('datepicker 4.x is missing (moment,jquery)');
+        console.warn('datepicker 4.x is missing (moment||jquery||daterangepicker)');
       }
     } else {
       this.datepickerInit(config);

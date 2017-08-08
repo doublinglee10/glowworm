@@ -10,7 +10,7 @@ export interface ScriptModel {
 @Injectable()
 export class ScriptLoaderService {
 
-    private scripts: ScriptModel[] = [];
+    public scripts: ScriptModel[] = [];
 
     public load(script: ScriptModel): Observable<ScriptModel> {
         return new Observable<ScriptModel>((observer: Observer<ScriptModel>) => {

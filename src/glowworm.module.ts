@@ -3,12 +3,14 @@ import {GWButtonModule} from "./button/button.module";
 import {GWInputModule} from "./input/input.module";
 import {GWSelectModule} from "./select/select.module";
 import {GWToolbarModule} from "./toolbar/toolbar.module";
+import {DatepickerModule} from  "./datepicker/datepicker.module";
 
 let GLOWWORM_MODULES = [
     GWButtonModule,
     GWSelectModule,
     GWInputModule,
-    GWToolbarModule
+    GWToolbarModule,
+    DatepickerModule
 ];
 
 @NgModule({

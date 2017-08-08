@@ -1,7 +1,11 @@
 <gw-toolbar>
     <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel"></gw-input>
     <gw-select #gwcontrol [label]="'配置'" [data]="selectData" [(ngModel)]="selectModel" [showSelect]="true"></gw-select>
+    <gw-datepicker #gwcontrol label="日期" options="{singleDatePicker:true}"  JsPath="/assets/jquery.min.js,/assets/datepicker/moment.min.js,/assets/datepicker/daterangepicker.js">
+    </gw-datepicker>
 </gw-toolbar>
 
-{{inputModel}}
-{{selectModel|json}}
+
+
+
+

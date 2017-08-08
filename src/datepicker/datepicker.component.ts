@@ -28,7 +28,7 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
       </ng-container>
     </button>
   `,
-  styles: ['[hidden] { display: none !important;}'],
+  styleUrls: ['./datepicker.component.css'],
   providers: [GW_DATE_VALUE_ACCESSOR]
 })
 export class GWDatepickerComponent extends GWControl implements OnInit, ControlValueAccessor {

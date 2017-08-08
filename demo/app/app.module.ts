@@ -21,6 +21,7 @@ import {DatepickerConfig} from  "../../src/datepicker/config.server";
 export class AppModule {
   constructor(private config: DatepickerConfig) {
     Object.assign(this.config,{
+      opens:'center',
       jqueryPath: '/assets/jquery.min.js',
       momentPath: '/assets/datepicker/moment.min.js',
       datepickerPath: '/assets/datepicker/daterangepicker.js'

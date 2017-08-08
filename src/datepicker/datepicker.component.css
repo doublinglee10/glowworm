@@ -1,0 +1,12 @@
+button .author {
+  padding-right: 5px;
+}
+
+button .value {
+  color: #797979;
+}
+
+button .arrow {
+  padding: 0px 2px;
+}
+[hidden] { display: none !important;}

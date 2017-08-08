@@ -1,10 +1,9 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, forwardRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, forwardRef, Input, OnInit} from "@angular/core";
 import {DatepickerConfig} from "./config.server";
 import {ScriptLoaderService, ScriptModel} from "../utils/script-loader.service";
 import {Observable} from "rxjs/Observable";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
-import {PopoverDirective} from "ngx-bootstrap";
 
 declare let moment: any, $: any, daterangepicker: any;
 

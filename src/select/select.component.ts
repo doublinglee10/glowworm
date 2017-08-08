@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, ViewChild} from "@angular/core";
+import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWSelect} from "../utils/select.modal";
 import {GWControl} from "../utils/gw-control";
@@ -22,6 +22,8 @@ export class GWSelectComponent extends GWControl implements ControlValueAccessor
 
     @Input() singleSelect: boolean = true;
 
+    @Output('onSelect') onSelectEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
+
     _filter: string;
 
     data: GWSelect[];
@@ -30,7 +32,7 @@ export class GWSelectComponent extends GWControl implements ControlValueAccessor
     onTouched: any;
 
     get labels(): string {
-        return this.values.map((value) => value.label).join(',');
+        return this.values.map((value) => value.text).join(',');
     }
 
     @Input('data') set _data(data: any[]) {
@@ -49,6 +51,7 @@ export class GWSelectComponent extends GWControl implements ControlValueAccessor
         this.values = this.data.filter((value: any) => value.__checked__);
         this.onTouched();
         this.onChange(this.values);
+        this.onSelectEvent.emit(this.values);
     }
 
     cancel() {
@@ -86,7 +89,8 @@ export class GWSelectComponent extends GWControl implements ControlValueAccessor
         this.values.forEach((select: GWSelect) => {
             this.data.forEach((item: any) => {
                 if (select.id == item.id) {
-                    item.__checked__ = true
+                    item.__checked__ = true;
+                    select.text = item.text;
                 }
             });
         });

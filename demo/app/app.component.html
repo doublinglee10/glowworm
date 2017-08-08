@@ -3,8 +3,30 @@
     <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel" btnSize="default"></gw-input>
     <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel" btnSize="btn-sm"></gw-input>
     <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel" [closeable]="false"></gw-input>
-    <gw-select #gwcontrol [label]="'配置'" [data]="selectData" [(ngModel)]="selectModel" [showSelect]="true"></gw-select>
-    <gw-datepicker #gwcontrol label="日期" options="{singleDatePicker:true}"  JsPath="/assets/jquery.min.js,/assets/datepicker/moment.min.js,/assets/datepicker/daterangepicker.js">
+    <gw-input #gwcontrol
+              [label]="'公司'"
+              [(ngModel)]="inputModel"
+              [btnSize]="'btn-sm'"
+              [closeable]="false"
+              [enabled]="true"
+              [showSelect]="true"
+              [selectData]="[{id: '0', text: '0'}, {id: '1', text: '1'}]"
+              [selectValue]="'1'"
+    >
+    </gw-input>
+    <gw-select #gwcontrol
+               [label]="'配置'"
+               [data]="[{id: '0', text: '0'}, {id: '1', text: '1'}]"
+               [(ngModel)]="selectModel"
+               [btnSize]="'btn-sm'"
+               [closeable]="false"
+               [enabled]="true"
+               [showSelect]="true"
+               [selectData]="[{id: '0', text: '0'}, {id: '1', text: '1'}]"
+               [selectValue]="'1'"
+    >
+    </gw-select>
+    <gw-datepicker #gwcontrol label="日期" options="{singleDatePicker:true}" JsPath="/assets/jquery.min.js,/assets/datepicker/moment.min.js,/assets/datepicker/daterangepicker.js">
     </gw-datepicker>
 </gw-toolbar>
 

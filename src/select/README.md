@@ -5,14 +5,15 @@
 <gw-toolbar>
     <gw-select #gwcontrol
                [label]="'配置'"
-               [data]="[{id: '0', label: '0'}, {id: '1', label: '1'}]"
+               [data]="[{id: '0', text: '0'}, {id: '1', text: '1'}]"
                [(ngModel)]="selectModel"
                [btnSize]="'btn-sm'"
                [closeable]="false"
                [enabled]="true"
                [showSelect]="true"
-               [selectData]="[{id: '0', label: '0'}, {id: '1', label: '1'}]"
-               [selectValue]="{id: '0', label: '1'}"
+               [selectData]="[{id: '0', text: '0'}, {id: '1', text: '1'}]"
+               [selectValue]="'1'"
+               (onSelect)="onSelectEvent($event)"
                >
     </gw-select>
 </gw-toolbar>
@@ -21,7 +22,7 @@
 ### @Input
 
 
-|	method				  |	 param 		      | 	            	desc 					|
+|	method				  |	   param          | 	            	desc 					|
 |-------------------------|-------------------|-------------------------------------------------|
 |	label                 |    string         |      显示的标签                                |
 |	data                  |    any[]          |      下拉选择的数据源                           |
@@ -31,10 +32,15 @@
 |	enabled               |    boolean        |      默认是否显示                                |
 |	showSelect            |    boolean        |      是否显示辅助的下拉选择                                |
 |	selectData            |    any[]          |      辅助的下拉选择数据，每条数据必须包含id,label属性.                         |
-|	selectValue           |    any            |      辅助的下拉value                                |
+|	selectValue           |    string         |      数据的id                                |
+
+
+### @Output
 
 
 
 
-
+|	event				  |	   param          | 	            	desc 					|
+|-------------------------|-------------------|-------------------------------------------------|
+|	onSelect              |    any[]          |      当用户点击save按钮时触发                      |
 

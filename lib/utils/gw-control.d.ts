@@ -6,6 +6,6 @@ export declare abstract class GWControl {
     label: string;
     showSelect: boolean;
     selectData: any[];
-    selectValue: any;
+    selectValue: string;
     onRemove: Function;
 }

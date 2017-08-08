@@ -38,7 +38,7 @@ export class GWDatepickerComponent extends GWControl implements OnInit, ControlV
 
   @Input()
   label: string;
-  @Output() showCalendarDaterangepicker = new EventEmitter();
+  @Output() CancelCalendarDaterangepicker = new EventEmitter();
 
   _value: string;
   onChange: any;
@@ -61,7 +61,9 @@ export class GWDatepickerComponent extends GWControl implements OnInit, ControlV
 
     (<any>$(this.input.nativeElement).find('#dateHost')).daterangepicker(options, this.callback.bind(this));
 
-
+    $(this.input.nativeElement).find('#dateHost').on('cancel.daterangepicker',(ev, picker)=>{
+      this.value = null;
+    })
   }
 
   private callback(start?: any, end?: any): void {

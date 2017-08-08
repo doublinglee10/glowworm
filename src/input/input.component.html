@@ -16,9 +16,8 @@
         <ng-container *ngIf="showSelect">
             <div class="popover-top">
                 <span class="top-label">{{label}}</span>:
-                {{selectValue|json}}
                 <select class="top-select" [(ngModel)]="selectValue">
-                    <option *ngFor="let item of selectData" [attr.value]="item.value" [attr.selected]="selectValue == item.id">{{item.text}}</option>
+                    <option *ngFor="let item of selectData" [attr.value]="item.id" [attr.selected]="selectValue == item.id">{{item.text}}</option>
                 </select>
             </div>
             <div class="popover-hr"></div>

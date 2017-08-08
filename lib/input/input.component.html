@@ -17,7 +17,7 @@
             <div class="popover-top">
                 <span class="top-label">{{label}}</span>:
                 <select class="top-select" [(ngModel)]="selectValue">
-                    <option *ngFor="let item of selectData" [attr.value]="item.value">{{item.label}}</option>
+                    <option *ngFor="let item of selectData" [attr.value]="item.id" [attr.selected]="selectValue == item.id">{{item.text}}</option>
                 </select>
             </div>
             <div class="popover-hr"></div>

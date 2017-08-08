@@ -1,3 +1,4 @@
+import { EventEmitter } from "@angular/core";
 import { ControlValueAccessor } from "@angular/forms";
 import { GWSelect } from "../utils/select.modal";
 import { GWControl } from "../utils/gw-control";
@@ -6,6 +7,7 @@ export declare const GW_SELECT_VALUE_ACCESSOR: any;
 export declare class GWSelectComponent extends GWControl implements ControlValueAccessor {
     popover: PopoverDirective;
     singleSelect: boolean;
+    onSelectEvent: EventEmitter<any[]>;
     _filter: string;
     data: GWSelect[];
     values: any[];

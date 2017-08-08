@@ -28,7 +28,7 @@
             <ul>
                 <li *ngFor="let item of (data | gwSelectFilter:_filter)">
                     <label>
-                        <input type="checkbox" [(ngModel)]="item.__checked__" name="checkbox" (change)="onSelect(item)">
+                        <input type="checkbox" [(ngModel)]="item.__checked__" name="checkbox">
                         <span>{{item.text}}</span>
                     </label>
                 </li>

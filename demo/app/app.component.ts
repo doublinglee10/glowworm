@@ -21,5 +21,10 @@ export class AppComponent {
         {text: '7', id: 7},
         {text: '8', id: 8}
     ];
-    selectModel: any[] = [{text: '0', id: 0}];
+    selectModel: string = '0';
+    multiSelectModel: any;
+
+    log() {
+        console.log(arguments);
+    }
 }

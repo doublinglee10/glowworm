@@ -3,19 +3,19 @@
 
 ```xml
 <gw-toolbar>
-    <gw-select #gwcontrol
-               [label]="'配置'"
-               [data]="[{id: '0', text: '0'}, {id: '1', text: '1'}]"
-               [(ngModel)]="selectModel"
-               [btnSize]="'btn-sm'"
-               [closeable]="false"
-               [enabled]="true"
-               [showSelect]="true"
-               [selectData]="[{id: '0', text: '0'}, {id: '1', text: '1'}]"
-               [selectValue]="'1'"
-               (onSelect)="onSelectEvent($event)"
-               >
-    </gw-select>
+    <gw-multi-select #gwcontrol
+                     [label]="'配置multiSelect'"
+                     [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                     [(ngModel)]="multiSelectModel"
+                     [btnSize]="'btn-sm'"
+                     [closeable]="false"
+                     [enabled]="true"
+                     [showSelect]="true"
+                     [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                     [selectValue]="'1'"
+                     (onSelect)="onSelect($event)"
+    >
+    </gw-multi-select>
 </gw-toolbar>
 ```
 
@@ -26,7 +26,7 @@
 |-------------------------|-------------------|-------------------------------------------------|
 |	label                 |    string         |      显示的标签                                |
 |	data                  |    any[]          |      下拉选择的数据源                           |
-|	ngModel               |    string         |      双向绑定值                                |
+|	ngModel               |    any[]          |      双向绑定值                                |
 |	btnSize               |    string         |      按钮大小，可取值有：'btn-lg' 'btn-sm' 'btn-xs' 'btn-flat' 'disabled' 'default'                                |
 |	closeable             |    boolean        |      是否可以关闭                                |
 |	enabled               |    boolean        |      默认是否显示                                |

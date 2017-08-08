@@ -6,21 +6,19 @@ import {PopoverDirective} from "ngx-bootstrap";
 
 export const GW_SELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GWSelectComponent),
+    useExisting: forwardRef(() => GWMultiSelectComponent),
     multi: true
 };
 
 @Component({
-    selector: 'gw-select',
-    styleUrls: ['./select.component.css'],
-    templateUrl: './select.component.html',
+    selector: 'gw-multi-select',
+    styleUrls: ['./multi-select.component.css'],
+    templateUrl: './multi-select.component.html',
     providers: [GW_SELECT_VALUE_ACCESSOR]
 })
-export class GWSelectComponent extends GWControl implements ControlValueAccessor {
+export class GWMultiSelectComponent extends GWControl implements ControlValueAccessor {
 
     @ViewChild(PopoverDirective) popover: PopoverDirective;
-
-    @Input() singleSelect: boolean = true;
 
     @Output('onSelect') onSelectEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
 
@@ -46,37 +44,30 @@ export class GWSelectComponent extends GWControl implements ControlValueAccessor
         });
     }
 
+    updateNgModel() {
+        this.onTouched();
+        this.onChange(this.values);
+    }
+
     save() {
         this.popover.hide();
         this.values = this.data.filter((value: any) => value.__checked__);
-        this.onTouched();
-        this.onChange(this.values);
+        this.updateNgModel();
         this.onSelectEvent.emit(this.values);
     }
 
     cancel() {
         this.popover.hide();
         this.refreshUI();
-        this.onTouched();
-        this.onChange(this.values);
+        this.updateNgModel();
     }
 
     remove() {
         this.values = [];
         this.enabled = false;
         this.clear();
-        this.onTouched();
-        this.onChange(this.values);
+        this.updateNgModel();
         this.onRemove();
-    }
-
-    onSelect(item: any) {
-        if (this.singleSelect && item.__checked__) {
-            this.data.forEach((item: any) => {
-                item.__checked__ = false;
-            });
-            item.__checked__ = true;
-        }
     }
 
     writeValue(obj: any): void {

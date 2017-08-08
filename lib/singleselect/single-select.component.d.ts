@@ -3,19 +3,18 @@ import { ControlValueAccessor } from "@angular/forms";
 import { GWSelect } from "../utils/select.modal";
 import { GWControl } from "../utils/gw-control";
 import { PopoverDirective } from "ngx-bootstrap";
-export declare const GW_SELECT_VALUE_ACCESSOR: any;
-export declare class GWSelectComponent extends GWControl implements ControlValueAccessor {
+export declare const GW_SINGLE_SELECT_VALUE_ACCESSOR: any;
+export declare class GWSingleSelectComponent extends GWControl implements ControlValueAccessor {
     popover: PopoverDirective;
-    singleSelect: boolean;
-    onSelectEvent: EventEmitter<any[]>;
+    onSelectEvent: EventEmitter<string>;
     _filter: string;
     data: GWSelect[];
-    values: any[];
+    value: string;
     onChange: any;
     onTouched: any;
-    readonly labels: string;
     _data: any[];
     clear(): void;
+    updateNgModel(): void;
     save(): void;
     cancel(): void;
     remove(): void;

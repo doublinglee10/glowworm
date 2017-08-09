@@ -10,7 +10,7 @@ export declare class GWDatepickerComponent extends GWControl implements OnInit, 
     private loader;
     options: DatepickerConfig | string;
     label: string;
-    showCalendarDaterangepicker: EventEmitter<{}>;
+    CancelCalendarDaterangepicker: EventEmitter<{}>;
     _value: string;
     onChange: any;
     onTouched: any;

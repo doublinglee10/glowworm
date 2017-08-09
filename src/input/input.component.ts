@@ -44,7 +44,12 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
     save() {
         this.popover.hide();
         this.value = this._tmp_value;
-        this.selectLabel = this.showSelect ? this.selectData.filter((item: any) => item.id == this.selectValue)[0].text : '';
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
     }
 
     cancel() {
@@ -62,7 +67,12 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
 
     writeValue(obj: any): void {
         this.value = obj;
-        this.selectLabel = this.showSelect ? this.selectData.filter((item: any) => item.id == this.selectValue)[0].text : '';
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
         this._tmp_value = obj;
     }
 

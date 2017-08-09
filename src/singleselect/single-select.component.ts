@@ -51,7 +51,12 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
         this.popover.hide();
         let checkeds = this.data.filter((value: any) => value.__checked__);
         this.value = checkeds.length > 0 ? checkeds[0] : {};
-        this.selectLabel = this.showSelect ? this.selectData.filter((item: any) => item.id == this.selectValue)[0].text : '';
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
         this.updateNgModel();
         this.onSelectEvent.emit(this.value);
     }
@@ -85,7 +90,12 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
                 this.value = item;
             }
         });
-        this.selectLabel = this.showSelect ? this.selectData.filter((item: any) => item.id == this.selectValue)[0].text : '';
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
         this.refreshUI();
     }
 

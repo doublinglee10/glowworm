@@ -2,7 +2,7 @@
     <button type="button" class="btn btn-default {{btnSize}}">
         <span [popover]="popTemplate" placement="bottom" #pop="bs-popover" containerClass="popover-input">
             <span class="author">{{label}}</span>
-            <span class="value">{{value?.text}}</span>
+            <span class="value">{{selectLabel}} {{value?.text}}</span>
             <span class="arrow"><span class="caret"></span></span>
         </span>
         <ng-container *ngIf="closeable">

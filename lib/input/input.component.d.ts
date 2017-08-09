@@ -9,6 +9,7 @@ export declare class GWInputComponent extends GWControl implements OnInit, Contr
     _tmp_value: string;
     onChange: any;
     onTouched: any;
+    selectLabel: string;
     ngOnInit(): void;
     value: string;
     clear(): void;

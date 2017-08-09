@@ -12,6 +12,7 @@ export declare class GWSingleSelectComponent extends GWControl implements Contro
     value: any;
     onChange: any;
     onTouched: any;
+    selectLabel: string;
     _data: any[];
     clear(): void;
     updateNgModel(): void;

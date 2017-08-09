@@ -20,7 +20,7 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
     <button type="button"  class="btn btn-default {{btnSize}}" [hidden]="!enabled">
       <span id="dateHost">
         <span class="author">{{label}}</span>
-        <span class="value">{{_value}}</span>
+        <span style="color:#797979">{{_value}}</span>
         <span class="arrow"><span class="caret"></span></span>
       </span>
       <ng-container *ngIf="closeable">

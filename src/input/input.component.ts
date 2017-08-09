@@ -23,6 +23,7 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
     _tmp_value: string;
     onChange: any;
     onTouched: any;
+    selectLabel: string;
 
     ngOnInit(): void {
         if (!this.selectValue && this.selectData && this.selectData.length > 0) {
@@ -43,6 +44,7 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
     save() {
         this.popover.hide();
         this.value = this._tmp_value;
+        this.selectLabel = this.showSelect ? this.selectData.filter((item: any) => item.id == this.selectValue)[0].text : '';
     }
 
     cancel() {
@@ -60,6 +62,7 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
 
     writeValue(obj: any): void {
         this.value = obj;
+        this.selectLabel = this.showSelect ? this.selectData.filter((item: any) => item.id == this.selectValue)[0].text : '';
         this._tmp_value = obj;
     }
 

@@ -12,6 +12,7 @@ export declare class GWMultiSelectComponent extends GWControl implements Control
     values: any[];
     onChange: any;
     onTouched: any;
+    selectLabel: string;
     readonly labels: string;
     _data: any[];
     clear(): void;

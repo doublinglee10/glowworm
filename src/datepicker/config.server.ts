@@ -20,8 +20,9 @@ export class DatepickerConfig {
   datepickerPath?:string = '';
   singleDatePicker?: boolean = false;
   timePicker?: boolean = true;
-  timePickerIncrement?: number = 5;
+  timePickerIncrement?: number = 1;
   showDropdowns?: boolean = true;
+  timePickerSeconds?: boolean = true;
   timePicker24Hour?: boolean = true;
   autoUpdateInput?: boolean = true;
   showCustomRangeLabel?: boolean = false;

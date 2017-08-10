@@ -25,15 +25,15 @@ export class AppModule {
   constructor(private config: DatepickerConfig) {
     const format = config.locale.format,timePickerIncrement=this.config.timePickerIncrement;
     const today_s = moment(moment().format('YYYY-MM-DD')).format(format),
-      today_e =  moment(today_s).add(1,'days').subtract(timePickerIncrement,'minute').format(format),
+      today_e =  moment(today_s).add(1,'days').subtract(timePickerIncrement,'s').format(format),
     yesterday_s = moment(moment().format('YYYY-MM-DD')).subtract(1,'days').format(format),
-    yesterday_e =  moment(yesterday_s).add(1,'days').subtract(timePickerIncrement,'minute').format(format),
+    yesterday_e =  moment(yesterday_s).add(1,'days').subtract(timePickerIncrement,'s').format(format),
     week_s = moment(today_s).subtract(moment().isoWeekday()-1,'days').format(format),
-    week_e = moment(week_s).add(7,'days').subtract(timePickerIncrement,'minute').format(format),
+    week_e = moment(week_s).add(7,'days').subtract(timePickerIncrement,'s').format(format),
     lastWeek_s = moment(week_s).subtract(7,'days').format(format),
     lastWeek_e = moment(week_e).subtract(7,'days').format(format),
     month_s = moment(moment().format('YYYY-MM-DD')).subtract(moment().date()-1,'days').format(format),
-    month_e = moment(month_s).add(1,'month').subtract(timePickerIncrement,'minute').format(format),
+    month_e = moment(month_s).add(1,'month').subtract(timePickerIncrement,'s').format(format),
     lastMonth_s = moment(month_s).subtract(1,'month').format(format),
     lastMonth_e = moment(month_e).subtract(1,'month').format(format);
       Object.assign(

@@ -5,7 +5,6 @@ import {GlowwormModule} from "../../src/glowworm.module";
 import {FormsModule} from "@angular/forms";
 import {DatepickerConfig} from  "../../src/datepicker/config.server";
 import * as moment from "moment";
-import {DatepickerConfig} from "../../src/datepicker/config.server";
 import {TestComponent} from "./test.component";
 
 
@@ -44,11 +43,5 @@ export class AppModule {
     );
 
   }
-    constructor(private config: DatepickerConfig) {
-        Object.assign(this.config, {
-            jqueryPath: '/assets/jquery.min.js',
-            momentPath: '/assets/datepicker/moment.min.js',
-            datepickerPath: '/assets/datepicker/daterangepicker.js'
-        })
-    }
+
 }

@@ -4,7 +4,7 @@ import {AppComponent} from "./app.component";
 import {GlowwormModule} from "../../src/glowworm.module";
 import {FormsModule} from "@angular/forms";
 import {DatepickerConfig} from  "../../src/datepicker/config.server";
-
+import * as moment from "moment";
 
 @NgModule({
   declarations: [
@@ -20,11 +20,24 @@ import {DatepickerConfig} from  "../../src/datepicker/config.server";
 })
 export class AppModule {
   constructor(private config: DatepickerConfig) {
-    Object.assign(this.config,{
-      opens:'center',
-      jqueryPath: '/assets/jquery.min.js',
-      momentPath: '/assets/datepicker/moment.min.js',
-      datepickerPath: '/assets/datepicker/daterangepicker.js'
-    })
+    const today = moment(moment().format('YYYY-MM-DD')).format(this.config.locale.format);
+    Object.assign(
+      config,
+      {
+        opens:'center',
+        singleDatePicker:false,
+        jqueryPath: '/assets/jquery.min.js',
+        momentPath: '/assets/datepicker/moment.min.js',
+        datepickerPath: '/assets/datepicker/daterangepicker.js',
+        startDate:today,
+        endDate:today,
+        ranges:{
+          '今天': [
+            today, moment(today).add(1,'days').subtract(this.config.timePickerIncrement,'minute').format(this.config.locale.format)
+          ]
+        }
+      }
+    );
+
   }
 }

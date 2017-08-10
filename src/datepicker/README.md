@@ -10,11 +10,25 @@
 import {DatepickerConfig} from  "XXX/datepicker/config.server";
 export class AppModule {
   constructor(private config: DatepickerConfig) {
-    Object.assign(this.config,{
-      jqueryPath: '/assets/jquery.min.js',
-      momentPath: '/assets/datepicker/moment.min.js',
-      datepickerPath: '/assets/datepicker/daterangepicker.js'
-    })
+       const today = moment(moment().format('YYYY-MM-DD')).format(this.config.locale.format);
+       Object.assign(
+         config,
+         {
+           opens:'center',
+           singleDatePicker:false,
+           jqueryPath: '/assets/jquery.min.js',
+           momentPath: '/assets/datepicker/moment.min.js',
+           datepickerPath: '/assets/datepicker/daterangepicker.js',
+           startDate:today,
+           endDate:today,
+           ranges:{
+             '今天': [
+               today, moment(today).add(1,'days').subtract(this.config.timePickerIncrement,'minute').format(this.config.locale.format)
+             ]
+           }
+         }
+       );
+
   }
 }
 ```
@@ -38,8 +52,8 @@ export class AppModule {
     momentPath?:string = '';
     datepickerPath?:string = '';
 
-注意事项： 1 模板配置权限高于config配置
-          2 config配置不能改变引用地址 
+注意事项：  1 模板配置权限高于config配置
+           2 config配置不能改变引用地址 
     
  
 

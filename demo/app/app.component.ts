@@ -7,7 +7,7 @@ import {Component} from "@angular/core";
 })
 export class AppComponent {
     title = 'app';
-    dateModel:string = "2017-08-06";
+    dateModel:any;
 
     inputModel: string = 'app';
 
@@ -27,6 +27,6 @@ export class AppComponent {
     multiSelectModel: any;
 
     log() {
-        console.log(arguments);
+        console.log(this.dateModel);
     }
 }

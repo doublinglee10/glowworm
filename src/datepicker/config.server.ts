@@ -23,7 +23,7 @@ export class DatepickerConfig {
   timePickerIncrement?: number = 5;
   showDropdowns?: boolean = true;
   timePicker24Hour?: boolean = true;
-  autoUpdateInput?: boolean = false;
+  autoUpdateInput?: boolean = true;
   showCustomRangeLabel?: boolean = false;
   alwaysShowCalendars?: boolean = true;
   opens?: string = "right";
@@ -37,7 +37,10 @@ export class DatepickerConfig {
     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     firstDay: 1
   };
-  ranges?: Object
+  ranges?: Object;
+  startDate?:string;
+  endDate?:string;
+
 
 
 

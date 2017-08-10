@@ -28,9 +28,10 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     value: any;
     onChange: any;
     onTouched: any;
+    selectLabel: string;
 
     @Input('data') set _data(data: any[]) {
-        this.data = data;
+        this.data = data || [];
         this.refreshUI();
     }
 
@@ -50,6 +51,12 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
         this.popover.hide();
         let checkeds = this.data.filter((value: any) => value.__checked__);
         this.value = checkeds.length > 0 ? checkeds[0] : {};
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
         this.updateNgModel();
         this.onSelectEvent.emit(this.value);
     }
@@ -83,6 +90,12 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
                 this.value = item;
             }
         });
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
         this.refreshUI();
     }
 

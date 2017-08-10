@@ -28,13 +28,14 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
     values: any[] = [];
     onChange: any;
     onTouched: any;
+    selectLabel: string;
 
     get labels(): string {
         return this.values.map((value) => value.text).join(',');
     }
 
     @Input('data') set _data(data: any[]) {
-        this.data = data;
+        this.data = data || [];
         this.refreshUI();
     }
 
@@ -52,6 +53,12 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
     save() {
         this.popover.hide();
         this.values = this.data.filter((value: any) => value.__checked__);
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
         this.updateNgModel();
         this.onSelectEvent.emit(this.values);
     }
@@ -72,6 +79,12 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
 
     writeValue(obj: any): void {
         this.values = obj || [];
+        if (this.showSelect) {
+            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            if (data.length > 0) {
+                this.selectLabel = data[0].text;
+            }
+        }
         this.refreshUI();
     }
 

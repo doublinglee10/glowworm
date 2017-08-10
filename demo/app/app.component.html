@@ -1,12 +1,7 @@
 <gw-toolbar>
-    <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel" btnSize="btn-lg"></gw-input>
-    <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel" btnSize="default"></gw-input>
-    <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel" btnSize="btn-sm"></gw-input>
-    <gw-input #gwcontrol [label]="'公司'" [(ngModel)]="inputModel" [closeable]="false"></gw-input>
     <gw-input #gwcontrol
               [label]="'公司'"
               [(ngModel)]="inputModel"
-              [btnSize]="'btn-sm'"
               [closeable]="false"
               [enabled]="true"
               [showSelect]="true"
@@ -14,39 +9,45 @@
               [selectValue]="'0'"
     >
     </gw-input>
-    <gw-single-select #gwcontrol
-                      [label]="'配置singleSelect'"
-                      [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                      [(ngModel)]="selectModel"
-                      [btnSize]="'btn-sm'"
-                      [closeable]="false"
-                      [enabled]="true"
-                      [showSelect]="true"
-                      [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                      [selectValue]="'1'"
-                      (onSelect)="log($event)"
-    >
-    </gw-single-select>
-    <gw-multi-select #gwcontrol
-                     [label]="'配置multiSelect'"
-                     [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                     [(ngModel)]="multiSelectModel"
-                     [btnSize]="'btn-sm'"
-                     [closeable]="false"
-                     [enabled]="true"
-                     [showSelect]="true"
-                     [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                     [selectValue]="'1'"
-                     (onSelect)="log($event)"
-    >
-    </gw-multi-select>
-    <gw-datepicker #gwcontrol label="日期" [(ngModel)]="dateModel" >
+    <a>
+        <gw-single-select #gwcontrol
+                          [label]="'配置singleSelect'"
+                          [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                          [(ngModel)]="selectModel"
+                          [closeable]="true"
+                          [enabled]="true"
+                          [showSelect]="true"
+                          [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                          [selectValue]="'1'"
+                          (onSelect)="log($event)"
+        >
+        </gw-single-select>
+    </a>
+    <a>
+        <gw-multi-select #gwcontrol
+                         [label]="'配置multiSelect'"
+                         [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                         [(ngModel)]="multiSelectModel"
+                         [closeable]="true"
+                         [enabled]="true"
+                         [showSelect]="true"
+                         [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                         [selectValue]="'1'"
+                         (onSelect)="log($event)"
+        >
+        </gw-multi-select>
+    </a>
+
+    <app-test></app-test>
+
+    <gw-datepicker #gwcontrol
+                   label="日期"
+                   [(ngModel)]="dateModel">
     </gw-datepicker>
 </gw-toolbar>
 
 
 
-<button (click)="log()">日期</button>
-<button (click)="dateModel={start:'2017-08-10 00:00:00',end:'2017-08-11 08:15:00',range:'本周'}">赋值</button>
+
 
 

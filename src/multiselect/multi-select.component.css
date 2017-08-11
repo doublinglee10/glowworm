@@ -23,6 +23,10 @@ button /deep/ .popover-content {
     padding: 0;
 }
 
+.popover-container .popover-top {
+    margin-top: 10px;
+}
+
 .popover-container .popover-top .top-select {
     width: 100px;
 }
@@ -63,6 +67,7 @@ button /deep/ .popover-content {
     font-size: 10px;
     width: 100%;
     margin: 2px 0;
+    text-align: left;
 }
 
 .popover-container .popover-main ul li {

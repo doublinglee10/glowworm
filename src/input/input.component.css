@@ -19,6 +19,10 @@ button /deep/ .popover-content {
     padding: 0px 10px;
 }
 
+.popover-container .popover-top {
+    margin-top: 10px;
+}
+
 .popover-container .popover-top .top-select {
     width: 100px;
 }

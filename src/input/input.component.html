@@ -1,6 +1,6 @@
 <ng-container *ngIf="enabled">
     <button type="button" class="btn btn-default {{btnSize}}">
-        <span [popover]="popTemplate" placement="bottom" #pop="bs-popover" containerClass="popover-input">
+        <span gw-popover #popover="gw-popover" [template]="tpl">
             <span class="author">{{label}}</span>
             <span class="value">{{selectLabel}} {{_value}}</span>
             <span class="arrow"><span class="caret"></span></span>
@@ -11,7 +11,7 @@
     </button>
 </ng-container>
 
-<ng-template #popTemplate>
+<ng-template #tpl>
     <div class="popover-container">
         <ng-container *ngIf="showSelect">
             <div class="popover-top">
@@ -31,8 +31,8 @@
                 <a class="btn btn-xs" (click)="clear()">清除</a>
             </div>
             <div class="right">
-                <button class="btn btn-primary btn-xs" (click)="save(pop)">保存</button>
-                <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
+                <button class="btn btn-primary btn-xs" (click)="popover.hide();save()">保存</button>
+                <button class="btn btn-default btn-xs" (click)="popover.hide();cancel()">取消</button>
             </div>
         </div>
     </div>

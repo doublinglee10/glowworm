@@ -2,7 +2,7 @@ import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@an
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWSelect} from "../utils/select.modal";
 import {GWControl} from "../utils/gw-control";
-import {PopoverDirective} from "ngx-bootstrap";
+import {GWPopoverDirective} from "../popover/popover.directive";
 
 export const GW_SINGLE_SELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -18,7 +18,7 @@ export const GW_SINGLE_SELECT_VALUE_ACCESSOR: any = {
 })
 export class GWSingleSelectComponent extends GWControl implements ControlValueAccessor {
 
-    @ViewChild(PopoverDirective) popover: PopoverDirective;
+    @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
     @Output('onSelect') onSelectEvent: EventEmitter<string> = new EventEmitter<string>();
 

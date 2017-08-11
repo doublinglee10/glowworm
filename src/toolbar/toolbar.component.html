@@ -1,9 +1,9 @@
 <ng-content></ng-content>
-<button type="button" class="btn btn-default btn-xs">
-    <span class="glyphicon glyphicon-plus" [popover]="popTemplate" placement="bottom" #pop="bs-popover" containerClass="popover-input"></span>
+<button type="button" class="btn btn-default btn-xs" gw-popover #popover="gw-popover" [template]="tpl">
+    <span class="glyphicon glyphicon-plus"></span>
 </button>
 
-<ng-template #popTemplate>
+<ng-template #tpl>
     <div class="popover-container">
         <div class="popover-main">
             <div class="input"><input type="text" [(ngModel)]="_filter" name="value" placeholder="过滤..."></div>
@@ -22,8 +22,8 @@
                 <a class="btn btn-xs" (click)="clear()">清除</a>
             </div>
             <div class="right">
-                <button class="btn btn-primary btn-xs" (click)="pop.hide();save()">保存</button>
-                <button class="btn btn-default btn-xs" (click)="pop.hide();cancel()">取消</button>
+                <button class="btn btn-primary btn-xs" (click)="popover.hide();save()">保存</button>
+                <button class="btn btn-default btn-xs" (click)="popover.hide();cancel()">取消</button>
             </div>
         </div>
     </div>

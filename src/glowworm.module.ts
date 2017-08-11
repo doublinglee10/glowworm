@@ -5,19 +5,27 @@ import {GWToolbarModule} from "./toolbar/toolbar.module";
 import {DatepickerModule} from "./datepicker/datepicker.module";
 import {GWSingleSelectModule} from "./singleselect/single-select.module";
 import {GWMultiSelectModule} from "./multiselect/multi-select.module";
-
-let GLOWWORM_MODULES = [
-    GWButtonModule,
-    GWSingleSelectModule,
-    GWMultiSelectModule,
-    GWInputModule,
-    GWToolbarModule,
-    DatepickerModule
-];
+import {GWPopoverModule} from "./popover/popover.module";
 
 @NgModule({
-    imports: GLOWWORM_MODULES,
-    exports: GLOWWORM_MODULES
+    imports: [
+        GWButtonModule,
+        GWSingleSelectModule,
+        GWMultiSelectModule,
+        GWInputModule,
+        GWToolbarModule,
+        DatepickerModule.forRoot(),
+        GWPopoverModule.forRoot()
+    ],
+    exports: [
+        GWButtonModule,
+        GWSingleSelectModule,
+        GWMultiSelectModule,
+        GWInputModule,
+        GWToolbarModule,
+        DatepickerModule,
+        GWPopoverModule
+    ]
 })
 export class GlowwormModule {
 }

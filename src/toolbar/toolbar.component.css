@@ -21,6 +21,7 @@ button /deep/ .popover-content {
 
 .popover-container .popover-main {
     padding: 0;
+    margin-top: 10px;
 }
 
 .popover-container .popover-top .top-select {

@@ -1,7 +1,7 @@
 import {Component, forwardRef, OnInit, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
-import {PopoverDirective} from "ngx-bootstrap";
+import {GWPopoverDirective} from "../popover/popover.directive";
 
 export const GW_INPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -17,7 +17,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
 })
 export class GWInputComponent extends GWControl implements OnInit, ControlValueAccessor {
 
-    @ViewChild(PopoverDirective) popover: PopoverDirective;
+    @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
     _value: string;
     _tmp_value: string;
@@ -42,7 +42,7 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
     }
 
     save() {
-        this.popover.hide();
+        // this.popover.hide();
         this.value = this._tmp_value;
         if (this.showSelect) {
             let data = this.selectData.filter((item: any) => item.id == this.selectValue);
@@ -53,7 +53,7 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
     }
 
     cancel() {
-        this.popover.hide();
+        // this.popover.hide();
         this._tmp_value = this.value;
     }
 

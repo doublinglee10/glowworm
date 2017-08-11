@@ -1,6 +1,6 @@
 <ng-container *ngIf="enabled">
-    <button type="button" class="btn btn-default {{btnSize}}">
-        <span [popover]="popTemplate" placement="bottom" #pop="bs-popover" containerClass="popover-input">
+    <button type="button" class="btn btn-default {{btnSize}}" (click)="log(popover)">
+        <span gw-popover #popover="gw-popover" [template]="tpl">
             <span class="author">{{label}}</span>
             <span class="value">{{selectLabel}} {{labels}}</span>
             <span class="arrow"><span class="caret"></span></span>
@@ -11,7 +11,7 @@
     </button>
 </ng-container>
 
-<ng-template #popTemplate>
+<ng-template #tpl>
 
     <div class="popover-container">
         <ng-container *ngIf="showSelect">

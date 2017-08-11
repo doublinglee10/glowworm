@@ -1,8 +1,8 @@
 import {NgModule} from "@angular/core";
 import {GWInputComponent} from "./input.component";
-import {PopoverModule} from "ngx-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {GWPopoverModule} from "../popover/popover.module";
 
 @NgModule({
     declarations: [
@@ -11,7 +11,7 @@ import {CommonModule} from "@angular/common";
     imports: [
         CommonModule,
         FormsModule,
-        PopoverModule.forRoot()
+        GWPopoverModule.forRoot(),
     ],
     exports: [
         GWInputComponent

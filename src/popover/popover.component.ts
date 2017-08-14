@@ -22,4 +22,22 @@ export class GWPopoverComponent {
     setStyle(style: any) {
         this.style = {...this.style, ...style};
     }
+
+    hide() {
+        setTimeout(() => {
+            this.hidden = true;
+        });
+    }
+
+    show() {
+        setTimeout(() => {
+            this.hidden = false;
+        });
+    }
+
+    toggle() {
+        setTimeout(() => {
+            this.hidden = !this.hidden;
+        });
+    }
 }

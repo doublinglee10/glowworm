@@ -18,13 +18,9 @@ export const GW_SELECT_VALUE_ACCESSOR: any = {
 })
 export class GWMultiSelectComponent extends GWControl implements ControlValueAccessor {
 
-    log(){
-        console.log(arguments);
-    }
+    @Output('onSelect') onSelectEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
-
-    @Output('onSelect') onSelectEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
 
     _filter: string;
 
@@ -55,7 +51,6 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
     }
 
     save() {
-        this.popover.hide();
         this.values = this.data.filter((value: any) => value.__checked__);
         if (this.showSelect) {
             let data = this.selectData.filter((item: any) => item.id == this.selectValue);
@@ -68,7 +63,6 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
     }
 
     cancel() {
-        this.popover.hide();
         this.refreshUI();
         this.updateNgModel();
     }

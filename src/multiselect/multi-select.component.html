@@ -1,6 +1,6 @@
 <ng-container *ngIf="enabled">
-    <button type="button" class="btn btn-default {{btnSize}}" (click)="log(popover)">
-        <span gw-popover #popover="gw-popover" [template]="tpl">
+    <button type="button" class="btn btn-default {{btnSize}}">
+        <span gw-popover [template]="tpl">
             <span class="author">{{label}}</span>
             <span class="value">{{selectLabel}} {{labels}}</span>
             <span class="arrow"><span class="caret"></span></span>
@@ -40,8 +40,8 @@
                 <a class="btn btn-xs" (click)="clear()">清除</a>
             </div>
             <div class="right">
-                <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
-                <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
+                <button class="btn btn-primary btn-xs" (click)="save();popover.hide();">保存</button>
+                <button class="btn btn-default btn-xs" (click)="cancel();popover.hide();">取消</button>
             </div>
         </div>
     </div>

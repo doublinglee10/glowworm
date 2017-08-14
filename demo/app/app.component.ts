@@ -10,6 +10,7 @@ export class AppComponent {
     dateModel:any;
 
     inputModel: string = 'app';
+    inputSelectModel: string;
 
     selectData = [
         {label: '012', id: 0},

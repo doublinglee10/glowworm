@@ -42,7 +42,6 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
     }
 
     save() {
-        // this.popover.hide();
         this.value = this._tmp_value;
         if (this.showSelect) {
             let data = this.selectData.filter((item: any) => item.id == this.selectValue);
@@ -53,7 +52,6 @@ export class GWInputComponent extends GWControl implements OnInit, ControlValueA
     }
 
     cancel() {
-        // this.popover.hide();
         this._tmp_value = this.value;
     }
 

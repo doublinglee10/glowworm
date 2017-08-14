@@ -18,9 +18,9 @@ export const GW_SINGLE_SELECT_VALUE_ACCESSOR: any = {
 })
 export class GWSingleSelectComponent extends GWControl implements ControlValueAccessor {
 
-    @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
-
     @Output('onSelect') onSelectEvent: EventEmitter<string> = new EventEmitter<string>();
+
+    @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
     _filter: string;
 
@@ -48,7 +48,6 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     }
 
     save() {
-        this.popover.hide();
         let checkeds = this.data.filter((value: any) => value.__checked__);
         this.value = checkeds.length > 0 ? checkeds[0] : {};
         if (this.showSelect) {
@@ -62,7 +61,6 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     }
 
     cancel() {
-        this.popover.hide();
         this.refreshUI();
         this.updateNgModel();
     }

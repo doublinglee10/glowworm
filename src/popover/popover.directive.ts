@@ -25,7 +25,6 @@ export class GWPopoverDirective implements OnInit {
     }
 
     ngOnInit(): void {
-        console.info(this.el.nativeElement);
         this.createComponent();
         this.initEvent();
     }
@@ -57,10 +56,14 @@ export class GWPopoverDirective implements OnInit {
     }
 
     show() {
-        this.popover.hidden = false;
+        this.popover.show();
     }
 
     hide() {
-        this.popover.hidden = true;
+        this.popover.hide();
+    }
+
+    toggle() {
+        this.popover.toggle();
     }
 }

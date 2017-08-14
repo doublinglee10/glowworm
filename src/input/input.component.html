@@ -1,6 +1,6 @@
 <ng-container *ngIf="enabled">
     <button type="button" class="btn btn-default {{btnSize}}">
-        <span gw-popover #popover="gw-popover" [template]="tpl">
+        <span gw-popover [template]="tpl">
             <span class="author">{{label}}</span>
             <span class="value">{{selectLabel}} {{_value}}</span>
             <span class="arrow"><span class="caret"></span></span>
@@ -16,6 +16,7 @@
         <ng-container *ngIf="showSelect">
             <div class="popover-top">
                 <span class="top-label">{{label}}</span>:
+                {{selectValue}}
                 <select class="top-select" [(ngModel)]="selectValue">
                     <option *ngFor="let item of selectData" [attr.value]="item.id" [attr.selected]="selectValue == item.id">{{item.text}}</option>
                 </select>

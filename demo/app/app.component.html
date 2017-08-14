@@ -1,13 +1,14 @@
 <gw-toolbar>
-    <gw-input #gwcontrol
+    <gw-input #gwcontrol #input
               [label]="'公司'"
               [(ngModel)]="inputModel"
               [closeable]="false"
               [enabled]="true"
               [showSelect]="true"
               [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-              [selectValue]="'0'"
+              [selectValue]="inputSelectModel"
     >
+        {{inputSelectModel}} -- {{input.selectValue | json}}
     </gw-input>
     <a>
         <gw-single-select #gwcontrol

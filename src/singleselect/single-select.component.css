@@ -23,8 +23,8 @@ button /deep/ .popover-content {
     padding: 0;
 }
 
-.popover-container .popover-top {
-    margin-top: 10px;
+.popover-container {
+    padding-top: 10px;
 }
 
 .popover-container .popover-top .top-select {

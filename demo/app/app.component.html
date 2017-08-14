@@ -1,42 +1,62 @@
 <gw-toolbar>
-    <gw-input #gwcontrol #input
-              [label]="'公司'"
-              [(ngModel)]="inputModel"
-              [closeable]="false"
-              [enabled]="true"
-              [showSelect]="false"
-    >
-    </gw-input>
 
-    {{inputModel}}
+    <p>
+        <gw-input #gwcontrol #input
+                  [label]="'公司'"
+                  [(ngModel)]="inputModel"
+                  [closeable]="false"
+                  [enabled]="true"
+                  [showSelect]="false"
+        >
+        </gw-input>
 
-    <gw-input #gwcontrol #input
-              [label]="'公司'"
-              [(ngModel)]="inputSelectModel"
-              [closeable]="false"
-              [enabled]="true"
-              [showSelect]="true"
-              [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-    >
-    </gw-input>
+        {{inputModel}}
+    </p>
 
-    {{inputSelectModel | json}}
+    <p>
+        <gw-input #gwcontrol #input
+                  [label]="'公司'"
+                  [(ngModel)]="inputSelectModel"
+                  [closeable]="false"
+                  [enabled]="true"
+                  [showSelect]="true"
+                  [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+        >
+        </gw-input>
 
+        {{inputSelectModel | json}}
+    </p>
 
-    <a>
+    <p>
         <gw-single-select #gwcontrol
                           [label]="'配置singleSelect'"
                           [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
                           [(ngModel)]="selectModel"
                           [closeable]="true"
                           [enabled]="true"
+                          [showSelect]="false"
+        >
+        </gw-single-select>
+
+        {{selectModel | json}}
+    </p>
+
+    <p>
+        <gw-single-select #gwcontrol
+                          [label]="'配置singleSelect'"
+                          [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                          [(ngModel)]="selectXModel"
+                          [closeable]="true"
+                          [enabled]="true"
                           [showSelect]="true"
                           [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                          [selectValue]="'1'"
                           (onSelect)="log($event)"
         >
         </gw-single-select>
-    </a>
+
+        {{selectXModel | json}}
+    </p>
+
     <a>
         <gw-multi-select #gwcontrol
                          [label]="'配置multiSelect'"

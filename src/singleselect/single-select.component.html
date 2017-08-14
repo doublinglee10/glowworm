@@ -2,7 +2,7 @@
     <button type="button" class="btn btn-default {{btnSize}}">
         <span gw-popover [template]="tpl">
             <span class="author">{{label}}</span>
-            <span class="value">{{selectLabel}} {{value?.text}}</span>
+            <span class="value">{{_select_value?.text}} {{_single_select_value?.text}}</span>
             <span class="arrow"><span class="caret"></span></span>
         </span>
         <ng-container *ngIf="closeable">
@@ -16,8 +16,8 @@
         <ng-container *ngIf="showSelect">
             <div class="popover-top">
                 <span class="top-label">{{label}}</span>:
-                <select class="top-select" [(ngModel)]="selectValue">
-                    <option *ngFor="let item of selectData" [attr.value]="item.id" [attr.selected]="selectValue == item.id">{{item.text}}</option>
+                <select class="top-select" [(ngModel)]="_select_modal">
+                    <option *ngFor="let item of selectData" [attr.value]="item.id" [attr.selected]="_select_modal == item.id">{{item.text}}</option>
                 </select>
             </div>
             <div class="popover-hr"></div>

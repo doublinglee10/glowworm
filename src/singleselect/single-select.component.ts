@@ -1,6 +1,6 @@
 import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {GWSelect} from "../utils/select.modal";
+import {GWSelect, SelectModal} from "../utils/select.modal";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
 
@@ -18,17 +18,22 @@ export const GW_SINGLE_SELECT_VALUE_ACCESSOR: any = {
 })
 export class GWSingleSelectComponent extends GWControl implements ControlValueAccessor {
 
-    @Output('onSelect') onSelectEvent: EventEmitter<string> = new EventEmitter<string>();
+    @Output('onSelect') onSelectEvent: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
     _filter: string;
 
     data: GWSelect[];
-    value: any;
+    value: string | SelectModal;
+    selectLabel: string;
+
+    _select_modal: string;
+    _select_value: GWSelect;
+    _single_select_value: GWSelect;
+
     onChange: any;
     onTouched: any;
-    selectLabel: string;
 
     @Input('data') set _data(data: any[]) {
         this.data = data || [];
@@ -36,26 +41,32 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     }
 
     clear() {
-        this.data.forEach((item: any) => {
-            item.__checked__ = false;
-        });
+        if (this.data) {
+            this.data.forEach((item: any) => {
+                item.__checked__ = false;
+            });
+        }
     }
 
     updateNgModel() {
-        let id = this.value ? this.value.id : '';
         this.onTouched();
-        this.onChange(id);
+        this.onChange(this.value);
     }
 
     save() {
-        let checkeds = this.data.filter((value: any) => value.__checked__);
-        this.value = checkeds.length > 0 ? checkeds[0] : {};
+        let single_data = this.data.filter((item: any) => item.__checked__);
+        let select_data = this.selectData.filter((item: any) => item.id == this._select_modal);
+        this._single_select_value = single_data.length > 0 ? single_data[0] : {};
         if (this.showSelect) {
-            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
-            if (data.length > 0) {
-                this.selectLabel = data[0].text;
+            this._select_value = select_data.length > 0 ? select_data[0] : {};
+            this.value = {
+                value: this._single_select_value.id,
+                selectValue: this._select_value.id
             }
+        } else {
+            this.value = this._single_select_value.id;
         }
+
         this.updateNgModel();
         this.onSelectEvent.emit(this.value);
     }
@@ -66,10 +77,12 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     }
 
     remove() {
-        this.value = {};
+        this._single_select_value = {};
+        this._select_value = {};
+        this.value = null;
         this.enabled = false;
-        this.clear();
         this.updateNgModel();
+        this.refreshUI();
         this.onRemove();
     }
 
@@ -82,28 +95,50 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
         }
     }
 
-    writeValue(obj: string): void {
-        this.data.forEach((item: any) => {
-            if (item.id == obj) {
-                this.value = item;
-            }
-        });
-        if (this.showSelect) {
-            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
-            if (data.length > 0) {
-                this.selectLabel = data[0].text;
+    writeValue(val: string | SelectModal): void {
+        if (val) {
+            if (this.showSelect) {
+                if (this.data) {
+                    this.data.forEach((item: any) => {
+                        if (item.id == (<SelectModal>val).value) {
+                            this._single_select_value = item;
+                        }
+                    });
+                }
+
+                if (this.selectData) {
+                    let data = this.selectData.filter((item: any) => {
+                        return item.id == (<SelectModal>val).selectValue
+                    });
+                    if (data.length > 0) {
+                        this._select_value = data[0];
+                    }
+                }
+            } else {
+                if (this.data) {
+                    this.data.forEach((item: any) => {
+                        if (item.id == val) {
+                            this._single_select_value = item;
+                        }
+                    });
+                }
             }
         }
+
+        this.value = val;
         this.refreshUI();
     }
 
     refreshUI() {
         this.data.forEach((item: any) => item.__checked__ = false);
         this.data.forEach((item: any) => {
-            if (this.value && this.value.id == item.id) {
+            if (this._single_select_value && this._single_select_value.id == item.id) {
                 item.__checked__ = true;
             }
         });
+        if (this.showSelect && this.value) {
+            this._select_modal = (<SelectModal>this.value).selectValue;
+        }
     }
 
     registerOnChange(fn: any): void {

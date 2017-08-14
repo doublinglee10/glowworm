@@ -27,7 +27,10 @@ export class AppComponent {
         {label: '7', id: 7},
         {label: '8', id: 8}
     ];
+
     selectModel: any[] = [{label: '0', id: 0}];
+
+    selectXModel: any;
 
     multiSelectModel: any;
 

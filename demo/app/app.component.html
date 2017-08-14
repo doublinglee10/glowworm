@@ -4,12 +4,25 @@
               [(ngModel)]="inputModel"
               [closeable]="false"
               [enabled]="true"
+              [showSelect]="false"
+    >
+    </gw-input>
+
+    {{inputModel}}
+
+    <gw-input #gwcontrol #input
+              [label]="'公司'"
+              [(ngModel)]="inputSelectModel"
+              [closeable]="false"
+              [enabled]="true"
               [showSelect]="true"
               [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-              [selectValue]="inputSelectModel"
     >
-        {{inputSelectModel}} -- {{input.selectValue | json}}
     </gw-input>
+
+    {{inputSelectModel | json}}
+
+
     <a>
         <gw-single-select #gwcontrol
                           [label]="'配置singleSelect'"

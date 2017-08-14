@@ -11,6 +11,7 @@ export abstract class GWControl {
     @Input() label: string;
     @Input() showSelect: boolean = false;
     @Input() selectData: any[] = [];
+
     @Input() selectValue: any;
 
     onRemove: Function = Function.prototype;

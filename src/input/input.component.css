@@ -14,13 +14,13 @@ button /deep/ .popover-content {
     padding: 9px 0 !important;
 }
 
+.popover-container {
+    padding-top: 10px;
+}
+
 .popover-container .popover-top, .popover-container .popover-main, .popover-container .popover-footer {
     font-size: 12px;
     padding: 0px 10px;
-}
-
-.popover-container .popover-top {
-    margin-top: 10px;
 }
 
 .popover-container .popover-top .top-select {

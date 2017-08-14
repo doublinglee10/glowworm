@@ -1,7 +1,8 @@
-import {Component, forwardRef, OnInit, ViewChild} from "@angular/core";
+import {Component, forwardRef, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
+import {InputModal} from "../utils/select.modal";
 
 export const GW_INPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -15,63 +16,86 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
     templateUrl: './input.component.html',
     providers: [GW_INPUT_VALUE_ACCESSOR]
 })
-export class GWInputComponent extends GWControl implements OnInit, ControlValueAccessor {
+export class GWInputComponent extends GWControl implements ControlValueAccessor {
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
-    _value: string;
-    _tmp_value: string;
+    _value: string | InputModal;
+    _input_val: string;
+    _select_val: string;
+    selectLabel: string;
+    valueLabel: string;
+
     onChange: any;
     onTouched: any;
-    selectLabel: string;
 
-    ngOnInit(): void {
-        if (!this.selectValue && this.selectData && this.selectData.length > 0) {
-            this.selectValue = this.selectData[0].value
-        }
-    }
-
-    set value(value: string) {
+    set value(value: string | InputModal) {
         this._value = value;
         this.onTouched && this.onTouched();
         this.onChange && this.onChange(this._value);
-    }
-
-    clear() {
-        this._tmp_value = null;
-    }
-
-    save() {
-        this.value = this._tmp_value;
         if (this.showSelect) {
-            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
+            let data = this.selectData.filter((item: any) => item.id == this._select_val);
             if (data.length > 0) {
                 this.selectLabel = data[0].text;
             }
+            this.valueLabel = value ? (<InputModal>value).value : '';
+        } else {
+            this.selectLabel = '';
+            this.valueLabel = value as string;
+        }
+    }
+
+    get value() {
+        return this._value;
+    }
+
+    clear() {
+        this._input_val = '';
+    }
+
+    save() {
+        if (this.showSelect) {
+            this.value = {
+                value: this._input_val,
+                selectValue: this._select_val
+            }
+        } else {
+            this.value = this._input_val;
         }
     }
 
     cancel() {
-        this._tmp_value = this.value;
+        if (this.value) {
+            if (this.showSelect) {
+                this._input_val = (<InputModal>this.value).value;
+                this._select_val = (<InputModal>this.value).selectValue;
+            } else {
+                this._input_val = this.value as string;
+            }
+        }
     }
 
     remove() {
         this.value = null;
+        this._input_val = '';
+        this._select_val = '';
         this.enabled = false;
-        this.clear();
-        this.selectValue = null;
         this.onRemove();
     }
 
-    writeValue(obj: any): void {
-        this.value = obj;
-        if (this.showSelect) {
-            let data = this.selectData.filter((item: any) => item.id == this.selectValue);
-            if (data.length > 0) {
-                this.selectLabel = data[0].text;
+    writeValue(val: string | InputModal): void {
+        if (val) {
+            if (this.showSelect) {
+                this._input_val = (<InputModal>val).value;
+                this._select_val = (<InputModal>val).selectValue;
+            } else {
+                this._input_val = val as string;
             }
+        } else {
+            this._input_val = '';
+            this._select_val = '';
         }
-        this._tmp_value = obj;
+        this.value = val;
     }
 
     registerOnChange(fn: any): void {

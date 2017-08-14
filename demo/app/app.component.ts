@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {InputModal} from "../../src/utils/select.modal";
 
 @Component({
     selector: 'app-root',
@@ -7,10 +8,13 @@ import {Component} from "@angular/core";
 })
 export class AppComponent {
     title = 'app';
-    dateModel:any;
+    dateModel: any;
 
     inputModel: string = 'app';
-    inputSelectModel: string;
+    inputSelectModel: InputModal = {
+        value: 'app ...',
+        selectValue: '0'
+    };
 
     selectData = [
         {label: '012', id: 0},

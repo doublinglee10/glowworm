@@ -57,37 +57,45 @@
         {{selectXModel | json}}
     </p>
 
-    <a>
+    <p>
         <gw-multi-select #gwcontrol
                          [label]="'配置multiSelect'"
                          [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
                          [(ngModel)]="multiSelectModel"
                          [closeable]="true"
                          [enabled]="true"
-                         [showSelect]="true"
-                         [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                         [selectValue]="'1'"
+                         [showSelect]="false"
                          (onSelect)="log($event)"
         >
         </gw-multi-select>
-    </a>
 
-    <app-test></app-test>
+        {{multiSelectModel | json}}
+    </p>
 
-    <gw-datepicker #gwcontrol
-                   label="日期"
-                   [(ngModel)]="dateModel">
-    </gw-datepicker>
+    <p>
+        <gw-multi-select #gwcontrol
+                         [label]="'配置multiSelect'"
+                         [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                         [(ngModel)]="multiXSelectModel"
+                         [closeable]="true"
+                         [enabled]="true"
+                         [showSelect]="true"
+                         [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                         (onSelect)="log($event)"
+        >
+        </gw-multi-select>
+
+        {{multiXSelectModel | json}}
+    </p>
+
+
+    <p>
+        <gw-datepicker #gwcontrol
+                       label="日期"
+                       [(ngModel)]="dateModel">
+        </gw-datepicker>
+    </p>
+
 </gw-toolbar>
-
-
-<button class="btn btn-primary btn-sm" gw-popover [template]="tpl">popover</button>
-
-<ng-template #tpl>
-
-    <h1>hello angular</h1>
-
-</ng-template>
-
 
 

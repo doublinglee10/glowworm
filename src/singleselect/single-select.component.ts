@@ -79,7 +79,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     remove() {
         this._single_select_value = {};
         this._select_value = {};
-        this.value = null;
+        this.value = this.showSelect ? {value: '', selectValue: ''} : '';
         this.enabled = false;
         this.updateNgModel();
         this.refreshUI();

@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {InputModal} from "../../src/utils/select.modal";
+import {InputModal, MultiSelectModal, SelectModal} from "../../src/utils/select.modal";
 
 @Component({
     selector: 'app-root',
@@ -28,11 +28,19 @@ export class AppComponent {
         {label: '8', id: 8}
     ];
 
-    selectModel: any[] = [{label: '0', id: 0}];
+    selectModel: any;
 
-    selectXModel: any;
+    selectXModel: SelectModal = {
+        value: '1',
+        selectValue: '1'
+    };
 
-    multiSelectModel: any;
+    multiSelectModel: any = [{id: '0'}];
+
+    multiXSelectModel: MultiSelectModal = {
+        value: [{id: '0'}],
+        selectValue: '1'
+    };
 
     log() {
         console.log(this.dateModel);

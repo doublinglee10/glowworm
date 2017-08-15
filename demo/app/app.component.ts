@@ -43,6 +43,6 @@ export class AppComponent {
     };
 
     log() {
-        console.log(this.dateModel);
+        console.log(arguments);
     }
 }

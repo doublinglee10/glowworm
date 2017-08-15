@@ -18,7 +18,7 @@ export const GW_SELECT_VALUE_ACCESSOR: any = {
 })
 export class GWMultiSelectComponent extends GWControl implements ControlValueAccessor {
 
-    @Output('onSelect') onSelectEvent: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
@@ -76,7 +76,7 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
             this._select_value = select_data.length > 0 ? select_data[0] : {};
         }
         this.updateNgModel();
-        this.onSelectEvent.emit(this.values);
+        this.onSave.emit(this.values);
     }
 
     cancel() {
@@ -92,7 +92,7 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
         this.updateNgModel();
         this.refreshUI();
         this.onRemove();
-        this.onSelectEvent.emit(this.values);
+        this.onSave.emit(this.values);
     }
 
     writeValue(val: any[] | MultiSelectModal): void {

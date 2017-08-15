@@ -18,7 +18,7 @@ export const GW_SINGLE_SELECT_VALUE_ACCESSOR: any = {
 })
 export class GWSingleSelectComponent extends GWControl implements ControlValueAccessor {
 
-    @Output('onSelect') onSelectEvent: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
@@ -68,7 +68,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
         }
 
         this.updateNgModel();
-        this.onSelectEvent.emit(this.value);
+        this.onSave.emit(this.value);
     }
 
     cancel() {

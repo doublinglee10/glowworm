@@ -35,6 +35,7 @@
                           [closeable]="true"
                           [enabled]="true"
                           [showSelect]="false"
+                          (onSave)="log($event);"
         >
         </gw-single-select>
 
@@ -50,7 +51,7 @@
                           [enabled]="true"
                           [showSelect]="true"
                           [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                          (onSelect)="log($event)"
+                          (onSave)="log($event)"
         >
         </gw-single-select>
 
@@ -65,7 +66,7 @@
                          [closeable]="true"
                          [enabled]="true"
                          [showSelect]="false"
-                         (onSelect)="log($event)"
+                         (onSave)="log($event)"
         >
         </gw-multi-select>
 
@@ -81,7 +82,7 @@
                          [enabled]="true"
                          [showSelect]="true"
                          [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                         (onSelect)="log($event)"
+                         (onSave)="log($event)"
         >
         </gw-multi-select>
 

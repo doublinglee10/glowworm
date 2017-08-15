@@ -16,7 +16,6 @@ export abstract class GWControl {
     onRemove: Function = Function.prototype;
 
     @Input() set toolbar(toolbar: GWToolbarComponent) {
-        console.info('toolbar', toolbar);
         toolbar && toolbar.addFieldComponent(this);
     }
 }

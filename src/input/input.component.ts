@@ -95,6 +95,8 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
                 this._input_val = val as string;
             }
         } else {
+            this.selectLabel = '';
+            this.valueLabel = '';
             this._input_val = '';
             this._select_val = '';
         }

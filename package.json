@@ -1,6 +1,6 @@
 {
   "name": "glowworm",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "license": "MIT",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",

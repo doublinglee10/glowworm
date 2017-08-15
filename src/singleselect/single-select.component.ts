@@ -123,6 +123,10 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
                     });
                 }
             }
+        } else {
+            this._single_select_value = null;
+            this._select_value = null;
+            this._select_modal = '';
         }
 
         this.value = val;

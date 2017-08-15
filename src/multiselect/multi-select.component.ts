@@ -131,6 +131,9 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
             }
         } else {
             this._multi_select_value = [];
+            this._select_value = null;
+            this._select_modal = '';
+            this.values = null;
         }
 
         this.refreshUI();

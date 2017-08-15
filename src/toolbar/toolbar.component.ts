@@ -8,12 +8,20 @@ import {GWControl} from "../utils/gw-control";
 })
 export class GWToolbarComponent implements AfterContentInit {
 
-    @ContentChildren('gwcontrol') fields: QueryList<ElementRef>;
+    @ContentChildren('gwcontrol') _fields: QueryList<ElementRef>;
 
+    fields: any[] = [];
     _filter: string;
     data: any[];
 
+    addFieldComponent(component: GWControl) {
+        component.onRemove = this.onRemove.bind(this);
+        this.fields.push(component);
+    }
+
     ngAfterContentInit(): void {
+        this.fields = [...this._fields.toArray(), ...this.fields];
+
         this.fields.forEach((item: any) => {
             let control = item as GWControl;
             control.onRemove = this.onRemove.bind(this);

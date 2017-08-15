@@ -50,7 +50,6 @@ export class GWDatepickerComponent extends GWControl implements OnInit, ControlV
   remove() {
     this._value = null;
     this.enabled = false;
-    this.selectValue = null;
     this.onRemove();
   }
 

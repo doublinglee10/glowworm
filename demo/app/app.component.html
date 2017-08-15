@@ -1,10 +1,10 @@
-<gw-toolbar>
+<gw-toolbar #bar>
 
     <p>
         <gw-input #gwcontrol #input
                   [label]="'公司'"
                   [(ngModel)]="inputModel"
-                  [closeable]="false"
+                  [closeable]="true"
                   [enabled]="true"
                   [showSelect]="false"
         >
@@ -17,7 +17,7 @@
         <gw-input #gwcontrol #input
                   [label]="'公司'"
                   [(ngModel)]="inputSelectModel"
-                  [closeable]="false"
+                  [closeable]="true"
                   [enabled]="true"
                   [showSelect]="true"
                   [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
@@ -95,6 +95,8 @@
                        [(ngModel)]="dateModel">
         </gw-datepicker>
     </p>
+
+    <app-test [toolbar]="bar"></app-test>
 
 </gw-toolbar>
 

@@ -1,4 +1,5 @@
 import {Input} from "@angular/core";
+import {GWToolbarComponent} from "../toolbar/toolbar.component";
 
 export type BtnSize = 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default';
 
@@ -12,7 +13,10 @@ export abstract class GWControl {
     @Input() showSelect: boolean = false;
     @Input() selectData: any[] = [];
 
-    @Input() selectValue: any;
-
     onRemove: Function = Function.prototype;
+
+    @Input() set toolbar(toolbar: GWToolbarComponent) {
+        console.info('toolbar', toolbar);
+        toolbar && toolbar.addFieldComponent(this);
+    }
 }

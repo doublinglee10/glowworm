@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'app-test',
@@ -12,7 +12,7 @@ import {Component} from "@angular/core";
                               [enabled]="true"
                               [showSelect]="true"
                               [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                              [selectValue]="'1'"
+                              [toolbar]="toolbar"
             >
             </gw-single-select>
         </a>
@@ -25,13 +25,16 @@ import {Component} from "@angular/core";
                              [enabled]="true"
                              [showSelect]="true"
                              [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                             [selectValue]="'1'"
+                             [toolbar]="toolbar"
             >
             </gw-multi-select>
         </a>
     `
 })
 export class TestComponent {
+
+    @Input() toolbar: any;
+
     selectModel: string;
     multiSelectModel: string;
 }

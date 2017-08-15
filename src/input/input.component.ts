@@ -1,4 +1,4 @@
-import {Component, forwardRef, ViewChild} from "@angular/core";
+import {Component, forwardRef, OnInit, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
@@ -16,7 +16,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
     templateUrl: './input.component.html',
     providers: [GW_INPUT_VALUE_ACCESSOR]
 })
-export class GWInputComponent extends GWControl implements ControlValueAccessor {
+export class GWInputComponent extends GWControl implements ControlValueAccessor, OnInit {
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
@@ -47,6 +47,9 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor 
 
     get value() {
         return this._value;
+    }
+
+    ngOnInit(): void {
     }
 
     clear() {

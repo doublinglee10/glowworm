@@ -37,7 +37,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
 
     @Input('data') set _data(data: any[]) {
         this.data = [...(data || [])];
-        this.refreshUI();
+        this.writeValue(this.value);
     }
 
     clear() {

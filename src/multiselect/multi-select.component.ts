@@ -26,6 +26,7 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
 
     data: GWSelect[];
     values: any[] | MultiSelectModal;
+    _val: any[] | MultiSelectModal;
 
     _select_modal: string;
     _select_value: GWSelect;
@@ -47,7 +48,7 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
 
     @Input('data') set _data(data: any[]) {
         this.data = [...(data || [])];
-        this.refreshUI();
+        this.writeValue(this._val);
     }
 
     clear() {
@@ -96,6 +97,7 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
     }
 
     writeValue(val: any[] | MultiSelectModal): void {
+        this._val = val;
         if (val) {
             if (this.showSelect) {
                 if (this.selectData) {

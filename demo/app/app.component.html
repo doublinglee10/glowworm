@@ -56,7 +56,19 @@
                           [closeable]="true"
                           [enabled]="true"
                           [showSelect]="true"
-                          [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                          [selectData]="singleSelectData"
+                          (onSave)="log($event)"
+        >
+        </gw-single-select>
+
+        <gw-single-select #gwcontrol
+                          [label]="'配置singleSelect'"
+                          [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                          [(ngModel)]="selectX2Model"
+                          [closeable]="true"
+                          [enabled]="true"
+                          [showSelect]="true"
+                          [selectData]="singleSelectData"
                           (onSave)="log($event)"
         >
         </gw-single-select>

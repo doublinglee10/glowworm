@@ -36,7 +36,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     onTouched: any;
 
     @Input('data') set _data(data: any[]) {
-        this.data = data || [];
+        this.data = [...(data || [])];
         this.refreshUI();
     }
 

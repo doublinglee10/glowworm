@@ -46,7 +46,7 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
     }
 
     @Input('data') set _data(data: any[]) {
-        this.data = data || [];
+        this.data = [...(data || [])];
         this.refreshUI();
     }
 

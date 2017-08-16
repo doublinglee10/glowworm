@@ -35,6 +35,13 @@ export class AppComponent {
         selectValue: '1'
     };
 
+    selectX2Model: SelectModal = {
+        value: '1',
+        selectValue: '1'
+    };
+
+    singleSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}];
+
     multiSelectModel: any = [{id: '0'}];
 
     multiXSelectModel: MultiSelectModal = {

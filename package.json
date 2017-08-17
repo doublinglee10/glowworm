@@ -1,6 +1,6 @@
 {
   "name": "glowworm",
-  "version": "0.0.21",
+  "version": "0.0.23",
   "license": "MIT",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -29,6 +29,7 @@
     "admin-lte": "^2.3.11",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "immutable": "^3.8.1",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "ngx-bootstrap": "^1.8.1",

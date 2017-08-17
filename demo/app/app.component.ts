@@ -42,12 +42,18 @@ export class AppComponent {
 
     singleSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}];
 
+    selectXData = [{id: '0', text: '测试一'}, {id: '1', text: '测试二'}];
+
     multiSelectModel: any = [{id: '0'}];
 
     multiXSelectModel: MultiSelectModal = {
         value: [{id: '0'}],
         selectValue: '1'
     };
+
+    constructor() {
+        console.log('app', new Boolean(true) === new Boolean(true));
+    }
 
     log() {
         console.log(arguments);

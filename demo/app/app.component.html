@@ -51,7 +51,7 @@
     <p>
         <gw-single-select #gwcontrol
                           [label]="'配置singleSelect'"
-                          [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                          [data]="selectXData"
                           [(ngModel)]="selectXModel"
                           [closeable]="true"
                           [enabled]="true"
@@ -63,7 +63,7 @@
 
         <gw-single-select #gwcontrol
                           [label]="'配置singleSelect'"
-                          [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                          [data]="selectXData"
                           [(ngModel)]="selectX2Model"
                           [closeable]="true"
                           [enabled]="true"

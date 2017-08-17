@@ -24,20 +24,14 @@ export class GWPopoverComponent {
     }
 
     hide() {
-        setTimeout(() => {
-            this.hidden = true;
-        });
+        this.hidden = true;
     }
 
     show() {
-        setTimeout(() => {
-            this.hidden = false;
-        });
+        this.hidden = false;
     }
 
     toggle() {
-        setTimeout(() => {
-            this.hidden = !this.hidden;
-        });
+        this.hidden = !this.hidden;
     }
 }

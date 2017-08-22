@@ -13,6 +13,12 @@ export interface InputModal {
     selectValue: string;
 }
 
+export interface RangeInputModal{
+  start:string;
+  end:string;
+  selectValue?: string;
+}
+
 export interface MultiSelectModal {
     value: GWSelect[] | any[];
     selectValue: string;

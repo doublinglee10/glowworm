@@ -25,6 +25,16 @@
                   [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
         >
         </gw-input>
+      {{rangeinputSelectModel| json}}
+      <gw-rangeinput #gwcontrol #input
+                [label]="'公司'"
+                [(ngModel)]="rangeinputSelectModel"
+                [closeable]="true"
+                [enabled]="true"
+                [showSelect]="false"
+                [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+      >
+      </gw-rangeinput>
 
         {{inputSelectModel | json}}
 
@@ -121,7 +131,8 @@
         </gw-datepicker>
     </p>
 
-    <app-test [toolbar]="bar"></app-test>
+
+   <!-- <app-test [toolbar]="bar"></app-test>-->
 
 </gw-toolbar>
 

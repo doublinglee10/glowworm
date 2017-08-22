@@ -16,6 +16,12 @@ export class AppComponent {
         selectValue: '0'
     };
 
+  rangeinputSelectModel = {
+      start:'12',
+      end:'23',
+      selectValue: '0'
+  }
+
     selectData = [
         {label: '012', id: 0},
         {label: '1', id: 1},

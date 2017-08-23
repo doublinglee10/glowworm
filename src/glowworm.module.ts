@@ -7,32 +7,42 @@ import {GWSingleSelectModule} from "./singleselect/single-select.module";
 import {GWMultiSelectModule} from "./multiselect/multi-select.module";
 import {GWPopoverModule} from "./popover/popover.module";
 
+let MODULES_FOR_ROOT = [
+    GWSingleSelectModule,
+    GWMultiSelectModule,
+    GWInputModule,
+    GWRangeInputModule,
+    GWToolbarModule,
+    DatepickerModule.forRoot(),
+    GWPopoverModule.forRoot()
+];
+
+let MODULES_FOR_CHILD = [
+    GWSingleSelectModule,
+    GWMultiSelectModule,
+    GWInputModule,
+    GWRangeInputModule,
+    GWToolbarModule,
+    GWToolbarModule,
+    DatepickerModule,
+    GWPopoverModule
+];
+
 @NgModule({
-    imports: [
-        GWSingleSelectModule,
-        GWMultiSelectModule,
-        GWInputModule,
-        GWRangeInputModule,
-        GWToolbarModule,
-        DatepickerModule.forRoot(),
-        GWPopoverModule.forRoot()
-    ],
-    exports: [
-        GWSingleSelectModule,
-        GWMultiSelectModule,
-        GWInputModule,
-        GWRangeInputModule,
-        GWToolbarModule,
-        GWToolbarModule,
-        DatepickerModule,
-        GWPopoverModule
-    ]
+    imports: MODULES_FOR_ROOT,
+    exports: MODULES_FOR_CHILD
+})
+export class GlowwormRootModule {
+}
+
+@NgModule({
+    exports: MODULES_FOR_CHILD
 })
 export class GlowwormModule {
 
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: GlowwormModule
+            ngModule: GlowwormRootModule
         };
     }
 

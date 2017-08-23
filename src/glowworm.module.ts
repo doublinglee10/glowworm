@@ -1,6 +1,6 @@
-import {NgModule} from "@angular/core";
+import {ModuleWithProviders, NgModule} from "@angular/core";
 import {GWInputModule} from "./input/input.module";
-import {GWRangeInputModule} from  "./rangeInput/rangeinput.module"
+import {GWRangeInputModule} from "./rangeInput/rangeinput.module";
 import {GWToolbarModule} from "./toolbar/toolbar.module";
 import {DatepickerModule} from "./datepicker/datepicker.module";
 import {GWSingleSelectModule} from "./singleselect/single-select.module";
@@ -29,4 +29,11 @@ import {GWPopoverModule} from "./popover/popover.module";
     ]
 })
 export class GlowwormModule {
+
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: GlowwormModule
+        };
+    }
+
 }

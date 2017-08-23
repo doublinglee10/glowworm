@@ -9,8 +9,7 @@ import {ScriptLoaderService} from "../utils/script-loader.service";
         CommonModule
     ],
     declarations: [GWDatepickerComponent],
-    exports: [GWDatepickerComponent],
-    providers: [DatepickerConfig, ScriptLoaderService]
+    exports: [GWDatepickerComponent]
 })
 export class DatepickerModule {
 

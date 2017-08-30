@@ -1,14 +1,16 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'gw-popover-container',
     styleUrls: ['./popover.component.css'],
-    template: ` 
-        <div class="modal_window mw-right mw-block">
+    template: `
+        <div class="modal_window mw-right mw-block" [ngStyle]="styler">
             <ng-content></ng-content>
         </div>
     `
 })
 export class GWPopoverContainerComponent {
+
+    @Input() styler: any;
 
 }

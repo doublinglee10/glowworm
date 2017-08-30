@@ -42,15 +42,10 @@ export class GWPopoverDirective implements OnInit, OnDestroy {
 
     onClickEvent(event: any) {
         if (this.el.nativeElement.contains(event.target)) {
+            this.reposition();
             this.zone.run(() => {
                 this.popover.toggle();
             });
-            if (!this.popover.hidden) {
-                this.popover.setStyle({
-                    top: this.el.nativeElement.offsetTop + this.el.nativeElement.offsetHeight + 'px',
-                    left: this.el.nativeElement.offsetLeft + 'px'
-                });
-            }
         } else if (this.popover.el.nativeElement.contains(event.target)) {
             // this.popover.show();
         } else if (!this.popover.hidden) {
@@ -69,6 +64,7 @@ export class GWPopoverDirective implements OnInit, OnDestroy {
     }
 
     show() {
+        this.reposition();
         this.popover.show();
     }
 
@@ -77,6 +73,14 @@ export class GWPopoverDirective implements OnInit, OnDestroy {
     }
 
     toggle() {
+        this.reposition();
         this.popover.toggle();
+    }
+
+    reposition() {
+        this.popover.setStyle({
+            top: this.el.nativeElement.offsetTop + this.el.nativeElement.offsetHeight + 'px',
+            left: this.el.nativeElement.offsetLeft + 'px'
+        });
     }
 }

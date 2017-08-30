@@ -16,6 +16,9 @@ import {GWPopoverModule} from "../popover/popover.module";
     exports: [
         GWPopoverConfirmDirective,
         GWPopoverConfirmComponent
+    ],
+    entryComponents: [
+        GWPopoverConfirmComponent
     ]
 })
 export class GWPopoverConfirmModule {

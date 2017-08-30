@@ -16,7 +16,7 @@ import {DatepickerConfig} from "../../src/datepicker/config.server";
     imports: [
         FormsModule,
         BrowserModule,
-        GlowwormModule
+        GlowwormModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

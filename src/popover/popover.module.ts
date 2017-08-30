@@ -3,6 +3,7 @@ import {GWPopoverDirective} from "./popover.directive";
 import {GWPopoverComponent} from "./popover.component";
 import {PopoverConfig} from "./popover.config";
 import {CommonModule} from "@angular/common";
+import {GWPopoverContainerComponent} from "./popover-container.component";
 
 @NgModule({
     imports: [
@@ -10,11 +11,13 @@ import {CommonModule} from "@angular/common";
     ],
     declarations: [
         GWPopoverDirective,
-        GWPopoverComponent
+        GWPopoverComponent,
+        GWPopoverContainerComponent
     ],
     exports: [
         GWPopoverDirective,
-        GWPopoverComponent
+        GWPopoverComponent,
+        GWPopoverContainerComponent
     ],
     providers: [
         PopoverConfig

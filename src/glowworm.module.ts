@@ -6,6 +6,7 @@ import {DatepickerModule} from "./datepicker/datepicker.module";
 import {GWSingleSelectModule} from "./singleselect/single-select.module";
 import {GWMultiSelectModule} from "./multiselect/multi-select.module";
 import {GWPopoverModule} from "./popover/popover.module";
+import {GWPopoverConfirmModule} from "./popover-confirm/popover-confirm.module";
 
 let MODULES_FOR_ROOT = [
     GWSingleSelectModule,
@@ -14,7 +15,8 @@ let MODULES_FOR_ROOT = [
     GWRangeInputModule,
     GWToolbarModule,
     DatepickerModule.forRoot(),
-    GWPopoverModule.forRoot()
+    GWPopoverModule.forRoot(),
+    GWPopoverConfirmModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -25,7 +27,8 @@ let MODULES_FOR_CHILD = [
     GWToolbarModule,
     GWToolbarModule,
     DatepickerModule,
-    GWPopoverModule
+    GWPopoverModule,
+    GWPopoverConfirmModule
 ];
 
 @NgModule({

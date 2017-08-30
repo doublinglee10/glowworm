@@ -1,0 +1,1 @@
+export {GWPopoverConfirmModule} from './popover-confirm.module';

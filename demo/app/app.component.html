@@ -25,16 +25,16 @@
                   [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
         >
         </gw-input>
-      {{rangeinputSelectModel| json}}
-      <gw-rangeinput #gwcontrol #input
-                [label]="'公司'"
-                [(ngModel)]="rangeinputSelectModel"
-                [closeable]="true"
-                [enabled]="true"
-                [showSelect]="false"
-                [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-      >
-      </gw-rangeinput>
+        {{rangeinputSelectModel| json}}
+        <gw-rangeinput #gwcontrol #input
+                       [label]="'公司'"
+                       [(ngModel)]="rangeinputSelectModel"
+                       [closeable]="true"
+                       [enabled]="true"
+                       [showSelect]="false"
+                       [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+        >
+        </gw-rangeinput>
 
         {{inputSelectModel | json}}
 
@@ -132,7 +132,9 @@
     </p>
 
 
-   <!-- <app-test [toolbar]="bar"></app-test>-->
+    <!-- <app-test [toolbar]="bar"></app-test>-->
+
+    <gw-popover-confirm></gw-popover-confirm>
 
 </gw-toolbar>
 

@@ -9,3 +9,4 @@ export class GWSelectFilter implements PipeTransform {
         return !name ? data : data.filter(item => item.text.includes(name));
     }
 }
+

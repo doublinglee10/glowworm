@@ -12,6 +12,7 @@ export abstract class GWControl {
     @Input() label: string;
     @Input() showSelect: boolean = false;
     @Input() selectData: any[] = [];
+    @Input() linkAge:boolean = false
 
     onRemove: Function = Function.prototype;
 

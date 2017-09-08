@@ -1,6 +1,9 @@
 import {Component} from "@angular/core";
 import {InputModal, MultiSelectModal, SelectModal} from "../../src/utils/select.modal";
 
+import * as moment from "moment";
+import {DatepickerConfig} from "../../src/datepicker/config.server";
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -57,11 +60,70 @@ export class AppComponent {
         selectValue: '1'
     };
 
-    constructor() {
+    constructor(private config: DatepickerConfig) {
         console.log('app', new Boolean(true) === new Boolean(true));
+        this.setDateConfig();
     }
 
     log() {
         console.log(arguments);
     }
+
+
+    setDateConfig(){
+      const format = this.config.locale.format, timePickerIncrement = this.config.timePickerIncrement;
+      const today_s = moment(moment().format('YYYY-MM-DD')).format(format),
+        today_e = moment(today_s).add(1, 'days').subtract(timePickerIncrement, 's').format(format),
+        yesterday_s = moment(moment().format('YYYY-MM-DD')).subtract(1, 'days').format(format),
+        yesterday_e = moment(yesterday_s).add(1, 'days').subtract(timePickerIncrement, 's').format(format),
+        week_s = moment(today_s).subtract(moment().isoWeekday() - 1, 'days').format(format),
+        week_e = moment(week_s).add(7, 'days').subtract(timePickerIncrement, 's').format(format),
+        lastWeek_s = moment(week_s).subtract(7, 'days').format(format),
+        lastWeek_e = moment(week_e).subtract(7, 'days').format(format),
+        month_s = moment(moment().format('YYYY-MM-DD')).subtract(moment().date() - 1, 'days').format(format),
+        month_e = moment(month_s).add(1, 'month').subtract(timePickerIncrement, 's').format(format),
+        lastMonth_s = moment(month_s).subtract(1, 'month').format(format),
+        lastMonth_e = moment(month_e).subtract(1, 'month').format(format);
+      Object.assign(
+        this.config,
+        {
+          opens: 'center',
+          singleDatePicker: false,
+          jqueryPath: '/assets/jquery.min.js',
+          momentPath: '/assets/datepicker/moment.min.js',
+          datepickerPath: '/assets/datepicker/daterangepicker.js',
+          startDate: today_s,
+          endDate: today_e,
+          ranges: {
+            //今天、昨天  本周、上周 本月、上月
+            '今天': [
+              today_s, today_e
+            ],
+            '昨天': [
+              yesterday_s, yesterday_e
+            ],
+            '本周': [
+              week_s, week_e
+            ],
+            '上周': [
+              lastWeek_s, lastWeek_e
+            ],
+            '本月': [
+              month_s, month_e
+            ],
+            '上月': [
+              lastMonth_s, lastMonth_e
+            ]
+          }
+        }
+      );
+    }
+
+    linkAgeData = [{id: '0-01', text: '测试一01'}, {id: '0-02', text: '测试一02'},{id: '1-01', text: '测试二01'}, {id: '2-02', text: '测试二02'}];
+  changeData(ev:any){
+    this.linkAgeData = this.linkAgeData.filter(item=>{
+       return item.id.startsWith(ev+'-');
+    });
+    console.log(this.linkAgeData);
+  }
 }

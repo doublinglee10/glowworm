@@ -20,6 +20,8 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
 
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
 
+    @Output() onDataselect: EventEmitter<any> = new EventEmitter<any>();
+
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
     _filter: string;
@@ -99,6 +101,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
             item.__checked__ = true;
         }
     }
+
 
     writeValue(val: string | SelectModal): void {
         if (val) {

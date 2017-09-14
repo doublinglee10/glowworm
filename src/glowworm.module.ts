@@ -9,6 +9,7 @@ import {GWPopoverModule} from "./popover/popover.module";
 import {GWPopoverConfirmModule} from "./popover-confirm/popover-confirm.module";
 import {GwCoreModule} from "./core/core.module";
 import {GwPopconfirmModule} from "./popconfirm/popconfirm.module";
+import {GwPopinputModule} from "./popinput/popinput.module";
 
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
@@ -20,7 +21,8 @@ let MODULES_FOR_ROOT = [
     DatepickerModule.forRoot(),
     GWPopoverModule.forRoot(),
     GWPopoverConfirmModule,
-    GwPopconfirmModule
+    GwPopconfirmModule,
+    GwPopinputModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -34,7 +36,8 @@ let MODULES_FOR_CHILD = [
     DatepickerModule,
     GWPopoverModule,
     GWPopoverConfirmModule,
-    GwPopconfirmModule
+    GwPopconfirmModule,
+    GwPopinputModule
 ];
 
 @NgModule({

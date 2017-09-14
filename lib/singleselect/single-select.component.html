@@ -1,0 +1,55 @@
+<ng-container *ngIf="enabled">
+    <button type="button" class="btn btn-default {{btnSize}}">
+        <span gw-popover [template]="tpl">
+            <span class="author">{{label}}</span>
+            <span class="value">{{_select_value?.text}} {{_single_select_value?.text}}</span>
+            <span class="arrow"><span class="caret"></span></span>
+        </span>
+        <ng-container *ngIf="closeable">
+            <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
+        </ng-container>
+    </button>
+</ng-container>
+
+<ng-template #tpl>
+    <div class="popover-container">
+        <ng-container *ngIf="showSelect">
+            <div class="popover-top">
+                <span class="top-label">{{label}}</span>:
+                <select class="top-select" [(ngModel)]="_select_modal" (change)="onDataselect.emit(_select_modal)">
+                    <option *ngFor="let item of selectData" [attr.value]="item.id" [attr.selected]="_select_modal == item.id"  >{{item.text}}</option>
+                </select>
+            </div>
+            <div class="popover-hr"></div>
+        </ng-container>
+        <div class="popover-main">
+            <div class="input"><input type="text" [(ngModel)]="_filter" name="value" placeholder="过滤..."></div>
+            <ul *ngIf="!linkAge">
+                <li *ngFor="let item of (data | gwSelectFilter:_filter)">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="item.__checked__" name="checkbox" (change)="onSelect(item)">
+                        <span>{{item.text}}</span>
+                    </label>
+                </li>
+            </ul>
+            <ul *ngIf="linkAge">
+              <li *ngFor="let item of (data |gwlinkAgeFilter:_select_modal| gwSelectFilter:_filter)">
+                <label>
+                  <input type="checkbox" [(ngModel)]="item.__checked__" name="checkbox" (change)="onSelect(item)">
+                  <span>{{item.text}}</span>
+                </label>
+              </li>
+            </ul>
+        </div>
+        <div class="popover-hr"></div>
+        <div class="popover-footer">
+            <div class="left">
+                <a class="btn btn-xs" (click)="clear()">清除</a>
+            </div>
+            <div class="right">
+                <button class="btn btn-primary btn-xs" (click)="save();popover.hide();">保存</button>
+                <button class="btn btn-default btn-xs" (click)="cancel();popover.hide();">取消</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

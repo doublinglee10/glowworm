@@ -1,4 +1,6 @@
 import {Directive, ElementRef, HostBinding, Input, NgZone, OnDestroy, OnInit, Renderer2} from "@angular/core";
+import {WindowResizeService} from "./window-resize.service";
+import {Subscription} from "rxjs/Subscription";
 
 export type Placement =
     'top'
@@ -12,8 +14,7 @@ export type Placement =
     | 'left-bottom'
     | 'right'
     | 'right-top'
-    | 'right-bottom'
-    ;
+    | 'right-bottom';
 
 @Directive({
     selector: '[gw-overlay]'
@@ -24,45 +25,25 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
     @Input() placement: Placement;
 
     private _clickHandler: Function;
+    private _resizeSubscription: Subscription;
     @HostBinding('class.hidden') private _isHidden: boolean = true;
     @HostBinding('class.gw-overlay') private _overlay = true;
     @HostBinding('style.top') private _top: any;
     @HostBinding('style.bottom') private _bottom: any;
     @HostBinding('style.left') private _left: any;
     @HostBinding('style.right') private _right: any;
+    @HostBinding('style.transform') private _transform: any;
+    @HostBinding('style.margin') private _margin: any;
 
     constructor(private el: ElementRef,
                 private renderer: Renderer2,
-                private ngZone: NgZone) {
+                private ngZone: NgZone,
+                private resizeService: WindowResizeService) {
     }
 
     ngOnInit() {
-        this.registerClickEvent();
-    }
-
-    registerClickEvent() {
-        if (!this._clickHandler) {
-            this._clickHandler = this.renderer.listen(document, 'click', (event) => {
-                if (this.source.nativeElement.contains(event.target)) { //toggle
-                    if (this._isHidden) {
-                        this.show();
-                    } else {
-                        this.hide();
-                    }
-                } else if (this.el.nativeElement.contains(event.target)) {
-
-                } else {
-                    this.hide();
-                }
-            });
-        }
-    }
-
-    unregisterClickEvent() {
-        if (this._clickHandler) {
-            this._clickHandler();
-            this._clickHandler = null;
-        }
+        this._registerClickEvent();
+        this._registerResizeEvent();
     }
 
     show() {
@@ -72,10 +53,26 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
 
     hide() {
         this._isHidden = true;
+        this._unregisterResizeEvent();
     }
 
     ngOnDestroy() {
-        this.unregisterClickEvent();
+        this._unregisterClickEvent();
+        this._unregisterResizeEvent();
+    }
+
+    private _registerResizeEvent() {
+        this._resizeSubscription = this.resizeService.onResize$.subscribe(() => {
+            if (!this._isHidden) { //如果组件显示的时候
+                this.ngZone.run(() => {
+                    this._calculatePosition();
+                });
+            }
+        });
+    }
+
+    private _unregisterResizeEvent() {
+        this._resizeSubscription && this._resizeSubscription.unsubscribe();
     }
 
     private _calculatePosition() {
@@ -89,6 +86,12 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
         let top, bottom, left, right;
         switch (this.placement) {
             case 'top':
+                left = x;
+                bottom = clientHeight - y + margin;
+                this._left = left + 'px';
+                this._bottom = bottom + 'px';
+                this._transform = 'translateX(-50%)';
+                this._margin = `0 0 0 ${width / 2}px`;
                 break;
             case 'top-left':
                 left = x;
@@ -103,6 +106,12 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
                 this._bottom = bottom + 'px';
                 break;
             case 'bottom':
+                top = y + height + margin;
+                left = x;
+                this._top = top + 'px';
+                this._left = left + 'px';
+                this._transform = 'translateX(-50%)';
+                this._margin = `0 0 0 ${width / 2}px`;
                 break;
             case 'bottom-left':
                 top = y + height + margin;
@@ -117,6 +126,12 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
                 this._right = right + 'px';
                 break;
             case 'left':
+                left = x + width + margin;
+                top = y;
+                this._left = left + 'px';
+                this._top = top + 'px';
+                this._transform = 'translateY(-50%)';
+                this._margin = `${height / 2}px 0 0 0`;
                 break;
             case 'left-top':
                 left = x + width + margin;
@@ -131,6 +146,12 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
                 this._bottom = bottom + 'px';
                 break;
             case 'right':
+                right = clientWidth - x + margin;
+                top = y;
+                this._right = right + 'px';
+                this._top = top + 'px';
+                this._transform = 'translateY(-50%)';
+                this._margin = `${height / 2}px 0 0 0`;
                 break;
             case 'right-top':
                 right = clientWidth - x + margin;
@@ -154,6 +175,38 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
             width: el.offsetWidth,
             height: el.offsetHeight,
         };
+    }
+
+    private _registerClickEvent() {
+        if (!this._clickHandler) {
+            this.ngZone.runOutsideAngular(() => {
+                this._clickHandler = this.renderer.listen(document, 'click', (event) => {
+                    if (this.source.nativeElement.contains(event.target)) { //点击触发的toggle按钮
+                        this.ngZone.run(() => {
+                            if (this._isHidden) {
+                                this.show();
+                            } else {
+                                this.hide();
+                            }
+                        });
+                    } else if (this.el.nativeElement.contains(event.target)) {
+                        //点击的是弹出的面板本身不处理
+                    } else if (!this._isHidden) {
+                        //点击的即不是触发的toggle按钮也不是面板本身
+                        this.ngZone.run(() => {
+                            this.hide();
+                        });
+                    }
+                });
+            });
+        }
+    }
+
+    private _unregisterClickEvent() {
+        if (this._clickHandler) {
+            this._clickHandler();
+            this._clickHandler = null;
+        }
     }
 }
 

@@ -2,6 +2,7 @@ import {ModuleWithProviders, NgModule} from "@angular/core";
 import {GwOverlayDirective} from "./overlay.directive";
 import {ComponentLoaderService} from "./component-loader.service";
 import {CommonModule} from "@angular/common";
+import {WindowResizeService} from "./window-resize.service";
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ export class GwCoreModule {
         return {
             ngModule: GwCoreModule,
             providers: [
-                ComponentLoaderService
+                ComponentLoaderService,
+                WindowResizeService
             ]
         };
     }

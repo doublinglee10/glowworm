@@ -39,7 +39,7 @@ export class GwPopConfirmComponent {
         this.onConfirm.emit(event);
     }
 
-    onCancelEvent() {
+    onCancelEvent(event: Event) {
         this.overlay.hide();
         this.onCancel.emit(event);
     }

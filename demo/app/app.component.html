@@ -1,162 +1,20 @@
-<gw-toolbar #bar>
-
-    <p>
-        <gw-input #gwcontrol #input
-                  [label]="'公司'"
-                  [(ngModel)]="inputModel"
-                  [closeable]="true"
-                  [enabled]="true"
-                  [showSelect]="false"
-        >
-        </gw-input>
-
-        {{inputModel}}
-
-        <button class="btn btn-xs" (click)="inputModel=null;">set null</button>
-    </p>
-
-    <p>
-        <gw-input #gwcontrol #input
-                  [label]="'公司'"
-                  [(ngModel)]="inputSelectModel"
-                  [closeable]="true"
-                  [enabled]="true"
-                  [showSelect]="true"
-                  [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-        >
-        </gw-input>
-        {{rangeinputSelectModel| json}}
-        <gw-rangeinput #gwcontrol #input
-                       [label]="'公司'"
-                       [(ngModel)]="rangeinputSelectModel"
-                       [closeable]="true"
-                       [enabled]="true"
-                       [showSelect]="false"
-                       [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-        >
-        </gw-rangeinput>
-
-        {{inputSelectModel | json}}
-
-        <button class="btn btn-xs" (click)="inputSelectModel=null;">set null</button>
-    </p>
-
-    <p>
-        <gw-single-select #gwcontrol
-                          [label]="'配置singleSelect'"
-                          [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                          [(ngModel)]="selectModel"
-                          [closeable]="true"
-                          [enabled]="true"
-                          [showSelect]="false"
-                          (onSave)="log($event);"
-        >
-        </gw-single-select>
-
-        {{selectModel | json}}
-
-        <button class="btn btn-xs" (click)="selectModel=null;">set null</button>
-    </p>
-
-  <p>
-    <gw-single-select #gwcontrol
-                      [label]="'配置singleSelect--linkAge'"
-                      [selectData]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                      [data]="linkAgeData"
-                      [(ngModel)]="selectModel"
-                      [closeable]="true"
-                      [enabled]="true"
-                      [showSelect]="true"
-                      [linkAge]="false"
-                      (onDataselect)="changeData($event)"
-                      (onSave)="log($event);"
-    >
-    </gw-single-select>
-
-    {{selectModel | json}}
-
-    <button class="btn btn-xs" (click)="selectModel=null;">set null</button>
-  </p>
-
-    <p>
-        <gw-single-select #gwcontrol
-                          [label]="'配置singleSelect'"
-                          [data]="selectXData"
-                          [(ngModel)]="selectXModel"
-                          [closeable]="true"
-                          [enabled]="true"
-                          [showSelect]="true"
-                          [selectData]="singleSelectData"
-                          (onSave)="log($event)"
-        >
-        </gw-single-select>
-
-        <gw-single-select #gwcontrol
-                          [label]="'配置singleSelect'"
-                          [data]="selectXData"
-                          [(ngModel)]="selectX2Model"
-                          [closeable]="true"
-                          [enabled]="true"
-                          [showSelect]="true"
-                          [selectData]="singleSelectData"
-                          (onSave)="log($event)"
-        >
-        </gw-single-select>
-
-
-        {{selectXModel | json}}
-
-        <button class="btn btn-xs" (click)="selectXModel=null;">set null</button>
-    </p>
-
-    <p>
-        <gw-multi-select #gwcontrol
-                         [label]="'配置multiSelect'"
-                         [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                         [(ngModel)]="multiSelectModel"
-                         [closeable]="true"
-                         [enabled]="true"
-                         [showSelect]="false"
-                         (onSave)="log($event)"
-        >
-        </gw-multi-select>
-
-        {{multiSelectModel | json}}
-
-        <button class="btn btn-xs" (click)="multiSelectModel=null;">set null</button>
-    </p>
-
-    <p>
-        <gw-multi-select #gwcontrol
-                         [label]="'配置multiSelect'"
-                         [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                         [(ngModel)]="multiXSelectModel"
-                         [closeable]="true"
-                         [enabled]="true"
-                         [showSelect]="true"
-                         [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                         (onSave)="log($event)"
-        >
-        </gw-multi-select>
-
-        {{multiXSelectModel | json}}
-
-        <button class="btn btn-xs" (click)="multiXSelectModel=null;">set null</button>
-    </p>
-
-
-    <p>
-        <gw-datepicker #gwcontrol
-                       label="日期"
-                       options='{singleDatePicker:false,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
-                       [(ngModel)]="dateModel">
-        </gw-datepicker>
-    </p>
-
-
-    <!-- <app-test [toolbar]="bar"></app-test>-->
-
-</gw-toolbar>
-
-
-<button class="btn btn-primary btn-sm" gw-popover-confirm [title]="'您确定要删除吗?'" [styler]="{backgroundColor: '#fff'}">删除</button>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">Ngx-Ourpalm-Table</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a routerLink="/toolbar">toolbar</a></li>
+                <li><a routerLink="/popconfirm">popconfirm</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div style="margin-top:50px;">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

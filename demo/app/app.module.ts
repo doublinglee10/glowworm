@@ -4,26 +4,27 @@ import {AppComponent} from "./app.component";
 import {GlowwormModule} from "../../src/glowworm.module";
 import {FormsModule} from "@angular/forms";
 
-import {TestComponent} from "./test.component";
-
+import {AppRoutingModule} from "./app-routing.module";
+import {PopconfirmDemoComponent} from "./components/popconfirm-demo.conponent";
+import {ToolbarDemoComponent} from "./components/toolbar-demo.component";
 
 @NgModule({
     declarations: [
         AppComponent,
-        TestComponent
+        PopconfirmDemoComponent,
+        ToolbarDemoComponent,
     ],
     imports: [
         FormsModule,
         BrowserModule,
+        AppRoutingModule,
         GlowwormModule.forRoot()
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule {
     constructor() {
-
-
     }
-
 }

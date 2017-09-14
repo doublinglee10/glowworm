@@ -7,8 +7,11 @@ import {GWSingleSelectModule} from "./singleselect/single-select.module";
 import {GWMultiSelectModule} from "./multiselect/multi-select.module";
 import {GWPopoverModule} from "./popover/popover.module";
 import {GWPopoverConfirmModule} from "./popover-confirm/popover-confirm.module";
+import {GwCoreModule} from "./core/core.module";
+import {GwPopconfirmModule} from "./popconfirm/popconfirm.module";
 
 let MODULES_FOR_ROOT = [
+    GwCoreModule.forRoot(),
     GWSingleSelectModule,
     GWMultiSelectModule,
     GWInputModule,
@@ -16,10 +19,12 @@ let MODULES_FOR_ROOT = [
     GWToolbarModule,
     DatepickerModule.forRoot(),
     GWPopoverModule.forRoot(),
-    GWPopoverConfirmModule
+    GWPopoverConfirmModule,
+    GwPopconfirmModule
 ];
 
 let MODULES_FOR_CHILD = [
+    GwCoreModule,
     GWSingleSelectModule,
     GWMultiSelectModule,
     GWInputModule,
@@ -28,7 +33,8 @@ let MODULES_FOR_CHILD = [
     GWToolbarModule,
     DatepickerModule,
     GWPopoverModule,
-    GWPopoverConfirmModule
+    GWPopoverConfirmModule,
+    GwPopconfirmModule
 ];
 
 @NgModule({

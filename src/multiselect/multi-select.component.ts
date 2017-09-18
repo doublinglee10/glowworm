@@ -60,6 +60,7 @@ export class GWMultiSelectComponent extends GWControl implements ControlValueAcc
         this.data.forEach((item: any) => {
             item.__checked__ = false;
         });
+        this._select_modal = '';
     }
 
     updateNgModel() {

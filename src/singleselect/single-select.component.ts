@@ -53,6 +53,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
                 item.__checked__ = false;
             });
         }
+        this._select_modal = '';
     }
 
     updateNgModel() {
@@ -84,6 +85,7 @@ export class GWSingleSelectComponent extends GWControl implements ControlValueAc
     }
 
     remove() {
+        this._select_modal = '';
         this._single_select_value = {};
         this._select_value = {};
         this.value = this.showSelect ? {value: '', selectValue: ''} : '';

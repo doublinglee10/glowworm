@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {DatepickerConfig} from "../../../src/datepicker/config.server";
 import {InputModal, MultiSelectModal, SelectModal} from "../../../src/utils/select.modal";
-import * as moment from 'moment';
+import * as moment from "moment";
 
 @Component({
     selector: 'popconfirm-demo',
@@ -30,10 +30,18 @@ import * as moment from 'moment';
                           [closeable]="true"
                           [enabled]="true"
                           [showSelect]="true"
-                          [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                          [selectData]="inputSelectData"
                 >
                 </gw-input>
-                {{rangeinputSelectModel | json}}
+
+                {{inputSelectModel | json}}
+
+                <button class="btn btn-xs" (click)="inputSelectModel=null;">set null</button>
+                <button class="btn btn-xs" (click)="changeInputSelectData()">change data</button>
+                <button class="btn btn-xs" (click)="changeInputSelectValue()">change value</button>
+            </p>
+
+            <p>
                 <gw-rangeinput #gwcontrol #input
                                [label]="'公司'"
                                [(ngModel)]="rangeinputSelectModel"
@@ -43,10 +51,7 @@ import * as moment from 'moment';
                                [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
                 >
                 </gw-rangeinput>
-
-                {{inputSelectModel | json}}
-
-                <button class="btn btn-xs" (click)="inputSelectModel=null;">set null</button>
+                {{rangeinputSelectModel | json}}
             </p>
 
             <p>
@@ -287,5 +292,18 @@ export class ToolbarDemoComponent {
             return item.id.startsWith(ev + '-');
         });
         console.log(this.linkAgeData);
+    }
+
+    inputSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}];
+
+    changeInputSelectData() {
+        this.inputSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}, {id: '', text: '请选择'}];
+    }
+
+    changeInputSelectValue() {
+        this.inputSelectModel = {
+            value: 'app ...',
+            selectValue: ''
+        };
     }
 }

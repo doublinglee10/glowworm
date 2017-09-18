@@ -82,6 +82,8 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
         this.value = null;
         this._input_val = '';
         this._select_val = '';
+        this.valueLabel = '';
+        this.selectLabel = '';
         this.enabled = false;
         this.onRemove();
     }

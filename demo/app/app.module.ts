@@ -8,13 +8,18 @@ import {AppRoutingModule} from "./app-routing.module";
 import {PopconfirmDemoComponent} from "./components/popconfirm-demo.conponent";
 import {ToolbarDemoComponent} from "./components/toolbar-demo.component";
 import {PopinputDemoComponent} from "./components/popinput-demo.conponent";
+import {GwInputDemoComponent} from "./components/gwinput-demo.component";
+import {GwconfirmDemoComponent, GwconfirmDemoXComponent} from "./components/gwconfirm-demo.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         PopconfirmDemoComponent,
         ToolbarDemoComponent,
-        PopinputDemoComponent
+        PopinputDemoComponent,
+        GwInputDemoComponent,
+        GwconfirmDemoComponent,
+        GwconfirmDemoXComponent
     ],
     imports: [
         FormsModule,
@@ -24,6 +29,9 @@ import {PopinputDemoComponent} from "./components/popinput-demo.conponent";
     ],
     bootstrap: [
         AppComponent
+    ],
+    entryComponents: [
+        GwconfirmDemoXComponent
     ]
 })
 export class AppModule {

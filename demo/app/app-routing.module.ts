@@ -3,12 +3,10 @@ import {RouterModule, Routes} from "@angular/router";
 import {PopconfirmDemoComponent} from "./components/popconfirm-demo.conponent";
 import {ToolbarDemoComponent} from "./components/toolbar-demo.component";
 import {PopinputDemoComponent} from "./components/popinput-demo.conponent";
+import {GwInputDemoComponent} from "./components/gwinput-demo.component";
+import {GwconfirmDemoComponent} from "./components/gwconfirm-demo.component";
 
 const routes: Routes = [
-    // {
-    //     path: 'dynamic-table',
-    //     component: DynamicTableComponent
-    // },
     {
         path: 'popinput',
         component: PopinputDemoComponent
@@ -18,8 +16,16 @@ const routes: Routes = [
         component: ToolbarDemoComponent
     },
     {
-        path: 'popconfirm',
+        path: 'gwpopconfirm',
         component: PopconfirmDemoComponent
+    },
+    {
+        path: 'gwinput',
+        component: GwInputDemoComponent
+    },
+    {
+        path: 'gwconfirm',
+        component: GwconfirmDemoComponent
     }
 ];
 

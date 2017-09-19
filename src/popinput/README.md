@@ -13,6 +13,7 @@
 <div gw-popinput
      [title]=""
      [(ngModel)]=""
+     [zIndex]=""
      [confirmText]=""
      (onConfirm)=""
      [cancelText]=""

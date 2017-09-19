@@ -17,7 +17,7 @@ import {Component, EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} 
     styleUrls: ['../styles/glowworm.css'],
     template: `
         <div class="gw-confirm-mask"></div>
-        <div class="gw-confirm" [ngClass]="confirmClass">
+        <div class="gw-confirm" [ngClass]="confirmClass" [ngStyle]="{zIndex: zIndex}">
             <ng-container *ngIf="title">
                 <div class="gw-confirm-title" [innerHTML]="title"></div>
             </ng-container>
@@ -46,6 +46,7 @@ export class GwConfirmComponent {
     @Input() title: string;
     @Input() content: string | TemplateRef<any> | any;
     @Input() confirmClass: string;
+    @Input() zIndex: number;
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
 

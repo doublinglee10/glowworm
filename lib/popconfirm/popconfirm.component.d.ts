@@ -6,6 +6,7 @@ export declare class GwPopConfirmComponent {
     cancelText: string;
     placement: Placement;
     source: ElementRef;
+    zIndex: number;
     onConfirm: EventEmitter<Event>;
     onCancel: EventEmitter<Event>;
     overlay: GwOverlayDirective;

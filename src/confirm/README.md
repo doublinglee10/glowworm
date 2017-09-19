@@ -63,6 +63,7 @@ export class GwconfirmDemoComponent {
         [content]=""
         [confirmClass]=""
         [confirmText]=""
+        [zIndex]=""
         (onConfirm)=""
         [cancelText]=""
         (onCancel)="">

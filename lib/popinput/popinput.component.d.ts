@@ -7,6 +7,7 @@ export declare class GwPopInputComponent implements ControlValueAccessor {
     confirmText: string;
     cancelText: string;
     placement: Placement;
+    zIndex: number;
     source: ElementRef;
     onConfirm: EventEmitter<Event>;
     onCancel: EventEmitter<Event>;

@@ -19,6 +19,7 @@ import {GwConfirmComponent} from "./confirm.component";
  [content]=""
  [confirmClass]=""
  [confirmText]=""
+ [zIndex]=""
  (onConfirm)=""
  [cancelText]=""
  (onCancel)="">
@@ -32,6 +33,7 @@ export class GwConfirmDirective implements OnDestroy {
     @Input() title: string;
     @Input() content: string | TemplateRef<any> | any;
     @Input() confirmClass: string;
+    @Input() zIndex: number = 10001;
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
 
@@ -59,6 +61,7 @@ export class GwConfirmDirective implements OnDestroy {
             confirm.content = this.content;
             confirm.confirmClass = this.confirmClass;
             confirm.confirmText = this.confirmText;
+            confirm.zIndex = this.zIndex;
             confirm.cancelText = this.cancelText;
             confirm.onConfirm = this.onConfirm;
             confirm.onCancel = this.onCancel;

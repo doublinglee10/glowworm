@@ -14,7 +14,8 @@ export const GW_POPINPUT_VALUE_ACCESSOR: any = {
     template: `
         <div gw-overlay
              [source]="source"
-             [placement]="placement">
+             [placement]="placement"
+             [zIndex]="zIndex">
             <div class="triangle triangle-{{placement}}">
                 <div class="gw-popinput">
                     <div class="gw-popinput-title" *ngIf="title">
@@ -39,6 +40,7 @@ export class GwPopInputComponent implements ControlValueAccessor {
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
     @Input() placement: Placement = 'bottom-left';
+    @Input() zIndex: number;
     @Input() source: ElementRef;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();

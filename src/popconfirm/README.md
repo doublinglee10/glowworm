@@ -13,6 +13,7 @@
 <div gw-popconfirm
      [title]=""
      [confirmText]=""
+     [zIndex]=""
      (onConfirm)=""
      [cancelText]=""
      (onCancel)=""

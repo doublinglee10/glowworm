@@ -8,6 +8,7 @@ export declare class GwPopConfirmDirective implements OnInit, OnDestroy {
     confirmText: string;
     cancelText: string;
     placement: Placement;
+    zIndex: number;
     onConfirm: EventEmitter<Event>;
     onCancel: EventEmitter<Event>;
     private componentRef;

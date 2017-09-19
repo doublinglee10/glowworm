@@ -9,6 +9,7 @@ export declare class GwPopinputDirective implements OnInit, OnDestroy, ControlVa
     title: string;
     confirmText: string;
     cancelText: string;
+    zIndex: number;
     placement: Placement;
     onConfirm: EventEmitter<Event>;
     onCancel: EventEmitter<Event>;

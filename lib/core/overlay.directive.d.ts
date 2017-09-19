@@ -18,6 +18,7 @@ export declare class GwOverlayDirective implements OnInit, OnDestroy {
     private _right;
     private _transform;
     private _margin;
+    zIndex: number;
     constructor(el: ElementRef, renderer: Renderer2, ngZone: NgZone, resizeService: WindowResizeService);
     ngOnInit(): void;
     show(): void;

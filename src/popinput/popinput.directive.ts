@@ -41,6 +41,7 @@ export class GwPopinputDirective implements OnInit, OnDestroy, ControlValueAcces
     @Input() title: string;
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
+    @Input() zIndex: number = 100;
     @Input() placement: Placement = 'bottom-left';
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
@@ -63,6 +64,7 @@ export class GwPopinputDirective implements OnInit, OnDestroy, ControlValueAcces
             input.confirmText = this.confirmText;
             input.cancelText = this.cancelText;
             input.placement = this.placement;
+            input.zIndex = this.zIndex;
             input.onConfirm = this.onConfirm;
             input.onCancel = this.onCancel;
             input.writeValue(this._value);

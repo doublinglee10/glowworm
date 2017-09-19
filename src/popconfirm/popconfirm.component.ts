@@ -7,7 +7,8 @@ import {GwOverlayDirective, Placement} from "../core/overlay.directive";
     template: `
         <div gw-overlay
              [source]="source"
-             [placement]="placement">
+             [placement]="placement"
+             [zIndex]="zIndex">
             <div class="triangle triangle-{{placement}}">
                 <div class="gw-popconfirm">
                     <div class="gw-popconfirm-title" *ngIf="title">
@@ -29,6 +30,7 @@ export class GwPopConfirmComponent {
     @Input() cancelText: string = '取消';
     @Input() placement: Placement = 'bottom-left';
     @Input() source: ElementRef;
+    @Input() zIndex: number;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 

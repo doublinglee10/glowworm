@@ -34,6 +34,7 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
     @HostBinding('style.right') private _right: any;
     @HostBinding('style.transform') private _transform: any;
     @HostBinding('style.margin') private _margin: any;
+    @HostBinding('style.zIndex') @Input() public zIndex: number;
 
     constructor(private el: ElementRef,
                 private renderer: Renderer2,

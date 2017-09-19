@@ -22,6 +22,7 @@ export class GwPopConfirmDirective implements OnInit, OnDestroy {
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
     @Input() placement: Placement = 'bottom-left';
+    @Input() zIndex: number = 100;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 
@@ -40,6 +41,7 @@ export class GwPopConfirmDirective implements OnInit, OnDestroy {
             confirm.confirmText = this.confirmText;
             confirm.cancelText = this.cancelText;
             confirm.placement = this.placement;
+            confirm.zIndex = this.zIndex;
             confirm.onConfirm = this.onConfirm;
             confirm.onCancel = this.onCancel;
         });

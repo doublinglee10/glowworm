@@ -1,20 +1,18 @@
-import {Directive, ElementRef, HostBinding, Input, NgZone, OnDestroy, OnInit, Renderer2} from "@angular/core";
+import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    Renderer2
+} from "@angular/core";
 import {WindowResizeService} from "./window-resize.service";
 import {Subscription} from "rxjs/Subscription";
-
-export type Placement =
-    'top'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'left'
-    | 'left-top'
-    | 'left-bottom'
-    | 'right'
-    | 'right-top'
-    | 'right-bottom';
+import {Placement} from "./placement";
 
 @Directive({
     selector: '[gw-overlay]'
@@ -23,6 +21,7 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
 
     @Input() source: ElementRef;
     @Input() placement: Placement;
+    @Output() onHide: EventEmitter<void> = new EventEmitter<void>();
 
     private _clickHandler: Function;
     private _resizeSubscription: Subscription;
@@ -197,6 +196,7 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
                                 this.show();
                             } else {
                                 this.hide();
+                                this.onHide.emit();
                             }
                         });
                     } else if (this.el.nativeElement.contains(event.target)) {
@@ -205,6 +205,7 @@ export class GwOverlayDirective implements OnInit, OnDestroy {
                         //点击的即不是触发的toggle按钮也不是面板本身
                         this.ngZone.run(() => {
                             this.hide();
+                            this.onHide.emit();
                         });
                     }
                 });

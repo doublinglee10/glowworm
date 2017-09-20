@@ -11,6 +11,7 @@ import {GwCoreModule} from "./core/core.module";
 import {GwPopconfirmModule} from "./popconfirm/popconfirm.module";
 import {GwPopinputModule} from "./popinput/popinput.module";
 import {GwConfirmModule} from "./confirm/confirm.module";
+import {GwPopselectModule} from "./popselect/popselect.module";
 
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
@@ -24,7 +25,8 @@ let MODULES_FOR_ROOT = [
     GWPopoverConfirmModule,
     GwPopconfirmModule,
     GwPopinputModule,
-    GwConfirmModule
+    GwConfirmModule,
+    GwPopselectModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -40,7 +42,8 @@ let MODULES_FOR_CHILD = [
     GWPopoverConfirmModule,
     GwPopconfirmModule,
     GwPopinputModule,
-    GwConfirmModule
+    GwConfirmModule,
+    GwPopselectModule
 ];
 
 @NgModule({

@@ -92,3 +92,57 @@
 .gw-confirm .gw-confirm-footer {
     text-align: right;
 }
+
+/**
+ * popselect css
+ */
+.gw-popselect {
+    font-size: 12px;
+}
+
+.gw-popselect .gw-popselect-filter {
+    margin: 10px;
+}
+
+.gw-popselect .gw-popselect-filter input {
+    border: 1px solid #cccccc;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 3px;
+}
+
+.gw-popselect .gw-popselect-body {
+    border-bottom: 1px solid #aaa;
+    padding: 0 0 10px 0;
+}
+
+.gw-popselect .gw-popselect-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 220px;
+    overflow: auto;
+}
+
+.gw-popselect .gw-popselect-body ul li {
+    padding: 0 10px;
+}
+
+.gw-popselect .gw-popselect-body ul li:hover {
+    background-color: antiquewhite;
+}
+
+.gw-popselect .gw-popselect-body label {
+    width: 100%;
+    font-weight: normal;
+    margin: 2px 0;
+}
+
+.gw-popselect .gw-popselect-body input {
+    height: 11px;
+}
+
+.gw-popselect .gw-popselect-footer {
+    text-align: right;
+    margin: 5px 10px;
+}

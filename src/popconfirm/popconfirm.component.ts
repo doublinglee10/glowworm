@@ -1,14 +1,15 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {GwOverlayDirective, Placement} from "../core/overlay.directive";
+import {GwOverlayDirective} from "../core/overlay.directive";
+import {Placement} from "../core/placement";
 
 @Component({
     selector: 'gw-popconfirm',
     styleUrls: ['../styles/triangle.css', '../styles/glowworm.css'],
     template: `
         <div gw-overlay
-             [source]="source"
-             [placement]="placement"
-             [zIndex]="zIndex">
+                   [source]="source"
+                   [placement]="placement"
+                   [zIndex]="zIndex">
             <div class="triangle triangle-{{placement}}">
                 <div class="gw-popconfirm">
                     <div class="gw-popconfirm-title" *ngIf="title">

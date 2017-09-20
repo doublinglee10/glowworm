@@ -43,11 +43,11 @@ export class GwconfirmDemoComponent {
     component = GwconfirmDemoXComponent;
 
     ok() {
-        alert('ok')
+        console.log('ok')
     }
 
     cancel() {
-        alert('cancel')
+        console.log('cancel')
     }
 }
 

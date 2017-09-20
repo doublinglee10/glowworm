@@ -12,6 +12,9 @@ import {
 } from "@angular/core";
 import {GWPopoverConfirmComponent} from "./popover-confirm.component";
 
+/**
+ * @deprecated
+ */
 @Directive({
     selector: '[gw-popover-confirm]'
 })

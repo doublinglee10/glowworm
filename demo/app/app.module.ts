@@ -10,6 +10,7 @@ import {ToolbarDemoComponent} from "./components/toolbar-demo.component";
 import {PopinputDemoComponent} from "./components/popinput-demo.conponent";
 import {GwInputDemoComponent} from "./components/gwinput-demo.component";
 import {GwconfirmDemoComponent, GwconfirmDemoXComponent} from "./components/gwconfirm-demo.component";
+import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import {GwconfirmDemoComponent, GwconfirmDemoXComponent} from "./components/gwco
         PopinputDemoComponent,
         GwInputDemoComponent,
         GwconfirmDemoComponent,
-        GwconfirmDemoXComponent
+        GwconfirmDemoXComponent,
+        PopselectDemoComponent
     ],
     imports: [
         FormsModule,

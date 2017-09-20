@@ -5,6 +5,7 @@ import {ToolbarDemoComponent} from "./components/toolbar-demo.component";
 import {PopinputDemoComponent} from "./components/popinput-demo.conponent";
 import {GwInputDemoComponent} from "./components/gwinput-demo.component";
 import {GwconfirmDemoComponent} from "./components/gwconfirm-demo.component";
+import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
 
 const routes: Routes = [
     {
@@ -26,6 +27,10 @@ const routes: Routes = [
     {
         path: 'gwconfirm',
         component: GwconfirmDemoComponent
+    },
+    {
+        path: 'gwpopselect',
+        component: PopselectDemoComponent
     }
 ];
 

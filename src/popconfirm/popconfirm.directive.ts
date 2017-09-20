@@ -1,7 +1,7 @@
 import {ComponentRef, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
-import {Placement} from "../core/overlay.directive";
 import {GwPopConfirmComponent} from "./popconfirm.component";
 import {ComponentLoaderService} from "../core/component-loader.service";
+import {Placement} from "../core/placement";
 
 /**
  * <div gw-popconfirm

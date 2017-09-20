@@ -1,6 +1,9 @@
 import {Component, ElementRef, EventEmitter, Input, Output} from "@angular/core";
 import {BasePopover} from "../utils/popover.class";
 
+/**
+ * @deprecated
+ */
 @Component({
     selector: 'gw-popover-confirm',
     styleUrls: ['./popover-confirm.component.css'],

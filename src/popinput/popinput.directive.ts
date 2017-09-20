@@ -9,11 +9,10 @@ import {
     OnInit,
     Output
 } from "@angular/core";
-import {Placement} from "../core/overlay.directive";
 import {ComponentLoaderService} from "../core/component-loader.service";
 import {GwPopInputComponent} from "./popinput.component";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import set = Reflect.set;
+import {Placement} from "../core/placement";
 
 export const GW_POPINPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
-import {GwOverlayDirective, Placement} from "../core/overlay.directive";
+import {GwOverlayDirective} from "../core/overlay.directive";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Placement} from "../core/placement";
 
 export const GW_POPINPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

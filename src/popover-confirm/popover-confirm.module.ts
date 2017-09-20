@@ -4,6 +4,9 @@ import {CommonModule} from "@angular/common";
 import {GWPopoverConfirmComponent} from "./popover-confirm.component";
 import {GWPopoverModule} from "../popover/popover.module";
 
+/**
+ * @deprecated
+ */
 @NgModule({
     imports: [
         CommonModule,

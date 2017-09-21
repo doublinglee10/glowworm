@@ -22,6 +22,7 @@ export const GW_POPINPUT_VALUE_ACCESSOR: any = {
 
 /**
  * <div gw-popinput
+ *      [zIndex]=""
  *      [title]=""
  *      [(ngModel)]=""
  *      [confirmText]=""

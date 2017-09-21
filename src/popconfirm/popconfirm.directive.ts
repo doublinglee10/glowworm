@@ -6,6 +6,7 @@ import {Placement} from "../core/placement";
 /**
  * <div gw-popconfirm
  *      [title]=""
+ *      [zIndex]=""
  *      [confirmText]=""
  *      (onConfirm)=""
  *      [cancelText]=""

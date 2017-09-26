@@ -16,13 +16,14 @@ import {Component} from "@angular/core";
                         <li><a routerLink="/gwinput">gwinput</a></li>
                         <li><a routerLink="/gwconfirm">gwconfirm</a></li>
                         <li><a routerLink="/gwpopselect">gwpopselect</a></li>
+                        <li><a routerLink="/gwcontextmenu">gwcontextmenu</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container" gw-contextmenu [menus]="[{text: 'Go'}, {text: 'Back'}]">
             <div class="row">
-                <div style="margin-top:50px;">
+                <div style="margin-top:50px;background-color:#cccccc;min-height:300px;">
                     <router-outlet></router-outlet>
                 </div>
             </div>
@@ -33,7 +34,7 @@ import {Component} from "@angular/core";
 export class AppComponent {
 
     ngDoCheck() {
-        // console.log('check app component');
+        console.log('check app component');
     }
 
     log() {

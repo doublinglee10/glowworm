@@ -11,6 +11,7 @@ import {PopinputDemoComponent} from "./components/popinput-demo.conponent";
 import {GwInputDemoComponent} from "./components/gwinput-demo.component";
 import {GwconfirmDemoComponent, GwconfirmDemoXComponent} from "./components/gwconfirm-demo.component";
 import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
+import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component";
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
         GwInputDemoComponent,
         GwconfirmDemoComponent,
         GwconfirmDemoXComponent,
-        PopselectDemoComponent
+        PopselectDemoComponent,
+        ContextMenuDemoComponent
     ],
     imports: [
         FormsModule,

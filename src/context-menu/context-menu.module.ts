@@ -3,10 +3,12 @@ import {GwContextMenuContainerComponent} from "./context-menu.component";
 import {GwContextMenuDirective} from "./context-menu.directive";
 import {CommonModule} from "@angular/common";
 import {ContextMenuService} from "./context-menu.service";
+import {GwCoreModule} from "../core";
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        GwCoreModule.forRoot()
     ],
     declarations: [
         GwContextMenuContainerComponent,

@@ -1,7 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
-import {GlowwormModule} from "../../src/glowworm.module";
 import {FormsModule} from "@angular/forms";
 
 import {AppRoutingModule} from "./app-routing.module";
@@ -12,6 +11,17 @@ import {GwInputDemoComponent} from "./components/gwinput-demo.component";
 import {GwconfirmDemoComponent, GwconfirmDemoXComponent} from "./components/gwconfirm-demo.component";
 import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
 import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component";
+import {GwContextMenuModule} from "../../src/context-menu/context-menu.module";
+import {GwConfirmModule} from "../../src/confirm/confirm.module";
+import {GwPopconfirmModule} from "../../src/popconfirm/popconfirm.module";
+import {GwPopinputModule} from "../../src/popinput/popinput.module";
+import {GwPopselectModule} from "../../src/popselect/popselect.module";
+import {GWInputModule} from "../../src/input/input.module";
+import {GWToolbarModule} from "../../src/toolbar/toolbar.module";
+import {DatepickerModule} from "../../src/datepicker/datepicker.module";
+import {GWSingleSelectModule} from "../../src/singleselect/single-select.module";
+import {GWMultiSelectModule} from "../../src/multiselect/multi-select.module";
+import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
 
 @NgModule({
     declarations: [
@@ -29,7 +39,17 @@ import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component"
         FormsModule,
         BrowserModule,
         AppRoutingModule,
-        GlowwormModule.forRoot()
+        GWInputModule,
+        DatepickerModule,
+        GWSingleSelectModule,
+        GWMultiSelectModule,
+        GWRangeInputModule,
+        GWToolbarModule,
+        GwContextMenuModule.forRoot(),
+        GwConfirmModule,
+        GwPopconfirmModule,
+        GwPopinputModule,
+        GwPopselectModule
     ],
     bootstrap: [
         AppComponent

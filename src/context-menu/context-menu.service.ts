@@ -30,7 +30,6 @@ export class ContextMenuService {
                 this._componentRef = this.componentLoader.appendComponentToBody(GwContextMenuContainerComponent);
             });
         }
-
     }
 
     onMenuDirectiveDestroy() {

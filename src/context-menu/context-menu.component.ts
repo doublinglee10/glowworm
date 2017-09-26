@@ -1,4 +1,4 @@
-import {Component, NgZone, OnDestroy, OnInit, Renderer2} from "@angular/core";
+import {Component, forwardRef, Inject, NgZone, OnDestroy, OnInit, Renderer2} from "@angular/core";
 import {ContextMenu} from "./context-menu";
 import {ContextMenuService, IContextMenuClickEvent} from "./context-menu.service";
 import {Subscription} from "rxjs/Subscription";
@@ -44,7 +44,7 @@ export class GwContextMenuContainerComponent implements OnInit, OnDestroy {
 
     constructor(private ngZone: NgZone,
                 private renderer: Renderer2,
-                private service: ContextMenuService) {
+                @Inject(forwardRef(() => ContextMenuService)) private service: ContextMenuService) {
     }
 
     private _clickFun;

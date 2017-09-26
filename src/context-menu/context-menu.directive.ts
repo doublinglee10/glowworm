@@ -8,7 +8,7 @@ import {ContextMenu} from "./context-menu";
 export class GwContextMenuDirective implements OnInit, OnDestroy {
 
     @Input() menus: ContextMenu[];
-    @Input() class: any;
+    @Input() customClass: any;
 
     constructor(private service: ContextMenuService) {
     }
@@ -26,7 +26,7 @@ export class GwContextMenuDirective implements OnInit, OnDestroy {
         this.service.show.next({
             menus: this.menus,
             event: event,
-            class: this.class
+            class: this.customClass
         });
         event.preventDefault();
         event.stopPropagation();

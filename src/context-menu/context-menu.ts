@@ -13,6 +13,8 @@ export class ContextMenu {
     separator?: boolean = false;
     /** 是否显示 */
     show?: BooleanOrResolver = true;
+    /** 是否禁用 */
+    disabled?: BooleanOrResolver = false;
     /** 点击事件 */
     onclick?: any;
     /** 子菜单 */

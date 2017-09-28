@@ -15,7 +15,9 @@ import {Subscription} from "rxjs/Subscription";
                     </ng-container>
                     <ng-container *ngIf="!menu.separator && !menu.submenus">
                         <li (click)="_onClickMenu(menu)" [class.hidden]="!_showMenu(menu)">
-                            <a><i [ngClass]="menu.iconCls || 'empty-icon'"></i>{{ menu.text }}</a>
+                            <a [class.disabled]="_disabledMenus(menu)">
+                                <i [ngClass]="menu.iconCls || 'empty-icon'"></i>{{ menu.text }}
+                            </a>
                         </li>
                     </ng-container>
                     <ng-container *ngIf="menu.submenus">
@@ -95,7 +97,9 @@ export class GwContextMenuContainerComponent implements OnInit, OnDestroy {
 
     _onClickMenu(menu: ContextMenu) {
         this.hide();
-        menu.onclick && menu.onclick();
+        if (!this._disabledMenus(menu)) {
+            menu.onclick && menu.onclick();
+        }
     }
 
     _showMenus(menus: ContextMenu[]): boolean {
@@ -107,6 +111,13 @@ export class GwContextMenuContainerComponent implements OnInit, OnDestroy {
             return menu.show();
         }
         return menu.show;
+    }
+
+    _disabledMenus(menu: ContextMenu): boolean {
+        if (typeof menu.disabled == "function") {
+            return menu.disabled();
+        }
+        return menu.disabled;
     }
 
     private _deepCloneMenus(menus: ContextMenu[]): ContextMenu[] {

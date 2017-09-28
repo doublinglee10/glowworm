@@ -21,7 +21,7 @@ import {Component} from "@angular/core";
                 </div>
             </div>
         </nav>
-        <div class="container" gw-contextmenu [menus]="[{text: 'Go'}, {text: 'Back'}]">
+        <div class="container" gw-contextmenu [menus]="[{text: 'Go', disabled: true}, {text: 'Back'}]">
             <div class="row">
                 <div style="margin-top:50px;background-color:#cccccc;min-height:300px;">
                     <router-outlet></router-outlet>

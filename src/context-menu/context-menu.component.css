@@ -78,4 +78,10 @@ ul li a:hover {
     width: 23px;
 }
 
+.row-context-menu li a.disabled {
+    color: #aaa !important;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
 

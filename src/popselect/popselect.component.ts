@@ -103,7 +103,6 @@ export class GwPopSelectComponent implements ControlValueAccessor {
 
     onConfirmEvent(event: Event) {
         this.overlay.hide();
-        this.onConfirm.emit(event);
         let values = this._data.filter((item: any) => item.__checked__);
         if (values.length == 1) {
             let val = values[0].id;
@@ -114,6 +113,7 @@ export class GwPopSelectComponent implements ControlValueAccessor {
         this._filterVal = '';
         this._touchFun(this._val);
         this._changeFun(this._val);
+        this.onConfirm.emit(event);
     }
 
     onCancelEvent(event: Event) {

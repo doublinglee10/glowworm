@@ -40,7 +40,7 @@ import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
         BrowserModule,
         AppRoutingModule,
         GWInputModule,
-        DatepickerModule,
+        DatepickerModule.forRoot(),
         GWSingleSelectModule,
         GWMultiSelectModule,
         GWRangeInputModule,

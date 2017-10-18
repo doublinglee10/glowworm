@@ -1,4 +1,4 @@
-import {Component, ElementRef, forwardRef, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {DatepickerConfig} from "./config.server";
 import {ScriptLoaderService, ScriptModel} from "../utils/script-loader.service";
 import {Observable} from "rxjs/Observable";
@@ -17,7 +17,7 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
     selector: 'gw-datepicker',
     template: `
         <button type="button" class="btn btn-default {{btnSize}}" [hidden]="!enabled">
-            <span id="dateHost">
+            <span #dateHost>
                 <span class="author">{{label}}</span>
                 <span style="color:#797979">{{_value}}</span>
                 <span class="arrow"><span class="caret"></span></span>
@@ -34,9 +34,11 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
     @Input()
     options: DatepickerConfig | string;
 
-
     @Input()
     label: string;
+
+    @ViewChild('dateHost')
+    dateHost: ElementRef;
 
     _value: string;
     onChange: any;
@@ -56,7 +58,6 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
     ngOnInit() {
         this.datepickerPreInit();
     }
-
 
     //检查依赖插件  若不存在异步加载
     datepickerPreInit() {
@@ -109,13 +110,12 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
 
         options.singleDatePicker && (options.ranges = undefined);
         this.config = options;
-        const ele: any = $(this.input.nativeElement).find('#dateHost');
+        const ele: any = $(this.dateHost.nativeElement);
         ele.daterangepicker(options);
-
 
         ele.on('cancel.daterangepicker', (ev, picker) => {
             this.value = null;
-        })
+        });
 
         ele.on('apply.daterangepicker', (ev, picker) => {
             this.value = {
@@ -125,7 +125,6 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
             }
         })
     }
-
 
     set value(value: { start: string, end: string, range: string }) {
 
@@ -140,12 +139,11 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
             this._value = null;
         }
 
-
         this.onTouched && this.onTouched();
         this.onChange && this.onChange(value);
 
         //回显面板
-        let ele = $(this.input.nativeElement).find('#dateHost');
+        let ele = $(this.dateHost.nativeElement);
         if (ele.data('daterangepicker') && value) {
             let {start = '', end = ''} = value;
             if (ele.data('daterangepicker') && start) {
@@ -156,7 +154,6 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
                 ele.data('daterangepicker').setEndDate(end);
             }
         }
-
     }
 
     writeValue(obj: { start: string, end: string, range: string }): void {
@@ -173,7 +170,7 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
 
     destroyPicker() {
         try {
-            (<any>$(this.input.nativeElement)).find('#dateHost').data('daterangepicker').remove();
+            (<any>$(this.dateHost.nativeElement)).data('daterangepicker').remove();
         } catch (e) {
             console.log(e.message);
         }

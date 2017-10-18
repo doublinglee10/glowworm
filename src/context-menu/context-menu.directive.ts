@@ -9,6 +9,7 @@ export class GwContextMenuDirective implements OnInit, OnDestroy {
 
     @Input() menus: ContextMenu[];
     @Input() customClass: any;
+    @Input() filters: (event: MouseEvent) => boolean;
 
     constructor(private service: ContextMenuService) {
     }
@@ -23,12 +24,22 @@ export class GwContextMenuDirective implements OnInit, OnDestroy {
 
     @HostListener('contextmenu', ['$event'])
     onContextMenu(event: MouseEvent): void {
-        this.service.show.next({
-            menus: this.menus,
-            event: event,
-            class: this.customClass
-        });
-        event.preventDefault();
-        event.stopPropagation();
+        if (this.filters) {
+            if (this.filters(event)) {
+                this.service.show.next({
+                    menus: this.menus,
+                    event: event,
+                    class: this.customClass
+                });
+            }
+        } else {
+            this.service.show.next({
+                menus: this.menus,
+                event: event,
+                class: this.customClass
+            });
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 }

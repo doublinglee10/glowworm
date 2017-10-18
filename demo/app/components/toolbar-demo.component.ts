@@ -160,9 +160,15 @@ import * as moment from "moment";
 
             <p>
                 <gw-datepicker #gwcontrol
-                               label="日期"
+                               label="日期1"
                                options='{singleDatePicker:false,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
-                               [(ngModel)]="dateModel">
+                               [(ngModel)]="dateModel1">
+                </gw-datepicker>
+                
+                <gw-datepicker #gwcontrol
+                               label="日期2"
+                               options='{singleDatePicker:true,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
+                               [(ngModel)]="dateModel2">
                 </gw-datepicker>
             </p>
 
@@ -174,7 +180,8 @@ import * as moment from "moment";
 })
 export class ToolbarDemoComponent {
     title = 'app';
-    dateModel: any;
+    dateModel1: any;
+    dateModel2: any;
 
     inputModel: string = 'app';
     inputSelectModel: InputModal = {

@@ -1,0 +1,253 @@
+import {
+    AfterViewInit,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    Output,
+    QueryList,
+    ViewEncapsulation
+} from "@angular/core";
+import {DragulaService} from "ng2-dragula";
+import {GwTabComponent} from "./tab.component";
+import {GwTab} from "./tab";
+import {typeofTemplateInput} from "../utils/template-input";
+
+export type TabOrTabComponent = GwTab | GwTabComponent;
+
+let dragulaId: number = 0;
+
+@Component({
+    selector: 'gw-tabs',
+    template: `
+        <div class="nav-tabs-custom tabs-{{position}}">
+            <ng-template #tabs_header>
+                <ng-container *ngFor="let tab of _tabs">
+                    <li [class.active]="tab.selected"
+                        [class.disabled]="tab.disabled">
+                        <a [class.disabled]="tab.disabled" (click)="_selectTab(tab)">
+                            <ng-container *ngIf="_typeofContent(tab.title) === 'string'">
+                                {{tab.title}}
+                            </ng-container>
+                            <ng-container *ngIf="_typeofContent(tab.title) === 'template'">
+                                <ng-template [ngTemplateOutlet]="tab.title"></ng-template>
+                            </ng-container>
+                            <ng-container *ngIf="_typeofContent(tab.title) === 'component'">
+                                <ng-container *ngComponentOutlet="tab.title"></ng-container>
+                            </ng-container>
+                            <span *ngIf="tab.closable" (click)="_closeTab(tab)"
+                                  class="glyphicon glyphicon-remove-circle">
+                            </span>
+                        </a>
+                    </li>
+                </ng-container>
+            </ng-template>
+            <ng-container *ngIf="sortable">
+                <ul class="nav nav-tabs"
+                    [dragula]="_dragula_key"
+                    [dragulaModel]="_tabs">
+                    <ng-template [ngTemplateOutlet]="tabs_header"></ng-template>
+                </ul>
+            </ng-container>
+            <ng-container *ngIf="!sortable">
+                <ul class="nav nav-tabs">
+                    <ng-template [ngTemplateOutlet]="tabs_header"></ng-template>
+                </ul>
+            </ng-container>
+            <div class="tab-content no-padding">
+                <ng-container *ngFor="let tab of _tabs">
+                    <div class="tab-pane" [class.active]="tab.selected">
+                        <ng-container *ngIf="!tab.lazy || !tab.isFirstSelected">
+                            <ng-container *ngIf="_typeofContent(tab.content) === 'string'">
+                                {{tab.content}}
+                            </ng-container>
+                            <ng-container *ngIf="_typeofContent(tab.content) === 'template'">
+                                <ng-template [ngTemplateOutlet]="tab.content"></ng-template>
+                            </ng-container>
+                            <ng-container *ngIf="_typeofContent(tab.content) === 'component'">
+                                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    `,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['../styles/glowworm.css', './tabs.css'],
+})
+export class GwTabsComponent implements AfterViewInit, OnDestroy {
+
+    @Input() position: 'top' | 'bottom' | 'left' | 'right' = 'top';
+    @Input() sortable: boolean = false;
+
+    @Output() onBeforeClose: EventEmitter<TabOrTabComponent> = new EventEmitter();
+    @Output() onClose: EventEmitter<TabOrTabComponent> = new EventEmitter();
+    @Output() onSelect: EventEmitter<TabOrTabComponent> = new EventEmitter();
+    @Output() onUnSelect: EventEmitter<TabOrTabComponent> = new EventEmitter();
+    @Output() onAdd: EventEmitter<TabOrTabComponent> = new EventEmitter();
+    @Output() onBeforeSort: EventEmitter<void> = new EventEmitter<void>();
+    @Output() onSort: EventEmitter<void> = new EventEmitter<void>();
+
+    @ContentChildren(GwTabComponent)
+    tabComponents: QueryList<GwTabComponent>;
+
+    _tabs: TabOrTabComponent[] = [];
+    _dragula_key = `gwtabs_${++dragulaId}`;
+
+    constructor(private dragulaService: DragulaService) {
+        dragulaService.drag.subscribe((value) => {
+            this.onBeforeSort.emit();
+        });
+        dragulaService.drop.subscribe((value) => {
+            this.onSort.emit();
+        });
+    }
+
+    ngAfterViewInit(): void {
+        let comps = this.tabComponents.toArray();
+        this._tabs.push(...comps);
+
+        let selected = this._tabs.filter(tab => tab.selected);
+        if (selected.length == 0) { //如果不存在选择的，则默认选中第一个
+            if (this._tabs.length > 0) {
+                let first = this._tabs[0];
+                first.selected = true;
+            }
+        }
+
+        if (selected.length > 1) { //如果存在多个选择的，则默认只能有一个选中的
+            selected.forEach((tab, index) => {
+                if (index != 0) {
+                    tab.selected = false;
+                }
+            });
+        }
+    }
+
+    addTab(tab: TabOrTabComponent) {
+        if (tab.selected) {
+            this._tabs.forEach(tab => {
+                if (tab.selected) {
+                    tab.selected = false;
+                    this.onUnSelect.emit(tab);
+                }
+            });
+            this._tabs.push(tab);
+            this.onAdd.emit(tab);
+            tab.selected = true;
+            this.onSelect.emit(tab);
+        } else {
+            this._tabs.push(tab);
+            this.onAdd.emit(tab);
+        }
+    }
+
+    insertTab(index: number, tab: TabOrTabComponent) {
+        if (tab.selected) {
+            this._tabs.forEach(tab => {
+                if (tab.selected) {
+                    tab.selected = false;
+                    this.onUnSelect.emit(tab);
+                }
+            });
+            this._tabs.splice(index, 0, tab);
+            this.onAdd.emit(tab);
+            tab.selected = true;
+            this.onSelect.emit(tab);
+        } else {
+            this._tabs.splice(index, 0, tab);
+            this.onAdd.emit(tab);
+        }
+    }
+
+    disabledTab(tabId: any) {
+        this._tabs.forEach(tab => {
+            if (tab.tabId == tabId) {
+                tab.disabled = true;
+            }
+        });
+    }
+
+    enabledTab(tabId: any) {
+        this._tabs.forEach(tab => {
+            if (tab.tabId == tabId) {
+                tab.disabled = false;
+            }
+        });
+    }
+
+    selectTab(tabId: any) {
+        this._tabs.forEach(tab => {
+            if (tab.tabId == tabId) {
+                this._selectTab(tab);
+            }
+        });
+    }
+
+    closeTab(tabId: any) {
+        this._tabs.forEach(tab => {
+            if (tab.tabId == tabId) {
+                this._closeTab(tab);
+            }
+        });
+    }
+
+    getSelected(): TabOrTabComponent {
+        let selected = this._tabs.filter(tab => tab.selected);
+        return selected.length > 0 ? selected[0] : null;
+    }
+
+    /**
+     * @inner
+     */
+    _typeofContent(content: string): string {
+        return typeofTemplateInput(content);
+    }
+
+    /**
+     * @inner
+     */
+    _selectTab(tab: TabOrTabComponent) {
+        let selected = this._tabs.filter(tab => tab.selected)[0];
+        if (tab == selected || tab.disabled) {
+            return;
+        }
+
+        selected.selected = false;
+        this.onUnSelect.emit(selected);
+
+        tab.isFirstSelected = false;
+        tab.selected = true;
+        this.onSelect.emit(tab);
+    }
+
+    /**
+     * @inner
+     */
+    _closeTab(tab: TabOrTabComponent) {
+        let indexOf = this._tabs.indexOf(tab);
+        if (tab.selected) {
+            this.onUnSelect.emit(tab);
+            this.onBeforeClose.emit(tab);
+            this._tabs.splice(indexOf, 1);
+            this.onClose.emit(tab);
+
+            let filtered = this._tabs.filter(tab => !tab.disabled);
+            if (filtered.length > 0) {
+                let firstTab = filtered[0];
+                firstTab.selected = true;
+                this.onSelect.emit(firstTab);
+            }
+        } else {
+            this.onBeforeClose.emit(tab);
+            this._tabs.splice(indexOf, 1);
+            this.onClose.emit(tab);
+        }
+    }
+
+    ngOnDestroy() {
+        this.dragulaService.destroy(this._dragula_key);
+    }
+}

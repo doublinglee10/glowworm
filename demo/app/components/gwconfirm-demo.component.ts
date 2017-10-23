@@ -25,8 +25,7 @@ import {Component} from "@angular/core";
                 confirm with template content
             </button>
         </p>
-
-
+        
         <p>
             <button gw-confirm
                     [title]="'hello world'"
@@ -41,6 +40,10 @@ import {Component} from "@angular/core";
 export class GwconfirmDemoComponent {
 
     component = GwconfirmDemoXComponent;
+
+    ngOnInit() {
+        alert('init ok');
+    }
 
     ok() {
         console.log('ok')

@@ -17,11 +17,12 @@ import {Component} from "@angular/core";
                         <li><a routerLink="/gwconfirm">gwconfirm</a></li>
                         <li><a routerLink="/gwpopselect">gwpopselect</a></li>
                         <li><a routerLink="/gwcontextmenu">gwcontextmenu</a></li>
+                        <li><a routerLink="/gwtabs">gwtabs</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="container" gw-contextmenu [menus]="[{text: 'Go', disabled: true}, {text: 'Back'}]">
+        <div class="container">
             <div class="row">
                 <div style="margin-top:50px;background-color:#cccccc;min-height:300px;">
                     <router-outlet></router-outlet>

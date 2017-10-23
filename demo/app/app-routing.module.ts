@@ -7,6 +7,7 @@ import {GwInputDemoComponent} from "./components/gwinput-demo.component";
 import {GwconfirmDemoComponent} from "./components/gwconfirm-demo.component";
 import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
 import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component";
+import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
 
 const routes: Routes = [
     {
@@ -36,6 +37,10 @@ const routes: Routes = [
     {
         path: 'gwcontextmenu',
         component: ContextMenuDemoComponent
+    },
+    {
+        path: 'gwtabs',
+        component: GwTabsDemoComponent
     }
 ];
 

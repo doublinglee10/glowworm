@@ -22,6 +22,8 @@ import {DatepickerModule} from "../../src/datepicker/datepicker.module";
 import {GWSingleSelectModule} from "../../src/singleselect/single-select.module";
 import {GWMultiSelectModule} from "../../src/multiselect/multi-select.module";
 import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
+import {GwTabsModule} from "../../src/tabs/tabs.module";
+import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
 
 @NgModule({
     declarations: [
@@ -33,7 +35,8 @@ import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
         GwconfirmDemoComponent,
         GwconfirmDemoXComponent,
         PopselectDemoComponent,
-        ContextMenuDemoComponent
+        ContextMenuDemoComponent,
+        GwTabsDemoComponent
     ],
     imports: [
         FormsModule,
@@ -49,7 +52,8 @@ import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
         GwConfirmModule,
         GwPopconfirmModule,
         GwPopinputModule,
-        GwPopselectModule
+        GwPopselectModule,
+        GwTabsModule
     ],
     bootstrap: [
         AppComponent

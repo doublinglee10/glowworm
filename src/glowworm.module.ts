@@ -13,6 +13,7 @@ import {GwPopinputModule} from "./popinput/popinput.module";
 import {GwConfirmModule} from "./confirm/confirm.module";
 import {GwPopselectModule} from "./popselect/popselect.module";
 import {GwContextMenuModule} from "./context-menu";
+import {GwTabsModule} from "./tabs/tabs.module";
 
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
@@ -28,7 +29,8 @@ let MODULES_FOR_ROOT = [
     GwPopinputModule,
     GwConfirmModule,
     GwPopselectModule,
-    GwContextMenuModule.forRoot()
+    GwContextMenuModule.forRoot(),
+    GwTabsModule
 ];
 
 let MODULES_FOR_CHILD = [

@@ -79,7 +79,18 @@ let dragulaId: number = 0;
 })
 export class GwTabsComponent implements AfterViewInit, OnDestroy {
 
+    /**
+     * 存储排序的key
+     */
+    @Input() storeKey: string;
+    /**
+     * 存储排序的模式 local --> localStorage  |  remote --> 服务器存储
+     */
+    @Input() storeType: 'local' | 'remote';
     @Input() position: 'top' | 'bottom' | 'left' | 'right' = 'top';
+    /**
+     * 是否启用排序
+     */
     @Input() sortable: boolean = false;
 
     @Output() onBeforeClose: EventEmitter<TabOrTabComponent> = new EventEmitter();
@@ -89,6 +100,10 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
     @Output() onAdd: EventEmitter<TabOrTabComponent> = new EventEmitter();
     @Output() onBeforeSort: EventEmitter<void> = new EventEmitter<void>();
     @Output() onSort: EventEmitter<void> = new EventEmitter<void>();
+    /**
+     * 当服务器存储排序时，每次tab排序发生变化时触发
+     */
+    @Output() onOrderChange: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(GwTabComponent)
     tabComponents: QueryList<GwTabComponent>;
@@ -197,6 +212,10 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
     getSelected(): TabOrTabComponent {
         let selected = this._tabs.filter(tab => tab.selected);
         return selected.length > 0 ? selected[0] : null;
+    }
+
+    sortTabs(orders: [{ tabId: any }]) {
+
     }
 
     /**

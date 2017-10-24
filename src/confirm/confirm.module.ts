@@ -1,7 +1,8 @@
-import {NgModule} from "@angular/core";
+import {ModuleWithProviders, NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {GwConfirmComponent} from "./confirm.component";
 import {GwConfirmDirective} from "./confirm.directive";
+import {GwConfirmService} from "./confirm.service";
 
 @NgModule({
     imports: [
@@ -19,4 +20,11 @@ import {GwConfirmDirective} from "./confirm.directive";
     ]
 })
 export class GwConfirmModule {
+
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: GwConfirmModule,
+            providers: [GwConfirmService]
+        };
+    }
 }

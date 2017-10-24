@@ -49,7 +49,7 @@ import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
         GWRangeInputModule,
         GWToolbarModule,
         GwContextMenuModule.forRoot(),
-        GwConfirmModule,
+        GwConfirmModule.forRoot(),
         GwPopconfirmModule,
         GwPopinputModule,
         GwPopselectModule,

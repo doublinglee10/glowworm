@@ -27,7 +27,7 @@ let MODULES_FOR_ROOT = [
     GWPopoverConfirmModule,
     GwPopconfirmModule,
     GwPopinputModule,
-    GwConfirmModule,
+    GwConfirmModule.forRoot(),
     GwPopselectModule,
     GwContextMenuModule.forRoot(),
     GwTabsModule

@@ -63,13 +63,13 @@ export class GwConfirmDirective implements OnDestroy {
             confirm.confirmText = this.confirmText;
             confirm.zIndex = this.zIndex;
             confirm.cancelText = this.cancelText;
-            confirm.onConfirm = this.onConfirm;
-            confirm.onCancel = this.onCancel;
             confirm.onConfirm.subscribe(() => {
                 this.ngOnDestroy();
+                this.onConfirm.emit();
             });
             confirm.onCancel.subscribe(() => {
                 this.ngOnDestroy();
+                this.onCancel.emit();
             });
         });
     }

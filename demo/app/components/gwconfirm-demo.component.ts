@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {GwConfirmService} from "../../../src/confirm/confirm.service";
 
 @Component({
     selector: 'gwconfirm-demo',
@@ -25,7 +26,7 @@ import {Component} from "@angular/core";
                 confirm with template content
             </button>
         </p>
-        
+
         <p>
             <button gw-confirm
                     [title]="'hello world'"
@@ -35,11 +36,18 @@ import {Component} from "@angular/core";
                 confirm with component content
             </button>
         </p>
+
+        <p>
+            <button (click)="openConfirm()">confirm with GwConfirmService</button>
+        </p>
     `
 })
 export class GwconfirmDemoComponent {
 
     component = GwconfirmDemoXComponent;
+
+    constructor(private service: GwConfirmService) {
+    }
 
     ngOnInit() {
         alert('init ok');
@@ -51,6 +59,19 @@ export class GwconfirmDemoComponent {
 
     cancel() {
         console.log('cancel')
+    }
+
+    openConfirm() {
+        this.service.show({
+            title: 'title with GwConfirmService',
+            content: 'content with GwConfirmService',
+            onConfirm: () => {
+                console.log('confirm');
+            },
+            onCancel: () => {
+                console.log('cancel');
+            }
+        });
     }
 }
 

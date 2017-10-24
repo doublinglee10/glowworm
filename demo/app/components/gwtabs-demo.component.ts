@@ -17,7 +17,7 @@ import {GwTab} from "../../../src/tabs/tab";
             <button class="btn btn-xs btn-primary" (click)="closeTab()">closeTab</button>
             <button class="btn btn-xs btn-primary" (click)="getSelected()">getSelected</button>
         </div>
-        <gw-tabs [sortable]="true">
+        <gw-tabs [sortable]="true" [storeKey]="'tabsdemo'" [storeType]="'local'">
             <gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">
                 use content input
             </gw-tab>
@@ -41,7 +41,7 @@ import {GwTab} from "../../../src/tabs/tab";
                     &lt;/ng-template&gt;
                 </ng-template>
             </gw-tab>
-            <gw-tab title="lazy load" [lazy]="true" [content]="component"></gw-tab>
+            <gw-tab title="lazy load" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>
         </gw-tabs>
     `
 })

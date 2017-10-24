@@ -43,6 +43,8 @@ export class Demo {
 |-------------------------|-------------------|--------------------|-----------------------------|
 |	position        	  |     string    	  |		top 		   |	标签选项卡位置 'top' ,'bottom', 'left', 'right'			|
 |	sortable        	  |     boolean    	  |		false 		   |	标签选项卡是否可以排序			|
+|	storeKey        	  |     string    	  |		''     		   |	存储排序的key			|
+|	storeType        	  |'local' \| 'remote'|		''     		   |	存储排序的模式 local --> localStorage  \|  remote --> 服务器存储			|
 
 
 #### gw-tab
@@ -51,7 +53,7 @@ export class Demo {
 |-------------------------|-------------------|--------------------|-----------------------------|
 |	tabId	     		  |     string   	  |		插入的顺序   	   |	tab页在tabset的唯一标示			 |
 |	title     		 	  |     string   	  |		''			   |	tab标签头					   |
-|	content		    	  | string \| template \| component    	  |		''			   |	tab标签体		      	  |
+|	content		    	  | string \| template \| component | ''   |	tab标签体		      	  |
 |	lazy	     		  |     boolean   	  |		false	   	   |	是否延迟初始化				 |
 |	disabled     		  |     boolean   	  |		false	   	   |	是否禁用				 |
 |	closable    		  |     boolean   	  |		false   	   |	tab页是否可以关闭,默认不可以关闭			 |
@@ -69,6 +71,7 @@ export class Demo {
 |	onBeforeSort	      |     tab对象   	  |		tab页排序前触发     	  |
 |	onSort  	          |     tab对象   	  |		tab页排序后触发     	  |
 |	onAdd   	          |     tab对象   	  |		tab页添加后触发     	  |
+|	onOrderChange         | { tabId: any }[]  |		每次tab排序发生变化时触发     	  |
 
 
 #### gw-tabs方法

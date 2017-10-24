@@ -88,6 +88,7 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
      */
     @Input() storeType: 'local' | 'remote';
     @Input() position: 'top' | 'bottom' | 'left' | 'right' = 'top';
+
     /**
      * 是否启用排序
      */
@@ -101,15 +102,16 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
     @Output() onBeforeSort: EventEmitter<void> = new EventEmitter<void>();
     @Output() onSort: EventEmitter<void> = new EventEmitter<void>();
     /**
-     * 当服务器存储排序时，每次tab排序发生变化时触发
+     * 每次tab排序发生变化时触发
      */
-    @Output() onOrderChange: EventEmitter<any> = new EventEmitter();
+    @Output() onOrderChange: EventEmitter<{ tabId: any }[]> = new EventEmitter();
 
     @ContentChildren(GwTabComponent)
     tabComponents: QueryList<GwTabComponent>;
 
     _tabs: TabOrTabComponent[] = [];
     _dragula_key = `gwtabs_${++dragulaId}`;
+    _store_prefix = 'gwtabs_';
 
     constructor(private dragulaService: DragulaService) {
         dragulaService.drag.subscribe((value) => {
@@ -117,6 +119,7 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
         });
         dragulaService.drop.subscribe((value) => {
             this.onSort.emit();
+            this._onOrderChangeEvent();
         });
     }
 
@@ -139,8 +142,19 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
                 }
             });
         }
+
+        if (this.storeKey && this.storeType == 'local' && window.localStorage) {
+            let json = window.localStorage.getItem(`${this._store_prefix}${this.storeKey}`);
+            if (json) {
+                let arr = JSON.parse(json);
+                this.sortTabs(arr);
+            }
+        }
     }
 
+    /**
+     * 添加tab页
+     */
     addTab(tab: TabOrTabComponent) {
         if (tab.selected) {
             this._tabs.forEach(tab => {
@@ -157,8 +171,13 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
             this._tabs.push(tab);
             this.onAdd.emit(tab);
         }
+
+        this._onOrderChangeEvent();
     }
 
+    /**
+     * 插入tab页
+     */
     insertTab(index: number, tab: TabOrTabComponent) {
         if (tab.selected) {
             this._tabs.forEach(tab => {
@@ -175,8 +194,13 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
             this._tabs.splice(index, 0, tab);
             this.onAdd.emit(tab);
         }
+
+        this._onOrderChangeEvent();
     }
 
+    /**
+     * 禁用tab页
+     */
     disabledTab(tabId: any) {
         this._tabs.forEach(tab => {
             if (tab.tabId == tabId) {
@@ -185,6 +209,9 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
         });
     }
 
+    /**
+     * 启用tab页
+     */
     enabledTab(tabId: any) {
         this._tabs.forEach(tab => {
             if (tab.tabId == tabId) {
@@ -193,6 +220,9 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
         });
     }
 
+    /**
+     * 选中tab页
+     */
     selectTab(tabId: any) {
         this._tabs.forEach(tab => {
             if (tab.tabId == tabId) {
@@ -201,21 +231,46 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
         });
     }
 
+    /**
+     * 关闭tab页
+     */
     closeTab(tabId: any) {
         this._tabs.forEach(tab => {
             if (tab.tabId == tabId) {
                 this._closeTab(tab);
             }
         });
+
+        this._onOrderChangeEvent();
     }
 
+    /**
+     * 获取当前选中的tab页
+     */
     getSelected(): TabOrTabComponent {
         let selected = this._tabs.filter(tab => tab.selected);
         return selected.length > 0 ? selected[0] : null;
     }
 
-    sortTabs(orders: [{ tabId: any }]) {
+    /**
+     * 为tab页排序
+     */
+    sortTabs(orders: { tabId: any }[]) {
+        if (orders.length != this._tabs.length) return;
 
+        let dist = [];
+        orders.forEach((_tab) => {
+            for (let i = 0; i < this._tabs.length; i++) {
+                let tab = this._tabs[i];
+                if (_tab.tabId == tab.tabId) {
+                    dist.push(tab);
+                    break;
+                }
+            }
+        });
+
+        if (dist.length != this._tabs.length) return;
+        this._tabs = dist;
     }
 
     /**
@@ -266,6 +321,25 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    /**
+     * @inner
+     */
+    _onOrderChangeEvent() {
+        let tabIds = this._tabs.map(tab => {
+            return {tabId: tab.tabId};
+        });
+
+        if (this.storeKey && this.storeType == 'local' && window.localStorage) {
+            let json = JSON.stringify(tabIds);
+            window.localStorage.setItem(`${this._store_prefix}${this.storeKey}`, json);
+        }
+
+        this.onOrderChange.emit(tabIds);
+    }
+
+    /**
+     * @inner
+     */
     ngOnDestroy() {
         this.dragulaService.destroy(this._dragula_key);
     }

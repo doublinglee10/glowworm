@@ -13,6 +13,8 @@ import {DragulaService} from "ng2-dragula";
 import {GwTabComponent} from "./tab.component";
 import {GwTab} from "./tab";
 import {typeofTemplateInput} from "../utils/template-input";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/first";
 
 export type TabOrTabComponent = GwTab | GwTabComponent;
 
@@ -36,7 +38,7 @@ let dragulaId: number = 0;
                             <ng-container *ngIf="_typeofContent(tab.title) === 'component'">
                                 <ng-container *ngComponentOutlet="tab.title"></ng-container>
                             </ng-container>
-                            <span *ngIf="tab.closable" (click)="_closeTab(tab)"
+                            <span *ngIf="tab.closable" (click)="_closeTab(tab, $event)"
                                   class="glyphicon glyphicon-remove-circle">
                             </span>
                         </a>
@@ -94,12 +96,15 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
      */
     @Input() sortable: boolean = false;
 
-    @Output() onBeforeClose: EventEmitter<TabOrTabComponent> = new EventEmitter();
+    /**
+     * 关闭前触发的事件
+     */
+    @Input() onClosing: (tab: TabOrTabComponent) => Observable<boolean>;
+
     @Output() onClose: EventEmitter<TabOrTabComponent> = new EventEmitter();
     @Output() onSelect: EventEmitter<TabOrTabComponent> = new EventEmitter();
     @Output() onUnSelect: EventEmitter<TabOrTabComponent> = new EventEmitter();
     @Output() onAdd: EventEmitter<TabOrTabComponent> = new EventEmitter();
-    @Output() onBeforeSort: EventEmitter<void> = new EventEmitter<void>();
     @Output() onSort: EventEmitter<void> = new EventEmitter<void>();
     /**
      * 每次tab排序发生变化时触发
@@ -114,9 +119,6 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
     _store_prefix = 'gwtabs_';
 
     constructor(private dragulaService: DragulaService) {
-        dragulaService.drag.subscribe((value) => {
-            this.onBeforeSort.emit();
-        });
         dragulaService.drop.subscribe((value) => {
             this.onSort.emit();
             this._onOrderChangeEvent();
@@ -300,24 +302,35 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
     /**
      * @inner
      */
-    _closeTab(tab: TabOrTabComponent) {
+    _closeTab(tab: TabOrTabComponent, event?: Event) {
+        event && event.stopPropagation();
         let indexOf = this._tabs.indexOf(tab);
         if (tab.selected) {
-            this.onUnSelect.emit(tab);
-            this.onBeforeClose.emit(tab);
-            this._tabs.splice(indexOf, 1);
-            this.onClose.emit(tab);
+            const subscribeFn = (closed: boolean) => {
+                if (closed) {
+                    this._tabs.splice(indexOf, 1);
+                    this.onClose.emit(tab);
 
-            let filtered = this._tabs.filter(tab => !tab.disabled);
-            if (filtered.length > 0) {
-                let firstTab = filtered[0];
-                firstTab.selected = true;
-                this.onSelect.emit(firstTab);
-            }
+                    let filtered = this._tabs.filter(tab => !tab.disabled);
+                    if (filtered.length > 0) {
+                        let firstTab = filtered[0];
+                        firstTab.selected = true;
+                        this.onSelect.emit(firstTab);
+                    }
+                }
+            };
+
+            this.onUnSelect.emit(tab);
+            this.onClosing ? this.onClosing(tab).first().subscribe(subscribeFn) : subscribeFn(true);
         } else {
-            this.onBeforeClose.emit(tab);
-            this._tabs.splice(indexOf, 1);
-            this.onClose.emit(tab);
+            const subscribeFn = (closed: boolean) => {
+                if (closed) {
+                    this._tabs.splice(indexOf, 1);
+                    this.onClose.emit(tab);
+                }
+            };
+
+            this.onClosing ? this.onClosing(tab).first().subscribe(subscribeFn) : subscribeFn(true);
         }
     }
 

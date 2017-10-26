@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {GwconfirmDemoComponent} from "./gwconfirm-demo.component";
 import {GwTabsComponent} from "../../../src/tabs/tabs.component";
 import {GwTab} from "../../../src/tabs/tab";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/observable/of";
 
 @Component({
     selector: 'gwtabs-demo',
@@ -17,7 +19,10 @@ import {GwTab} from "../../../src/tabs/tab";
             <button class="btn btn-xs btn-primary" (click)="closeTab()">closeTab</button>
             <button class="btn btn-xs btn-primary" (click)="getSelected()">getSelected</button>
         </div>
-        <gw-tabs [sortable]="true" [storeKey]="'tabsdemo'" [storeType]="'local'">
+        <gw-tabs [sortable]="true"
+                 [storeKey]="'tabsdemo'"
+                 [storeType]="'local'"
+                 [onClosing]="onClosing">
             <gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">
                 use content input
             </gw-tab>
@@ -88,5 +93,10 @@ export class GwTabsDemoComponent implements OnInit {
 
     disabledTab() {
         this.tabs.disabledTab(this.tabId);
+    }
+
+    onClosing(tab): Observable<boolean> {
+        const confirm = window.confirm('Do you really want to remove this tag?');
+        return Observable.of(confirm);
     }
 }

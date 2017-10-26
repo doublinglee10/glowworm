@@ -58,6 +58,7 @@ export class Demo {
 |	disabled     		  |     boolean   	  |		false	   	   |	是否禁用				 |
 |	closable    		  |     boolean   	  |		false   	   |	tab页是否可以关闭,默认不可以关闭			 |
 |	selected    		  |     boolean   	  |		false   	   |	默认是否选中tab页			 |
+|	onClosing    		  | (tab) => Observable<boolean> |		null   	   |	关闭中，返回true将关闭tab页，返回false将取消关闭	 |
 
 
 #### gw-tabs事件
@@ -66,9 +67,7 @@ export class Demo {
 |-------------------------|-------------------|-----------------------------------------|
 |	onSelect     		  |     tab对象   	  |		tab页被选中时触发					   |
 |	onUnselect		      |     tab对象   	  |		tab页取消选中时触发     	  |
-|	onBeforeClose	      |     tab对象   	  |		tab页关闭前触发     	  |
 |	onClose 		      |     tab对象   	  |		tab页关闭后触发     	  |
-|	onBeforeSort	      |     tab对象   	  |		tab页排序前触发     	  |
 |	onSort  	          |     tab对象   	  |		tab页排序后触发     	  |
 |	onAdd   	          |     tab对象   	  |		tab页添加后触发     	  |
 |	onOrderChange         | { tabId: any }[]  |		每次tab排序发生变化时触发     	  |
@@ -85,3 +84,4 @@ export class Demo {
 |	selectTab             |   tabId           |		 根据tabId选中tab页  |
 |	closeTab              |   tabId           |		 根据tabId关闭tab页				   |
 |	getSelected           |                   |		 获取当前选中的tab页  |
+|	sortTabs              |   { tabId: any }[]  |		 为tab页排序，排序时要求每个tab页必须有tabId，根据tabId排序  |

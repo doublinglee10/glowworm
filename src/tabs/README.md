@@ -5,15 +5,15 @@
 <gw-tabs [vertical]="'bottom'" (onAdd)="" (onClose)="" (onSelect)="" (onUnselect)="" (onBeforeSort)="" (onSort)="">
     <gw-tab [title]="'首页'" [content]="'首页内容'"></gw-tab>
     <gw-tab [title]="'第二页标题'" [closable]="true">
-        <ng-template #gwTabContent>
+        <ng-template #content>
             第二页内容
         </ng-template>
     </gw-tab>
     <gw-tab [disabled]="true">
-        <ng-template #gwTabTitle>
+        <ng-template #title>
             第三页标题
         </ng-template>
-        <ng-template #gwTabContent>
+        <ng-template #content>
             第三页内容
         </ng-template>
     </gw-tab>
@@ -59,6 +59,8 @@ export class Demo {
 |	closable    		  |     boolean   	  |		false   	   |	tab页是否可以关闭,默认不可以关闭			 |
 |	selected    		  |     boolean   	  |		false   	   |	默认是否选中tab页			 |
 |	onClosing    		  | (tab) => Observable<boolean> |		null   	   |	关闭中，返回true将关闭tab页，返回false将取消关闭	 |
+|	#title      		  |     ng-template	  |		           	   |	标题标识		 |
+|	#content       		  |     ng-template	  |		           	   |	内容标识			 |
 
 
 #### gw-tabs事件

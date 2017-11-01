@@ -42,7 +42,6 @@ let MODULES_FOR_CHILD = [
     GWInputModule,
     GWRangeInputModule,
     GWToolbarModule,
-    GWToolbarModule,
     DatepickerModule,
     GWPopoverModule,
     GWPopoverConfirmModule,
@@ -51,6 +50,7 @@ let MODULES_FOR_CHILD = [
     GwConfirmModule,
     GwPopselectModule,
     GwContextMenuModule,
+    GwTabsModule,
     GwPannelModule
 ];
 

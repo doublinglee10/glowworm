@@ -40,10 +40,13 @@ export class GwPanelDemoComponent {
 
 |	属性名				  |	 属性值类型 		  | 	   默认值 	   |		描述 					|
 |-------------------------|-------------------|--------------------|-----------------------------|
-|	title     		 	  |     string   	  |		''			   |	panel标签头					   |
+|	gwClass    		 	  |     string        |		box-primary	   |	panel class				   |
+|	title     		 	  | string \| template|		''			   |	panel标签头部					   |
 |	content		    	  | string \| template \| component | ''   |	panel标签体		      	  |
-|	lazy	     		  |     boolean   	  |		false	   	   |	是否延迟初始化				 |
+|	footer		    	  | string \| template \| component | ''   |	panel标签底部		      	  |
+|	lazy	     		  |     boolean   	  |		false	   	   |	是否延迟初始化,如果是延迟初始化的，则body默认是折叠的	 |
 |	closable    		  |     boolean   	  |		false   	   |	tab页是否可以关闭,默认不可以关闭			 |
+|	collapsed    		  |     boolean   	  |		false   	   |	tab页默认是否折叠			 |
 |	#title      		  |     ng-template	  |		           	   |	标题标识		 |
 |	#content       		  |     ng-template	  |		           	   |	内容标识			 |
 |	#footer     		  |     ng-template	  |		           	   |	底部标识			 |

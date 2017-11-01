@@ -24,6 +24,8 @@ import {GWMultiSelectModule} from "../../src/multiselect/multi-select.module";
 import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
 import {GwTabsModule} from "../../src/tabs/tabs.module";
 import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
+import {GwPanelDemoComponent} from "./components/gwpannel-demo.component";
+import {GwPannelModule} from "../../src/panel/panel.module";
 
 @NgModule({
     declarations: [
@@ -36,7 +38,8 @@ import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
         GwconfirmDemoXComponent,
         PopselectDemoComponent,
         ContextMenuDemoComponent,
-        GwTabsDemoComponent
+        GwTabsDemoComponent,
+        GwPanelDemoComponent
     ],
     imports: [
         FormsModule,
@@ -53,7 +56,8 @@ import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
         GwPopconfirmModule,
         GwPopinputModule,
         GwPopselectModule,
-        GwTabsModule
+        GwTabsModule,
+        GwPannelModule
     ],
     bootstrap: [
         AppComponent

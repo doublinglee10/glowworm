@@ -4,3 +4,5 @@ export * from './popover';
 export * from './input';
 export * from './singleselect';
 export * from './multiselect';
+export * from './tabs';
+export * from './panel';

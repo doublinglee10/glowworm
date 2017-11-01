@@ -14,6 +14,7 @@ import {GwConfirmModule} from "./confirm/confirm.module";
 import {GwPopselectModule} from "./popselect/popselect.module";
 import {GwContextMenuModule} from "./context-menu";
 import {GwTabsModule} from "./tabs/tabs.module";
+import {GwPannelModule} from "./panel/panel.module";
 
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
@@ -30,7 +31,8 @@ let MODULES_FOR_ROOT = [
     GwConfirmModule.forRoot(),
     GwPopselectModule,
     GwContextMenuModule.forRoot(),
-    GwTabsModule
+    GwTabsModule,
+    GwPannelModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -48,7 +50,8 @@ let MODULES_FOR_CHILD = [
     GwPopinputModule,
     GwConfirmModule,
     GwPopselectModule,
-    GwContextMenuModule
+    GwContextMenuModule,
+    GwPannelModule
 ];
 
 @NgModule({

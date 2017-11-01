@@ -31,17 +31,17 @@ import "rxjs/add/observable/of";
                     [tabId]="'tab2'">
             </gw-tab>
             <gw-tab [closable]="true" [tabId]="'tab3'">
-                <ng-template #gwTabTitle>
+                <ng-template #title>
                     title 3
                 </ng-template>
-                <ng-template #gwTabContent>
-                    use &lt;ng-template #gwTabTitle&gt;
+                <ng-template #content>
+                    use &lt;ng-template #title&gt;
                     title 3
                     &lt;/ng-template&gt;
 
                     <br>
 
-                    use &lt;ng-template #gwTabContent&gt;
+                    use &lt;ng-template #content&gt;
                     title 3
                     &lt;/ng-template&gt;
                 </ng-template>

@@ -22,8 +22,8 @@ export class GwTabComponent implements OnInit {
     @Input() closable: boolean;
     @Input() selected: boolean;
 
-    @ContentChild('gwTabTitle') _title: TemplateRef<any>;
-    @ContentChild('gwTabContent') _content: TemplateRef<any>;
+    @ContentChild('title') _title: TemplateRef<any>;
+    @ContentChild('content') _content: TemplateRef<any>;
 
     ngOnInit() {
         this.title = this.title || this._title;

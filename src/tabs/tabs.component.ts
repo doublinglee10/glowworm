@@ -354,6 +354,8 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
      * @inner
      */
     ngOnDestroy() {
-        this.dragulaService.destroy(this._dragula_key);
+        if (this.sortable) {
+            this.dragulaService.destroy(this._dragula_key);
+        }
     }
 }

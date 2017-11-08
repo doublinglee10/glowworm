@@ -47,6 +47,11 @@ import "rxjs/add/observable/of";
                 </ng-template>
             </gw-tab>
             <gw-tab title="lazy load" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>
+
+            <ng-template #extra>
+                <a class="text-muted"><i class="fa fa-gear"></i></a>
+            </ng-template>
+
         </gw-tabs>
     `
 })

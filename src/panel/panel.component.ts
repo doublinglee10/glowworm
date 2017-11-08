@@ -1,5 +1,16 @@
-import {Component, ContentChild, Input, OnInit, TemplateRef, Type, ViewEncapsulation} from "@angular/core";
+import {
+    Component,
+    ContentChild,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    Type,
+    ViewEncapsulation
+} from "@angular/core";
 import {typeofTemplateInput} from "../utils/template-input";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'gw-panel',
@@ -11,10 +22,13 @@ import {typeofTemplateInput} from "../utils/template-input";
                 <ng-template #panel_header>
                     <h3 class="box-title">{{title}}</h3>
                     <div class="box-tools pull-right">
+                        <ng-container *ngIf="extra">
+                            <ng-template [ngTemplateOutlet]="extra"></ng-template>
+                        </ng-container>
                         <button *ngIf="toggle" class="btn btn-box-tool" (click)="togglePanel()">
                             <i class="fa" [ngClass]="{'fa-minus': !collapsed, 'fa-plus': collapsed}"></i>
                         </button>
-                        <button *ngIf="closable" class="btn btn-box-tool" (click)="removePanel()">
+                        <button *ngIf="closable" class="btn btn-box-tool" (click)="closePanel()">
                             <i class="fa fa-times"></i>
                         </button>
                     </div>
@@ -60,6 +74,7 @@ export class GwPanelComponent implements OnInit {
     @Input() toggle: boolean = true;
     @Input() closable: boolean;
     @Input() collapsed: boolean;
+    @Input() extra: TemplateRef<any>;
 
     /** @Input() */
     lazy: boolean;
@@ -70,11 +85,19 @@ export class GwPanelComponent implements OnInit {
     @ContentChild('title') _title: TemplateRef<any>;
     @ContentChild('content') _content: TemplateRef<any>;
     @ContentChild('footer') _footer: TemplateRef<any>;
+    @ContentChild('extra') _extra: TemplateRef<any>;
+
+    /**
+     * 关闭前触发的事件
+     */
+    @Input() onClosing: () => Observable<boolean>;
+    @Output() onClose: EventEmitter<void> = new EventEmitter<void>();
 
     ngOnInit() {
         this.title = this.title || this._title;
         this.content = this.content || this._content;
         this.footer = this.footer || this._footer;
+        this.extra = this.extra || this._extra;
     }
 
     @Input('lazy') set _lazy(lazy: boolean) {
@@ -89,8 +112,15 @@ export class GwPanelComponent implements OnInit {
         this.isFirst = false;
     }
 
-    removePanel() {
-        this.display = false;
+    closePanel() {
+        const subscribeFn = (closed: boolean) => {
+            if (closed) {
+                this.display = false;
+                this.onClose.emit();
+            }
+        };
+
+        this.onClosing ? this.onClosing().first().subscribe(subscribeFn) : subscribeFn(true);
     }
 
     /**

@@ -1,14 +1,22 @@
-import {Component, ContentChild, Input, OnInit, TemplateRef, Type, ViewEncapsulation} from "@angular/core";
+import {Component} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'gwpanel-demo',
     template: `
-        <gw-panel [title]="'this is a title'" [content]="'this is a content'" [lazy]="true" [closable]="true"
+        <gw-panel [title]="'this is a title'" [content]="'this is a content'"
+                  [lazy]="true"
+                  [closable]="true"
+                  [onClosing]="onClosing"
                   [gwClass]="'box-warning'">
-
+            <ng-template #extra>
+                <button class="btn btn-box-tool">
+                    <i class="fa fa-gear"></i>
+                </button>
+            </ng-template>
         </gw-panel>
 
-        <gw-panel [lazy]="true">
+        <gw-panel [lazy]="false">
             <ng-template #title>
                 Panel 标题
             </ng-template>
@@ -23,4 +31,8 @@ import {Component, ContentChild, Input, OnInit, TemplateRef, Type, ViewEncapsula
 })
 export class GwPanelDemoComponent {
 
+    onClosing(): Observable<boolean> {
+        const confirm = window.confirm('Do you really want to remove this tag?');
+        return Observable.of(confirm);
+    }
 }

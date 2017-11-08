@@ -1,12 +1,15 @@
 import {
     AfterViewInit,
     Component,
+    ContentChild,
     ContentChildren,
     EventEmitter,
     Input,
     OnDestroy,
+    OnInit,
     Output,
     QueryList,
+    TemplateRef,
     ViewEncapsulation
 } from "@angular/core";
 import {DragulaService} from "ng2-dragula";
@@ -44,6 +47,9 @@ let dragulaId: number = 0;
                         </a>
                     </li>
                 </ng-container>
+                <li class="pull-right" *ngIf="extra">
+                    <ng-template [ngTemplateOutlet]="extra"></ng-template>
+                </li>
             </ng-template>
             <ng-container *ngIf="sortable">
                 <ul class="nav nav-tabs"
@@ -79,7 +85,7 @@ let dragulaId: number = 0;
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../styles/glowworm.css', './tabs.css'],
 })
-export class GwTabsComponent implements AfterViewInit, OnDestroy {
+export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     /**
      * 存储排序的key
@@ -111,6 +117,9 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
      */
     @Output() onOrderChange: EventEmitter<{ tabId: any }[]> = new EventEmitter();
 
+    @Input() extra: TemplateRef<any>;
+    @ContentChild('extra') _extra: TemplateRef<any>;
+
     @ContentChildren(GwTabComponent)
     tabComponents: QueryList<GwTabComponent>;
 
@@ -123,6 +132,10 @@ export class GwTabsComponent implements AfterViewInit, OnDestroy {
             this.onSort.emit();
             this._onOrderChangeEvent();
         });
+    }
+
+    ngOnInit() {
+        this.extra = this.extra || this._extra;
     }
 
     ngAfterViewInit(): void {

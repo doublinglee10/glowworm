@@ -19,6 +19,7 @@ import {Component} from "@angular/core";
                         <li><a routerLink="/gwcontextmenu">gwcontextmenu</a></li>
                         <li><a routerLink="/gwtabs">gwtabs</a></li>
                         <li><a routerLink="/gwpannel">gwpannel</a></li>
+                        <li><a routerLink="/gwSwitch">gwSwitch</a></li>
                     </ul>
                 </div>
             </div>

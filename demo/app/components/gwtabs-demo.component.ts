@@ -23,30 +23,30 @@ import "rxjs/add/observable/of";
                  [storeKey]="'tabsdemo'"
                  [storeType]="'local'"
                  [onClosing]="onClosing">
-            <!--<gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">-->
-                <!--use content input-->
-            <!--</gw-tab>-->
-            <!--<gw-tab title="this is a title 2" content="this is a disabled tab"-->
-                    <!--[disabled]="true"-->
-                    <!--[tabId]="'tab2'">-->
-            <!--</gw-tab>-->
-            <!--<gw-tab [closable]="true" [tabId]="'tab3'">-->
-                <!--<ng-template #title>-->
-                    <!--title 3-->
-                <!--</ng-template>-->
-                <!--<ng-template #content>-->
-                    <!--use &lt;ng-template #title&gt;-->
-                    <!--title 3-->
-                    <!--&lt;/ng-template&gt;-->
+            <gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">
+                use content input
+            </gw-tab>
+            <gw-tab title="this is a title 2" content="this is a disabled tab"
+                    [disabled]="true"
+                    [tabId]="'tab2'">
+            </gw-tab>
+            <gw-tab [closable]="true" [tabId]="'tab3'">
+                <ng-template #title>
+                    title 3
+                </ng-template>
+                <ng-template #content>
+                    use &lt;ng-template #title&gt;
+                    title 3
+                    &lt;/ng-template&gt;
 
-                    <!--<br>-->
+                    <br>
 
-                    <!--use &lt;ng-template #content&gt;-->
-                    <!--title 3-->
-                    <!--&lt;/ng-template&gt;-->
-                <!--</ng-template>-->
-            <!--</gw-tab>-->
-            <!--<gw-tab title="lazy load" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>-->
+                    use &lt;ng-template #content&gt;
+                    title 3
+                    &lt;/ng-template&gt;
+                </ng-template>
+            </gw-tab>
+            <gw-tab title="lazy load" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>
 
             <ng-template #extra>
                 <a class="text-muted"><i class="fa fa-gear"></i></a>

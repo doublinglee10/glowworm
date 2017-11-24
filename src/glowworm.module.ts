@@ -15,6 +15,8 @@ import {GwPopselectModule} from "./popselect/popselect.module";
 import {GwContextMenuModule} from "./context-menu";
 import {GwTabsModule} from "./tabs/tabs.module";
 import {GwSwitchModule} from "./switch/gw-switch.module"
+import {GwPannelModule} from "./panel/panel.module";
+
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
     GWSingleSelectModule,
@@ -31,7 +33,8 @@ let MODULES_FOR_ROOT = [
     GwPopselectModule,
     GwContextMenuModule.forRoot(),
     GwTabsModule,
-    GwSwitchModule
+    GwSwitchModule,
+    GwPannelModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -41,7 +44,6 @@ let MODULES_FOR_CHILD = [
     GWInputModule,
     GWRangeInputModule,
     GWToolbarModule,
-    GWToolbarModule,
     DatepickerModule,
     GWPopoverModule,
     GWPopoverConfirmModule,
@@ -49,7 +51,10 @@ let MODULES_FOR_CHILD = [
     GwPopinputModule,
     GwConfirmModule,
     GwPopselectModule,
-    GwContextMenuModule
+    GwContextMenuModule,
+    GwTabsModule,
+    GwPannelModule,
+    GwSwitchModule
 ];
 
 @NgModule({

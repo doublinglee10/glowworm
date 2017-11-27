@@ -1,0 +1,127 @@
+.gw-switch {
+    height: 22px;
+    min-width: 44px;
+    position: relative;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.25);
+    outline: none;
+}
+.gw-switch .gw-switch-inner {
+    color: #fff;
+    font-size: 10px;
+    display: block;
+    margin-left: 24px;
+    margin-right: 6px;
+    line-height: 20px;
+}
+.gw-switch:after {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 1px;
+    top: 1px;
+    border-radius: 18px;
+    background-color: #fff;
+    content: ' ';
+    cursor: pointer;
+    transition: all 0.36s linear;
+}
+.gw-switch:active:after {
+    width: 24px;
+}
+.gw-switch:focus {
+    box-shadow: 0 0 0 2px rgba(16, 144, 233, 0.25);
+}
+.gw-switch:focus:hover {
+    box-shadow: none;
+}
+.gw-switch.gw-switch-checked {
+    background-color: #108ee9;
+}
+.gw-switch.gw-switch-checked .gw-switch-inner {
+    margin-left: 6px;
+    margin-right: 24px;
+}
+.gw-switch.gw-switch-checked:after {
+    left: 100%;
+    margin-left: -20px;
+}
+.gw-switch.gw-switch-checked:active:after {
+    margin-left: -25px;
+}
+.gw-switch.gw-switch-disabled {
+    cursor: not-allowed;
+    background-color: #999;
+}
+.gw-switch.gw-switch-disabled:after {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.gw-switch.gw-switch-disabled .gw-switch-inner {
+    color: rgba(0, 0, 0, 0.25);
+}
+.gw-switch.gw-switch-lg {
+    height: 32px;
+    min-width: 64px;
+    border-radius: 30px;
+}
+.gw-switch.gw-switch-lg .gw-switch-inner {
+    font-size: 14px;
+    line-height: 30px;
+    margin-right: 12px;
+    margin-left: 32px;
+}
+.gw-switch.gw-switch-lg:after {
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+}
+.gw-switch.gw-switch-lg.gw-switch-checked .gw-switch-inner {
+    margin-left: 12px;
+    margin-right: 32px;
+}
+.gw-switch.gw-switch-lg.gw-switch-checked:after {
+    margin-left: -28px;
+}
+.gw-switch.gw-switch-danger:focus {
+    box-shadow: 0 0 0 2px rgba(201, 48, 44, 0.25);
+}
+.gw-switch.gw-switch-danger.gw-switch-checked {
+    background-color: #c9302c;
+}
+.gw-switch.gw-switch-danger.gw-switch-checked.gw-switch-disabled {
+    background-color: #999;
+}
+.gw-switch.gw-switch-info:focus {
+    box-shadow: 0 0 0 2px rgba(49, 176, 213, 0.25);
+}
+.gw-switch.gw-switch-info.gw-switch-checked {
+    background-color: #31b0d5;
+}
+.gw-switch.gw-switch-info.gw-switch-checked.gw-switch-disabled {
+    background-color: #999;
+}
+.gw-switch.gw-switch-warning:focus {
+    box-shadow: 0 0 0 2px rgba(236, 151, 31, 0.25);
+}
+.gw-switch.gw-switch-warning.gw-switch-checked {
+    background-color: #ec971f;
+}
+.gw-switch.gw-switch-warning.gw-switch-checked.gw-switch-disabled {
+    background-color: #999;
+}
+.gw-switch.gw-switch-primary.gw-switch-disabled {
+    background-color: #999;
+}
+.gw-switch.gw-switch-primary.gw-switch-checked {
+    background-color: #337ab7;
+}
+.gw-switch.gw-switch-primary.gw-switch-checked.gw-switch-disabled {
+    background-color: #999;
+}

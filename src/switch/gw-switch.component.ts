@@ -1,10 +1,9 @@
-import {Component,OnInit,Input,HostListener,forwardRef,ViewEncapsulation} from "@angular/core"
+import {Component,OnInit,Input,HostListener,forwardRef} from "@angular/core"
 
 import {ControlValueAccessor,NG_VALUE_ACCESSOR} from "@angular/forms"
 
 @Component({
     selector:'gw-switch',
-    encapsulation:ViewEncapsulation.None,
     template:`
         <span [ngClass]="_classMap" tabindex="0">
             <span class="gw-switch-inner">
@@ -17,7 +16,7 @@ import {ControlValueAccessor,NG_VALUE_ACCESSOR} from "@angular/forms"
             </span>
         </span>
     `,
-    styleUrls:['./gw-switch.component.scss'],
+    styleUrls:['./gw-switch.component.css'],
     providers:[
         {
             provide:NG_VALUE_ACCESSOR,

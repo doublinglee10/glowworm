@@ -6,3 +6,4 @@ export * from './singleselect';
 export * from './multiselect';
 export * from './tabs';
 export * from './panel';
+ export * from './switch/gw-switch.module';

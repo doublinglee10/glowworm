@@ -1,19 +1,31 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit, ViewChild,ReflectiveInjector,Injector} from "@angular/core";
 import {GwconfirmDemoComponent} from "./gwconfirm-demo.component";
 import {GwTabsComponent} from "../../../src/tabs/tabs.component";
 import {GwTab} from "../../../src/tabs/tab";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/of";
 
+
+@Component({
+    selector:'test',
+    template:`this is a test complate`
+})
+export class TestComponent{
+    constructor( injector: Injector){
+        console.log('TestComponent',injector.get('invalidToken'));
+    }
+}
+
 @Component({
     selector: 'gwtabs-demo',
     template: `
         <h1>Gw tabs</h1>
         <div class="row">
-            <input type="text" [(ngModel)]="tabId">
+            <input type="text" [(ngModel)]="tabId"> 
             <button class="btn btn-xs btn-primary" (click)="addTab()">addTab</button>
+            <button class="btn btn-xs btn-primary" (click)="addComPonentTab()">addComPonentTab</button>
             <button class="btn btn-xs btn-primary" (click)="insertTab()">insertTab</button>
-            <button class="btn btn-xs btn-primary" (click)="disabledTab()">disabledTab</button>
+            <button class="btn btn-xs btn-primary" (click)="disabledTab()">disabledTab</button> 
             <button class="btn btn-xs btn-primary" (click)="enabledTab()">enabledTab</button>
             <button class="btn btn-xs btn-primary" (click)="selectTab()">selectTab</button>
             <button class="btn btn-xs btn-primary" (click)="closeTab()">closeTab</button>
@@ -22,6 +34,7 @@ import "rxjs/add/observable/of";
         <gw-tabs [sortable]="true"
                  [storeKey]="'tabsdemo'"
                  [storeType]="'local'"
+                 (onSelect)="selectThisTab($event)" 
                  [onClosing]="onClosing">
             <gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">
                 use content input
@@ -63,6 +76,10 @@ export class GwTabsDemoComponent implements OnInit {
 
     @ViewChild(GwTabsComponent) tabs: GwTabsComponent;
 
+    constructor(private injector:Injector){
+
+    }
+
     ngOnInit(): void {
     }
 
@@ -70,6 +87,14 @@ export class GwTabsDemoComponent implements OnInit {
         this.tabs.addTab(new GwTab({
             title: 'dynamic tab title',
             content: 'dynamic tab content'
+        }));
+    }
+
+    addComPonentTab() {
+        this.tabs.addTab(new GwTab({
+            title: '标题组件',
+            content:TestComponent,
+            injector: ReflectiveInjector.resolveAndCreate([{provide: 'invalidToken', useValue: 'Value'+new Date().getTime()}],this.injector)
         }));
     }
 
@@ -104,4 +129,9 @@ export class GwTabsDemoComponent implements OnInit {
         const confirm = window.confirm('Do you really want to remove this tag?');
         return Observable.of(confirm);
     }
+
+    selectThisTab(tab){
+        console.log('selectThisTab',tab);
+    }
 }
+

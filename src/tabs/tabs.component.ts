@@ -74,7 +74,7 @@ let dragulaId: number = 0;
                                 <ng-template [ngTemplateOutlet]="tab.content"></ng-template>
                             </ng-container>
                             <ng-container *ngIf="_typeofContent(tab.content) === 'component'">
-                                <ng-container *ngComponentOutlet="tab.content"></ng-container>
+                                <ng-container *ngComponentOutlet="tab.content;injector:tab.injector"></ng-container>
                             </ng-container>
                         </ng-container>
                     </div>

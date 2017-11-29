@@ -25,7 +25,7 @@ import {GWSingleSelectModule} from "../../src/singleselect/single-select.module"
 import {GWMultiSelectModule} from "../../src/multiselect/multi-select.module";
 import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
 import {GwTabsModule} from "../../src/tabs/tabs.module";
-import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
+import {GwTabsDemoComponent, TestComponent} from "./components/gwtabs-demo.component";
 import {GwPanelDemoComponent} from "./components/gwpannel-demo.component";
 import {GwPannelModule} from "../../src/panel/panel.module";
 import {GwSwitchModule} from "../../src/switch/gw-switch.module"
@@ -67,7 +67,8 @@ import {GwSwitchModule} from "../../src/switch/gw-switch.module"
         AppComponent
     ],
     entryComponents: [
-        GwconfirmDemoXComponent
+        GwconfirmDemoXComponent,
+        TestComponent
     ]
 })
 export class AppModule {

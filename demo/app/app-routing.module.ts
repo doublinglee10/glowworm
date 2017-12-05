@@ -10,6 +10,7 @@ import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component"
 import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
 import {GwPanelDemoComponent} from "./components/gwpannel-demo.component";
 import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component"
+import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
 const routes: Routes = [
     {
         path: 'popinput',
@@ -50,6 +51,10 @@ const routes: Routes = [
     {
       path:'gwSwitch',
       component:GwSwitchDemoComponent
+    },
+    {
+      path:'gwselect',
+      component:GwSelectDemoComponent
     }
 ];
 

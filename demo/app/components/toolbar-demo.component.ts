@@ -80,7 +80,6 @@ import * as moment from "moment";
                                   [closeable]="true"
                                   [enabled]="true"
                                   [showSelect]="true"
-                                  [linkAge]="false"
                                   (onDataselect)="changeData($event)"
                                   (onSave)="log($event);"
                 >

@@ -16,6 +16,7 @@ import {GwContextMenuModule} from "./context-menu";
 import {GwTabsModule} from "./tabs/tabs.module";
 import {GwSwitchModule} from "./switch/gw-switch.module"
 import {GwPannelModule} from "./panel/panel.module";
+import {GwSelectModule} from "./select/select.module";
 
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
@@ -34,7 +35,8 @@ let MODULES_FOR_ROOT = [
     GwContextMenuModule.forRoot(),
     GwTabsModule,
     GwSwitchModule,
-    GwPannelModule
+    GwPannelModule,
+    GwSelectModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -54,7 +56,8 @@ let MODULES_FOR_CHILD = [
     GwContextMenuModule,
     GwTabsModule,
     GwPannelModule,
-    GwSwitchModule
+    GwSwitchModule,
+    GwSelectModule
 ];
 
 @NgModule({

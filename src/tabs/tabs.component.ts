@@ -259,6 +259,12 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
         this._onOrderChangeEvent();
     }
 
+    clear(){
+        this._tabs.forEach(tab => {
+            this.closeTab(tab.tabId);
+        });
+    }
+
     /**
      * 获取当前选中的tab页
      */

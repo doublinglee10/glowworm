@@ -1,8 +1,7 @@
-import {Component, forwardRef, OnInit, ViewChild} from "@angular/core";
+import {Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
-import {InputModal} from "../utils/select.modal";
 
 export const GW_INPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -13,103 +12,155 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'gw-input',
     styleUrls: ['./input.component.css'],
-    templateUrl: './input.component.html',
-    providers: [GW_INPUT_VALUE_ACCESSOR]
+    providers: [GW_INPUT_VALUE_ACCESSOR],
+    template: `
+        <ng-container *ngIf="enabled">
+            <button type="button" class="btn btn-default {{btnSize}}">
+                <span gw-popover [template]="tpl">
+                    <span class="author">{{label}}</span>
+                    <span class="value">{{_values}}</span>
+                    <span class="arrow"><span class="caret"></span></span>
+                </span>
+                <ng-container *ngIf="closeable">
+                    <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
+                </ng-container>
+            </button>
+        </ng-container>
+
+        <ng-template #tpl>
+            <div class="popover-container">
+                <ng-container *ngIf="showSelect">
+                    <div class="popover-top">
+                        <span class="top-label">{{label}}</span>:
+                        <select class="top-select"
+                                [(ngModel)]="_tmpSelectModel"
+                                (change)="onSelectModelChange()">
+                            <option *ngFor="let item of selectData" [value]="item.id">{{item.text}}</option>
+                        </select>
+                    </div>
+                    <div class="popover-hr"></div>
+                </ng-container>
+                <div class="popover-main">
+                    <input type="text" [(ngModel)]="_tmpNgModel" [attr.placeholder]="placeholder" [attr.name]="name">
+                </div>
+                <div class="popover-hr"></div>
+                <div class="popover-footer">
+                    <div class="left">
+                        <a class="btn btn-xs" (click)="clear()">清除</a>
+                    </div>
+                    <div class="right">
+                        <button class="btn btn-primary btn-xs" (click)="popover.hide();save()">保存</button>
+                        <button class="btn btn-default btn-xs" (click)="popover.hide();cancel()">取消</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    `
 })
 export class GWInputComponent extends GWControl implements ControlValueAccessor, OnInit {
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
-    _value: string | InputModal;
-    _input_val: string;
-    _select_val: string;
-    selectLabel: string;
-    valueLabel: string;
+    @Input() name: string;
+    @Input() label: string;
+    @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
+    @Input() closeable: boolean = true;
+    @Input() enabled: boolean = true;
+    @Input() placeholder: string;
 
-    onChange: any;
-    onTouched: any;
+    @Input() showSelect: boolean = false;
+    @Input() selectData: { id: any, text: string }[] = [];
 
-    set value(value: string | InputModal) {
-        this._value = value;
-        this.onTouched && this.onTouched();
-        this.onChange && this.onChange(this._value);
-        if (this.showSelect) {
-            let data = this.selectData.filter((item: any) => item.id == this._select_val);
-            if (data.length > 0) {
-                this.selectLabel = data[0].text;
-            }
-            this.valueLabel = value ? (<InputModal>value).value : '';
-        } else {
-            this.selectLabel = '';
-            this.valueLabel = value as string;
-        }
-    }
+    /** @Input() 双向绑定 */
+    @Input() selectModel: any; // id: any
+    @Output() selectModelChange: EventEmitter<{ id: any, text: string }> = new EventEmitter();
+    @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
 
-    get value() {
-        return this._value;
-    }
+    @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
+
+    /** @Input() 双向绑定 */
+    ngModel: string;
+    /** @Output() */
+    ngModelChange = Function.prototype;
+
+    _tmpNgModel: string;
+    _tmpSelectModel: any;
+    _selectedSelectModel: { id: any, text: string };
 
     ngOnInit(): void {
     }
 
+    @Input('selectModel') set _selectModel(selectModel: any) {
+        this._tmpSelectModel = selectModel;
+        this.selectModel = selectModel;
+        this._handleSelectData();
+    }
+
+    @Input('selectData') set _selectData(selectData: { id: any, text: string }[]) {
+        this.selectData = selectData;
+        this._handleSelectData();
+    }
+
+    get _values() {
+        if (this.showSelect) {
+            let selectText = this._selectedSelectModel ? this._selectedSelectModel.text || '' : '';
+            return `${selectText} ${this.ngModel || ''}`;
+        }
+        return this.ngModel || '';
+    }
+
+    onSelectModelChange() {
+        this.onSelectChange.emit(this._tmpSelectModel);
+    }
+
     clear() {
-        this._input_val = '';
+        this._tmpNgModel = '';
+        this._tmpSelectModel = '';
     }
 
     save() {
-        if (this.showSelect) {
-            this.value = {
-                value: this._input_val,
-                selectValue: this._select_val
-            }
-        } else {
-            this.value = this._input_val;
-        }
+        this._selectModel = this._tmpSelectModel;
+        this.ngModel = this._tmpNgModel;
+        this.ngModelChange(this._tmpNgModel);
+        this.selectModelChange.emit(this.selectModel);
+        this.onSave.emit();
     }
 
     cancel() {
-        if (this.value) {
-            if (this.showSelect) {
-                this._input_val = (<InputModal>this.value).value;
-                this._select_val = (<InputModal>this.value).selectValue;
-            } else {
-                this._input_val = this.value as string;
-            }
-        }
+        this._tmpSelectModel = this.selectModel;
+        this._tmpNgModel = this.ngModel;
+        this.onCancel.emit();
     }
 
     remove() {
-        this.value = null;
-        this._input_val = '';
-        this._select_val = '';
-        this.valueLabel = '';
-        this.selectLabel = '';
+        this.selectModel = '';
+        this._tmpSelectModel = '';
+        this._selectedSelectModel = null;
+        this.ngModel = '';
+        this._tmpNgModel = '';
+        this.ngModelChange(this.ngModel);
+        this.selectModelChange.emit(this.selectModel);
         this.enabled = false;
         this.onRemove();
     }
 
-    writeValue(val: string | InputModal): void {
-        if (val) {
-            if (this.showSelect) {
-                this._input_val = (<InputModal>val).value;
-                this._select_val = (<InputModal>val).selectValue;
-            } else {
-                this._input_val = val as string;
-            }
-        } else {
-            this.selectLabel = '';
-            this.valueLabel = '';
-            this._input_val = '';
-            this._select_val = '';
-        }
-        this.value = val;
+    writeValue(ngModel: string): void {
+        this._tmpNgModel = ngModel;
+        this.ngModel = ngModel;
     }
 
     registerOnChange(fn: any): void {
-        this.onChange = fn;
+        this.ngModelChange = fn;
     }
 
     registerOnTouched(fn: any): void {
-        this.onTouched = fn;
+    }
+
+    private _handleSelectData() {
+        if (this.selectData) {
+            let items = this.selectData.filter(item => item.id == this.selectModel);
+            this._selectedSelectModel = items.length > 0 ? items[0] : null;
+        }
     }
 }

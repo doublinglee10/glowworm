@@ -18,7 +18,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
             <button type="button" class="btn btn-default {{btnSize}}">
                 <span gw-popover [template]="tpl">
                     <span class="author">{{label}}</span>
-                    <span class="value">{{selectLabel}} {{valueLabel}}</span>
+                    <span class="value">{{_values}}</span>
                     <span class="arrow"><span class="caret"></span></span>
                 </span>
                 <ng-container *ngIf="closeable">
@@ -32,14 +32,16 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
                 <ng-container *ngIf="showSelect">
                     <div class="popover-top">
                         <span class="top-label">{{label}}</span>:
-                        <select class="top-select" [(ngModel)]="_select_val">
+                        <select class="top-select"
+                                [(ngModel)]="_tmpSelectModel"
+                                (change)="onSelectModelChange()">
                             <option *ngFor="let item of selectData" [value]="item.id">{{item.text}}</option>
                         </select>
                     </div>
                     <div class="popover-hr"></div>
                 </ng-container>
                 <div class="popover-main">
-                    <input type="text" [(ngModel)]="_input_val" name="value">
+                    <input type="text" [(ngModel)]="_tmpNgModel" [attr.placeholder]="placeholder" [attr.name]="name">
                 </div>
                 <div class="popover-hr"></div>
                 <div class="popover-footer">
@@ -59,10 +61,12 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
+    @Input() name: string;
     @Input() label: string;
     @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
     @Input() closeable: boolean = true;
     @Input() enabled: boolean = true;
+    @Input() placeholder: string;
 
     @Input() showSelect: boolean = false;
     @Input() selectData: { id: any, text: string }[] = [];
@@ -70,42 +74,80 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     /** @Input() 双向绑定 */
     @Input() selectModel: any; // id: any
     @Output() selectModelChange: EventEmitter<{ id: any, text: string }> = new EventEmitter();
+    @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
 
-    _value: string;
-    _input_val: string;
-    _select_val: string;
-    selectLabel: string;
-    valueLabel: string;
+    @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
     /** @Input() 双向绑定 */
     ngModel: string;
     /** @Output() */
     ngModelChange = Function.prototype;
 
+    _tmpNgModel: string;
+    _tmpSelectModel: any;
+    _selectedSelectModel: { id: any, text: string };
+
     ngOnInit(): void {
     }
 
+    @Input('selectModel') set _selectModel(selectModel: any) {
+        this._tmpSelectModel = selectModel;
+        this.selectModel = selectModel;
+        this._handleSelectData();
+    }
+
+    @Input('selectData') set _selectData(selectData: { id: any, text: string }[]) {
+        this.selectData = selectData;
+        this._handleSelectData();
+    }
+
+    get _values() {
+        if (this.showSelect) {
+            let selectText = this._selectedSelectModel ? this._selectedSelectModel.text || '' : '';
+            return `${selectText} ${this.ngModel || ''}`;
+        }
+        return this.ngModel || '';
+    }
+
+    onSelectModelChange() {
+        this.onSelectChange.emit(this._tmpSelectModel);
+    }
+
     clear() {
-        this._input_val = '';
+        this._tmpNgModel = '';
+        this._tmpSelectModel = '';
     }
 
     save() {
-
+        this._selectModel = this._tmpSelectModel;
+        this.ngModel = this._tmpNgModel;
+        this.ngModelChange(this._tmpNgModel);
+        this.selectModelChange.emit(this.selectModel);
+        this.onSave.emit();
     }
 
     cancel() {
-
+        this._tmpSelectModel = this.selectModel;
+        this._tmpNgModel = this.ngModel;
+        this.onCancel.emit();
     }
 
     remove() {
-
-
+        this.selectModel = '';
+        this._tmpSelectModel = '';
+        this._selectedSelectModel = null;
+        this.ngModel = '';
+        this._tmpNgModel = '';
+        this.ngModelChange(this.ngModel);
+        this.selectModelChange.emit(this.selectModel);
         this.enabled = false;
         this.onRemove();
     }
 
     writeValue(ngModel: string): void {
-
+        this._tmpNgModel = ngModel;
+        this.ngModel = ngModel;
     }
 
     registerOnChange(fn: any): void {
@@ -113,5 +155,12 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     }
 
     registerOnTouched(fn: any): void {
+    }
+
+    private _handleSelectData() {
+        if (this.selectData) {
+            let items = this.selectData.filter(item => item.id == this.selectModel);
+            this._selectedSelectModel = items.length > 0 ? items[0] : null;
+        }
     }
 }

@@ -43,15 +43,25 @@ import * as moment from "moment";
 
             <p>
                 <gw-rangeinput #gwcontrol #input
-                               [label]="'公司'"
-                               [(ngModel)]="rangeinputSelectModel"
+                               [label]="'年龄'"
                                [closeable]="true"
                                [enabled]="true"
-                               [showSelect]="false"
-                               [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                               [(minModel)]="rangeStart"
+                               [(maxModel)]="rangeEnd"
+                               [min]="18"
+                               [max]="50"
+                               [step]="2"
+                               [showSelect]="true"
+                               [(selectModel)]="rangeSelectModel"
+                               [selectData]="[{id: '0', text: '先生'}, {id: '1', text: '女士'}]"
+                               (onSelectChange)="log('rangeinput', 'select change', $event)"
+                               (onSave)="log('rangeinput', 'save', $event)"
+                               (onCancel)="log('rangeinput', 'cancel', $event)"
                 >
                 </gw-rangeinput>
-                {{rangeinputSelectModel | json}}
+                {{rangeStart}}
+                {{rangeEnd}}
+                {{rangeSelectModel}}
             </p>
 
             <p>
@@ -163,7 +173,7 @@ import * as moment from "moment";
                                options='{singleDatePicker:false,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
                                [(ngModel)]="dateModel1">
                 </gw-datepicker>
-                
+
                 <gw-datepicker #gwcontrol
                                label="日期2"
                                options='{singleDatePicker:true,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
@@ -188,11 +198,9 @@ export class ToolbarDemoComponent {
         selectValue: '0'
     };
 
-    rangeinputSelectModel = {
-        start: '12',
-        end: '23',
-        selectValue: '0'
-    }
+    rangeStart: number = 20;
+    rangeEnd: number = 23;
+    rangeSelectModel: any;
 
     selectData = [
         {label: '012', id: 0},
@@ -233,11 +241,6 @@ export class ToolbarDemoComponent {
         console.log('app', new Boolean(true) === new Boolean(true));
         this.setDateConfig();
     }
-
-    log() {
-        console.log(arguments);
-    }
-
 
     setDateConfig() {
         const format = this.config.locale.format, timePickerIncrement = this.config.timePickerIncrement;
@@ -311,5 +314,9 @@ export class ToolbarDemoComponent {
             value: 'app ...',
             selectValue: ''
         };
+    }
+
+    log() {
+        console.warn(arguments);
     }
 }

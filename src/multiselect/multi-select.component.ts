@@ -10,6 +10,9 @@ export const GW_SELECT_VALUE_ACCESSOR: any = {
     multi: true
 };
 
+/**
+ * @deprecated
+ */
 @Component({
     selector: 'gw-multi-select',
     styleUrls: ['./multi-select.component.css'],

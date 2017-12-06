@@ -1,125 +1,165 @@
-import {Component, forwardRef, OnInit, ViewChild} from "@angular/core";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
-import {RangeInputModal} from "../utils/select.modal";
-
-export const GW_RANGEINPUT_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GWRangeInputComponent),
-    multi: true
-};
 
 @Component({
     selector: 'gw-rangeinput',
     styleUrls: ['./rangeinput.component.css'],
-    templateUrl: './rangeinput.component.html',
-    providers: [GW_RANGEINPUT_VALUE_ACCESSOR]
+    template: `
+        <ng-container *ngIf="enabled">
+            <button type="button" class="btn btn-default {{btnSize}}">
+                <span gw-popover [template]="tpl">
+                    <span class="author">{{label}}</span>
+                    <span class="value">{{_values}}</span>
+                    <span class="arrow"><span class="caret"></span></span>
+                </span>
+                <ng-container *ngIf="closeable">
+                    <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
+                </ng-container>
+            </button>
+        </ng-container>
+
+        <ng-template #tpl>
+            <div class="popover-container">
+                <ng-container *ngIf="showSelect">
+                    <div class="popover-top">
+                        <span class="top-label">{{label}}</span>:
+                        <select class="top-select" [(ngModel)]="_tmpSelectModel" (change)="onSelectModelChange()">
+                            <option *ngFor="let item of selectData" [attr.value]="item.id">{{item.text}}</option>
+                        </select>
+                    </div>
+                    <div class="popover-hr"></div>
+                </ng-container>
+                <div class="popover-main">
+                    <input type="number" [(ngModel)]="_tmpMinModel" [attr.min]="min" [attr.max]="_tmpMaxModel"
+                           [attr.step]="step">
+                    <span>-</span>
+                    <input type="number" [(ngModel)]="_tmpMaxModel" [attr.max]="max" [attr.min]="_tmpMinModel"
+                           [attr.step]="step">
+                </div>
+                <div class="popover-hr"></div>
+                <div class="popover-footer">
+                    <div class="left">
+                        <a class="btn btn-xs" (click)="clear()">清除</a>
+                    </div>
+                    <div class="right">
+                        <button class="btn btn-primary btn-xs" (click)="popover.hide();save()">保存</button>
+                        <button class="btn btn-default btn-xs" (click)="popover.hide();cancel()">取消</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+    `
 })
-export class GWRangeInputComponent extends GWControl implements ControlValueAccessor, OnInit {
+export class GWRangeInputComponent extends GWControl {
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
-    _value: RangeInputModal;
-    _input_val_s: string;
-    _input_val_e: string;
+    @Input() label: string;
+    @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
+    @Input() closeable: boolean = true;
+    @Input() enabled: boolean = true;
 
-    _select_val: string;
-    selectLabel: string;
-    valueLabel: string;
+    @Input() min: number = null;
+    @Input() max: number = null;
+    @Input() step: number = 1;
 
-    onChange: any;
-    onTouched: any;
+    /** @Input() 双向绑定 */
+    @Input() minModel: number;
+    @Output() minModelChange: EventEmitter<number> = new EventEmitter();
 
-    set value(value:  RangeInputModal) {
-        this._value = value;
-        this.onTouched && this.onTouched();
-        this.onChange && this.onChange(this._value);
+    /** @Input() 双向绑定 */
+    @Input() maxModel: number;
+    @Output() maxModelChange: EventEmitter<number> = new EventEmitter();
+
+    @Input() showSelect: boolean = false;
+    @Input() selectData: { id: any, text: string }[] = [];
+    @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
+
+    /** @Input() 双向绑定 */
+    @Input() selectModel: any; // id: any
+    @Output() selectModelChange: EventEmitter<{ id: any, text: string }> = new EventEmitter();
+
+    @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
+
+    _tmpMinModel: number;
+    _tmpMaxModel: number;
+    _tmpSelectModel: any;
+    _selectedSelectModel: { id: any, text: string };
+
+    @Input('minModel') set _minModel(minModel: number) {
+        this._tmpMinModel = minModel;
+        this.minModel = minModel;
+    }
+
+    @Input('maxModel') set _maxModel(maxModel: number) {
+        this._tmpMaxModel = maxModel;
+        this.maxModel = maxModel;
+    }
+
+    @Input('selectModel') set _selectModel(selectModel: any) {
+        this._tmpSelectModel = selectModel;
+        this.selectModel = selectModel;
+        this._handleSelectData();
+    }
+
+    @Input('selectData') set _selectData(selectData: { id: any, text: string }[]) {
+        this.selectData = selectData;
+        this._handleSelectData();
+    }
+
+    get _values() {
         if (this.showSelect) {
-            let data = this.selectData.filter((item: any) => item.id == this._select_val);
-            if (data.length > 0) {
-                this.selectLabel = data[0].text;
-            }
-            this.valueLabel = value ? (value.start+' - '+ value.end): '';
-        } else {
-            this.selectLabel = '';
-            this.valueLabel = value ? (value.start+' - '+ value.end): '';
+            let selectText = this._selectedSelectModel ? this._selectedSelectModel.text || '' : '';
+            return `${selectText} ${this.minModel || ''} - ${this.maxModel || ''}`;
         }
+        return `${this.minModel || ''} - ${this.maxModel || ''}`;
     }
 
-    get value() {
-        return this._value;
-    }
-
-    ngOnInit(): void {
+    onSelectModelChange() {
+        this.onSelectChange.emit(this._tmpSelectModel);
     }
 
     clear() {
-        this._input_val_s = '';
-        this._input_val_e = '';
+        this._tmpMinModel = null;
+        this._tmpMaxModel = null;
+        this._tmpSelectModel = '';
     }
 
     save() {
-        if (this.showSelect) {
-            this.value = {
-                start: this._input_val_s,
-                end:this._input_val_e,
-                selectValue: this._select_val
-            }
-        } else {
-            this.value = {
-              start: this._input_val_s,
-              end:this._input_val_e
-            }
-        }
+        this.minModel = this._tmpMinModel;
+        this.minModelChange.emit(Number(this.minModel));
+        this.maxModel = this._tmpMaxModel;
+        this.maxModelChange.emit(Number(this.maxModel));
+        this._selectModel = this._tmpSelectModel;
+        this.selectModelChange.emit(this.selectModel);
+        this.onSave.emit();
     }
 
     cancel() {
-        if (this.value) {
-            if (this.showSelect) {
-                this._input_val_s = this.value.start;
-                this._input_val_e = this.value.end;
-                this._select_val = this.value.selectValue;
-            } else {
-                this._input_val_s = this.value.start;
-                this._input_val_e = this.value.end;
-            }
-        }
+        this._tmpMinModel = this.minModel;
+        this._tmpMaxModel = this.maxModel;
+        this._tmpSelectModel = this.selectModel;
+        this.onCancel.emit();
     }
 
     remove() {
-        this.value = null;
-        this._input_val_s =  this._input_val_e = '';
-        this._select_val = '';
+        this._tmpSelectModel = this.selectModel = '';
+        this._tmpMinModel = this.minModel = null;
+        this._tmpMaxModel = this.maxModel = null;
+        this.selectModelChange.emit(this.selectModel);
+        this.minModelChange.emit(this.minModel);
+        this.maxModelChange.emit(this.maxModel);
         this.enabled = false;
         this.onRemove();
     }
 
-    writeValue(val: RangeInputModal): void {
-        if (val) {
-            if (this.showSelect) {
-                this._input_val_s = (<RangeInputModal>val).start;
-                this._input_val_e = (<RangeInputModal>val).end;
-                this._select_val = (<RangeInputModal>val).selectValue;
-            } else {
-              this._input_val_s = (<RangeInputModal>val).start;
-              this._input_val_e = (<RangeInputModal>val).end;
-            }
-        } else {
-            this.selectLabel = '';
-            this.valueLabel = '';
-            this._input_val_s ='';
-            this._input_val_e = '';
-            this._select_val = '';
+    private _handleSelectData() {
+        if (this.selectData) {
+            let items = this.selectData.filter(item => item.id == this.selectModel);
+            this._selectedSelectModel = items.length > 0 ? items[0] : null;
         }
-        this.value = val;
-    }
-
-    registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouched = fn;
     }
 }

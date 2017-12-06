@@ -5,6 +5,9 @@ import {GwUtilModule} from "../utils/util.module";
 import {GWMultiSelectComponent} from "./multi-select.component";
 import {GWPopoverModule} from "../popover/popover.module";
 
+/**
+ * @deprecated
+ */
 @NgModule({
     declarations: [
         GWMultiSelectComponent

@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {DatepickerConfig} from "../../../src/datepicker/config.server";
-import {InputModal, MultiSelectModal, SelectModal} from "../../../src/utils/select.modal";
+import {InputModal, SelectModal} from "../../../src/utils/select.modal";
 import * as moment from "moment";
 
 @Component({
@@ -132,42 +132,6 @@ import * as moment from "moment";
             </p>
 
             <p>
-                <gw-multi-select #gwcontrol
-                                 [label]="'配置multiSelect'"
-                                 [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                                 [(ngModel)]="multiSelectModel"
-                                 [closeable]="true"
-                                 [enabled]="true"
-                                 [showSelect]="false"
-                                 (onSave)="log($event)"
-                >
-                </gw-multi-select>
-
-                {{multiSelectModel | json}}
-
-                <button class="btn btn-xs" (click)="multiSelectModel=null;">set null</button>
-            </p>
-
-            <p>
-                <gw-multi-select #gwcontrol
-                                 [label]="'配置multiSelect'"
-                                 [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                                 [(ngModel)]="multiXSelectModel"
-                                 [closeable]="true"
-                                 [enabled]="true"
-                                 [showSelect]="true"
-                                 [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                                 (onSave)="log($event)"
-                >
-                </gw-multi-select>
-
-                {{multiXSelectModel | json}}
-
-                <button class="btn btn-xs" (click)="multiXSelectModel=null;">set null</button>
-            </p>
-
-
-            <p>
                 <gw-datepicker #gwcontrol
                                label="日期1"
                                options='{singleDatePicker:false,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
@@ -229,13 +193,6 @@ export class ToolbarDemoComponent {
     singleSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}];
 
     selectXData = [{id: '0', text: '测试一'}, {id: '1', text: '测试二'}];
-
-    multiSelectModel: any = [{id: '0'}];
-
-    multiXSelectModel: MultiSelectModal = {
-        value: [{id: '0'}],
-        selectValue: '1'
-    };
 
     constructor(private config: DatepickerConfig) {
         console.log('app', new Boolean(true) === new Boolean(true));

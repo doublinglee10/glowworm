@@ -1,6 +1,6 @@
 {
   "name": "glowworm",
-  "version": "0.4.3",
+  "version": "0.4.10",
   "license": "MIT",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -29,6 +29,8 @@
     "@angular/forms": "4.0.0"
   },
   "devDependencies": {
+    "@angular/core": "4.0.0",
+    "@angular/forms": "4.0.0",
     "@angular/cli": "1.2.6",
     "@angular/compiler-cli": "4.0.0",
     "@angular/language-service": "4.0.0",

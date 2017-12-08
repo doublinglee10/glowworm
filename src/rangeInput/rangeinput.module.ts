@@ -6,15 +6,15 @@ import {GWPopoverModule} from "../popover/popover.module";
 
 @NgModule({
     declarations: [
-      GWRangeInputComponent
+        GWRangeInputComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
-        GWPopoverModule.forRoot(),
+        GWPopoverModule.forRoot()
     ],
     exports: [
-      GWRangeInputComponent
+        GWRangeInputComponent
     ]
 })
 export class GWRangeInputModule {

@@ -22,7 +22,6 @@ import {GWInputModule} from "../../src/input/input.module";
 import {GWToolbarModule} from "../../src/toolbar/toolbar.module";
 import {DatepickerModule} from "../../src/datepicker/datepicker.module";
 import {GWSingleSelectModule} from "../../src/singleselect/single-select.module";
-import {GWMultiSelectModule} from "../../src/multiselect/multi-select.module";
 import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
 import {GwTabsModule} from "../../src/tabs/tabs.module";
 import {GwTabsDemoComponent, TestComponent} from "./components/gwtabs-demo.component";
@@ -31,6 +30,7 @@ import {GwPannelModule} from "../../src/panel/panel.module";
 import {GwSwitchModule} from "../../src/switch/gw-switch.module";
 import {GwSelectModule} from "../../src/select/select.module";
 import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -55,7 +55,6 @@ import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
         GWInputModule,
         DatepickerModule.forRoot(),
         GWSingleSelectModule,
-        GWMultiSelectModule,
         GWRangeInputModule,
         GWToolbarModule,
         GwContextMenuModule.forRoot(),

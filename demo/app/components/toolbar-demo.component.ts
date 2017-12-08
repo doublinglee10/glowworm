@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {DatepickerConfig} from "../../../src/datepicker/config.server";
-import {InputModal, MultiSelectModal, SelectModal} from "../../../src/utils/select.modal";
+import {InputModal, SelectModal} from "../../../src/utils/select.modal";
 import * as moment from "moment";
 
 @Component({
@@ -43,15 +43,25 @@ import * as moment from "moment";
 
             <p>
                 <gw-rangeinput #gwcontrol #input
-                               [label]="'公司'"
-                               [(ngModel)]="rangeinputSelectModel"
+                               [label]="'年龄'"
                                [closeable]="true"
                                [enabled]="true"
-                               [showSelect]="false"
-                               [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
+                               [(minModel)]="rangeStart"
+                               [(maxModel)]="rangeEnd"
+                               [min]="18"
+                               [max]="50"
+                               [step]="2"
+                               [showSelect]="true"
+                               [(selectModel)]="rangeSelectModel"
+                               [selectData]="[{id: '0', text: '先生'}, {id: '1', text: '女士'}]"
+                               (onSelectChange)="log('rangeinput', 'select change', $event)"
+                               (onSave)="log('rangeinput', 'save', $event)"
+                               (onCancel)="log('rangeinput', 'cancel', $event)"
                 >
                 </gw-rangeinput>
-                {{rangeinputSelectModel | json}}
+                {{rangeStart}}
+                {{rangeEnd}}
+                {{rangeSelectModel}}
             </p>
 
             <p>
@@ -122,48 +132,12 @@ import * as moment from "moment";
             </p>
 
             <p>
-                <gw-multi-select #gwcontrol
-                                 [label]="'配置multiSelect'"
-                                 [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                                 [(ngModel)]="multiSelectModel"
-                                 [closeable]="true"
-                                 [enabled]="true"
-                                 [showSelect]="false"
-                                 (onSave)="log($event)"
-                >
-                </gw-multi-select>
-
-                {{multiSelectModel | json}}
-
-                <button class="btn btn-xs" (click)="multiSelectModel=null;">set null</button>
-            </p>
-
-            <p>
-                <gw-multi-select #gwcontrol
-                                 [label]="'配置multiSelect'"
-                                 [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                                 [(ngModel)]="multiXSelectModel"
-                                 [closeable]="true"
-                                 [enabled]="true"
-                                 [showSelect]="true"
-                                 [selectData]="[{id: '0', text: 'woman'}, {id: '1', text: 'man'}]"
-                                 (onSave)="log($event)"
-                >
-                </gw-multi-select>
-
-                {{multiXSelectModel | json}}
-
-                <button class="btn btn-xs" (click)="multiXSelectModel=null;">set null</button>
-            </p>
-
-
-            <p>
                 <gw-datepicker #gwcontrol
                                label="日期1"
                                options='{singleDatePicker:false,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
                                [(ngModel)]="dateModel1">
                 </gw-datepicker>
-                
+
                 <gw-datepicker #gwcontrol
                                label="日期2"
                                options='{singleDatePicker:true,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
@@ -188,11 +162,9 @@ export class ToolbarDemoComponent {
         selectValue: '0'
     };
 
-    rangeinputSelectModel = {
-        start: '12',
-        end: '23',
-        selectValue: '0'
-    }
+    rangeStart: number = 20;
+    rangeEnd: number = 23;
+    rangeSelectModel: any;
 
     selectData = [
         {label: '012', id: 0},
@@ -222,22 +194,10 @@ export class ToolbarDemoComponent {
 
     selectXData = [{id: '0', text: '测试一'}, {id: '1', text: '测试二'}];
 
-    multiSelectModel: any = [{id: '0'}];
-
-    multiXSelectModel: MultiSelectModal = {
-        value: [{id: '0'}],
-        selectValue: '1'
-    };
-
     constructor(private config: DatepickerConfig) {
         console.log('app', new Boolean(true) === new Boolean(true));
         this.setDateConfig();
     }
-
-    log() {
-        console.log(arguments);
-    }
-
 
     setDateConfig() {
         const format = this.config.locale.format, timePickerIncrement = this.config.timePickerIncrement;
@@ -311,5 +271,9 @@ export class ToolbarDemoComponent {
             value: 'app ...',
             selectValue: ''
         };
+    }
+
+    log() {
+        console.warn(arguments);
     }
 }

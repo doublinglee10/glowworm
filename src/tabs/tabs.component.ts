@@ -39,7 +39,7 @@ let dragulaId: number = 0;
                                 <ng-template [ngTemplateOutlet]="tab.title"></ng-template>
                             </ng-container>
                             <ng-container *ngIf="_typeofContent(tab.title) === 'component'">
-                                <ng-container *ngComponentOutlet="tab.title"></ng-container>
+                                <ng-container *ngComponentOutlet="tab.title;injector:tab.injector"></ng-container>
                             </ng-container>
                             <span *ngIf="tab.closable" (click)="_closeTab(tab, $event)"
                                   class="glyphicon glyphicon-remove-circle">
@@ -260,8 +260,9 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     clear(){
-        this._tabs.forEach(tab => {
-            this.closeTab(tab.tabId);
+        let tabIds = this._tabs.map(tab=>tab.tabId);
+        tabIds.forEach(tabId => {
+            this.closeTab(tabId);
         });
     }
 

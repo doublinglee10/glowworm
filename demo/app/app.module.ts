@@ -11,7 +11,7 @@ import {GwInputDemoComponent} from "./components/gwinput-demo.component";
 import {GwconfirmDemoComponent, GwconfirmDemoXComponent} from "./components/gwconfirm-demo.component";
 import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
 import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component";
-import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component";
+import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component"
 
 import {GwContextMenuModule} from "../../src/context-menu/context-menu.module";
 import {GwConfirmModule} from "../../src/confirm/confirm.module";
@@ -45,7 +45,8 @@ import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
         GwTabsDemoComponent,
         GwPanelDemoComponent,
         GwSwitchDemoComponent,
-        GwSelectDemoComponent
+        GwSelectDemoComponent,
+        TestComponent
     ],
     imports: [
         FormsModule,

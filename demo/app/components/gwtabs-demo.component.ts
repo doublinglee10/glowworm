@@ -30,6 +30,7 @@ export class TestComponent{
             <button class="btn btn-xs btn-primary" (click)="selectTab()">selectTab</button>
             <button class="btn btn-xs btn-primary" (click)="closeTab()">closeTab</button>
             <button class="btn btn-xs btn-primary" (click)="getSelected()">getSelected</button>
+            <button class="btn btn-xs btn-primary" (click)="clear()">clear</button>
         </div>
         <gw-tabs [sortable]="true"
                  [storeKey]="'tabsdemo'"
@@ -132,6 +133,10 @@ export class GwTabsDemoComponent implements OnInit {
 
     selectThisTab(tab){
         console.log('selectThisTab',tab);
+    }
+
+    clear(){
+        this.tabs.clear();
     }
 }
 

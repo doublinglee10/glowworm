@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'gwselect-demo',
@@ -58,6 +59,7 @@ import {Component, OnInit} from "@angular/core";
                     [selectData]="options2"
                     (onSelectChange)="log('select2', $event)"
 
+                    [onBeforeSave]="onBeforeSave"
                     [(ngModel)]="ngModel2"
                     [data]="options2"
                     (onSave)="log('save2', $event)"
@@ -98,6 +100,11 @@ export class GwSelectDemoComponent implements OnInit {
         this.options2 = [mac, idfa, idfv, udid, ip, dUniqueID];
     }
 
+    onBeforeSave(): Observable<boolean> {
+        console.log(arguments);
+        const confirm = window.confirm('Save ?');
+        return Observable.of(confirm);
+    }
 
     log(event_type, event) {
         this.msg = `触发事件: ${event_type} ${event}`;

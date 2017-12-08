@@ -2,6 +2,7 @@ import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@an
 import {GWPopoverDirective} from "../popover/popover.directive";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWToolbarComponent} from "../toolbar/toolbar.component";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'gw-select',
@@ -92,6 +93,8 @@ export class GwSelectComponent implements ControlValueAccessor {
 
     _filter: string;
 
+    /** 保存前触发 */
+    @Input() onBeforeSave: (ngModel, selectModel) => Observable<boolean>;
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
@@ -175,30 +178,37 @@ export class GwSelectComponent implements ControlValueAccessor {
     }
 
     save() {
-        if (this.data) {
-            let items = this.data.filter((item: any) => item.checked);
-            if (this.ngModel) {
-                this.ngModel.splice(0);
-            } else {
-                this.ngModel = [];
+        const subscribeFn = (save: boolean) => {
+            if (save) {
+                if (this.data) {
+                    let items = this.data.filter((item: any) => item.checked);
+                    if (this.ngModel) {
+                        this.ngModel.splice(0);
+                    } else {
+                        this.ngModel = [];
+                    }
+                    items.forEach((item) => {
+                        let _item: any = {...item};
+                        delete _item.checked;
+                        this.ngModel.push(_item);
+                    });
+                }
+
+                if (this.selectData) {
+                    let items = this.selectData.filter(item => item.id == this.selectModel);
+                    this._selectedModel = items.length > 0 ? items[0] : null;
+                    this.selectModel = this._tmpSelectModel;
+                }
+
+                this.ngModelChange(this.ngModel);
+                this.selectModelChange.emit(this.selectModel);
+                this.onSave.emit();
+                this.popover.hide();
             }
-            items.forEach((item) => {
-                let _item: any = {...item};
-                delete _item.checked;
-                this.ngModel.push(_item);
-            });
-        }
+        };
 
-        if (this.selectData) {
-            let items = this.selectData.filter(item => item.id == this.selectModel);
-            this._selectedModel = items.length > 0 ? items[0] : null;
-            this.selectModel = this._tmpSelectModel;
-        }
-
-        this.ngModelChange(this.ngModel);
-        this.selectModelChange.emit(this.selectModel);
-        this.onSave.emit();
-        this.popover.hide();
+        const _tmpNgModel = (this.data || []).filter((item: any) => item.checked);
+        this.onBeforeSave ? this.onBeforeSave(_tmpNgModel, this._tmpSelectModel).first().subscribe(subscribeFn) : subscribeFn(true);
     }
 
     cancel() {

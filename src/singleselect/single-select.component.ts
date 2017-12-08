@@ -2,6 +2,7 @@ import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@an
 import {GWPopoverDirective} from "../popover/popover.directive";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWToolbarComponent} from "../toolbar/toolbar.component";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'gw-single-select',
@@ -92,6 +93,8 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
     _filter: string;
     _selectNgModel: { id: any, text: string };
 
+    /** 保存前触发 */
+    @Input() onBeforeSave: (ngModel, selectModel) => Observable<boolean>;
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
@@ -172,27 +175,35 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
     }
 
     save() {
-        if (this.data) {
-            let items = this.data.filter((item: any) => item.checked);
-            if (items.length == 1) {
-                this.ngModel = items[0].id;
-                this._selectNgModel = items[0];
-            } else {
-                this.ngModel = '';
-                this._selectNgModel = null;
+        const subscribeFn = (save: boolean) => {
+            if (save) {
+                if (this.data) {
+                    let items = this.data.filter((item: any) => item.checked);
+                    if (items.length == 1) {
+                        this.ngModel = items[0].id;
+                        this._selectNgModel = items[0];
+                    } else {
+                        this.ngModel = '';
+                        this._selectNgModel = null;
+                    }
+                }
+
+                if (this.selectData) {
+                    let items = this.selectData.filter(item => item.id == this._tmpSelectModel);
+                    this._selectedModel = items.length > 0 ? items[0] : null;
+                    this.selectModel = this._tmpSelectModel;
+                }
+
+                this.ngModelChange(this.ngModel);
+                this.selectModelChange.emit(this.selectModel);
+                this.onSave.emit();
+                this.popover.hide();
             }
-        }
+        };
 
-        if (this.selectData) {
-            let items = this.selectData.filter(item => item.id == this._tmpSelectModel);
-            this._selectedModel = items.length > 0 ? items[0] : null;
-            this.selectModel = this._tmpSelectModel;
-        }
-
-        this.ngModelChange(this.ngModel);
-        this.selectModelChange.emit(this.selectModel);
-        this.onSave.emit();
-        this.popover.hide();
+        let _tmpNgModel = (this.data || []).filter((item: any) => item.checked);
+        _tmpNgModel = _tmpNgModel.length > 0 ? _tmpNgModel[0].id : '';
+        this.onBeforeSave ? this.onBeforeSave(_tmpNgModel, this._tmpSelectModel).first().subscribe(subscribeFn) : subscribeFn(true);
     }
 
     cancel() {

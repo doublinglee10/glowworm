@@ -10,17 +10,25 @@ import {Component} from "@angular/core";
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a routerLink="/toolbar">toolbar</a></li>
                         <li><a routerLink="/gwpopconfirm">gwpopconfirm</a></li>
                         <li><a routerLink="/popinput">popinput</a></li>
-                        <li><a routerLink="/gwinput">gwinput</a></li>
                         <li><a routerLink="/gwconfirm">gwconfirm</a></li>
                         <li><a routerLink="/gwpopselect">gwpopselect</a></li>
                         <li><a routerLink="/gwcontextmenu">gwcontextmenu</a></li>
                         <li><a routerLink="/gwtabs">gwtabs</a></li>
                         <li><a routerLink="/gwpannel">gwpannel</a></li>
                         <li><a routerLink="/gwSwitch">gwSwitch</a></li>
-                        <li><a routerLink="/gwselect">gwselect</a></li>
+                        <li class="dropdown open">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                GwForm <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a routerLink="/toolbar">gwtoolbar</a></li>
+                                <li><a routerLink="/gwselect">gwselect</a></li>
+                                <li><a routerLink="/gwsingleselect">gwsingleselect</a></li>
+                                <li><a routerLink="/gwinput">gwinput</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

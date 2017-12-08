@@ -11,7 +11,7 @@ import {GwInputDemoComponent} from "./components/gwinput-demo.component";
 import {GwconfirmDemoComponent, GwconfirmDemoXComponent} from "./components/gwconfirm-demo.component";
 import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
 import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component";
-import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component"
+import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component";
 
 import {GwContextMenuModule} from "../../src/context-menu/context-menu.module";
 import {GwConfirmModule} from "../../src/confirm/confirm.module";
@@ -30,6 +30,7 @@ import {GwPannelModule} from "../../src/panel/panel.module";
 import {GwSwitchModule} from "../../src/switch/gw-switch.module";
 import {GwSelectModule} from "../../src/select/select.module";
 import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
+import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.component";
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
         GwPanelDemoComponent,
         GwSwitchDemoComponent,
         GwSelectDemoComponent,
-        TestComponent
+        TestComponent,
+        GwSingleSelectDemoComponent
     ],
     imports: [
         FormsModule,

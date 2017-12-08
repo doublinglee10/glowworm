@@ -1,165 +1,223 @@
 import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {GWSelect, SelectModal} from "../utils/select.modal";
-import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
-
-export const GW_SINGLE_SELECT_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GWSingleSelectComponent),
-    multi: true
-};
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {GWToolbarComponent} from "../toolbar/toolbar.component";
 
 @Component({
     selector: 'gw-single-select',
     styleUrls: ['./single-select.component.css'],
-    templateUrl: './single-select.component.html',
-    providers: [GW_SINGLE_SELECT_VALUE_ACCESSOR]
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => GwSingleSelectComponent),
+        multi: true
+    }],
+    template: `
+        <ng-container *ngIf="enabled">
+            <button type="button" class="btn btn-default {{btnSize}}">
+                <span gw-popover [template]="tpl">
+                    <span class="author">{{label}}</span>
+                    <span class="value">{{_values}}</span>
+                    <span class="arrow"><span class="caret"></span></span>
+                </span>
+                <ng-container *ngIf="closeable">
+                    <span class="glyphicon glyphicon-remove" (click)="remove()"></span>
+                </ng-container>
+            </button>
+        </ng-container>
+
+        <ng-template #tpl>
+            <div class="popover-container">
+                <ng-container *ngIf="showSelect">
+                    <div class="popover-top">
+                        <span class="top-label">{{label}}</span>:
+                        <select class="top-select"
+                                [(ngModel)]="_tmpSelectModel"
+                                (change)="onSelectModelChange()">
+                            <option *ngFor="let item of selectData" [value]="item.id">{{item.text}}</option>
+                        </select>
+                    </div>
+                    <div class="popover-hr"></div>
+                </ng-container>
+                <div class="popover-main">
+                    <div class="input"><input type="text" [(ngModel)]="_filter" name="value" placeholder="过滤..."></div>
+                    <ul>
+                        <li *ngFor="let item of data|gwSelectFilter:_filter">
+                            <label>
+                                <input type="checkbox" [(ngModel)]="item.checked" name="checkbox"
+                                       (change)="onCheckBoxChange(item)">
+                                <span>{{item.text}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="popover-hr"></div>
+                <div class="popover-footer">
+                    <div class="left">
+                        <a class="btn btn-xs" (click)="clear()">清除</a>
+                    </div>
+                    <div class="right">
+                        <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
+                        <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    `
 })
-export class GWSingleSelectComponent extends GWControl implements ControlValueAccessor {
+export class GwSingleSelectComponent implements ControlValueAccessor {
+
+    @Input() label: string;
+    @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
+    @Input() enabled: boolean = true;
+    @Input() closeable: boolean = true;
+    @Input() clearSave: boolean = true;
+
+    @Input() showSelect: boolean = false;
+    @Input() selectData: { id: any, text: string }[] = [];
+
+    /** 双向绑定 */
+    @Input() selectModel: any;
+    @Output() selectModelChange: EventEmitter<any> = new EventEmitter();
+
+    _tmpSelectModel: any;
+    _selectedModel: { id: any, text: string };
+    @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
+
+    @Input() data: { id: any, text: string }[];
+    /** @Input() 双向绑定 */
+    ngModel: any;
+    /** @Output() */
+    ngModelChange: any = Function.prototype;
+
+    _filter: string;
+    _selectNgModel: { id: any, text: string };
 
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output() onDataselect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
-    _filter: string;
+    @Input('data') set _data(data: { id: any, text: string }[]) {
+        this.data = data.map(item => Object.assign({checked: false}, item));
+        this._cascadeData();
+    }
 
-    data: GWSelect[];
-    value: string | SelectModal;
-    selectLabel: string;
+    @Input('selectModel') set _selectModel(selectModel: any) {
+        this.selectModel = selectModel;
+        this._tmpSelectModel = selectModel;
+        this._cascadeData();
+    }
 
-    _select_modal: string;
-    _select_value: GWSelect;
-    _single_select_value: GWSelect;
+    onRemove: Function = Function.prototype;
 
-    onChange: any;
-    onTouched: any;
+    @Input() set toolbar(toolbar: GWToolbarComponent) {
+        toolbar && toolbar.addFieldComponent(this as any);
+    }
 
-    @Input('data') set _data(data: any[]) {
-        data = data || [];
-        let _data = [];
-        data.forEach((item: any) => {
-            _data.push({...item});
+    writeValue(ngModel: any): void {
+        this.ngModel = ngModel;
+        this._cascadeData();
+    }
+
+    registerOnChange(fn: any): void {
+        this.ngModelChange = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+    }
+
+    get _values() {
+        let ngModelValue = this._selectNgModel ? this._selectNgModel.text : '';
+        if (this.showSelect && this._selectedModel) {
+            return `${this._selectedModel.text} ${ngModelValue}`;
+        }
+        return ngModelValue;
+    }
+
+    onSelectModelChange() {
+        this.onSelectChange.emit(this._tmpSelectModel);
+    }
+
+    onCheckBoxChange(item) {
+        this.data.forEach((_item: any) => {
+            if (item != _item) {
+                _item.checked = false;
+            }
         });
-        this.data = _data;
-        this.writeValue(this.value);
     }
 
     clear() {
         if (this.data) {
             this.data.forEach((item: any) => {
-                item.__checked__ = false;
+                item.checked = false;
             });
         }
-        this._select_modal = '';
-    }
+        this._tmpSelectModel = '';
 
-    updateNgModel() {
-        this.onTouched();
-        this.onChange(this.value);
-    }
-
-    save() {
-        let single_data = this.data.filter((item: any) => item.__checked__);
-        let select_data = this.selectData.filter((item: any) => item.id == this._select_modal);
-        this._single_select_value = single_data.length > 0 ? single_data[0] : {};
-        if (this.showSelect) {
-            this._select_value = select_data.length > 0 ? select_data[0] : {};
-            this.value = {
-                value: this._single_select_value.id,
-                selectValue: this._select_value.id
-            }
-        } else {
-            this.value = this._single_select_value.id;
+        if (this.clearSave) {
+            this.save();
         }
-
-        this.updateNgModel();
-        this.onSave.emit(this.value);
-    }
-
-    cancel() {
-        this.refreshUI();
-        this.updateNgModel();
     }
 
     remove() {
-        this._select_modal = '';
-        this._single_select_value = {};
-        this._select_value = {};
-        this.value = this.showSelect ? {value: '', selectValue: ''} : '';
+        this.selectModel = '';
+        this._tmpSelectModel = '';
+        this._selectedModel = null;
+        this._selectNgModel = null;
+        this.ngModel = '';
+        this.ngModelChange(this.ngModel);
+        this.selectModelChange.emit(this.selectModel);
         this.enabled = false;
-        this.updateNgModel();
-        this.refreshUI();
         this.onRemove();
     }
 
-    onSelect(item: any) {
-        if (item.__checked__) {
-            this.data.forEach((item: any) => {
-                item.__checked__ = false;
-            });
-            item.__checked__ = true;
-        }
-    }
-
-
-    writeValue(val: string | SelectModal): void {
-        if (val) {
-            if (this.showSelect) {
-                if (this.data) {
-                    this.data.forEach((item: any) => {
-                        if (item.id == (<SelectModal>val).value) {
-                            this._single_select_value = item;
-                        }
-                    });
-                }
-
-                if (this.selectData) {
-                    let data = this.selectData.filter((item: any) => {
-                        return item.id == (<SelectModal>val).selectValue
-                    });
-                    if (data.length > 0) {
-                        this._select_value = data[0];
-                    }
-                }
+    save() {
+        if (this.data) {
+            let items = this.data.filter((item: any) => item.checked);
+            if (items.length == 1) {
+                this.ngModel = items[0].id;
+                this._selectNgModel = items[0];
             } else {
-                if (this.data) {
-                    this.data.forEach((item: any) => {
-                        if (item.id == val) {
-                            this._single_select_value = item;
-                        }
-                    });
+                this.ngModel = '';
+                this._selectNgModel = null;
+            }
+        }
+
+        if (this.selectData) {
+            let items = this.selectData.filter(item => item.id == this._tmpSelectModel);
+            this._selectedModel = items.length > 0 ? items[0] : null;
+            this.selectModel = this._tmpSelectModel;
+        }
+
+        this.ngModelChange(this.ngModel);
+        this.selectModelChange.emit(this.selectModel);
+        this.onSave.emit();
+        this.popover.hide();
+    }
+
+    cancel() {
+        this._tmpSelectModel = this.selectModel;
+        this._cascadeData();
+        this.onCancel.emit();
+        this.popover.hide();
+    }
+
+    private _cascadeData() {
+        if (this.data) {
+            this.data.forEach((item: any) => {
+                if (item.id == this.ngModel) {
+                    item.checked = true;
+                    this._selectNgModel = item;
+                } else {
+                    item.checked = false;
                 }
-            }
-        } else {
-            this._single_select_value = null;
-            this._select_value = null;
-            this._select_modal = '';
+            });
         }
 
-        this.value = val;
-        this.refreshUI();
-    }
-
-    refreshUI() {
-        this.data.forEach((item: any) => item.__checked__ = false);
-        this.data.forEach((item: any) => {
-            if (this._single_select_value && this._single_select_value.id == item.id) {
-                item.__checked__ = true;
-            }
-        });
-        if (this.showSelect && this.value) {
-            this._select_modal = (<SelectModal>this.value).selectValue;
+        if (this.selectData) {
+            let items = this.selectData.filter(item => item.id == this.selectModel);
+            this._selectedModel = items.length > 0 ? items[0] : null;
         }
     }
 
-    registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouched = fn;
-    }
 }

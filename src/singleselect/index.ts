@@ -1,3 +1,3 @@
 export {GWSingleSelectModule} from "./single-select.module";
-export {GWSingleSelectComponent} from "./single-select.component";
+export {GwSingleSelectComponent} from "./single-select.component";
 export {SelectModal} from '../utils/select.modal';

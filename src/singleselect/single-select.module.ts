@@ -2,12 +2,12 @@ import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {GwUtilModule} from "../utils/util.module";
-import {GWSingleSelectComponent} from "./single-select.component";
+import {GwSingleSelectComponent} from "./single-select.component";
 import {GWPopoverModule} from "../popover/popover.module";
 
 @NgModule({
     declarations: [
-        GWSingleSelectComponent
+        GwSingleSelectComponent
     ],
     imports: [
         CommonModule,
@@ -16,7 +16,7 @@ import {GWPopoverModule} from "../popover/popover.module";
         GwUtilModule
     ],
     exports: [
-        GWSingleSelectComponent
+        GwSingleSelectComponent
     ]
 })
 export class GWSingleSelectModule {

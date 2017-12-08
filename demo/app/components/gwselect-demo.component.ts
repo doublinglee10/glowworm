@@ -1,8 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 
 @Component({
-    selector: 'gwinput-demo',
+    selector: 'gwselect-demo',
     template: `
+        <h1>gw-select</h1>
         <p>
             <gw-toolbar>
                 <gw-select #gwcontrol
@@ -50,6 +51,7 @@ import {Component, OnInit} from "@angular/core";
                     [label]="'多选'"
                     [closeable]="true"
                     [multiple]="true"
+                    [clearSave]="true"
 
                     [showSelect]="true"
                     [(selectModel)]="selectModel2"

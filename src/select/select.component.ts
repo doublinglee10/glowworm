@@ -56,8 +56,8 @@ import {GWToolbarComponent} from "../toolbar/toolbar.component";
                         <a class="btn btn-xs" (click)="clear()">清除</a>
                     </div>
                     <div class="right">
-                        <button class="btn btn-primary btn-xs" (click)="save();popover.hide();">保存</button>
-                        <button class="btn btn-default btn-xs" (click)="cancel();popover.hide();">取消</button>
+                        <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
+                        <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
                     </div>
                 </div>
             </div>
@@ -71,20 +71,20 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Input() enabled: boolean = true;
     @Input() closeable: boolean = true;
     @Input() multiple: boolean = false;
+    @Input() clearSave: boolean = true;
 
     @Input() showSelect: boolean = false;
     @Input() selectData: { id: any, text: string }[] = [];
 
-    /** @Input() 双向绑定 */
-    selectModel: any;
+    /** 双向绑定 */
+    @Input() selectModel: any;
     @Output() selectModelChange: EventEmitter<any> = new EventEmitter();
 
     _tmpSelectModel: any;
     _selectedModel: { id: any, text: string };
     @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
 
-    /** @Input()  */
-    data: { id: any, text: string }[];
+    @Input() data: { id: any, text: string }[];
     /** @Input() 双向绑定 */
     ngModel: { id: any, text: string }[];
     /** @Output() */ // ngModelChange: EventEmitter<{ id: any, text: string }[]> = new EventEmitter();
@@ -157,6 +157,10 @@ export class GwSelectComponent implements ControlValueAccessor {
             });
         }
         this._tmpSelectModel = '';
+
+        if (this.clearSave) {
+            this.save();
+        }
     }
 
     remove() {
@@ -194,12 +198,14 @@ export class GwSelectComponent implements ControlValueAccessor {
         this.ngModelChange(this.ngModel);
         this.selectModelChange.emit(this.selectModel);
         this.onSave.emit();
+        this.popover.hide();
     }
 
     cancel() {
         this._tmpSelectModel = this.selectModel;
         this._cascadeData();
         this.onCancel.emit();
+        this.popover.hide();
     }
 
     private _cascadeData() {

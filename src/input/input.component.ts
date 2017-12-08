@@ -73,7 +73,7 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     @Input() selectData: { id: any, text: string }[] = [];
 
     /** 清除时立即执行保存 */
-    @Input() clearSave: boolean;
+    @Input() clearSave: boolean = true;
 
     /** @Input() 双向绑定 */
     @Input() selectModel: any; // id: any

@@ -9,8 +9,9 @@ import {PopselectDemoComponent} from "./components/popselect-demo.conponent";
 import {ContextMenuDemoComponent} from "./components/contextmenu-demo.component";
 import {GwTabsDemoComponent} from "./components/gwtabs-demo.component";
 import {GwPanelDemoComponent} from "./components/gwpannel-demo.component";
-import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component"
+import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component";
 import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
+import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.component";
 const routes: Routes = [
     {
         path: 'popinput',
@@ -49,12 +50,16 @@ const routes: Routes = [
         component: GwPanelDemoComponent
     },
     {
-      path:'gwSwitch',
-      component:GwSwitchDemoComponent
+        path: 'gwSwitch',
+        component: GwSwitchDemoComponent
     },
     {
-      path:'gwselect',
-      component:GwSelectDemoComponent
+        path: 'gwselect',
+        component: GwSelectDemoComponent
+    },
+    {
+        path: 'gwsingleselect',
+        component: GwSingleSelectDemoComponent
     }
 ];
 

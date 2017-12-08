@@ -4,6 +4,8 @@ import {Observable} from "rxjs/Observable";
 @Component({
     selector: 'gwinput-demo',
     template: `
+        <h1>gw-input</h1>
+        
         <p>
             <gw-toolbar>
                 <gw-input #gwcontrol

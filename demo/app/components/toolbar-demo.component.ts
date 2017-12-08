@@ -1,11 +1,13 @@
 import {Component} from "@angular/core";
 import {DatepickerConfig} from "../../../src/datepicker/config.server";
-import {InputModal, SelectModal} from "../../../src/utils/select.modal";
+import {InputModal} from "../../../src/utils/select.modal";
 import * as moment from "moment";
 
 @Component({
     selector: 'popconfirm-demo',
     template: `
+        <h1>gw-toolbar</h1>
+
         <gw-toolbar #bar>
 
             <p>
@@ -90,7 +92,7 @@ import * as moment from "moment";
                                   [closeable]="true"
                                   [enabled]="true"
                                   [showSelect]="true"
-                                  (onDataselect)="changeData($event)"
+                                  (onSelectChange)="changeData($event)"
                                   (onSave)="log($event);"
                 >
                 </gw-single-select>
@@ -180,15 +182,9 @@ export class ToolbarDemoComponent {
 
     selectModel: any;
 
-    selectXModel: SelectModal = {
-        value: '1',
-        selectValue: '1'
-    };
+    selectXModel: string;
 
-    selectX2Model: SelectModal = {
-        value: '1',
-        selectValue: '1'
-    };
+    selectX2Model: string;
 
     singleSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}];
 

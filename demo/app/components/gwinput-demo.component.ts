@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'gwinput-demo',
@@ -41,6 +42,9 @@ import {Component, OnInit} from "@angular/core";
                       (onSelectChange)="log('onSelectChange', $event)"
 
                       [(ngModel)]="value"
+
+                      [clearSave]="true"
+                      [onBeforeSave]="onBeforeSave"
                       (onSave)="log('onSave', $event)"
                       (onCancel)="log('onCancel', $event)"
 
@@ -62,6 +66,7 @@ import {Component, OnInit} from "@angular/core";
                       (onSelectChange)="log('onSelectChange', $event)"
 
                       [(ngModel)]="value"
+                      [clearSave]="true"
                       (onSave)="log('onSave', $event)"
                       (onCancel)="log('onCancel', $event)"
 
@@ -86,6 +91,12 @@ export class GwInputDemoComponent implements OnInit {
         let ip = {text: 'IP', id: 'ip'};
 
         this.selectData = [mac, idfa, ip];
+    }
+
+    onBeforeSave(): Observable<boolean> {
+        console.log(arguments);
+        const confirm = window.confirm('Save ?');
+        return Observable.of(confirm);
     }
 
     log() {

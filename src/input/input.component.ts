@@ -2,6 +2,7 @@ import {Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} f
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
+import {Observable} from "rxjs/Observable";
 
 export const GW_INPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -49,7 +50,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
                         <a class="btn btn-xs" (click)="clear()">清除</a>
                     </div>
                     <div class="right">
-                        <button class="btn btn-primary btn-xs" (click)="popover.hide();save()">保存</button>
+                        <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
                         <button class="btn btn-default btn-xs" (click)="popover.hide();cancel()">取消</button>
                     </div>
                 </div>
@@ -71,11 +72,16 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     @Input() showSelect: boolean = false;
     @Input() selectData: { id: any, text: string }[] = [];
 
+    /** 清除时立即执行保存 */
+    @Input() clearSave: boolean;
+
     /** @Input() 双向绑定 */
     @Input() selectModel: any; // id: any
     @Output() selectModelChange: EventEmitter<{ id: any, text: string }> = new EventEmitter();
     @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
 
+    /** 保存前触发 */
+    @Input() onBeforeSave: (ngModel, selectModel) => Observable<boolean>;
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
@@ -117,14 +123,25 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     clear() {
         this._tmpNgModel = '';
         this._tmpSelectModel = '';
+
+        if (this.clearSave) {
+            this.save();
+        }
     }
 
     save() {
-        this._selectModel = this._tmpSelectModel;
-        this.ngModel = this._tmpNgModel;
-        this.ngModelChange(this._tmpNgModel);
-        this.selectModelChange.emit(this.selectModel);
-        this.onSave.emit();
+        const subscribeFn = (save: boolean) => {
+            if (save) {
+                this._selectModel = this._tmpSelectModel;
+                this.ngModel = this._tmpNgModel;
+                this.ngModelChange(this._tmpNgModel);
+                this.selectModelChange.emit(this.selectModel);
+                this.onSave.emit();
+                this.popover.hide();
+            }
+        };
+
+        this.onBeforeSave ? this.onBeforeSave(this._tmpNgModel, this._tmpSelectModel).first().subscribe(subscribeFn) : subscribeFn(true);
     }
 
     cancel() {

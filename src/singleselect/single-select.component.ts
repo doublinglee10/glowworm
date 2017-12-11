@@ -101,7 +101,7 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
     @Input('data') set _data(data: { id: any, text: string }[]) {
-        this.data = data.map(item => Object.assign({checked: false}, item));
+        this.data = data ? data.map(item => Object.assign({checked: false}, item)) : [];
         this._cascadeData();
     }
 

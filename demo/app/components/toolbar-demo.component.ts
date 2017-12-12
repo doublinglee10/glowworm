@@ -8,7 +8,7 @@ import * as moment from "moment";
     template: `
         <h1>gw-toolbar</h1>
 
-        <gw-toolbar #bar>
+        <gw-toolbar #bar [showType]="'withMore'">
 
             <p>
                 <gw-input #gwcontrol #input

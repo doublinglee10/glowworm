@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ContentChildren, ElementRef, QueryList} from "@angular/core";
+import {AfterContentInit, Component, ContentChildren, ElementRef, Input, QueryList} from "@angular/core";
 import {GWControl} from "../utils/gw-control";
 
 @Component({
@@ -9,6 +9,10 @@ import {GWControl} from "../utils/gw-control";
 export class GWToolbarComponent implements AfterContentInit {
 
     @ContentChildren('gwcontrol') _fields: QueryList<ElementRef>;
+
+    @Input() showType: 'always' | 'withMore' = 'always';
+
+    _show: boolean = true;
 
     fields: any[] = [];
     _filter: string;
@@ -42,6 +46,10 @@ export class GWToolbarComponent implements AfterContentInit {
                 component: control
             })
         });
+
+        if (this.showType == 'withMore') {
+            this._show = this.data.length > 0;
+        }
     }
 
     onRemove() {

@@ -1,5 +1,6 @@
 <ng-content></ng-content>
-<button type="button" class="btn btn-default btn-xs" gw-popover #popover="gw-popover" [template]="tpl">
+
+<button [class.hidden]="!_show" type="button" class="btn btn-default btn-xs" gw-popover #popover="gw-popover" [template]="tpl">
     <span class="glyphicon glyphicon-plus"></span>
 </button>
 

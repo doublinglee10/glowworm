@@ -111,6 +111,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
     @Output() onSelect: EventEmitter<TabOrTabComponent> = new EventEmitter();
     @Output() onUnSelect: EventEmitter<TabOrTabComponent> = new EventEmitter();
     @Output() onAdd: EventEmitter<TabOrTabComponent> = new EventEmitter();
+    @Output() onSortStart: EventEmitter<void> = new EventEmitter<void>();
     @Output() onSort: EventEmitter<void> = new EventEmitter<void>();
     /**
      * 每次tab排序发生变化时触发
@@ -132,6 +133,14 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
             this.onSort.emit();
             this._onOrderChangeEvent();
         });
+
+        dragulaService.drag.subscribe((value)=>{
+            this.onSortStart.emit();
+        });
+
+        dragulaService.cancel.subscribe((value)=>{
+            this.onSort.emit();
+        })
     }
 
     ngOnInit() {

@@ -35,6 +35,8 @@ export class TestComponent{
         <gw-tabs [sortable]="true"
                  [storeKey]="'tabsdemo'"
                  [storeType]="'local'"
+                 (onSort)="sorted()" 
+                 (onSortStart)="startSort()" 
                  (onSelect)="selectThisTab($event)" 
                  [onClosing]="onClosing">
             <gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">
@@ -137,6 +139,14 @@ export class GwTabsDemoComponent implements OnInit {
 
     clear(){
         this.tabs.clear();
+    }
+
+    sorted(){
+        console.log('sort finished');
+    }
+
+    startSort(){
+        console.log('sort start');
     }
 }
 

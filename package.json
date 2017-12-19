@@ -29,8 +29,6 @@
     "@angular/forms": "4.0.0"
   },
   "devDependencies": {
-    "@angular/core": "4.0.0",
-    "@angular/forms": "4.0.0",
     "@angular/cli": "1.2.6",
     "@angular/compiler-cli": "4.0.0",
     "@angular/language-service": "4.0.0",

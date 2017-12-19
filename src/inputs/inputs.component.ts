@@ -1,4 +1,4 @@
-import {Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} from "@angular/core";
+import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
@@ -16,9 +16,6 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
     providers: [GW_INPUT_VALUE_ACCESSOR],
     template: `
         <ng-container *ngIf="enabled">
-            {{ngModel | json}}
-            {{_tmpNgModel | json}}
-
             <button type="button" class="btn btn-default {{btnSize}}">
                 <span gw-popover [template]="tpl">
                     <span class="author">{{label}}</span>
@@ -34,12 +31,12 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
         <ng-template #tpl>
             <div class="popover-container">
                 <div class="popover-main">
-                    <div *ngFor="let item of _tmpNgModel; let i = index;" class="item">
-                        <input [(ngModel)]="item.value" [attr.placeholder]="placeholder">
+                    <div *ngFor="let item of _tmpNgModel; let i = index; trackBy:customTrackBy" class="item">
+                        <input [(ngModel)]="_tmpNgModel[i]" [attr.placeholder]="placeholder">
                         <i class="fa fa-minus-square" (click)="removeItem(i)"></i>
                     </div>
                     <div class="plus">
-                        <button (click)="_tmpNgModel.push({value: ''})"
+                        <button (click)="_tmpNgModel.push('')"
                                 class="btn btn-default btn-xs btn-block">
                             <i class="fa fa-plus"></i>
                         </button>
@@ -59,7 +56,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
         </ng-template>
     `
 })
-export class GwInputsComponent extends GWControl implements ControlValueAccessor, OnInit {
+export class GwInputsComponent extends GWControl implements ControlValueAccessor {
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
@@ -79,17 +76,18 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
     /** @Input() 双向绑定 */
-    ngModel: { value: any }[] = [];
+    ngModel: any[] = [];
     /** @Output() */
     ngModelChange = Function.prototype;
 
-    _tmpNgModel: { value: any }[] = [];
+    _tmpNgModel: any[] = [];
 
-    ngOnInit(): void {
+    customTrackBy(index: number, obj: any): any {
+        return index;
     }
 
     get _values() {
-        return this.ngModel.map(item => item.value).join(',');
+        return this.ngModel.join(',');
     }
 
     clear() {
@@ -103,19 +101,17 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     save() {
         const subscribeFn = (save: boolean) => {
             if (save) {
-                this.ngModel = [...this._tmpNgModel.map(item => Object.assign(item))];
-                this.ngModelChange(this.ngModel.map(item => item.value));
+                this.ngModel = [...this._tmpNgModel];
+                this.ngModelChange(this.ngModel);
                 this.onSave.emit();
                 this.popover.hide();
             }
         };
-
-        let ngModel = this._tmpNgModel.map(item => item.value);
-        this.onBeforeSave ? this.onBeforeSave(ngModel).first().subscribe(subscribeFn) : subscribeFn(true);
+        this.onBeforeSave ? this.onBeforeSave(this._tmpNgModel).first().subscribe(subscribeFn) : subscribeFn(true);
     }
 
     cancel() {
-        this._tmpNgModel = [...this.ngModel.map(item => Object.assign(item))];
+        this._tmpNgModel = [...this.ngModel];
         this.onCancel.emit();
     }
 
@@ -132,9 +128,9 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     }
 
     writeValue(ngModel: string[]): void {
-        let values = (ngModel || []).map(item => Object.assign({value: item}));
-        this._tmpNgModel = [...values.map(item => Object.assign(item))];
-        this.ngModel = [...values.map(item => Object.assign(item))];
+        let values = (ngModel || []);
+        this._tmpNgModel = [...values];
+        this.ngModel = [...values];
     }
 
     registerOnChange(fn: any): void {

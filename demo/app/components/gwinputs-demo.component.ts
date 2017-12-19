@@ -49,6 +49,7 @@ import {Observable} from "rxjs/Observable";
                        [btnSize]="'btn-xs'"
                        [enabled]="true"
                        [closeable]="true"
+                       [placeholder]="'... ...'"
 
                        [(ngModel)]="value"
                        [clearSave]="true"

@@ -27,6 +27,7 @@ import {Component} from "@angular/core";
                                 <li><a routerLink="/gwselect">gwselect</a></li>
                                 <li><a routerLink="/gwsingleselect">gwsingleselect</a></li>
                                 <li><a routerLink="/gwinput">gwinput</a></li>
+                                <li><a routerLink="/gwinputs">gwinputs</a></li>
                             </ul>
                         </li>
                     </ul>

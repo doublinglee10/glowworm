@@ -15,6 +15,7 @@ import {GwTabsModule} from "./tabs/tabs.module";
 import {GwSwitchModule} from "./switch/gw-switch.module";
 import {GwPannelModule} from "./panel/panel.module";
 import {GwSelectModule} from "./select/select.module";
+import {GwInputsModule} from "./inputs/inputs.module";
 
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
@@ -32,7 +33,8 @@ let MODULES_FOR_ROOT = [
     GwTabsModule,
     GwSwitchModule,
     GwPannelModule,
-    GwSelectModule
+    GwSelectModule,
+    GwInputsModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -51,7 +53,8 @@ let MODULES_FOR_CHILD = [
     GwTabsModule,
     GwPannelModule,
     GwSwitchModule,
-    GwSelectModule
+    GwSelectModule,
+    GwInputsModule
 ];
 
 @NgModule({

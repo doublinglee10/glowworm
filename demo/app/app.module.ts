@@ -31,6 +31,8 @@ import {GwSwitchModule} from "../../src/switch/gw-switch.module";
 import {GwSelectModule} from "../../src/select/select.module";
 import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
 import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.component";
+import {GwInputsDemoComponent} from "./components/gwinputs-demo.component";
+import {GwInputsModule} from "../../src/inputs/inputs.module";
 
 @NgModule({
     declarations: [
@@ -48,7 +50,8 @@ import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.comp
         GwSwitchDemoComponent,
         GwSelectDemoComponent,
         TestComponent,
-        GwSingleSelectDemoComponent
+        GwSingleSelectDemoComponent,
+        GwInputsDemoComponent
     ],
     imports: [
         FormsModule,
@@ -67,7 +70,8 @@ import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.comp
         GwTabsModule,
         GwPannelModule,
         GwSwitchModule,
-        GwSelectModule
+        GwSelectModule,
+        GwInputsModule
     ],
     bootstrap: [
         AppComponent

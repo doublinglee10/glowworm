@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {DatepickerConfig} from "../../../src/datepicker/config.server";
-import {InputModal} from "../../../src/utils/select.modal";
 import * as moment from "moment";
 
 @Component({
@@ -159,7 +158,7 @@ export class ToolbarDemoComponent {
     dateModel2: any;
 
     inputModel: string = 'app';
-    inputSelectModel: InputModal = {
+    inputSelectModel = {
         value: 'app ...',
         selectValue: '0'
     };

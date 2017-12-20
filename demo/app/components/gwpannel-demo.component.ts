@@ -4,11 +4,14 @@ import {Observable} from "rxjs/Observable";
 @Component({
     selector: 'gwpanel-demo',
     template: `
-        <gw-panel [title]="'this is a title'" [content]="'this is a content'"
+        <gw-panel [title]="title2" [content]="'this is a content'"
                   [lazy]="true"
                   [closable]="true"
                   [onClosing]="onClosing"
                   [gwClass]="'box-warning'">
+            <ng-template #title2>
+                <h1>this is a other title</h1>
+            </ng-template>
             <ng-template #extra>
                 <button class="btn btn-box-tool">
                     <i class="fa fa-gear"></i>

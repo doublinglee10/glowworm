@@ -20,7 +20,10 @@ import {Observable} from "rxjs/Observable";
         <div class="box {{collapsed ? 'collapsed-box' : ''}}" [ngClass]="gwClass" *ngIf="display">
             <div class="box-header with-border">
                 <ng-template #panel_header>
-                    <h3 class="box-title">{{title}}</h3>
+                    <h3 class="box-title">{{title}}</h3> 
+                </ng-template>
+                <ng-container *ngIf="_typeofContent(title) === 'string'">
+                    <ng-template [ngTemplateOutlet]="panel_header"></ng-template>
                     <div class="box-tools pull-right">
                         <ng-container *ngIf="extra">
                             <ng-template [ngTemplateOutlet]="extra"></ng-template>
@@ -32,12 +35,20 @@ import {Observable} from "rxjs/Observable";
                             <i class="fa fa-times"></i>
                         </button>
                     </div>
-                </ng-template>
-                <ng-container *ngIf="_typeofContent(title) === 'string'">
-                    <ng-template [ngTemplateOutlet]="panel_header"></ng-template>
                 </ng-container>
                 <ng-container *ngIf="_typeofContent(title) === 'template'">
                     <ng-template [ngTemplateOutlet]="title"></ng-template>
+                    <div class="box-tools pull-right">
+                        <ng-container *ngIf="extra">
+                            <ng-template [ngTemplateOutlet]="extra"></ng-template>
+                        </ng-container>
+                        <button *ngIf="toggle" class="btn btn-box-tool" (click)="togglePanel()">
+                            <i class="fa" [ngClass]="{'fa-minus': !collapsed, 'fa-plus': collapsed}"></i>
+                        </button>
+                        <button *ngIf="closable" class="btn btn-box-tool" (click)="closePanel()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </ng-container>
             </div>
             <div class="box-body" *ngIf="!lazy || !isFirst">

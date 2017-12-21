@@ -62,6 +62,9 @@ export class TestComponent{
                     &lt;/ng-template&gt;
                 </ng-template>
             </gw-tab>
+            <gw-tab [closable]="true" [tabId]="'tab4'" [title]="'use ng-content'">
+                use &lt;ng-content&gt;&lt;/ng-content&gt;
+            </gw-tab>
             <gw-tab title="lazy load" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>
 
             <ng-template #extra>

@@ -30,6 +30,11 @@ import {Observable} from "rxjs/Observable";
                 Panel Footer
             </ng-template>
         </gw-panel>
+
+        <gw-panel [lazy]="false">
+            Panel 内容
+            use &lt;ng-content&gt;&lt;/ng-content&gt;
+        </gw-panel>
     `
 })
 export class GwPanelDemoComponent {

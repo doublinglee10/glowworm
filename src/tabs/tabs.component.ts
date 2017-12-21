@@ -76,6 +76,9 @@ let dragulaId: number = 0;
                             <ng-container *ngIf="_typeofContent(tab.content) === 'component'">
                                 <ng-container *ngComponentOutlet="tab.content;injector:tab.injector"></ng-container>
                             </ng-container>
+                            <ng-container *ngIf="_typeofContent(tab.content) === 'undefined'">
+                                <ng-content></ng-content>
+                            </ng-container>
                         </ng-container>
                     </div>
                 </ng-container>
@@ -134,11 +137,11 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
             this._onOrderChangeEvent();
         });
 
-        dragulaService.drag.subscribe((value)=>{
+        dragulaService.drag.subscribe((value) => {
             this.onSortStart.emit();
         });
 
-        dragulaService.cancel.subscribe((value)=>{
+        dragulaService.cancel.subscribe((value) => {
             this.onSort.emit();
         })
     }
@@ -268,8 +271,8 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
         this._onOrderChangeEvent();
     }
 
-    clear(){
-        let tabIds = this._tabs.map(tab=>tab.tabId);
+    clear() {
+        let tabIds = this._tabs.map(tab => tab.tabId);
         tabIds.forEach(tabId => {
             this.closeTab(tabId);
         });

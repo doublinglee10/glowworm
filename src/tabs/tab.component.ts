@@ -4,7 +4,7 @@ export type StringLike = string | TemplateRef<any> | Type<any>;
 
 @Component({
     selector: 'gw-tab',
-    template: ` `
+    template: `<ng-content></ng-content>`
 })
 export class GwTabComponent implements OnInit {
 

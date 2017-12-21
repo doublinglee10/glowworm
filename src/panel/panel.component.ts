@@ -18,9 +18,9 @@ import {Observable} from "rxjs/Observable";
     styleUrls: ['../styles/glowworm.css'],
     template: `
         <div class="box {{collapsed ? 'collapsed-box' : ''}}" [ngClass]="gwClass" *ngIf="display">
-            <div class="box-header with-border">
+            <div class="box-header with-border" *ngIf="title">
                 <ng-template #panel_header>
-                    <h3 class="box-title">{{title}}</h3> 
+                    <h3 class="box-title">{{title}}</h3>
                 </ng-template>
                 <ng-container *ngIf="_typeofContent(title) === 'string'">
                     <ng-template [ngTemplateOutlet]="panel_header"></ng-template>
@@ -60,6 +60,9 @@ import {Observable} from "rxjs/Observable";
                 </ng-container>
                 <ng-container *ngIf="_typeofContent(content) === 'component'">
                     <ng-container *ngComponentOutlet="content"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="_typeofContent(content) === 'undefined'">
+                    <ng-content></ng-content>
                 </ng-container>
             </div>
             <div class="box-footer" *ngIf="footer">

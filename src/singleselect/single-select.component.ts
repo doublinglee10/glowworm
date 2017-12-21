@@ -100,6 +100,12 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
+    onRemove: Function = Function.prototype;
+
+    @Input() set toolbar(toolbar: GWToolbarComponent) {
+        toolbar && toolbar.addFieldComponent(this as any);
+    }
+
     @Input('data') set _data(data: { id: any, text: string }[]) {
         this.data = data ? data.map(item => Object.assign({checked: false}, item)) : [];
         this._cascadeData();
@@ -108,13 +114,12 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
     @Input('selectModel') set _selectModel(selectModel: any) {
         this.selectModel = selectModel;
         this._tmpSelectModel = selectModel;
-        this._cascadeData();
+        this._cascadeSelectData();
     }
 
-    onRemove: Function = Function.prototype;
-
-    @Input() set toolbar(toolbar: GWToolbarComponent) {
-        toolbar && toolbar.addFieldComponent(this as any);
+    @Input('selectData') set _selectData(selectData: { id: any, text: string }[]) {
+        this.selectData = selectData;
+        this._cascadeSelectData();
     }
 
     writeValue(ngModel: any): void {
@@ -209,25 +214,36 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
     cancel() {
         this._tmpSelectModel = this.selectModel;
         this._cascadeData();
+        this._cascadeSelectData();
         this.onCancel.emit();
         this.popover.hide();
     }
 
     private _cascadeData() {
         if (this.data) {
-            this.data.forEach((item: any) => {
-                if (item.id == this.ngModel) {
-                    item.checked = true;
-                    this._selectNgModel = item;
-                } else {
-                    item.checked = false;
-                }
-            });
+            this.data.forEach((item: any) => item.checked = false);
+            let items = this.data.filter(item => item.id == this.ngModel);
+            if (items.length > 0) {
+                this._selectNgModel = items[0];
+                (<any>this._selectNgModel).checked = true;
+            } else {
+                this._selectNgModel = null;
+            }
+        } else {
+            this._selectNgModel = null;
         }
+    }
 
+    private _cascadeSelectData() {
         if (this.selectData) {
-            let items = this.selectData.filter(item => item.id == this.selectModel);
-            this._selectedModel = items.length > 0 ? items[0] : null;
+            let items = this.selectData.filter((item) => item.id == this.selectModel);
+            if (items.length > 0) {
+                this._selectedModel = items[0];
+            } else {
+                this._selectedModel = null;
+            }
+        } else {
+            this._selectedModel = null;
         }
     }
 

@@ -15,11 +15,11 @@ import {Observable} from "rxjs/Observable";
 
                                   [showSelect]="true"
                                   [(selectModel)]="selectModel"
-                                  [selectData]="options"
+                                  [selectData]="selectData"
                                   (onSelectChange)="log('select', $event)"
 
                                   [(ngModel)]="ngModel"
-                                  [data]="options"
+                                  [data]="data"
                                   (onSave)="log('save', $event)"
                                   (onCancel)="log('cancel', $event)"
                 >
@@ -34,12 +34,12 @@ import {Observable} from "rxjs/Observable";
 
                     [showSelect]="true"
                     [(selectModel)]="selectModel"
-                    [selectData]="options"
+                    [selectData]="selectData"
                     (onSelectChange)="log('select', $event)"
 
                     [onBeforeSave]="onBeforeSave"
                     [(ngModel)]="ngModel"
-                    [data]="options"
+                    [data]="data"
                     (onSave)="log('save', $event)"
                     (onCancel)="log('cancel', $event)"
             >
@@ -47,6 +47,13 @@ import {Observable} from "rxjs/Observable";
 
             {{selectModel | json}}
             {{ngModel | json}}
+        </p>
+
+        <p>
+            <button class="btn btn-default" (click)="toggleSelectModel()">toggleSelectModel</button>
+            <button class="btn btn-default" (click)="toggleSelectData()">toggleSelectData</button>
+            <button class="btn btn-default" (click)="toggleNgModel()">toggleNgModel</button>
+            <button class="btn btn-default" (click)="toggleNgData()">toggleNgData</button>
         </p>
 
 
@@ -57,27 +64,75 @@ import {Observable} from "rxjs/Observable";
 })
 export class GwSingleSelectDemoComponent implements OnInit {
 
-    ngModel: any;
-    selectModel: any = 'idfa';
-    options = [];
+    selectModel: any = 'a';
+    selectData = [];
+
+    ngModel: any = '@';
+    data = [];
 
     msg: any;
 
     ngOnInit() {
-        let mac = {text: 'MAC', id: 'mac'};
-        let idfa = {text: 'IDFA', id: 'idfa'};
-        let udid = {text: 'UDID', id: 'udid'};
-        let ip = {text: 'IP', id: 'ip'};
-        let idfv = {text: 'IDFV', id: 'idfv'};
-        let dUniqueID = {text: 'palmDeviceId', id: 'dUniqueID'};
+        this.selectData = [
+            {id: 'a', text: 'AA'},
+            {id: 'b', text: 'BB'},
+            {id: 'c', text: 'CC'},
+            {id: 'd', text: 'DD'}
+        ];
 
-        this.options = [mac, idfa, idfv, udid, ip, dUniqueID];
+        this.data = [
+            {id: '@', text: '@@'},
+            {id: '!', text: '!!'},
+            {id: '#', text: '##'}
+        ]
     }
 
     onBeforeSave(): Observable<boolean> {
         console.log(arguments);
         const confirm = window.confirm('Save ?');
         return Observable.of(confirm);
+    }
+
+    toggleSelectModel() {
+        this.selectModel = this.selectModel == 'aaa' ? 'a' : 'aaa';
+    }
+
+    toggleSelectData() {
+        if (this.selectData.length == 3) {
+            this.selectData = [
+                {id: 'a', text: 'AA'},
+                {id: 'b', text: 'BB'},
+                {id: 'c', text: 'CC'},
+                {id: 'd', text: 'DD'}
+            ];
+        } else {
+            this.selectData = [
+                {id: 'aaa', text: 'AAA'},
+                {id: 'bbb', text: 'BBB'},
+                {id: 'ccc', text: 'CCC'}
+            ];
+        }
+    }
+
+    toggleNgModel() {
+        this.ngModel = this.ngModel == '*' ? '@' : '*';
+    }
+
+    toggleNgData() {
+        if (this.data.length == 3) {
+            this.data = [
+                {id: '^', text: '^^'},
+                {id: '&', text: '&&'},
+                {id: '*', text: '**'},
+                {id: '-', text: '--'}
+            ]
+        } else {
+            this.data = [
+                {id: '@', text: '@@'},
+                {id: '!', text: '!!'},
+                {id: '#', text: '##'}
+            ]
+        }
     }
 
     log(event_type, event) {

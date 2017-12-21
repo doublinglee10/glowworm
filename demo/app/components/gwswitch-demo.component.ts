@@ -5,7 +5,8 @@ import {Component} from "@angular/core"
     template:`
         <div>
             <h2>basic switch</h2>
-            <gw-switch [(ngModel)]="basicSwitch"></gw-switch>
+            <gw-switch [(ngModel)]="basicSwitch" [checkValue]="'1'" [unCheckValue]="'2'"></gw-switch>
+            {{basicSwitch}}
         </div>
         <div>
             <h2>basic switch include text</h2>
@@ -49,7 +50,7 @@ import {Component} from "@angular/core"
             <button (click)="changeSwitchType('warning')" class="btn btn-warning">warning</button>
             <br>
             <br>
-            <gw-switch [type]="switchType" [(ngModel)]="basicTypeSwitch">
+            <gw-switch [type]="switchType" [checkValue]="2" [unCheckValue]="3" [(ngModel)]="basicTypeSwitch">
                 <span checked>on</span>
                 <span unchecked>off</span>
             </gw-switch>
@@ -65,7 +66,7 @@ import {Component} from "@angular/core"
 })
 
 export class GwSwitchDemoComponent {
-    basicSwitch = true;
+    basicSwitch = '1';
     basicTextSwitch1 = false;
     basicTextSwitch2 = true;
     basicDisabledSwitch = true;

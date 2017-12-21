@@ -28,8 +28,10 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms"
 export class GwSwitchComponent implements ControlValueAccessor, OnInit {
     _classMap;
     _size: string;
-    _checked = false;
+    _checked:boolean|string|number = false;
     _disabled = false;
+    _checkValue:boolean|string|number = true;
+    _unCheckValue:boolean|string|number = false;
     _type: string;
 
 
@@ -44,6 +46,21 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
 
     get size(): string {
         return this._size
+    }
+
+    @Input()
+    set checkValue(value:string|number|boolean){
+        this._checkValue = value
+    }
+    get checkValue(){
+        return this._checkValue
+    }
+    @Input()
+    set unCheckValue(value:string|number|boolean){
+        this._unCheckValue = value
+    }
+    get unCheckValue(){
+        return this._unCheckValue
     }
 
     @Input()
@@ -66,11 +83,18 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
         return this._disabled
     }
 
+
     @HostListener('click', ['$event'])
     onClick(e) {
         e.preventDefault();
+        console.log(this._checkValue);
         if (!this._disabled) {
-            this.updateValue(!this._checked);
+            if(this._checked === this._checkValue){
+                this._checked = this._unCheckValue
+            }else {
+                this._checked = this._checkValue
+            }
+            this.updateValue(this._checked);
             this.onChange(this._checked)
         }
     }
@@ -78,7 +102,7 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
     setClassMap() {
         this._classMap = {
             ['gw-switch']: true,
-            [`gw-switch-checked`]: this._checked,
+            [`gw-switch-checked`]: this._checked === this._checkValue,
             [`gw-switch-disabled`]: this._disabled,
             [`gw-switch-lg`]: this._size === 'lg',
             [`gw-switch-warning`]: this._type === 'warning',
@@ -89,9 +113,6 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
     }
 
     updateValue(value: any) {
-        if (this._checked === value) {
-            return
-        }
         this._checked = value;
         this.setClassMap()
     }

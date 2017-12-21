@@ -87,7 +87,7 @@
     margin-right: 32px;
 }
 .gw-switch.gw-switch-lg.gw-switch-checked:after {
-    margin-left: -28px;
+    margin-left: -29px;
 }
 .gw-switch.gw-switch-danger:focus {
     box-shadow: 0 0 0 2px rgba(201, 48, 44, 0.25);

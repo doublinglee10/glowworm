@@ -5,7 +5,10 @@ import {Component} from "@angular/core"
     template:`
         <div>
             <h2>basic switch</h2>
-            <gw-switch [(ngModel)]="basicSwitch" [checkValue]="'1'" [unCheckValue]="'2'"></gw-switch>
+            <gw-switch [(ngModel)]="basicSwitch" [checkValue]="'1'" [unCheckValue]="'2'">
+                <span checked>开</span>
+                <span unchecked>关</span>
+            </gw-switch>
             {{basicSwitch}}
         </div>
         <div>
@@ -18,7 +21,11 @@ import {Component} from "@angular/core"
             <gw-switch [(ngModel)]="basicTextSwitch2">
                 <span class="glyphicon glyphicon-ok" checked></span>
                 <span class="glyphicon glyphicon-remove" unchecked></span>
-            </gw-switch>
+            </gw-switch>            
+            <gw-switch [(ngModel)]="basicTextSwitch2">
+            <span checked>开</span>
+            <span unchecked>关</span>
+        </gw-switch>
         </div>
         <div>
             <h2>switch disabled</h2>

@@ -7,10 +7,10 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms"
     template: `
         <span [ngClass]="_classMap" tabindex="0">
             <span class="gw-switch-inner">
-                <ng-template [ngIf]="_checked">
+                <ng-template [ngIf]="_checked === _checkValue">
                     <ng-content select="[checked]"></ng-content>
                 </ng-template>
-                <ng-template [ngIf]="!_checked">
+                <ng-template [ngIf]="_checked === _unCheckValue">
                     <ng-content select="[unchecked]"></ng-content>
                 </ng-template>
             </span>

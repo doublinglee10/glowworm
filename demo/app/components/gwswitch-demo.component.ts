@@ -31,15 +31,39 @@ import {Component} from "@angular/core"
         </div>
         <div>
             <h2>siwtch size</h2>
-            <p>we have tow switch size default or large  </p>
-            <gw-switch >
-                <span checked>on</span>
-                <span unchecked>off</span>
-            </gw-switch>
-            <gw-switch [size]="'lg'">
-                <span checked>on</span>
-                <span unchecked>off</span>
-            </gw-switch>
+            <p>we have tow switch size 'xs' 'sm' 'default' and 'large'  </p>
+            <div class="row">
+                <div class="col-sm-1">
+                    <gw-switch [size]="'xs'">
+                        <span checked>on</span>
+                        <span unchecked>off</span>
+                    </gw-switch>
+                </div>
+                <div class="col-sm-1">
+                    <gw-switch [size]="'sm'">
+                        <span checked>on</span>
+                        <span unchecked>off</span>
+                    </gw-switch>
+                </div>
+                <div class="col-sm-1">
+                    <gw-switch [size]="'md'">
+                        <span checked>on</span>
+                        <span unchecked>off</span>
+                    </gw-switch>
+                </div>
+                <div class="col-sm-1">
+                    <gw-switch [size]="'lg'">
+                        <span checked>on</span>
+                        <span unchecked>off</span>
+                    </gw-switch>
+                </div>
+            </div>
+            <div class="row text-center">
+                <h4 class="col-sm-1">xs</h4>
+                <h4 class="col-sm-1">sm</h4>
+                <h4 class="col-sm-1">Default</h4>
+                <h4 class="col-sm-1">lg</h4>
+            </div>
         </div>
         <div>
             <h2>switch color</h2>
@@ -56,7 +80,7 @@ import {Component} from "@angular/core"
             </gw-switch>
             <br>
             <br>
-            <gw-switch [type]="switchType" [size]="'lg'" [(ngModel)]="basicTypeSwitch">
+            <gw-switch [type]="switchType" [size]="'lg'" [(ngModel)]="basicTypeSwitch1">
                 <span checked>on</span>
                 <span unchecked>off</span>
             </gw-switch>
@@ -74,6 +98,7 @@ export class GwSwitchDemoComponent {
 
     switchType:string;
     basicTypeSwitch = false;
+    basicTypeSwitch1 = false;
     toggleSwitchDisabled(){
         this.switchDisabled = !this.switchDisabled
     }

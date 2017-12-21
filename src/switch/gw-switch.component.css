@@ -1,11 +1,11 @@
 .gw-switch {
-    height: 22px;
-    min-width: 44px;
+    height: 34px;
+    min-width: 70px;
     position: relative;
     border: 1px solid transparent;
     box-sizing: border-box;
     vertical-align: middle;
-    border-radius: 20px;
+    border-radius: 17px;
     cursor: pointer;
     user-select: none;
     display: inline-block;
@@ -14,16 +14,16 @@
 }
 .gw-switch .gw-switch-inner {
     color: #fff;
-    font-size: 10px;
+    font-size: 16px;
     display: block;
-    margin-left: 24px;
-    margin-right: 6px;
-    line-height: 20px;
+    margin-left: 40px;
+    margin-right: 10px;
+    line-height: 30px;
 }
 .gw-switch:after {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 30px;
+    height: 30px;
     left: 1px;
     top: 1px;
     border-radius: 18px;
@@ -45,12 +45,12 @@
     background-color: #108ee9;
 }
 .gw-switch.gw-switch-checked .gw-switch-inner {
-    margin-left: 6px;
-    margin-right: 24px;
+    margin-left: 10px;
+    margin-right: 40px;
 }
 .gw-switch.gw-switch-checked:after {
     left: 100%;
-    margin-left: -20px;
+    margin-left: -31px;
 }
 .gw-switch.gw-switch-checked:active:after {
     margin-left: -25px;
@@ -66,28 +66,74 @@
 .gw-switch.gw-switch-disabled .gw-switch-inner {
     color: rgba(0, 0, 0, 0.25);
 }
-.gw-switch.gw-switch-lg {
-    height: 32px;
+.gw-switch.gw-switch-sm {
+    height: 30px;
     min-width: 64px;
     border-radius: 30px;
 }
-.gw-switch.gw-switch-lg .gw-switch-inner {
+.gw-switch.gw-switch-sm .gw-switch-inner {
     font-size: 14px;
-    line-height: 30px;
-    margin-right: 12px;
-    margin-left: 32px;
+    line-height: 26px;
+    margin-right: 10px;
+    margin-left: 34px;
+}
+.gw-switch.gw-switch-sm:after {
+    width: 26px;
+    height: 26px;
+    border-radius: 26px;
+}
+.gw-switch.gw-switch-sm.gw-switch-checked .gw-switch-inner {
+    margin-left: 10px;
+    margin-right: 34px;
+}
+.gw-switch.gw-switch-sm.gw-switch-checked:after {
+    margin-left: -27px;
+}
+.gw-switch.gw-switch-lg {
+    height: 46px;
+    min-width: 100px;
+    border-radius: 30px;
+}
+.gw-switch.gw-switch-lg .gw-switch-inner {
+    font-size: 18px;
+    line-height: 41px;
+    margin-right: 10px;
+    margin-left: 64px;
 }
 .gw-switch.gw-switch-lg:after {
-    width: 28px;
-    height: 28px;
-    border-radius: 28px;
+    width: 42px;
+    height: 42px;
+    border-radius: 42px;
 }
 .gw-switch.gw-switch-lg.gw-switch-checked .gw-switch-inner {
-    margin-left: 12px;
-    margin-right: 32px;
+    margin-left: 10px;
+    margin-right: 34px;
 }
 .gw-switch.gw-switch-lg.gw-switch-checked:after {
-    margin-left: -29px;
+    margin-left: -43px;
+}
+.gw-switch.gw-switch-xs {
+    height: 22px;
+    min-width: 44px;
+    border-radius: 22px;
+}
+.gw-switch.gw-switch-xs .gw-switch-inner {
+    font-size: 12px;
+    margin-left: 22px;
+    margin-right: 6px;
+    line-height: 20px;
+}
+.gw-switch.gw-switch-xs:after {
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+}
+.gw-switch.gw-switch-xs.gw-switch-checked .gw-switch-inner {
+    margin-left: 5px;
+    margin-right: 22px;
+}
+.gw-switch.gw-switch-xs.gw-switch-checked:after {
+    margin-left: -19px;
 }
 .gw-switch.gw-switch-danger:focus {
     box-shadow: 0 0 0 2px rgba(201, 48, 44, 0.25);

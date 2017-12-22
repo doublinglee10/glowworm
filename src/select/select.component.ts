@@ -14,8 +14,8 @@ import {Observable} from "rxjs/Observable";
     }],
     template: `
         <ng-container *ngIf="enabled">
-            <button type="button" class="btn btn-default {{btnSize}}">
-                <span gw-popover [template]="tpl">
+            <button type="button" class="btn btn-default {{btnSize}}" [disabled]="disabled">
+                <span gw-popover [template]="tpl" [disabled]="disabled">
                     <span class="author">{{label}}</span>
                     <span class="value">{{_values}}</span>
                     <span class="arrow"><span class="caret"></span></span>
@@ -70,6 +70,7 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Input() label: string;
     @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
     @Input() enabled: boolean = true;
+    @Input() disabled: boolean = false;
     @Input() closeable: boolean = true;
     @Input() multiple: boolean = false;
     @Input() clearSave: boolean = true;
@@ -99,6 +100,11 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
+
+    @Input('disabled') set _disabled(disabled: boolean) {
+        this.disabled = disabled;
+        this.disabled && this.popover && this.popover.hide();
+    }
 
     @Input('data') set _data(data: { id: any, text: string }[]) {
         this.data = data ? data.map(item => Object.assign({checked: false}, item)) : [];
@@ -167,6 +173,9 @@ export class GwSelectComponent implements ControlValueAccessor {
     }
 
     remove() {
+        if (this.disabled) {
+            return;
+        }
         this.selectModel = '';
         this._tmpSelectModel = '';
         this._selectedModel = null;

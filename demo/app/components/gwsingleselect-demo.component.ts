@@ -12,6 +12,7 @@ import {Observable} from "rxjs/Observable";
                 <gw-single-select #gwcontrol
                                   [label]="'单选'"
                                   [closeable]="true"
+                                  [disabled]="disabled"
 
                                   [showSelect]="true"
                                   [(selectModel)]="selectModel"
@@ -54,6 +55,7 @@ import {Observable} from "rxjs/Observable";
             <button class="btn btn-default" (click)="toggleSelectData()">toggleSelectData</button>
             <button class="btn btn-default" (click)="toggleNgModel()">toggleNgModel</button>
             <button class="btn btn-default" (click)="toggleNgData()">toggleNgData</button>
+            <button class="btn btn-default" (click)="disabled = !disabled">toggleDisabled</button>
         </p>
 
 
@@ -63,6 +65,8 @@ import {Observable} from "rxjs/Observable";
     `
 })
 export class GwSingleSelectDemoComponent implements OnInit {
+
+    disabled = false;
 
     selectModel: any = 'a';
     selectData = [];

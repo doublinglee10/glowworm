@@ -5,13 +5,14 @@ import {Observable} from "rxjs/Observable";
     selector: 'gwinput-demo',
     template: `
         <h1>gw-input</h1>
-        
+
         <p>
             <gw-toolbar>
                 <gw-input #gwcontrol
                           [label]="'设备信息'"
                           [btnSize]="'btn-xs'"
                           [enabled]="true"
+                          [disabled]="disabled"
                           [closeable]="true"
                           [placeholder]="'设备信息'"
 
@@ -27,6 +28,9 @@ import {Observable} from "rxjs/Observable";
                           name="deviceinfo">
                 </gw-input>
             </gw-toolbar>
+
+            <button (click)="disabled = !disabled">toggle disabled</button>
+
             {{selectModel}}
             {{value}}
         </p>
@@ -83,6 +87,7 @@ export class GwInputDemoComponent implements OnInit {
 
     selectModel: string = 'mac';
 
+    disabled: boolean = false;
     selectData = [];
     value: string = 'val';
 

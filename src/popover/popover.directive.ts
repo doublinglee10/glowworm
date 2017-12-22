@@ -18,6 +18,7 @@ import {GWPopoverComponent} from "./popover.component";
 export class GWPopoverDirective implements OnInit, OnDestroy {
 
     @Input() template: TemplateRef<any>;
+    @Input() disabled: boolean = false;
 
     private popover: GWPopoverComponent;
 
@@ -42,16 +43,20 @@ export class GWPopoverDirective implements OnInit, OnDestroy {
 
     onClickEvent(event: any) {
         if (this.el.nativeElement.contains(event.target)) {
-            this.reposition();
-            this.zone.run(() => {
-                this.popover.toggle();
-            });
+            if (!this.disabled) {
+                this.reposition();
+                this.zone.run(() => {
+                    this.popover.toggle();
+                });
+            }
         } else if (this.popover.el.nativeElement.contains(event.target)) {
             // this.popover.show();
         } else if (!this.popover.hidden) {
-            this.zone.run(() => {
-                this.popover.hide();
-            });
+            if (!this.disabled) {
+                this.zone.run(() => {
+                    this.popover.hide();
+                });
+            }
         }
     }
 

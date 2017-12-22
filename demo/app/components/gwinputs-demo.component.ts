@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 @Component({
     selector: 'gwinputs-demo',
     template: `
-        <h1>gw-input</h1>
+        <h1>gw-inputs</h1>
 
         <p>
             <gw-toolbar>
@@ -12,6 +12,7 @@ import {Observable} from "rxjs/Observable";
                            [label]="'设备信息'"
                            [btnSize]="'btn-xs'"
                            [enabled]="true"
+                           [disabled]="disabled"
                            [closeable]="true"
                            [placeholder]="'设备信息'"
 
@@ -22,6 +23,9 @@ import {Observable} from "rxjs/Observable";
                            name="deviceinfo">
                 </gw-inputs>
             </gw-toolbar>
+            
+            <button class="btn btn-xs" (click)="disabled = !disabled">toggle disabled</button>
+            
             {{value}}
         </p>
         <p>
@@ -65,6 +69,8 @@ import {Observable} from "rxjs/Observable";
 export class GwInputsDemoComponent implements OnInit {
 
     value: string[] = ['hello', 'world'];
+
+    disabled = false;
 
     ngOnInit() {
     }

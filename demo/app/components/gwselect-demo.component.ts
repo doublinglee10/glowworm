@@ -8,22 +8,25 @@ import {Observable} from "rxjs/Observable";
         <p>
             <gw-toolbar>
                 <gw-select #gwcontrol
-                        [label]="'单选'"
-                        [closeable]="true"
-                        [multiple]="false"
+                           [label]="'单选'"
+                           [closeable]="true"
+                           [multiple]="false"
+                           [disabled]="disabled"
 
-                        [showSelect]="true"
-                        [(selectModel)]="selectModel"
-                        [selectData]="options"
-                        (onSelectChange)="log('select', $event)"
+                           [showSelect]="true"
+                           [(selectModel)]="selectModel"
+                           [selectData]="options"
+                           (onSelectChange)="log('select', $event)"
 
-                        [(ngModel)]="ngModel"
-                        [data]="options"
-                        (onSave)="log('save', $event)"
-                        (onCancel)="log('cancel', $event)"
+                           [(ngModel)]="ngModel"
+                           [data]="options"
+                           (onSave)="log('save', $event)"
+                           (onCancel)="log('cancel', $event)"
                 >
                 </gw-select>
             </gw-toolbar>
+            
+            <button class="btn btn-sm" (click)="disabled = !disabled">toggle disabled</button>
         </p>
         <p>
             <gw-select
@@ -78,6 +81,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class GwSelectDemoComponent implements OnInit {
 
+    disabled = false;
     ngModel: any;
     selectModel: any = 'idfa';
     options = [];

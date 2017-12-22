@@ -1,4 +1,4 @@
-import {Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} from "@angular/core";
+import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
@@ -16,8 +16,8 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
     providers: [GW_INPUT_VALUE_ACCESSOR],
     template: `
         <ng-container *ngIf="enabled">
-            <button type="button" class="btn btn-default {{btnSize}}">
-                <span gw-popover [template]="tpl">
+            <button type="button" class="btn btn-default {{btnSize}}" [disabled]="disabled">
+                <span gw-popover [template]="tpl" [disabled]="disabled">
                     <span class="author">{{label}}</span>
                     <span class="value">{{_values}}</span>
                     <span class="arrow"><span class="caret"></span></span>
@@ -58,7 +58,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
         </ng-template>
     `
 })
-export class GWInputComponent extends GWControl implements ControlValueAccessor, OnInit {
+export class GWInputComponent extends GWControl implements ControlValueAccessor {
 
     @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
 
@@ -67,6 +67,7 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
     @Input() closeable: boolean = true;
     @Input() enabled: boolean = true;
+    @Input() disabled: boolean = false;
     @Input() placeholder: string;
 
     @Input() showSelect: boolean = false;
@@ -94,7 +95,9 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     _tmpSelectModel: any;
     _selectedSelectModel: { id: any, text: string };
 
-    ngOnInit(): void {
+    @Input('disabled') set _disabled(disabled: boolean) {
+        this.disabled = disabled;
+        this.disabled && this.popover && this.popover.hide();
     }
 
     @Input('selectModel') set _selectModel(selectModel: any) {
@@ -151,6 +154,10 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor,
     }
 
     remove() {
+        if (this.disabled) {
+            return;
+        }
+
         this.selectModel = '';
         this._tmpSelectModel = '';
         this._selectedSelectModel = null;

@@ -16,8 +16,8 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
     providers: [GW_INPUT_VALUE_ACCESSOR],
     template: `
         <ng-container *ngIf="enabled">
-            <button type="button" class="btn btn-default {{btnSize}}">
-                <span gw-popover [template]="tpl">
+            <button type="button" class="btn btn-default {{btnSize}}" [disabled]="disabled">
+                <span gw-popover [template]="tpl" [disabled]="disabled">
                     <span class="author">{{label}}</span>
                     <span class="value">{{_values}}</span>
                     <span class="arrow"><span class="caret"></span></span>
@@ -66,6 +66,7 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     @Input() closeable: boolean = true;
     @Input() enabled: boolean = true;
     @Input() placeholder: string;
+    @Input() disabled: boolean = false;
 
     /** 清除时立即执行保存 */
     @Input() clearSave: boolean = true;
@@ -81,6 +82,11 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     ngModelChange = Function.prototype;
 
     _tmpNgModel: any[] = [];
+
+    @Input('disabled') set _disabled(disabled: boolean) {
+        this.disabled = disabled;
+        this.disabled && this.popover && this.popover.hide();
+    }
 
     customTrackBy(index: number, obj: any): any {
         return index;
@@ -120,6 +126,9 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     }
 
     remove() {
+        if (this.disabled) {
+            return;
+        }
         this.ngModel = [];
         this._tmpNgModel = [];
         this.ngModelChange(this.ngModel);

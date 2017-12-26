@@ -52,7 +52,7 @@ export class PopselectDemoComponent implements OnInit {
         for (let i = 0; i < count; i++) {
             _data.push({
                 id: i,
-                text: 'text' + i
+                text: `<span style="color:red;">text</span>` + i
             })
         }
 

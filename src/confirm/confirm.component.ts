@@ -19,12 +19,12 @@ import {Component, EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} 
         <div class="gw-confirm-mask"></div>
         <div class="gw-confirm" [ngClass]="confirmClass" [ngStyle]="{zIndex: zIndex}">
             <ng-container *ngIf="title">
-                <div class="gw-confirm-title" [innerHTML]="title"></div>
+                <div class="gw-confirm-title" [innerHTML]="title | safeHtml"></div>
             </ng-container>
             <ng-container *ngIf="content">
                 <div class="gw-confirm-body">
                     <ng-container *ngIf="typeofContent() === 'string'">
-                        {{content}}
+                        <span [innerHTML]="content | safeHtml"></span>
                     </ng-container>
                     <ng-container *ngIf="typeofContent() === 'template'">
                         <ng-template [ngTemplateOutlet]="content"></ng-template>

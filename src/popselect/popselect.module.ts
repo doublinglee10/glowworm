@@ -9,7 +9,7 @@ import {GwPopSelectDirective} from "./popselect.directive";
     imports: [
         CommonModule,
         FormsModule,
-        GwCoreModule
+        GwCoreModule.forRoot()
     ],
     declarations: [
         GwPopSelectComponent,

@@ -16,8 +16,8 @@ import {Observable} from "rxjs/Observable";
         <ng-container *ngIf="enabled">
             <button type="button" class="btn btn-default {{btnSize}}" [disabled]="disabled">
                 <span gw-popover [template]="tpl" [disabled]="disabled">
-                    <span class="author">{{label}}</span>
-                    <span class="value">{{_values}}</span>
+                    <span class="author" [innerHTML]="label | safeHtml"></span>
+                    <span class="value" [innerHTML]="_values | safeHtml"></span>
                     <span class="arrow"><span class="caret"></span></span>
                 </span>
                 <ng-container *ngIf="closeable">
@@ -30,11 +30,11 @@ import {Observable} from "rxjs/Observable";
             <div class="popover-container">
                 <ng-container *ngIf="showSelect">
                     <div class="popover-top">
-                        <span class="top-label">{{label}}</span>:
+                        <span class="top-label" [innerHTML]="label | safeHtml"></span>:
                         <select class="top-select"
                                 [(ngModel)]="_tmpSelectModel"
                                 (change)="onSelectModelChange()">
-                            <option *ngFor="let item of selectData" [value]="item.id">{{item.text}}</option>
+                            <option *ngFor="let item of selectData" [value]="item.id" [innerHTML]="item.text"></option>
                         </select>
                     </div>
                     <div class="popover-hr"></div>
@@ -46,7 +46,7 @@ import {Observable} from "rxjs/Observable";
                             <label>
                                 <input type="checkbox" [(ngModel)]="item.checked" name="checkbox"
                                        (change)="onCheckBoxChange(item)">
-                                <span>{{item.text}}</span>
+                                <span [innerHTML]="item.text | safeHtml"></span>
                             </label>
                         </li>
                     </ul>

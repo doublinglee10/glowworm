@@ -8,7 +8,7 @@ import {GwPopConfirmDirective} from "./popconfirm.directive";
 @NgModule({
     imports: [
         CommonModule,
-        GwCoreModule
+        GwCoreModule.forRoot()
     ],
     declarations: [
         GwPopConfirmComponent,

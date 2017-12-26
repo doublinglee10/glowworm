@@ -10,7 +10,7 @@ import {Component} from "@angular/core";
                 </div>
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
-                            [title]="'您确定要删除吗?'"
+                            [title]="'<span style=color:red;>您确定要删除吗?</span>'"
                             [placement]="'top-left'">
                         top-left
                     </button>

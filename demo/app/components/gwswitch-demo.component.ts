@@ -1,11 +1,12 @@
 import {Component} from "@angular/core"
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector:'gwswitch-demo',
     template:`
         <div>
             <h2>basic switch</h2>
-            <gw-switch [(ngModel)]="basicSwitch" [checkValue]="'1'" [unCheckValue]="'2'">
+            <gw-switch [(ngModel)]="basicSwitch" [checkValue]="'1'" [unCheckValue]="'2'" [onBeforeChange]="onBeforeChange">
                 <span checked>开</span>
                 <span unchecked>关</span>
             </gw-switch>
@@ -114,5 +115,11 @@ export class GwSwitchDemoComponent {
     }
     constructor(){
 
+    }
+
+    onBeforeChange(): Observable<boolean> {
+        console.log(arguments);
+        const confirm = window.confirm('Save ?');
+        return Observable.of(confirm);
     }
 }

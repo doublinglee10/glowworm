@@ -14,7 +14,7 @@ import {ContextMenuService} from "../../../src/context-menu/context-menu.service
 })
 export class ContextMenuDemoComponent {
 
-    menus = [{text: 'Come On', show: true}, {text: 'Go', show: true}, {text: 'Back', show: true}];
+    menus = [{text: `<span style="color:red;">Come On</span>`, show: true}, {text: 'Go', show: true}, {text: 'Back', show: true}];
 
     constructor(private contextMenuService: ContextMenuService) {
         console.log(this.contextMenuService);

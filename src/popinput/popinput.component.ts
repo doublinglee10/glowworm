@@ -20,9 +20,7 @@ export const GW_POPINPUT_VALUE_ACCESSOR: any = {
              [zIndex]="zIndex">
             <div class="triangle triangle-{{placement}}">
                 <div class="gw-popinput">
-                    <div class="gw-popinput-title" *ngIf="title">
-                        {{title}}
-                    </div>
+                    <div class="gw-popinput-title" *ngIf="title" [innerHTML]="title | safeHtml"></div>
                     <div class="gw-popinput-body">
                         <input type="text" [(ngModel)]="_value"/>
                     </div>

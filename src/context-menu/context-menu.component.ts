@@ -16,13 +16,17 @@ import {Subscription} from "rxjs/Subscription";
                     <ng-container *ngIf="!menu.separator && !menu.submenus">
                         <li (click)="_onClickMenu(menu)" [class.hidden]="!_showMenu(menu)">
                             <a [class.disabled]="_disabledMenus(menu)">
-                                <i [ngClass]="menu.iconCls || 'empty-icon'"></i>{{ menu.text }}
+                                <i [ngClass]="menu.iconCls || 'empty-icon'"></i>
+                                <span [innerHTML]="menu.text | safeHtml"></span>
                             </a>
                         </li>
                     </ng-container>
                     <ng-container *ngIf="menu.submenus">
                         <li class="dropdown-submenu" [class.hidden]="!_showMenu(menu)">
-                            <a tabindex="-1"><i [ngClass]="menu.iconCls || 'empty-icon'"></i>{{ menu.text }}</a>
+                            <a tabindex="-1">
+                                <i [ngClass]="menu.iconCls || 'empty-icon'"></i>
+                                <span [innerHTML]="menu.text | safeHtml"></span>
+                            </a>
                             <ng-container *ngTemplateOutlet="menusTpl;context:{$implicit: menu.submenus}">
                             </ng-container>
                         </li>

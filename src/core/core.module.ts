@@ -4,6 +4,7 @@ import {ComponentLoaderService} from "./component-loader.service";
 import {CommonModule} from "@angular/common";
 import {WindowResizeService} from "./window-resize.service";
 import {MultiKeysFilter} from "./multikeys.filter";
+import {SafeHtmlFilter} from "./safe-html.filter";
 
 @NgModule({
     imports: [
@@ -11,13 +12,17 @@ import {MultiKeysFilter} from "./multikeys.filter";
     ],
     declarations: [
         GwOverlayDirective,
-        MultiKeysFilter
+        MultiKeysFilter,
+        SafeHtmlFilter
     ],
     exports: [
         GwOverlayDirective,
-        MultiKeysFilter
+        MultiKeysFilter,
+        SafeHtmlFilter
     ],
-    providers: []
+    providers: [
+        SafeHtmlFilter
+    ]
 })
 export class GwCoreModule {
     static forRoot(): ModuleWithProviders {

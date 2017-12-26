@@ -6,7 +6,7 @@ import {Component} from "@angular/core";
         <div style="padding:100px;background-color:pink;">
             <div style="margin:50px 0;">My Input is: <input type="text" [(ngModel)]="val"/></div>
             <button class="btn btn-primary btn-xs" gw-popinput
-                    [title]="'请输入用户名'"
+                    [title]="'<span style=color:red;>请输入用户名</span>'"
                     [(ngModel)]="val"
                     [placement]="'top'">
                 top

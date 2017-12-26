@@ -3,10 +3,12 @@ import {CommonModule} from "@angular/common";
 import {GwConfirmComponent} from "./confirm.component";
 import {GwConfirmDirective} from "./confirm.directive";
 import {GwConfirmService} from "./confirm.service";
+import {GwCoreModule} from "../core/core.module";
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        GwCoreModule.forRoot()
     ],
     declarations: [
         GwConfirmComponent,

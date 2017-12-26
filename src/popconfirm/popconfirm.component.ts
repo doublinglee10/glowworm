@@ -7,14 +7,12 @@ import {Placement} from "../core/placement";
     styleUrls: ['../styles/triangle.css', '../styles/glowworm.css'],
     template: `
         <div gw-overlay
-                   [source]="source"
-                   [placement]="placement"
-                   [zIndex]="zIndex">
+             [source]="source"
+             [placement]="placement"
+             [zIndex]="zIndex">
             <div class="triangle triangle-{{placement}}">
                 <div class="gw-popconfirm">
-                    <div class="gw-popconfirm-title" *ngIf="title">
-                        {{title}}
-                    </div>
+                    <div class="gw-popconfirm-title" *ngIf="title" [innerHTML]="title | safeHtml"></div>
                     <div class="gw-popconfirm-footer">
                         <button class="btn btn-xs btn-primary" (click)="onConfirmEvent($event)">{{confirmText}}</button>
                         <button class="btn btn-xs btn-default" (click)="onCancelEvent($event)">{{cancelText}}</button>

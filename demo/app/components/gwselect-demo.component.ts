@@ -25,7 +25,7 @@ import {Observable} from "rxjs/Observable";
                 >
                 </gw-select>
             </gw-toolbar>
-            
+
             <button class="btn btn-sm" (click)="disabled = !disabled">toggle disabled</button>
         </p>
         <p>
@@ -52,7 +52,7 @@ import {Observable} from "rxjs/Observable";
 
         <p>
             <gw-select
-                    [label]="'多选'"
+                    [label]="'<span style=color:red;>多选</span>'"
                     [closeable]="true"
                     [multiple]="true"
                     [clearSave]="true"
@@ -93,7 +93,7 @@ export class GwSelectDemoComponent implements OnInit {
     msg: any;
 
     ngOnInit() {
-        let mac = {text: 'MAC', id: 'mac'};
+        let mac = {text: `<span style="color:red;">MAC</span>`, id: 'mac'};
         let idfa = {text: 'IDFA', id: 'idfa'};
         let udid = {text: 'UDID', id: 'udid'};
         let ip = {text: 'IP', id: 'ip'};

@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, HostListener, forwardRef, ViewEncapsulation} from "@angular/core"
-
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms"
+import {Component, forwardRef, HostListener, Input, OnInit} from "@angular/core";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'gw-switch',
@@ -28,15 +28,17 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms"
 export class GwSwitchComponent implements ControlValueAccessor, OnInit {
     _classMap;
     _size: string;
-    _checked:boolean|string|number = false;
+    _checked: boolean | string | number = false;
     _disabled = false;
-    _checkValue:boolean|string|number = true;
-    _unCheckValue:boolean|string|number = false;
+    _checkValue: boolean | string | number = true;
+    _unCheckValue: boolean | string | number = false;
     _type: string;
-
 
     onChange: any = Function.prototype;
     onTouched: any = Function.prototype;
+
+    /** 保存前触发 */
+    @Input() onBeforeChange: (tmpNgModel) => Observable<boolean>;
 
     @Input()
     set size(value: string) {
@@ -49,17 +51,20 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
     }
 
     @Input()
-    set checkValue(value:string|number|boolean){
+    set checkValue(value: string | number | boolean) {
         this._checkValue = value
     }
-    get checkValue(){
+
+    get checkValue() {
         return this._checkValue
     }
+
     @Input()
-    set unCheckValue(value:string|number|boolean){
+    set unCheckValue(value: string | number | boolean) {
         this._unCheckValue = value
     }
-    get unCheckValue(){
+
+    get unCheckValue() {
         return this._unCheckValue
     }
 
@@ -87,15 +92,20 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
     @HostListener('click', ['$event'])
     onClick(e) {
         e.preventDefault();
-        console.log(this._checkValue);
         if (!this._disabled) {
-            if(this._checked === this._checkValue){
-                this._checked = this._unCheckValue
-            }else {
-                this._checked = this._checkValue
-            }
-            this.updateValue(this._checked);
-            this.onChange(this._checked)
+            const subscribeFn = (save: boolean) => {
+                if (save) {
+                    if (this._checked === this._checkValue) {
+                        this._checked = this._unCheckValue
+                    } else {
+                        this._checked = this._checkValue
+                    }
+                    this.updateValue(this._checked);
+                    this.onChange(this._checked)
+                }
+            };
+            let tmpVal = this._checked === this._checkValue ? this._unCheckValue : this._checkValue;
+            this.onBeforeChange ? this.onBeforeChange(tmpVal).first().subscribe(subscribeFn) : subscribeFn(true);
         }
     }
 

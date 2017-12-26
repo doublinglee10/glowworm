@@ -51,7 +51,7 @@ export const GW_POPSELECT_COMPONENT_VALUE_ACCESSOR: any = {
                                 <label>
                                     <input type="checkbox" [(ngModel)]="item.__checked__" name="checkbox"
                                            (change)="onSelect(item)">
-                                    <span>{{item.text}}</span>
+                                    <span [innerHTML]="item.text | safeHtml"></span>
                                 </label>
                             </li>
                         </ul>

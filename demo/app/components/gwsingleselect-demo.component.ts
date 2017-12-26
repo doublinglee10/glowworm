@@ -29,7 +29,7 @@ import {Observable} from "rxjs/Observable";
         </p>
         <p>
             <gw-single-select
-                    [label]="'单选'"
+                    [label]="'<span style=color:red;>单选</span>'"
                     [closeable]="true"
                     [clearSave]="true"
 
@@ -78,14 +78,14 @@ export class GwSingleSelectDemoComponent implements OnInit {
 
     ngOnInit() {
         this.selectData = [
-            {id: 'a', text: 'AA'},
+            {id: 'a', text: `<span style="color:red;">AA</span>`},
             {id: 'b', text: 'BB'},
             {id: 'c', text: 'CC'},
             {id: 'd', text: 'DD'}
         ];
 
         this.data = [
-            {id: '@', text: '@@'},
+            {id: '@', text: `<span style="color:red;">@@</span>`},
             {id: '!', text: '!!'},
             {id: '#', text: '##'}
         ]

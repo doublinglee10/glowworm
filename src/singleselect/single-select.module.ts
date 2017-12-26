@@ -4,6 +4,7 @@ import {CommonModule} from "@angular/common";
 import {GwUtilModule} from "../utils/util.module";
 import {GwSingleSelectComponent} from "./single-select.component";
 import {GWPopoverModule} from "../popover/popover.module";
+import {GwCoreModule} from "../core/core.module";
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import {GWPopoverModule} from "../popover/popover.module";
     imports: [
         CommonModule,
         FormsModule,
+        GwCoreModule.forRoot(),
         GWPopoverModule.forRoot(),
         GwUtilModule
     ],

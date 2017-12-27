@@ -28,7 +28,7 @@ let dragulaId: number = 0;
     template: `
         <div class="nav-tabs-custom tabs-{{position}}">
             <ng-template #tabs_header>
-                <ng-container *ngFor="let tab of _tabs">
+                <ng-container *ngFor="let tab of tabs">
                     <li [class.active]="tab.selected"
                         [class.disabled]="tab.disabled">
                         <a [class.disabled]="tab.disabled" (click)="_selectTab(tab)">
@@ -54,7 +54,7 @@ let dragulaId: number = 0;
             <ng-container *ngIf="sortable">
                 <ul class="nav nav-tabs"
                     [dragula]="_dragula_key"
-                    [dragulaModel]="_tabs">
+                    [dragulaModel]="tabs">
                     <ng-template [ngTemplateOutlet]="tabs_header"></ng-template>
                 </ul>
             </ng-container>
@@ -64,7 +64,7 @@ let dragulaId: number = 0;
                 </ul>
             </ng-container>
             <div class="tab-content no-padding">
-                <ng-container *ngFor="let tab of _tabs">
+                <ng-container *ngFor="let tab of tabs">
                     <div class="tab-pane" [class.active]="tab.selected">
                         <ng-container *ngIf="!tab.lazy || !tab.isFirstSelected">
                             <ng-container *ngIf="_typeofContent(tab.content) === 'string'">
@@ -124,7 +124,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
     @ContentChildren(GwTabComponent)
     tabComponents: QueryList<GwTabComponent>;
 
-    _tabs: TabOrTabComponent[] = [];
+    tabs: TabOrTabComponent[] = [];
     _dragula_key = `gwtabs_${++dragulaId}`;
     _store_prefix = 'gwtabs_';
 
@@ -149,12 +149,12 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         let comps = this.tabComponents.toArray();
-        this._tabs.push(...comps);
+        this.tabs.push(...comps);
 
-        let selected = this._tabs.filter(tab => tab.selected);
+        let selected = this.tabs.filter(tab => tab.selected);
         if (selected.length == 0) { //如果不存在选择的，则默认选中第一个
-            if (this._tabs.length > 0) {
-                let first = this._tabs[0];
+            if (this.tabs.length > 0) {
+                let first = this.tabs[0];
                 first.selected = true;
             }
         }
@@ -181,18 +181,18 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     addTab(tab: TabOrTabComponent) {
         if (tab.selected) {
-            this._tabs.forEach(tab => {
+            this.tabs.forEach(tab => {
                 if (tab.selected) {
                     tab.selected = false;
                     this.onUnSelect.emit(tab);
                 }
             });
-            this._tabs.push(tab);
+            this.tabs.push(tab);
             this.onAdd.emit(tab);
             tab.selected = true;
             this.onSelect.emit(tab);
         } else {
-            this._tabs.push(tab);
+            this.tabs.push(tab);
             this.onAdd.emit(tab);
         }
 
@@ -204,18 +204,18 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     insertTab(index: number, tab: TabOrTabComponent) {
         if (tab.selected) {
-            this._tabs.forEach(tab => {
+            this.tabs.forEach(tab => {
                 if (tab.selected) {
                     tab.selected = false;
                     this.onUnSelect.emit(tab);
                 }
             });
-            this._tabs.splice(index, 0, tab);
+            this.tabs.splice(index, 0, tab);
             this.onAdd.emit(tab);
             tab.selected = true;
             this.onSelect.emit(tab);
         } else {
-            this._tabs.splice(index, 0, tab);
+            this.tabs.splice(index, 0, tab);
             this.onAdd.emit(tab);
         }
 
@@ -226,7 +226,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * 禁用tab页
      */
     disabledTab(tabId: any) {
-        this._tabs.forEach(tab => {
+        this.tabs.forEach(tab => {
             if (tab.tabId == tabId) {
                 tab.disabled = true;
             }
@@ -237,7 +237,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * 启用tab页
      */
     enabledTab(tabId: any) {
-        this._tabs.forEach(tab => {
+        this.tabs.forEach(tab => {
             if (tab.tabId == tabId) {
                 tab.disabled = false;
             }
@@ -248,7 +248,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * 选中tab页
      */
     selectTab(tabId: any) {
-        this._tabs.forEach(tab => {
+        this.tabs.forEach(tab => {
             if (tab.tabId == tabId) {
                 this._selectTab(tab);
             }
@@ -259,7 +259,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * 关闭tab页
      */
     closeTab(tabId: any) {
-        this._tabs.forEach(tab => {
+        this.tabs.forEach(tab => {
             if (tab.tabId == tabId) {
                 this._closeTab(tab);
             }
@@ -269,7 +269,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     clear() {
-        let tabIds = this._tabs.map(tab => tab.tabId);
+        let tabIds = this.tabs.map(tab => tab.tabId);
         tabIds.forEach(tabId => {
             this.closeTab(tabId);
         });
@@ -279,7 +279,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * 获取当前选中的tab页
      */
     getSelected(): TabOrTabComponent {
-        let selected = this._tabs.filter(tab => tab.selected);
+        let selected = this.tabs.filter(tab => tab.selected);
         return selected.length > 0 ? selected[0] : null;
     }
 
@@ -287,12 +287,12 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * 为tab页排序
      */
     sortTabs(orders: { tabId: any }[]) {
-        if (orders.length != this._tabs.length) return;
+        if (orders.length != this.tabs.length) return;
 
         let dist = [];
         orders.forEach((_tab) => {
-            for (let i = 0; i < this._tabs.length; i++) {
-                let tab = this._tabs[i];
+            for (let i = 0; i < this.tabs.length; i++) {
+                let tab = this.tabs[i];
                 if (_tab.tabId == tab.tabId) {
                     dist.push(tab);
                     break;
@@ -300,8 +300,8 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         });
 
-        if (dist.length != this._tabs.length) return;
-        this._tabs = dist;
+        if (dist.length != this.tabs.length) return;
+        this.tabs = dist;
     }
 
     /**
@@ -315,7 +315,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * @inner
      */
     _selectTab(tab: TabOrTabComponent) {
-        let selected = this._tabs.filter(tab => tab.selected)[0];
+        let selected = this.tabs.filter(tab => tab.selected)[0];
         if (tab == selected || tab.disabled) {
             return;
         }
@@ -333,14 +333,14 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     _closeTab(tab: TabOrTabComponent, event?: Event) {
         event && event.stopPropagation();
-        let indexOf = this._tabs.indexOf(tab);
+        let indexOf = this.tabs.indexOf(tab);
         if (tab.selected) {
             const subscribeFn = (closed: boolean) => {
                 if (closed) {
-                    this._tabs.splice(indexOf, 1);
+                    this.tabs.splice(indexOf, 1);
                     this.onClose.emit(tab);
 
-                    let filtered = this._tabs.filter(tab => !tab.disabled);
+                    let filtered = this.tabs.filter(tab => !tab.disabled);
                     if (filtered.length > 0) {
                         let firstTab = filtered[0];
                         firstTab.selected = true;
@@ -354,7 +354,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
             const subscribeFn = (closed: boolean) => {
                 if (closed) {
-                    this._tabs.splice(indexOf, 1);
+                    this.tabs.splice(indexOf, 1);
                     this.onClose.emit(tab);
                 }
             };
@@ -367,7 +367,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * @inner
      */
     _onOrderChangeEvent() {
-        let tabIds = this._tabs.map(tab => {
+        let tabIds = this.tabs.map(tab => {
             return {tabId: tab.tabId};
         });
 

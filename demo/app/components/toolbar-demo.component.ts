@@ -144,6 +144,9 @@ import * as moment from "moment";
                                options='{singleDatePicker:true,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
                                [(ngModel)]="dateModel2">
                 </gw-datepicker>
+                
+                {{dateModel1 | json}}
+                {{dateModel2 | json}}
             </p>
 
 

@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -45,6 +46,17 @@ import {Component} from "@angular/core";
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+    constructor(private route: ActivatedRoute) {
+
+    }
+
+    ngOnInit() {
+        console.warn(this.route.snapshot);
+        this.route.params.subscribe(params => {
+            console.warn(params);
+        });
+    }
 
     ngDoCheck() {
         console.log('check app component');

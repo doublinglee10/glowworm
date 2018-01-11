@@ -5,6 +5,8 @@ import {CommonModule} from "@angular/common";
 import {WindowResizeService} from "./window-resize.service";
 import {MultiKeysFilter} from "./multikeys.filter";
 import {SafeHtmlFilter} from "./safe-html.filter";
+import {ScriptLoaderService} from "./script-loader.service";
+import {SafePipe} from "./safe.pipe";
 
 @NgModule({
     imports: [
@@ -13,12 +15,14 @@ import {SafeHtmlFilter} from "./safe-html.filter";
     declarations: [
         GwOverlayDirective,
         MultiKeysFilter,
-        SafeHtmlFilter
+        SafeHtmlFilter,
+        SafePipe
     ],
     exports: [
         GwOverlayDirective,
         MultiKeysFilter,
-        SafeHtmlFilter
+        SafeHtmlFilter,
+        SafePipe
     ],
     providers: [
         SafeHtmlFilter
@@ -30,7 +34,9 @@ export class GwCoreModule {
             ngModule: GwCoreModule,
             providers: [
                 ComponentLoaderService,
-                WindowResizeService
+                WindowResizeService,
+                ScriptLoaderService,
+                SafeHtmlFilter
             ]
         };
     }

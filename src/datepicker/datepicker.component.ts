@@ -1,6 +1,6 @@
 import {Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {DatepickerConfig} from "./config.server";
-import {ScriptLoaderService, ScriptModel} from "../utils/script-loader.service";
+import {ScriptLoaderService, ScriptModel} from "../core/script-loader.service";
 import {Observable} from "rxjs/Observable";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";

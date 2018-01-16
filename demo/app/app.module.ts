@@ -33,6 +33,7 @@ import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
 import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.component";
 import {GwInputsDemoComponent} from "./components/gwinputs-demo.component";
 import {GwInputsModule} from "../../src/inputs/inputs.module";
+import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {GwInputsModule} from "../../src/inputs/inputs.module";
         GwSelectDemoComponent,
         TestComponent,
         GwSingleSelectDemoComponent,
-        GwInputsDemoComponent
+        GwInputsDemoComponent,
+        DatepickerDemoComponent
     ],
     imports: [
         FormsModule,

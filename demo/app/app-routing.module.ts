@@ -13,6 +13,7 @@ import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component";
 import {GwSelectDemoComponent} from "./components/gwselect-demo.component";
 import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.component";
 import {GwInputsDemoComponent} from "./components/gwinputs-demo.component";
+import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
 const routes: Routes = [
     {
         path: 'popinput',
@@ -65,7 +66,12 @@ const routes: Routes = [
     {
         path: 'gwinputs',
         component: GwInputsDemoComponent
+    },
+    {
+        path: 'gwdatepicker',
+        component: DatepickerDemoComponent
     }
+
 ];
 
 @NgModule({

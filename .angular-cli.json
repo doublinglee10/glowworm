@@ -23,7 +23,9 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "./assets/datepicker/moment.min.js",
+        "./assets/datepicker/daterangepicker.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

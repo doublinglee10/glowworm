@@ -40,7 +40,7 @@ export class DatepickerConfig {
     ranges?: Object;
     startDate?: string;
     endDate?: string;
-
+    unDeepCopy?:boolean = false;
     constructor() {
         console.log('init DatepickerConfig');
     }

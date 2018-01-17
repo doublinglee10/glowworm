@@ -32,7 +32,7 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
 })
 export class GWDatepickerComponent extends GWControl implements OnInit, OnDestroy, ControlValueAccessor {
     @Input()
-    options: DatepickerConfig | string;
+    options: DatepickerConfig | string = {};
 
     @Input()
     label: string;
@@ -105,8 +105,9 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
     }
 
     datepickerInit() {
-
-        let options = $.extend(true, {}, this.config, (typeof  this.options === 'string' ? eval('(' + this.options + ')') : this.options));
+        this.options = (typeof  this.options === 'string' ? eval('(' + this.options + ')') : this.options);
+        let unDeepCopy =  this.config.unDeepCopy||this.options['unDeepCopy'];
+        let options = $.extend(!unDeepCopy, {}, this.config,this.options );
 
         options.singleDatePicker && (options.ranges = undefined);
         this.config = options;

@@ -7,7 +7,7 @@ import {GWPopoverDirective} from "../popover/popover.directive";
     styleUrls: ['./rangeinput.component.css'],
     template: `
         <ng-container *ngIf="enabled">
-            <button type="button" class="btn btn-default {{btnSize}}">
+            <span class="btn btn-default {{btnSize}}">
                 <span gw-popover [template]="tpl">
                     <span class="author">{{label}}</span>
                     <span class="value">{{_values}}</span>
@@ -16,7 +16,7 @@ import {GWPopoverDirective} from "../popover/popover.directive";
                 <ng-container *ngIf="closeable">
                     <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
                 </ng-container>
-            </button>
+            </span>
         </ng-container>
 
         <ng-template #tpl>

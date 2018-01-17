@@ -16,7 +16,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
     providers: [GW_INPUT_VALUE_ACCESSOR],
     template: `
         <ng-container *ngIf="enabled">
-            <button type="button" class="btn btn-default {{btnSize}}" [disabled]="disabled">
+            <span class="btn btn-default {{btnSize}}" [class.disabled]="disabled">
                 <span gw-popover [template]="tpl" [disabled]="disabled">
                     <span class="author">{{label}}</span>
                     <span class="value">{{_values}}</span>
@@ -25,7 +25,7 @@ export const GW_INPUT_VALUE_ACCESSOR: any = {
                 <ng-container *ngIf="closeable">
                     <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
                 </ng-container>
-            </button>
+            </span>
         </ng-container>
 
         <ng-template #tpl>

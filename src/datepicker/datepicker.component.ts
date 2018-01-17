@@ -16,7 +16,7 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'gw-datepicker',
     template: `
-        <button type="button" class="btn btn-default {{btnSize}}" [hidden]="!enabled">
+        <span class="btn btn-default {{btnSize}}" [hidden]="!enabled">
             <span #dateHost>
                 <span class="author">{{label}}</span>
                 <span style="color:#797979">{{_value}}</span>
@@ -25,7 +25,7 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
             <ng-container *ngIf="closeable">
                 <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
             </ng-container>
-        </button>
+        </span>
     `,
     styleUrls: ['./datepicker.component.css'],
     providers: [GW_DATE_VALUE_ACCESSOR]

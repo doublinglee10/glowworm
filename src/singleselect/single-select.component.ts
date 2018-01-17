@@ -14,7 +14,7 @@ import {Observable} from "rxjs/Observable";
     }],
     template: `
         <ng-container *ngIf="enabled">
-            <button type="button" class="btn btn-default {{btnSize}}" [disabled]="disabled">
+            <span class="btn btn-default {{btnSize}}" [class.disabled]="disabled">
                 <span gw-popover [template]="tpl" [disabled]="disabled">
                     <span class="author" [innerHTML]="label | safeHtml"></span>
                     <span class="value" [innerHTML]="_values | safeHtml"></span>
@@ -23,7 +23,7 @@ import {Observable} from "rxjs/Observable";
                 <ng-container *ngIf="closeable">
                     <span class="glyphicon glyphicon-remove" (click)="remove()"></span>
                 </ng-container>
-            </button>
+            </span>
         </ng-container>
 
         <ng-template #tpl>

@@ -10,4 +10,4 @@ export * from './rangeInput';
 export * from './popconfirm';
 export * from './popinput';
 export * from './popselect';
-export * from './context-menu';
+export * from './core';

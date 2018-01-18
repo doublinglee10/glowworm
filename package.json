@@ -1,6 +1,6 @@
 {
   "name": "glowworm",
-  "version": "0.5.15",
+  "version": "0.6.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "ng serve --host 0.0.0.0 --port 4200 --disable-host-check",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

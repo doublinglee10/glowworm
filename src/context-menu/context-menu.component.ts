@@ -1,4 +1,4 @@
-import {Component, forwardRef, Inject, NgZone, OnDestroy, OnInit, Renderer2} from "@angular/core";
+import {Component, ElementRef, forwardRef, Inject, NgZone, OnDestroy, OnInit, Renderer2} from "@angular/core";
 import {ContextMenu} from "./context-menu";
 import {ContextMenuService, IContextMenuClickEvent} from "./context-menu.service";
 import {Subscription} from "rxjs/Subscription";
@@ -49,6 +49,7 @@ export class GwContextMenuContainerComponent implements OnInit, OnDestroy {
     menuSubscribe: Subscription;
 
     constructor(private ngZone: NgZone,
+                private elementRef: ElementRef,
                 private renderer: Renderer2,
                 @Inject(forwardRef(() => ContextMenuService)) private service: ContextMenuService) {
     }
@@ -85,10 +86,12 @@ export class GwContextMenuContainerComponent implements OnInit, OnDestroy {
     // @HostListener('window:click', ['$event'])
     // @HostListener('window:contextmenu', ['$event'])
     clickedOutside(event: MouseEvent): void {
-        if (!this.hidden) {
-            this.ngZone.run(() => {
-                this.hide();
-            });
+        if (!this.elementRef.nativeElement.contains(event.target)) {
+            if (!this.hidden) {
+                this.ngZone.run(() => {
+                    this.hide();
+                });
+            }
         }
     }
 
@@ -100,7 +103,9 @@ export class GwContextMenuContainerComponent implements OnInit, OnDestroy {
     }
 
     _onClickMenu(menu: ContextMenu) {
-        this.hide();
+        if (!menu.submenus) {
+            this.hide();
+        }
         if (!this._disabledMenus(menu)) {
             menu.onclick && menu.onclick();
         }

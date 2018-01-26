@@ -34,6 +34,9 @@ import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.comp
 import {GwInputsDemoComponent} from "./components/gwinputs-demo.component";
 import {GwInputsModule} from "../../src/inputs/inputs.module";
 import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
+import {ImgPreviewDemoComponent} from "./components/imgpreview-demo.component";
+import {GwImgPreviewModule} from "../../src/imgpreview/imgpreview.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -53,11 +56,13 @@ import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
         TestComponent,
         GwSingleSelectDemoComponent,
         GwInputsDemoComponent,
-        DatepickerDemoComponent
+        DatepickerDemoComponent,
+        ImgPreviewDemoComponent
     ],
     imports: [
         FormsModule,
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         GWInputModule,
         DatepickerModule.forRoot(),
@@ -73,7 +78,8 @@ import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
         GwPannelModule,
         GwSwitchModule,
         GwSelectModule,
-        GwInputsModule
+        GwInputsModule,
+        GwImgPreviewModule
     ],
     bootstrap: [
         AppComponent

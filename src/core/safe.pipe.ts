@@ -1,6 +1,14 @@
 import {Pipe} from "@angular/core";
 import {DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl} from "@angular/platform-browser";
 
+/***
+ * {{ value | safe }} === {{ value | safe: 'html' }}
+ * {{ value | safe:'style' }}
+ * {{ value | safe:'script' }}
+ * {{ value | safe:'url' }}
+ * {{ value | safe:'resourceUrl' }}
+ * {{ value | safe:'html' }}
+ */
 @Pipe({
     name: 'safe'
 })

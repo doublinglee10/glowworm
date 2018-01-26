@@ -2,14 +2,13 @@ import {EventManager} from "@angular/platform-browser";
 import {Injectable, NgZone} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import "rxjs/add/operator/filter";
-import "rxjs/add/operator/debounceTime";
+import {debounceTime} from "rxjs/operators";
 
 @Injectable()
 export class WindowResizeService {
 
     get onResize$(): Observable<Window> {
-        return this.resizeSubject.asObservable().debounceTime(10);
+        return this.resizeSubject.asObservable().pipe(debounceTime(10));
     }
 
     private resizeSubject: Subject<Window>;

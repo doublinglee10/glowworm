@@ -5,6 +5,77 @@
     display: none !important;
 }
 
+/** angular cdk overlay */
+.cdk-overlay-backdrop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: auto;
+    transition: opacity .4s cubic-bezier(.25, .8, .25, 1);
+    opacity: 0;
+}
+
+.overlay-backdrop-class {
+    background: #000;
+    opacity: .85 !important;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.cdk-global-overlay-wrapper {
+    display: flex;
+    position: absolute;
+    z-index: 1000;
+}
+
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 1000;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* <div class="loader"></div>  */
+.loader {
+    border: 12px solid #3C8DBC; /* Light grey */
+    border-top: 12px solid transparent; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 0.6s linear infinite;
+}
+
+.loader {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -60px 0 0 -60px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /**
  * overlay css
  */

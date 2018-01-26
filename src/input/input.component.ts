@@ -3,6 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWControl} from "../utils/gw-control";
 import {GWPopoverDirective} from "../popover/popover.directive";
 import {Observable} from "rxjs/Observable";
+import {first} from "rxjs/operators";
 
 export const GW_INPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -144,7 +145,7 @@ export class GWInputComponent extends GWControl implements ControlValueAccessor 
             }
         };
 
-        this.onBeforeSave ? this.onBeforeSave(this._tmpNgModel, this._tmpSelectModel).first().subscribe(subscribeFn) : subscribeFn(true);
+        this.onBeforeSave ? this.onBeforeSave(this._tmpNgModel, this._tmpSelectModel).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
     }
 
     cancel() {

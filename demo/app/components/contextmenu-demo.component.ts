@@ -11,9 +11,8 @@ import {ContextMenuService} from "../../../src/context-menu/context-menu.service
             <input type="text" style="width:300px;margin:10px;">
         </div>
 
-        <div style="height:100px;background-color:pink;margin-top:10px;"
-             (contextmenu)="showMenus($event)">
-
+        <div style="height:100px;background-color:pink;"
+             (click)="showMenus($event)">
         </div>
     `
 })
@@ -31,7 +30,8 @@ export class ContextMenuDemoComponent {
         {
             text: 'Back',
             show: true
-        }];
+        }
+    ];
 
     constructor(private contextMenuService: ContextMenuService,
                 private ngZone: NgZone) {

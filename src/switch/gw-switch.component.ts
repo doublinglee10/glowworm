@@ -1,6 +1,7 @@
 import {Component, forwardRef, HostListener, Input, OnInit} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Observable} from "rxjs/Observable";
+import {first} from "rxjs/operators";
 
 @Component({
     selector: 'gw-switch',
@@ -105,7 +106,7 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
                 }
             };
             let tmpVal = this._checked === this._checkValue ? this._unCheckValue : this._checkValue;
-            this.onBeforeChange ? this.onBeforeChange(tmpVal).first().subscribe(subscribeFn) : subscribeFn(true);
+            this.onBeforeChange ? this.onBeforeChange(tmpVal).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
         }
     }
 

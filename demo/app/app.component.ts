@@ -20,6 +20,7 @@ import {ActivatedRoute} from "@angular/router";
                         <li><a routerLink="/gwtabs">gwtabs</a></li>
                         <li><a routerLink="/gwpannel">gwpannel</a></li>
                         <li><a routerLink="/gwSwitch">gwSwitch</a></li>
+                        <li><a routerLink="/gwimgpreview">gwimgpreview</a></li>
                         <li class="dropdown open">
                             <a class="dropdown-toggle" data-toggle="dropdown">
                                 GwForm <span class="caret"></span>
@@ -53,10 +54,7 @@ export class AppComponent {
     }
 
     ngOnInit() {
-        console.warn(this.route.snapshot);
-        this.route.params.subscribe(params => {
-            console.warn(params);
-        });
+
     }
 
     ngDoCheck() {

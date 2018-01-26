@@ -17,7 +17,7 @@ import {GwTabComponent} from "./tab.component";
 import {GwTab} from "./tab";
 import {typeofTemplateInput} from "../utils/template-input";
 import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/first";
+import {first} from "rxjs/operators";
 
 export type TabOrTabComponent = GwTab | GwTabComponent;
 
@@ -350,7 +350,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
             };
 
             this.onUnSelect.emit(tab);
-            this.onClosing ? this.onClosing(tab).first().subscribe(subscribeFn) : subscribeFn(true);
+            this.onClosing ? this.onClosing(tab).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
         } else {
             const subscribeFn = (closed: boolean) => {
                 if (closed) {
@@ -359,7 +359,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             };
 
-            this.onClosing ? this.onClosing(tab).first().subscribe(subscribeFn) : subscribeFn(true);
+            this.onClosing ? this.onClosing(tab).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
         }
     }
 

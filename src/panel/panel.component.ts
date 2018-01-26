@@ -11,6 +11,7 @@ import {
 } from "@angular/core";
 import {typeofTemplateInput} from "../utils/template-input";
 import {Observable} from "rxjs/Observable";
+import {first} from "rxjs/operators";
 
 @Component({
     selector: 'gw-panel',
@@ -134,7 +135,7 @@ export class GwPanelComponent implements OnInit {
             }
         };
 
-        this.onClosing ? this.onClosing().first().subscribe(subscribeFn) : subscribeFn(true);
+        this.onClosing ? this.onClosing().pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
     }
 
     /**

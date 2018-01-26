@@ -16,6 +16,7 @@ import {GwSwitchModule} from "./switch/gw-switch.module";
 import {GwPannelModule} from "./panel/panel.module";
 import {GwSelectModule} from "./select/select.module";
 import {GwInputsModule} from "./inputs/inputs.module";
+import {GwImgPreviewModule} from "./imgpreview/imgpreview.module";
 
 let MODULES_FOR_ROOT = [
     GwCoreModule.forRoot(),
@@ -34,7 +35,8 @@ let MODULES_FOR_ROOT = [
     GwSwitchModule,
     GwPannelModule,
     GwSelectModule,
-    GwInputsModule
+    GwInputsModule,
+    GwImgPreviewModule
 ];
 
 let MODULES_FOR_CHILD = [
@@ -54,7 +56,8 @@ let MODULES_FOR_CHILD = [
     GwPannelModule,
     GwSwitchModule,
     GwSelectModule,
-    GwInputsModule
+    GwInputsModule,
+    GwImgPreviewModule
 ];
 
 @NgModule({

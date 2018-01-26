@@ -2,6 +2,7 @@ export * from './confirm';
 export * from './context-menu';
 export * from './core';
 export * from './datepicker';
+export * from './imgpreview';
 export * from './input';
 export * from './inputs';
 export * from './panel';

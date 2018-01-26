@@ -7,6 +7,7 @@ import {MultiKeysFilter} from "./multikeys.filter";
 import {SafeHtmlFilter} from "./safe-html.filter";
 import {ScriptLoaderService} from "./script-loader.service";
 import {SafePipe} from "./safe.pipe";
+import {TriangleComponent} from "./triangle.component";
 
 @NgModule({
     imports: [
@@ -16,13 +17,15 @@ import {SafePipe} from "./safe.pipe";
         GwOverlayDirective,
         MultiKeysFilter,
         SafeHtmlFilter,
-        SafePipe
+        SafePipe,
+        TriangleComponent
     ],
     exports: [
         GwOverlayDirective,
         MultiKeysFilter,
         SafeHtmlFilter,
-        SafePipe
+        SafePipe,
+        TriangleComponent
     ],
     providers: [
         SafeHtmlFilter

@@ -3,6 +3,7 @@ import {GwOverlayDirective} from "../core/overlay.directive";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Placement} from "../core/placement";
 import {Observable} from "rxjs/Observable";
+import {first} from "rxjs/operators";
 
 export const GW_POPINPUT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -64,7 +65,7 @@ export class GwPopInputComponent implements ControlValueAccessor {
             }
         };
 
-        this.onBeforeConfirm ? this.onBeforeConfirm(this._value).first().subscribe(subscribeFn) : subscribeFn(true);
+        this.onBeforeConfirm ? this.onBeforeConfirm(this._value).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
     }
 
     onCancelEvent(event: Event) {

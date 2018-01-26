@@ -3,6 +3,7 @@ import {GWPopoverDirective} from "../popover/popover.directive";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWToolbarComponent} from "../toolbar/toolbar.component";
 import {Observable} from "rxjs/Observable";
+import {first} from "rxjs/operators";
 
 @Component({
     selector: 'gw-single-select',
@@ -220,7 +221,7 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
 
         let _tmpNgModel = (this.data || []).filter((item: any) => item.checked);
         _tmpNgModel = _tmpNgModel.length > 0 ? _tmpNgModel[0].id : '';
-        this.onBeforeSave ? this.onBeforeSave(_tmpNgModel, this._tmpSelectModel).first().subscribe(subscribeFn) : subscribeFn(true);
+        this.onBeforeSave ? this.onBeforeSave(_tmpNgModel, this._tmpSelectModel).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
     }
 
     cancel() {

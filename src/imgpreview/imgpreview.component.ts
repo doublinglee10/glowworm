@@ -54,7 +54,6 @@ export class GwImgPreviewComponent {
     }
 
     startExitAnimation() {
-        console.warn('startExitAnimation');
         this.animationState = 'leave';
     }
 

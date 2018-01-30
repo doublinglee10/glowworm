@@ -1,12 +1,12 @@
 {
   "name": "glowworm",
-  "version": "1.0.0",
+  "version": "1.0.15",
   "license": "MIT",
-  "main": "./lib/index.js",
-  "typings": "./lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
+  "ngPackage": {
+    "lib": {
+      "entryFile": "public_api.ts"
+    }
+  },
   "author": "lishichao1002 <lishichao1002@163.com>",
   "contributors": [
     "lori.wang <lori.wang1@hotmail.com>",
@@ -20,6 +20,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "npm run build:ngc && npm run build:umd",
+    "build:lib": "ng-packagr",
+    "publish:lib": "npm publish dist",
     "build:umd": "webpack --config webpack-umd.config.ts",
     "build:ngc": "rm -rf aot && rm -rf lib && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && gulp"
   },
@@ -30,8 +32,7 @@
   },
   "dependencies": {
     "@angular/cdk": "^5.1.0",
-    "font-awesome": "4.7.0",
-    "ng2-dragula": "1.5.0"
+    "font-awesome": "4.7.0"
   },
   "devDependencies": {
     "@angular/animations": "^5.2.0",
@@ -58,17 +59,11 @@
     "core-js": "^2.4.1",
     "gulp": "3.9.1",
     "gulp-sass": "3.1.0",
-    "immutable": "3.8.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "jquery": "3.2.1",
-    "karma": "~2.0.0",
-    "karma-chrome-launcher": "~2.2.0",
-    "karma-cli": "~1.0.1",
-    "karma-coverage-istanbul-reporter": "^1.2.1",
-    "karma-jasmine": "~1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
     "moment": "2.18.1",
+    "ng-packagr": "^1.6.0",
     "ngx-bootstrap": "1.8.1",
     "protractor": "~5.1.2",
     "rxjs": "^5.5.6",

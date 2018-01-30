@@ -1,9 +1,6 @@
 import {DomSanitizer} from "@angular/platform-browser";
 import {Pipe, PipeTransform} from "@angular/core";
 
-/**
- * @deprecated use {{ name | safe }}
- */
 @Pipe({
     name: 'safeHtml',
     pure: true

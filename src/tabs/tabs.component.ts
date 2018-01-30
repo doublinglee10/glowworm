@@ -12,7 +12,6 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from "@angular/core";
-import {DragulaService} from "ng2-dragula";
 import {GwTabComponent} from "./tab.component";
 import {GwTab} from "./tab";
 import {typeofTemplateInput} from "../utils/template-input";
@@ -52,9 +51,7 @@ let dragulaId: number = 0;
                 </li>
             </ng-template>
             <ng-container *ngIf="sortable">
-                <ul class="nav nav-tabs"
-                    [dragula]="_dragula_key"
-                    [dragulaModel]="tabs">
+                <ul class="nav nav-tabs">
                     <ng-template [ngTemplateOutlet]="tabs_header"></ng-template>
                 </ul>
             </ng-container>
@@ -128,19 +125,21 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
     _dragula_key = `gwtabs_${++dragulaId}`;
     _store_prefix = 'gwtabs_';
 
-    constructor(private dragulaService: DragulaService) {
-        dragulaService.drop.subscribe((value) => {
-            this.onSort.emit();
-            this._onOrderChangeEvent();
-        });
+    constructor(/*private dragulaService: DragulaService*/) {
+        /*
+         dragulaService.drop.subscribe((value) => {
+         this.onSort.emit();
+         this._onOrderChangeEvent();
+         });
 
-        dragulaService.drag.subscribe((value) => {
-            this.onSortStart.emit();
-        });
+         dragulaService.drag.subscribe((value) => {
+         this.onSortStart.emit();
+         });
 
-        dragulaService.cancel.subscribe((value) => {
-            this.onSort.emit();
-        })
+         dragulaService.cancel.subscribe((value) => {
+         this.onSort.emit();
+         });
+         */
     }
 
     ngOnInit() {
@@ -384,7 +383,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     ngOnDestroy() {
         if (this.sortable) {
-            this.dragulaService.destroy(this._dragula_key);
+            // this.dragulaService.destroy(this._dragula_key);
         }
     }
 }

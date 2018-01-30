@@ -15,7 +15,8 @@ import {Subscription} from "rxjs/Subscription";
 import {Placement} from "./placement";
 
 @Directive({
-    selector: '[gw-overlay]'
+    selector: '[gw-overlay]',
+    exportAs: 'gw-overlay'
 })
 export class GwOverlayDirective implements OnInit, OnDestroy {
 

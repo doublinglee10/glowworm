@@ -26,9 +26,6 @@ import {TriangleComponent} from "./triangle.component";
         SafeHtmlFilter,
         SafePipe,
         TriangleComponent
-    ],
-    providers: [
-        SafeHtmlFilter
     ]
 })
 export class GwCoreModule {
@@ -38,8 +35,7 @@ export class GwCoreModule {
             providers: [
                 ComponentLoaderService,
                 WindowResizeService,
-                ScriptLoaderService,
-                SafeHtmlFilter
+                ScriptLoaderService
             ]
         };
     }

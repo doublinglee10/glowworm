@@ -18,28 +18,7 @@ import {GwSelectModule} from "./select/select.module";
 import {GwInputsModule} from "./inputs/inputs.module";
 import {GwImgPreviewModule} from "./imgpreview/imgpreview.module";
 
-let MODULES_FOR_ROOT = [
-    GwCoreModule.forRoot(),
-    GWSingleSelectModule,
-    GWInputModule,
-    GWRangeInputModule,
-    GWToolbarModule,
-    DatepickerModule.forRoot(),
-    GWPopoverModule.forRoot(),
-    GwPopconfirmModule,
-    GwPopinputModule,
-    GwConfirmModule.forRoot(),
-    GwPopselectModule,
-    GwContextMenuModule.forRoot(),
-    GwTabsModule,
-    GwSwitchModule,
-    GwPannelModule,
-    GwSelectModule,
-    GwInputsModule,
-    GwImgPreviewModule
-];
-
-let MODULES_FOR_CHILD = [
+let MODULES = [
     GwCoreModule,
     GWSingleSelectModule,
     GWInputModule,
@@ -61,14 +40,33 @@ let MODULES_FOR_CHILD = [
 ];
 
 @NgModule({
-    imports: MODULES_FOR_ROOT,
-    exports: MODULES_FOR_CHILD
+    imports: [
+        GwCoreModule.forRoot(),
+        GWSingleSelectModule,
+        GWInputModule,
+        GWRangeInputModule,
+        GWToolbarModule,
+        DatepickerModule.forRoot(),
+        GWPopoverModule.forRoot(),
+        GwPopconfirmModule,
+        GwPopinputModule,
+        GwConfirmModule.forRoot(),
+        GwPopselectModule,
+        GwContextMenuModule.forRoot(),
+        GwTabsModule,
+        GwSwitchModule,
+        GwPannelModule,
+        GwSelectModule,
+        GwInputsModule,
+        GwImgPreviewModule
+    ],
+    exports: MODULES
 })
 export class GlowwormRootModule {
 }
 
 @NgModule({
-    exports: MODULES_FOR_CHILD
+    exports: MODULES
 })
 export class GlowwormModule {
 

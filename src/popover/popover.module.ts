@@ -26,11 +26,11 @@ import {GWPopoverContainerComponent} from "./popover-container.component";
         GWPopoverComponent
     ]
 })
-export class GWPopoverModule {
+export class GwPopoverModule {
 
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: GWPopoverModule,
+            ngModule: GwPopoverModule,
             providers: [PopoverConfig]
         };
     }

@@ -1,2 +1,2 @@
-export {GWInputModule} from "./input.module";
-export {GWInputComponent} from "./input.component";
+export * from "./input.module";
+export * from "./input.component";

@@ -22,5 +22,5 @@ import {FormsModule} from "@angular/forms";
         GwPopInputComponent
     ]
 })
-export class GwPopinputModule {
+export class GwPopInputModule {
 }

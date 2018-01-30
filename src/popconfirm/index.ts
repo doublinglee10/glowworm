@@ -1,3 +1,3 @@
-export {GwPopConfirmComponent} from "./popconfirm.component";
-export {GwPopConfirmDirective} from "./popconfirm.directive";
-export {GwPopconfirmModule} from './popconfirm.module';
+export * from "./popconfirm.component";
+export * from "./popconfirm.directive";
+export * from './popconfirm.module';

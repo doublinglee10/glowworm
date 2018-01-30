@@ -1,2 +1,2 @@
-export {GWRangeInputModule} from "./rangeinput.module";
-export {GWRangeInputComponent} from "./rangeinput.component";
+export * from "./rangeinput.module";
+export * from "./rangeinput.component";

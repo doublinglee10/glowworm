@@ -15,14 +15,14 @@ import {GwSwitchDemoComponent} from "./components/gwswitch-demo.component";
 
 import {GwContextMenuModule} from "../../src/context-menu/context-menu.module";
 import {GwConfirmModule} from "../../src/confirm/confirm.module";
-import {GwPopconfirmModule} from "../../src/popconfirm/popconfirm.module";
-import {GwPopinputModule} from "../../src/popinput/popinput.module";
-import {GwPopselectModule} from "../../src/popselect/popselect.module";
-import {GWInputModule} from "../../src/input/input.module";
-import {GWToolbarModule} from "../../src/toolbar/toolbar.module";
-import {DatepickerModule} from "../../src/datepicker/datepicker.module";
-import {GWSingleSelectModule} from "../../src/singleselect/single-select.module";
-import {GWRangeInputModule} from "../../src/rangeInput/rangeinput.module";
+import {GwPopConfirmModule} from "../../src/popconfirm/popconfirm.module";
+import {GwPopInputModule} from "../../src/popinput/popinput.module";
+import {GwPopSelectModule} from "../../src/popselect/popselect.module";
+import {GwInputModule} from "../../src/input/input.module";
+import {GwToolbarModule} from "../../src/toolbar/toolbar.module";
+import {GwDatepickerModule} from "../../src/datepicker/datepicker.module";
+import {GwSingleSelectModule} from "../../src/singleselect/single-select.module";
+import {GwRangeInputModule} from "../../src/rangeInput/rangeinput.module";
 import {GwTabsModule} from "../../src/tabs/tabs.module";
 import {GwTabsDemoComponent, TestComponent} from "./components/gwtabs-demo.component";
 import {GwPanelDemoComponent} from "./components/gwpannel-demo.component";
@@ -64,16 +64,16 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        GWInputModule,
-        DatepickerModule.forRoot(),
-        GWSingleSelectModule,
-        GWRangeInputModule,
-        GWToolbarModule,
+        GwInputModule,
+        GwDatepickerModule.forRoot(),
+        GwSingleSelectModule,
+        GwRangeInputModule,
+        GwToolbarModule,
         GwContextMenuModule.forRoot(),
         GwConfirmModule.forRoot(),
-        GwPopconfirmModule,
-        GwPopinputModule,
-        GwPopselectModule,
+        GwPopConfirmModule,
+        GwPopInputModule,
+        GwPopSelectModule,
         GwTabsModule,
         GwPannelModule,
         GwSwitchModule,

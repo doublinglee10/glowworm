@@ -1,3 +1,3 @@
-export {GWDatepickerComponent} from "./datepicker.component";
-export {DatepickerConfig} from "./config.server";
-export {DatepickerModule} from "./datepicker.module";
+export * from "./datepicker.component";
+export * from "./config.server";
+export * from "./datepicker.module";

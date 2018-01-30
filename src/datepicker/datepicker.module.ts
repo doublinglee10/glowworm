@@ -12,11 +12,11 @@ import {GwCoreModule} from "../core/core.module";
     declarations: [GWDatepickerComponent],
     exports: [GWDatepickerComponent]
 })
-export class DatepickerModule {
+export class GwDatepickerModule {
 
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: DatepickerModule,
+            ngModule: GwDatepickerModule,
             providers: [DatepickerConfig]
         };
     }

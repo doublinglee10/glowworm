@@ -22,6 +22,6 @@ import {GwPopSelectDirective} from "./popselect.directive";
         GwPopSelectComponent
     ]
 })
-export class GwPopselectModule {
+export class GwPopSelectModule {
 
 }

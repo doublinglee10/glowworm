@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {GWRangeInputComponent} from "./rangeinput.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {GWPopoverModule} from "../popover/popover.module";
+import {GwPopoverModule} from "../popover/popover.module";
 
 @NgModule({
     declarations: [
@@ -11,11 +11,11 @@ import {GWPopoverModule} from "../popover/popover.module";
     imports: [
         CommonModule,
         FormsModule,
-        GWPopoverModule.forRoot()
+        GwPopoverModule.forRoot()
     ],
     exports: [
         GWRangeInputComponent
     ]
 })
-export class GWRangeInputModule {
+export class GwRangeInputModule {
 }

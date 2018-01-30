@@ -21,6 +21,6 @@ import {GwPopConfirmDirective} from "./popconfirm.directive";
         GwPopConfirmComponent
     ]
 })
-export class GwPopconfirmModule {
+export class GwPopConfirmModule {
 
 }

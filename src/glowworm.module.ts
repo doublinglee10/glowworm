@@ -1,15 +1,15 @@
 import {ModuleWithProviders, NgModule} from "@angular/core";
-import {GWInputModule} from "./input/input.module";
-import {GWRangeInputModule} from "./rangeInput/rangeinput.module";
-import {GWToolbarModule} from "./toolbar/toolbar.module";
-import {DatepickerModule} from "./datepicker/datepicker.module";
-import {GWSingleSelectModule} from "./singleselect/single-select.module";
-import {GWPopoverModule} from "./popover/popover.module";
+import {GwInputModule} from "./input/input.module";
+import {GwRangeInputModule} from "./rangeInput/rangeinput.module";
+import {GwToolbarModule} from "./toolbar/toolbar.module";
+import {GwDatepickerModule} from "./datepicker/datepicker.module";
+import {GwSingleSelectModule} from "./singleselect/single-select.module";
+import {GwPopoverModule} from "./popover/popover.module";
 import {GwCoreModule} from "./core/core.module";
-import {GwPopconfirmModule} from "./popconfirm/popconfirm.module";
-import {GwPopinputModule} from "./popinput/popinput.module";
+import {GwPopConfirmModule} from "./popconfirm/popconfirm.module";
+import {GwPopInputModule} from "./popinput/popinput.module";
 import {GwConfirmModule} from "./confirm/confirm.module";
-import {GwPopselectModule} from "./popselect/popselect.module";
+import {GwPopSelectModule} from "./popselect/popselect.module";
 import {GwContextMenuModule} from "./context-menu";
 import {GwTabsModule} from "./tabs/tabs.module";
 import {GwSwitchModule} from "./switch/gw-switch.module";
@@ -20,16 +20,16 @@ import {GwImgPreviewModule} from "./imgpreview/imgpreview.module";
 
 let MODULES = [
     GwCoreModule,
-    GWSingleSelectModule,
-    GWInputModule,
-    GWRangeInputModule,
-    GWToolbarModule,
-    DatepickerModule,
-    GWPopoverModule,
-    GwPopconfirmModule,
-    GwPopinputModule,
+    GwSingleSelectModule,
+    GwInputModule,
+    GwRangeInputModule,
+    GwToolbarModule,
+    GwDatepickerModule,
+    GwPopoverModule,
+    GwPopConfirmModule,
+    GwPopInputModule,
     GwConfirmModule,
-    GwPopselectModule,
+    GwPopSelectModule,
     GwContextMenuModule,
     GwTabsModule,
     GwPannelModule,
@@ -42,16 +42,16 @@ let MODULES = [
 @NgModule({
     imports: [
         GwCoreModule.forRoot(),
-        GWSingleSelectModule,
-        GWInputModule,
-        GWRangeInputModule,
-        GWToolbarModule,
-        DatepickerModule.forRoot(),
-        GWPopoverModule.forRoot(),
-        GwPopconfirmModule,
-        GwPopinputModule,
+        GwSingleSelectModule,
+        GwInputModule,
+        GwRangeInputModule,
+        GwToolbarModule,
+        GwDatepickerModule.forRoot(),
+        GwPopoverModule.forRoot(),
+        GwPopConfirmModule,
+        GwPopInputModule,
         GwConfirmModule.forRoot(),
-        GwPopselectModule,
+        GwPopSelectModule,
         GwContextMenuModule.forRoot(),
         GwTabsModule,
         GwSwitchModule,

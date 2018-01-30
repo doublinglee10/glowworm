@@ -1,4 +1,4 @@
-export {PopoverConfig, Config} from "./popover.config";
-export {GWPopoverDirective} from "./popover.directive";
-export {GWPopoverComponent} from "./popover.component";
-export {GWPopoverModule} from "./popover.module";
+export * from "./popover.config";
+export * from "./popover.directive";
+export * from "./popover.component";
+export * from "./popover.module";

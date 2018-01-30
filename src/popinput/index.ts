@@ -1,3 +1,3 @@
-export {GwPopInputComponent} from "./popinput.component";
-export {GwPopinputDirective} from "./popinput.directive";
-export {GwPopinputModule} from './popinput.module';
+export * from "./popinput.component";
+export * from "./popinput.directive";
+export * from './popinput.module';

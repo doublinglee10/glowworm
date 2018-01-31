@@ -5,12 +5,6 @@ import {Placement} from "../core/placement";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
 
-export const GW_POPINPUT_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GwPopInputComponent),
-    multi: true
-};
-
 @Component({
     selector: 'gw-popinput',
     styleUrls: ['../styles/triangle.css', '../styles/glowworm.css'],
@@ -33,7 +27,11 @@ export const GW_POPINPUT_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [GW_POPINPUT_VALUE_ACCESSOR]
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => GwPopInputComponent),
+        multi: true
+    }]
 })
 export class GwPopInputComponent implements ControlValueAccessor {
 

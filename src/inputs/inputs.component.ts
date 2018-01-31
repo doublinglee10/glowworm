@@ -5,16 +5,14 @@ import {GWPopoverDirective} from "../popover/popover.directive";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
 
-export const GW_INPUT_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GwInputsComponent),
-    multi: true
-};
-
 @Component({
     selector: 'gw-inputs',
     styleUrls: ['./inputs.component.css'],
-    providers: [GW_INPUT_VALUE_ACCESSOR],
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => GwInputsComponent),
+        multi: true
+    }],
     template: `
         <ng-container *ngIf="enabled">
             <span class="btn btn-default {{btnSize}}" [class.disabled]="disabled">

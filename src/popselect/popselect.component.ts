@@ -12,12 +12,6 @@ import {GwOverlayDirective} from "../core/overlay.directive";
 import {Placement} from "../core/placement";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
-export const GW_POPSELECT_COMPONENT_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GwPopSelectComponent),
-    multi: true
-};
-
 /**
  * <gw-popselect
  [(ngModel)]=""
@@ -64,7 +58,11 @@ export const GW_POPSELECT_COMPONENT_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [GW_POPSELECT_COMPONENT_VALUE_ACCESSOR]
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => GwPopSelectComponent),
+        multi: true
+    }]
 })
 export class GwPopSelectComponent implements ControlValueAccessor {
 

@@ -14,23 +14,16 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Placement} from "../core/placement";
 import {GwPopSelectComponent} from "./popselect.component";
 
-export const GW_POPSELECT_DIRECTIVE_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GwPopSelectDirective),
-    multi: true
-};
-
 @Directive({
     selector: '[gw-popselect]',
-    providers: [GW_POPSELECT_DIRECTIVE_VALUE_ACCESSOR]
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => GwPopSelectDirective),
+        multi: true
+    }]
 })
 export class GwPopSelectDirective implements ControlValueAccessor, OnInit, OnDestroy {
 
-    // @Input() data: any[];
-    // @Input() filterKeys: string[];
-    // @Input() showFilter: boolean;
-    // @Input() placement: Placement = 'bottom-left';
-    // @Input() zIndex: number;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 

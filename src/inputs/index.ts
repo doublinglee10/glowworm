@@ -1,2 +1,2 @@
-export {GwInputsModule} from "./inputs.module";
-export {GwInputsComponent} from "./inputs.component";
+export * from "./inputs.module";
+export * from "./inputs.component";

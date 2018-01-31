@@ -17,4 +17,4 @@ export * from './switch/index';
 export * from './tabs/index';
 export * from './toolbar/index';
 export * from './utils/index';
-// export * from './glowworm.module';
+export * from './glowworm.module';

@@ -10,7 +10,7 @@ import {GwPopConfirmModule} from "./popconfirm/popconfirm.module";
 import {GwPopInputModule} from "./popinput/popinput.module";
 import {GwConfirmModule} from "./confirm/confirm.module";
 import {GwPopSelectModule} from "./popselect/popselect.module";
-import {GwContextMenuModule} from "./context-menu";
+import {GwContextMenuModule} from "./context-menu/context-menu.module";
 import {GwTabsModule} from "./tabs/tabs.module";
 import {GwSwitchModule} from "./switch/gw-switch.module";
 import {GwPannelModule} from "./panel/panel.module";

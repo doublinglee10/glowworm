@@ -55,9 +55,9 @@ import * as moment from "moment";
                                [showSelect]="true"
                                [(selectModel)]="rangeSelectModel"
                                [selectData]="[{id: '0', text: '先生'}, {id: '1', text: '女士'}]"
-                               (onSelectChange)="log('rangeinput', 'select change', $event)"
-                               (onSave)="log('rangeinput', 'save', $event)"
-                               (onCancel)="log('rangeinput', 'cancel', $event)"
+                               (onSelectChange)="log($event)"
+                               (onSave)="log($event)"
+                               (onCancel)="log($event)"
                 >
                 </gw-rangeinput>
                 {{rangeStart}}
@@ -144,7 +144,7 @@ import * as moment from "moment";
                                options='{singleDatePicker:true,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
                                [(ngModel)]="dateModel2">
                 </gw-datepicker>
-                
+
                 {{dateModel1 | json}}
                 {{dateModel2 | json}}
             </p>
@@ -271,7 +271,7 @@ export class ToolbarDemoComponent {
         };
     }
 
-    log() {
+    log(xxx) {
         console.warn(arguments);
     }
 }

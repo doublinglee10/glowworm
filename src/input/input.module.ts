@@ -1,12 +1,12 @@
 import {NgModule} from "@angular/core";
-import {GWInputComponent} from "./input.component";
+import {GwInputComponent} from "./input.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {GwPopoverModule} from "../popover/popover.module";
 
 @NgModule({
     declarations: [
-        GWInputComponent
+        GwInputComponent
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import {GwPopoverModule} from "../popover/popover.module";
         GwPopoverModule.forRoot(),
     ],
     exports: [
-        GWInputComponent
+        GwInputComponent
     ]
 })
 export class GwInputModule {

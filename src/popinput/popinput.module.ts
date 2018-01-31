@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {GwCoreModule} from "../core/core.module";
 import {GwPopInputComponent} from "./popinput.component";
-import {GwPopinputDirective} from "./popinput.directive";
+import {GwPopInputDirective} from "./popinput.directive";
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
@@ -13,10 +13,10 @@ import {FormsModule} from "@angular/forms";
     ],
     declarations: [
         GwPopInputComponent,
-        GwPopinputDirective
+        GwPopInputDirective
     ],
     exports: [
-        GwPopinputDirective
+        GwPopInputDirective
     ],
     entryComponents: [
         GwPopInputComponent

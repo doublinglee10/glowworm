@@ -14,12 +14,6 @@ import {GwPopInputComponent} from "./popinput.component";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Placement} from "../core/placement";
 
-export const GW_POPINPUT_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GwPopinputDirective),
-    multi: true
-};
-
 /**
  * <div gw-popinput
  *      [zIndex]=""
@@ -34,9 +28,13 @@ export const GW_POPINPUT_VALUE_ACCESSOR: any = {
  */
 @Directive({
     selector: '[gw-popinput]',
-    providers: [GW_POPINPUT_VALUE_ACCESSOR]
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => GwPopInputDirective),
+        multi: true
+    }]
 })
-export class GwPopinputDirective implements OnInit, OnDestroy, ControlValueAccessor {
+export class GwPopInputDirective implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() title: string;
     @Input() confirmText: string = '确认';

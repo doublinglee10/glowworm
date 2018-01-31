@@ -17,7 +17,7 @@ import {Subscription} from "rxjs/Subscription";
                         <li (click)="_onClickMenu(menu)" [class.hidden]="!_showMenu(menu)">
                             <a [class.disabled]="_disabledMenus(menu)">
                                 <i [ngClass]="menu.iconCls || 'empty-icon'"></i>
-                                <span [innerHTML]="menu.text"></span>
+                                <span [innerHTML]="menu.text|safe"></span>
                             </a>
                         </li>
                     </ng-container>
@@ -25,7 +25,7 @@ import {Subscription} from "rxjs/Subscription";
                         <li class="dropdown-submenu" [class.hidden]="!_showMenu(menu)">
                             <a tabindex="-1">
                                 <i [ngClass]="menu.iconCls || 'empty-icon'"></i>
-                                <span [innerHTML]="menu.text"></span>
+                                <span [innerHTML]="menu.text|safe"></span>
                             </a>
                             <ng-container *ngTemplateOutlet="menusTpl;context:{$implicit: menu.submenus}">
                             </ng-container>

@@ -81,7 +81,7 @@ export class GwInputsDemoComponent implements OnInit {
         return Observable.of(confirm);
     }
 
-    log() {
+    log(args1, args2) {
         console.warn(arguments);
     }
 }

@@ -2,11 +2,12 @@ import {NgModule} from "@angular/core";
 import {GwTabsComponent} from "./tabs.component";
 import {GwTabComponent} from "./tab.component";
 import {CommonModule} from "@angular/common";
+import {DragulaModule} from "ng-dragula";
 
 @NgModule({
     imports: [
-        CommonModule
-        // DragulaModule
+        CommonModule,
+        DragulaModule
     ],
     declarations: [
         GwTabComponent,

@@ -1,6 +1,8 @@
 {
   "name": "glowworm",
-  "version": "1.0.18",
+  "version": "1.0.20",
+  "pordVersion": "1.0.20",
+  "betaVersion": "1.0.19-beta.1",
   "license": "MIT",
   "ngPackage": {
     "lib": {
@@ -13,17 +15,23 @@
     "choui <choui20016514@gmail.com>",
     "lishichao1002 <lishichao1002@163.com>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lishichao1002/glowworm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lishichao1002/glowworm/issues"
+  },
+  "homepage": "https://github.com/lishichao1002/glowworm#readme",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4200 --disable-host-check",
+    "start:aot": "ng serve --host 0.0.0.0 --port 4200 --aot --disable-host-check",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "npm run build:ngc && npm run build:umd",
-    "build:lib": "ng-packagr",
-    "publish:lib": "npm publish dist",
-    "build:umd": "webpack --config webpack-umd.config.ts",
-    "build:ngc": "rm -rf aot && rm -rf lib && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && gulp"
+    "build": "ng-packagr",
+    "publish": "npm publish dist"
   },
   "peerDependencies": {
     "@angular/common": "^5.2.0",
@@ -32,7 +40,8 @@
   },
   "dependencies": {
     "@angular/cdk": "^5.1.0",
-    "font-awesome": "4.7.0"
+    "font-awesome": "4.7.0",
+    "ng-dragula": "^1.0.0"
   },
   "devDependencies": {
     "@angular/animations": "^5.2.0",

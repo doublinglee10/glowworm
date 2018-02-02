@@ -25,6 +25,7 @@ button /deep/ .popover-content {
 
 .popover-container {
     padding-top: 10px;
+    min-width: 200px;
 }
 
 .popover-container .popover-top {
@@ -43,7 +44,7 @@ button /deep/ .popover-content {
 
 .popover-container .popover-main .input {
     padding: 0 10px;
-    width: 180px;
+    width: 100%;
 }
 
 .popover-container .popover-main input[type=text] {

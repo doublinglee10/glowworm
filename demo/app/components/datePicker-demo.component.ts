@@ -13,7 +13,8 @@ declare let moment;
             <div class="col-md-4"><input type="text" class="form-control"/></div>
             <div class="col-md-4">
                 <gw-datepicker label="最后回复时间"
-                               [gwClass]="'form-control'"
+                               [gwClass]="'form-control form-control-glowworm'"
+                               [closeable]="false"
                                [options]="myOption">
                 </gw-datepicker>
             </div>

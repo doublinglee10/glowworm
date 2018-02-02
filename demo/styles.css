@@ -4,6 +4,15 @@
 @import "../node_modules/admin-lte/dist/css/AdminLTE.css";
 @import "assets/datepicker/daterangepicker.css";
 /*@import "../node_modules/webui-popover/dist/jquery.webui-popover.css";*/
-
 @import "assets/scrollbar.css";
 /*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+
+.form-control.form-control-glowworm {
+    overflow: hidden;
+    line-height: 30px;
+    text-align: left;
+}
+
+.form-control.form-control-glowworm .arrow {
+    float: right;
+}

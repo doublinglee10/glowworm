@@ -48,8 +48,11 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
                         <ul>
                             <li *ngFor="let item of data|gwSelectFilter:_filter">
                                 <label>
-                                    <input type="checkbox" [(ngModel)]="item.checked" name="checkbox"
-                                           (change)="onCheckBoxChange(item)">
+                                    <input type="checkbox"
+                                           name="checkbox"
+                                           [(ngModel)]="item.checked"
+                                           [disabled]="item.disabled"
+                                           (change)="onCheckBoxChange(item)"/>
                                     <span [innerHTML]="item.text | safeHtml"></span>
                                 </label>
                             </li>
@@ -81,7 +84,7 @@ export class GwSingleSelectComponent implements ControlValueAccessor {
     @Input() clearSave: boolean = true;
 
     @Input() showSelect: boolean = false;
-    @Input() selectData: { id: any, text: string }[] = [];
+    @Input() selectData: { id: any, text: string, disabled?: boolean }[] = [];
 
     /** 双向绑定 */
     @Input() selectModel: any;

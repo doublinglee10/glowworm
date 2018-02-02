@@ -70,10 +70,10 @@ import {Observable} from "rxjs/Observable";
             <div class="col-md-4">
                 <gw-inputs #gwcontrol
                            [label]="'设备信息'"
-                           [gwClass]="'form-control'"
+                           [gwClass]="'form-control form-control-glowworm'"
                            [btnSize]="'btn-xs'"
                            [enabled]="true"
-                           [closeable]="true"
+                           [closeable]="false"
                            [placeholder]="'... ...'"
 
                            [(ngModel)]="value"

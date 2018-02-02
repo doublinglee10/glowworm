@@ -64,9 +64,9 @@ import {Observable} from "rxjs/Observable";
             <div class="col-md-4">
                 <gw-single-select
                         [label]="'<span style=color:red;>单选</span>'"
-                        [closeable]="true"
+                        [closeable]="false"
                         [clearSave]="true"
-                        [gwClass]="'form-control'"
+                        [gwClass]="'form-control form-control-glowworm'"
 
                         [showSelect]="true"
                         [(selectModel)]="selectModel"
@@ -110,7 +110,7 @@ export class GwSingleSelectDemoComponent implements OnInit {
 
         this.data = [
             {id: '@', text: `<span style="color:red;">@@</span>`},
-            {id: '!', text: '!!'},
+            {id: '!', text: '!!', disabled: true},
             {id: '#', text: '##'}
         ]
     }

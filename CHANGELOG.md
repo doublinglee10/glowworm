@@ -26,6 +26,16 @@
 <!-- * 修复linux x86_64下安装失败问题 -->
 
 
+## v1.1.1
+
+### 新特性
+ * `gw-select` 组件增加extra输入属性
+
+### 改进
+ * `gw-select`, `gw-single-select`组件data输入属性扩展，由 `{id: any, text: string}[]` 改为 `{id: any, text: string, disabled?: boolean}[]`
+
+
+
 ## v1.1.0
 
 ### 新特性

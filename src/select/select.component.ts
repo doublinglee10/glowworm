@@ -1,4 +1,4 @@
-import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
+import {Component, ContentChild, EventEmitter, forwardRef, Input, Output, TemplateRef, ViewChild} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWToolbarComponent} from "../toolbar/toolbar.component";
 import {Observable} from "rxjs/Observable";
@@ -46,8 +46,10 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
                         <ul>
                             <li *ngFor="let item of data|gwSelectFilter:_filter">
                                 <label>
-                                    <input type="checkbox" [(ngModel)]="item.checked" name="checkbox"
-                                           (change)="onCheckBoxChange(item)">
+                                    <input type="checkbox" name="checkbox"
+                                           [(ngModel)]="item.checked"
+                                           [disabled]="item.disabled"
+                                           (change)="onCheckBoxChange(item)"/>
                                     <span [innerHTML]="item.text | safeHtml"></span>
                                 </label>
                             </li>
@@ -57,6 +59,7 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
                     <div class="popover-footer">
                         <div class="left">
                             <a class="btn btn-xs" (click)="clear()">清除</a>
+                            <ng-template *ngTemplateOutlet="extra || contentExtra"></ng-template>
                         </div>
                         <div class="right">
                             <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
@@ -78,9 +81,11 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Input() closeable: boolean = true;
     @Input() multiple: boolean = false;
     @Input() clearSave: boolean = true;
+    @Input() extra: TemplateRef<any>;
+    @ContentChild('extra') contentExtra: TemplateRef<any>;
 
     @Input() showSelect: boolean = false;
-    @Input() selectData: { id: any, text: string }[] = [];
+    @Input() selectData: { id: any, text: string, disabled?: boolean }[] = [];
 
     /** 双向绑定 */
     @Input() selectModel: any;
@@ -218,7 +223,7 @@ export class GwSelectComponent implements ControlValueAccessor {
                 this.ngModelChange(this.ngModel);
                 this.selectModelChange.emit(this.selectModel);
                 this.onSave.emit();
-                this.overlay.hide();
+                this.hide();
             }
         };
 
@@ -230,6 +235,10 @@ export class GwSelectComponent implements ControlValueAccessor {
         this._tmpSelectModel = this.selectModel;
         this._cascadeData();
         this.onCancel.emit();
+        this.hide();
+    }
+
+    hide() {
         this.overlay.hide();
     }
 

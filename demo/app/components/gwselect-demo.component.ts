@@ -78,24 +78,26 @@ import {Observable} from "rxjs/Observable";
             <div class="col-md-4"><input type="text" class="form-control"/></div>
             <div class="col-md-4"><input type="text" class="form-control"/></div>
             <div class="col-md-4">
-                <gw-select
-                        [label]="'<span style=color:red;>多选</span>'"
-                        [closeable]="true"
-                        [multiple]="true"
-                        [clearSave]="true"
-                        [gwClass]="'form-control'"
+                <gw-select #select
+                           [label]="'<span style=color:red;>多选</span>'"
+                           [closeable]="false"
+                           [multiple]="true"
+                           [clearSave]="true"
+                           [gwClass]="'form-control form-control-glowworm'"
 
-                        [showSelect]="true"
-                        [(selectModel)]="selectModel2"
-                        [selectData]="options2"
-                        (onSelectChange)="log('select2', $event)"
+                           [showSelect]="true"
+                           [(selectModel)]="selectModel2"
+                           [selectData]="options2"
+                           (onSelectChange)="log('select2', $event)"
 
-                        [onBeforeSave]="onBeforeSave"
-                        [(ngModel)]="ngModel2"
-                        [data]="options2"
-                        (onSave)="log('save2', $event)"
-                        (onCancel)="log('cancel2', $event)"
-                >
+                           [(ngModel)]="ngModel2"
+                           [data]="options2"
+                           (onSave)="log('save2', $event)"
+                           (onCancel)="log('cancel2', $event)">
+                    <ng-template #extra>
+                        <a class="btn btn-xs" (click)="selectAll();select.hide();">全选</a>
+                        <a class="btn btn-xs" (click)="checkAll();select.hide();">全部</a>
+                    </ng-template>
                 </gw-select>
             </div>
         </div>
@@ -119,7 +121,7 @@ export class GwSelectDemoComponent implements OnInit {
 
     ngOnInit() {
         let mac = {text: `<span style="color:red;">MAC</span>`, id: 'mac'};
-        let idfa = {text: 'IDFA', id: 'idfa'};
+        let idfa = {text: 'IDFA', id: 'idfa', disabled: true};
         let udid = {text: 'UDID', id: 'udid'};
         let ip = {text: 'IP', id: 'ip'};
         let idfv = {text: 'IDFV', id: 'idfv'};
@@ -133,6 +135,26 @@ export class GwSelectDemoComponent implements OnInit {
         console.log(arguments);
         const confirm = window.confirm('Save ?');
         return Observable.of(confirm);
+    }
+
+    selectAll() {
+        this.ngModel2 = [...this.options2];
+        this.options2 = this.options2.map(item => {
+            return {
+                ...item,
+                disabled: false
+            }
+        });
+    }
+
+    checkAll() {
+        this.ngModel2 = [...this.options2];
+        this.options2 = this.options2.map(item => {
+            return {
+                ...item,
+                disabled: true
+            }
+        });
     }
 
     log(event_type, event) {

@@ -23,6 +23,10 @@
     opacity: .85 !important;
 }
 
+.overlay-backdrop-transparent {
+    background-color: transparent;
+}
+
 .cdk-global-overlay-wrapper, .cdk-overlay-container {
     pointer-events: none;
     top: 0;
@@ -48,6 +52,14 @@
     left: 0;
     height: 100%;
     width: 100%;
+}
+
+.cdk-overlay-pane {
+    position: absolute;
+    pointer-events: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 1000;
 }
 
 /* <div class="loader"></div>  */

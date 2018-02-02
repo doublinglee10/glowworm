@@ -7,7 +7,7 @@ button .value {
 }
 
 button .arrow {
-    padding: 0px 2px;
+    padding: 0 2px;
 }
 
 button /deep/ .popover-content {
@@ -20,7 +20,7 @@ button /deep/ .popover-content {
 
 .popover-container .popover-top, .popover-container .popover-main, .popover-container .popover-footer {
     font-size: 12px;
-    padding: 0px 10px;
+    padding: 0 10px;
 }
 
 .popover-container .popover-top .top-select {
@@ -30,12 +30,16 @@ button /deep/ .popover-content {
 .popover-container .popover-hr {
     width: 100%;
     border-top: 1px solid #aaaaaa;
-    margin: 10px 0px;
+    margin: 10px 0;
+}
+
+.popover-container .popover-main {
+    text-align: center;
 }
 
 .popover-container .popover-main input {
     border: 1px solid #cccccc;
-    width: 100%;
+    width: 60px;
 }
 
 .popover-container .popover-footer {
@@ -50,15 +54,3 @@ button /deep/ .popover-content {
 .popover-container .popover-footer .right {
     float: right;
 }
-
-/*.btn{
-  text-align: left!important;
-}*/
-.popover-main input{
-   width: 47%!important;
-}
-
-.popover-container{
-  width: 12.2rem;
-}
-

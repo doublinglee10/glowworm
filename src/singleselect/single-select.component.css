@@ -39,7 +39,7 @@ button /deep/ .popover-content {
 
 .popover-container .popover-main .input {
     padding: 0 10px;
-    width: 100%;
+    width: 180px;
 }
 
 .popover-container .popover-main input[type=text] {

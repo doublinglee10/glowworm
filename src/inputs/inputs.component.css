@@ -39,11 +39,11 @@ button /deep/ .popover-content {
 
 .popover-container .popover-main .item input {
     border: 1px solid #cccccc;
-    width: 128px;
+    width: 180px;
 }
 
 .popover-container .popover-main .plus button {
-    width: 128px;
+    width: 180px;
 }
 
 .popover-container .popover-main .item i {

@@ -1,9 +1,9 @@
 import {Component, EventEmitter, forwardRef, Input, Output, ViewChild} from "@angular/core";
-import {GWPopoverDirective} from "../popover/popover.directive";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GWToolbarComponent} from "../toolbar/toolbar.component";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
+import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
 
 @Component({
     selector: 'gw-select',
@@ -14,61 +14,64 @@ import {first} from "rxjs/operators";
         multi: true
     }],
     template: `
-        <ng-container *ngIf="enabled">
-            <span class="btn btn-default {{btnSize}}" [class.disabled]="disabled">
-                <span gw-popover [template]="tpl" [disabled]="disabled">
-                    <span class="author" [innerHTML]="label | safeHtml"></span>
-                    <span class="value" [innerHTML]="_values | safeHtml"></span>
-                    <span class="arrow"><span class="caret"></span></span>
-                </span>
-                <ng-container *ngIf="closeable">
-                    <span class="glyphicon glyphicon-remove" (click)="remove()"></span>
-                </ng-container>
-            </span>
-        </ng-container>
+        <div class="btn btn-default {{btnSize}}"
+             [ngClass]="gwClass"
+             [class.hidden]="!enabled"
+             [class.disabled]="disabled"
+             cdkOverlayOrigin #overlayOrigin="cdkOverlayOrigin">
+            <span class="author" [innerHTML]="label | safeHtml"></span>
+            <span class="value" [innerHTML]="_values | safeHtml"></span>
+            <span class="arrow"><span class="caret"></span></span>
+            <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
+        </div>
 
-        <ng-template #tpl>
-            <div class="popover-container">
-                <ng-container *ngIf="showSelect">
-                    <div class="popover-top">
-                        <span class="top-label" [innerHTML]="label | safeHtml"></span>:
-                        <select class="top-select"
-                                [(ngModel)]="_tmpSelectModel"
-                                (change)="onSelectModelChange()">
-                            <option *ngFor="let item of selectData" [value]="item.id" [innerHTML]="item.text"></option>
-                        </select>
+        <gw-connected-overlay [overlayOrigin]="overlayOrigin" [disabled]="disabled">
+            <gw-triangle>
+                <div class="popover-container">
+                    <ng-container *ngIf="showSelect">
+                        <div class="popover-top">
+                            <span class="top-label" [innerHTML]="label | safeHtml"></span>:
+                            <select class="top-select pull-right"
+                                    [(ngModel)]="_tmpSelectModel"
+                                    (change)="onSelectModelChange()">
+                                <option *ngFor="let item of selectData" [value]="item.id"
+                                        [innerHTML]="item.text"></option>
+                            </select>
+                        </div>
+                        <div class="popover-hr"></div>
+                    </ng-container>
+                    <div class="popover-main">
+                        <div class="input"><input type="text" [(ngModel)]="_filter" name="value" placeholder="过滤...">
+                        </div>
+                        <ul>
+                            <li *ngFor="let item of data|gwSelectFilter:_filter">
+                                <label>
+                                    <input type="checkbox" [(ngModel)]="item.checked" name="checkbox"
+                                           (change)="onCheckBoxChange(item)">
+                                    <span [innerHTML]="item.text | safeHtml"></span>
+                                </label>
+                            </li>
+                        </ul>
                     </div>
                     <div class="popover-hr"></div>
-                </ng-container>
-                <div class="popover-main">
-                    <div class="input"><input type="text" [(ngModel)]="_filter" name="value" placeholder="过滤..."></div>
-                    <ul>
-                        <li *ngFor="let item of data|gwSelectFilter:_filter">
-                            <label>
-                                <input type="checkbox" [(ngModel)]="item.checked" name="checkbox"
-                                       (change)="onCheckBoxChange(item)">
-                                <span [innerHTML]="item.text | safeHtml"></span>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="popover-hr"></div>
-                <div class="popover-footer">
-                    <div class="left">
-                        <a class="btn btn-xs" (click)="clear()">清除</a>
-                    </div>
-                    <div class="right">
-                        <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
-                        <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
+                    <div class="popover-footer">
+                        <div class="left">
+                            <a class="btn btn-xs" (click)="clear()">清除</a>
+                        </div>
+                        <div class="right">
+                            <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
+                            <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ng-template>
+            </gw-triangle>
+        </gw-connected-overlay>
     `
 })
 export class GwSelectComponent implements ControlValueAccessor {
 
     @Input() label: string;
+    @Input() gwClass: string;
     @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
     @Input() enabled: boolean = true;
     @Input() disabled: boolean = false;
@@ -100,11 +103,11 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
+    @ViewChild(GwConnectedOverlayComponent) overlay: GwConnectedOverlayComponent;
 
     @Input('disabled') set _disabled(disabled: boolean) {
         this.disabled = disabled;
-        this.disabled && this.popover && this.popover.hide();
+        this.disabled && this.overlay && this.overlay.hide();
     }
 
     @Input('data') set _data(data: { id: any, text: string }[]) {
@@ -173,7 +176,9 @@ export class GwSelectComponent implements ControlValueAccessor {
         }
     }
 
-    remove() {
+    remove(event: Event) {
+        event.stopPropagation();
+
         if (this.disabled) {
             return;
         }
@@ -213,7 +218,7 @@ export class GwSelectComponent implements ControlValueAccessor {
                 this.ngModelChange(this.ngModel);
                 this.selectModelChange.emit(this.selectModel);
                 this.onSave.emit();
-                this.popover.hide();
+                this.overlay.hide();
             }
         };
 
@@ -225,7 +230,7 @@ export class GwSelectComponent implements ControlValueAccessor {
         this._tmpSelectModel = this.selectModel;
         this._cascadeData();
         this.onCancel.emit();
-        this.popover.hide();
+        this.overlay.hide();
     }
 
     private _cascadeData() {

@@ -6,12 +6,23 @@ declare let moment;
 
 @Component({
     selector: 'gwdatePicker-demo',
-    template: `  <gw-datepicker  label="最后回复时间" [options]="myOption"></gw-datepicker> 
+    template: `
+        <gw-datepicker label="最后回复时间" [options]="myOption"></gw-datepicker>
+        <div class="row">
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4">
+                <gw-datepicker label="最后回复时间"
+                               [gwClass]="'form-control'"
+                               [options]="myOption">
+                </gw-datepicker>
+            </div>
+        </div>
     `
 })
 export class DatepickerDemoComponent {
     myOption = {
-        unDeepCopy:true,
+        unDeepCopy: true,
         ranges: { //今天、昨天  本周、上周 本月、上月
             '今天2': [
                 '2018-01-15', '2018-01-15'
@@ -19,7 +30,7 @@ export class DatepickerDemoComponent {
         }
     }
 
-    constructor(private contextMenuService: ContextMenuService,private config: DatepickerConfig) {
+    constructor(private contextMenuService: ContextMenuService, private config: DatepickerConfig) {
         console.log(this.contextMenuService);
         this.setDatepickerConfig();
     }

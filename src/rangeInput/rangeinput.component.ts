@@ -1,65 +1,72 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {GWControl} from "../utils/gw-control";
-import {GWPopoverDirective} from "../popover/popover.directive";
+import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
 
 @Component({
     selector: 'gw-rangeinput',
     styleUrls: ['./rangeinput.component.css'],
     template: `
-        <ng-container *ngIf="enabled">
-            <span class="btn btn-default {{btnSize}}">
-                <span gw-popover [template]="tpl">
-                    <span class="author">{{label}}</span>
-                    <span class="value">{{_values}}</span>
-                    <span class="arrow"><span class="caret"></span></span>
-                </span>
-                <ng-container *ngIf="closeable">
-                    <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
-                </ng-container>
-            </span>
-        </ng-container>
+        <div class="btn btn-default {{btnSize}}"
+             [ngClass]="gwClass"
+             [class.hidden]="!enabled"
+             [class.disabled]="disabled"
+             cdkOverlayOrigin #overlayOrigin="cdkOverlayOrigin">
+            <span class="author">{{label}}</span>
+            <span class="value">{{_values}}</span>
+            <span class="arrow"><span class="caret"></span></span>
+            <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
+        </div>
 
-        <ng-template #tpl>
-            <div class="popover-container">
-                <ng-container *ngIf="showSelect">
-                    <div class="popover-top">
-                        <span class="top-label">{{label}}</span>:
-                        <select class="top-select" [(ngModel)]="_tmpSelectModel" (change)="onSelectModelChange()">
-                            <option *ngFor="let item of selectData" [attr.value]="item.id">{{item.text}}</option>
-                        </select>
+        <gw-connected-overlay [overlayOrigin]="overlayOrigin" [disabled]="disabled">
+            <gw-triangle>
+                <div class="popover-container">
+                    <ng-container *ngIf="showSelect">
+                        <div class="popover-top">
+                            <span class="top-label">{{label}}</span>:
+                            <select class="top-select" [(ngModel)]="_tmpSelectModel" (change)="onSelectModelChange()">
+                                <option *ngFor="let item of selectData" [attr.value]="item.id">{{item.text}}</option>
+                            </select>
+                        </div>
+                        <div class="popover-hr"></div>
+                    </ng-container>
+                    <div class="popover-main">
+                        <input type="number" class="pull-left"
+                               [(ngModel)]="_tmpMinModel"
+                               [attr.min]="min"
+                               [attr.max]="_tmpMaxModel"
+                               [attr.step]="step"/>
+                        <span> - </span>
+                        <input type="number" class="pull-right"
+                               [(ngModel)]="_tmpMaxModel"
+                               [attr.max]="max"
+                               [attr.min]="_tmpMinModel"
+                               [attr.step]="step"/>
                     </div>
                     <div class="popover-hr"></div>
-                </ng-container>
-                <div class="popover-main">
-                    <input type="number" [(ngModel)]="_tmpMinModel" [attr.min]="min" [attr.max]="_tmpMaxModel"
-                           [attr.step]="step">
-                    <span>-</span>
-                    <input type="number" [(ngModel)]="_tmpMaxModel" [attr.max]="max" [attr.min]="_tmpMinModel"
-                           [attr.step]="step">
-                </div>
-                <div class="popover-hr"></div>
-                <div class="popover-footer">
-                    <div class="left">
-                        <a class="btn btn-xs" (click)="clear()">清除</a>
-                    </div>
-                    <div class="right">
-                        <button class="btn btn-primary btn-xs" (click)="popover.hide();save()">保存</button>
-                        <button class="btn btn-default btn-xs" (click)="popover.hide();cancel()">取消</button>
+                    <div class="popover-footer">
+                        <div class="left">
+                            <a class="btn btn-xs" (click)="clear()">清除</a>
+                        </div>
+                        <div class="right">
+                            <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
+                            <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ng-template>
-
+            </gw-triangle>
+        </gw-connected-overlay>
     `
 })
 export class GWRangeInputComponent extends GWControl {
 
-    @ViewChild(GWPopoverDirective) popover: GWPopoverDirective;
+    @ViewChild(GwConnectedOverlayComponent) overlay: GwConnectedOverlayComponent;
 
     @Input() label: string;
+    @Input() gwClass: string;
     @Input() btnSize: 'btn-lg' | 'btn-sm' | 'btn-xs' | 'btn-flat' | 'disabled' | 'default' = 'btn-xs';
     @Input() closeable: boolean = true;
     @Input() enabled: boolean = true;
+    @Input() disabled: boolean = false;
 
     @Input() min: number = null;
     @Input() max: number = null;
@@ -136,6 +143,7 @@ export class GWRangeInputComponent extends GWControl {
         this._selectModel = this._tmpSelectModel;
         this.selectModelChange.emit(this.selectModel);
         this.onSave.emit();
+        this.overlay.hide();
     }
 
     cancel() {
@@ -143,9 +151,16 @@ export class GWRangeInputComponent extends GWControl {
         this._tmpMaxModel = this.maxModel;
         this._tmpSelectModel = this.selectModel;
         this.onCancel.emit();
+        this.overlay.hide();
     }
 
-    remove() {
+    remove(event: Event) {
+        event.stopPropagation();
+
+        if (this.disabled) {
+            return;
+        }
+
         this._tmpSelectModel = this.selectModel = '';
         this._tmpMinModel = this.minModel = null;
         this._tmpMaxModel = this.maxModel = null;

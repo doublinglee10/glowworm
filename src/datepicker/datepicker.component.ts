@@ -16,7 +16,7 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'gw-datepicker',
     template: `
-        <span class="btn btn-default {{btnSize}}" [hidden]="!enabled">
+        <span class="btn btn-default {{btnSize}}" [ngClass]="gwClass" [hidden]="!enabled">
             <span #dateHost>
                 <span class="author">{{label}}</span>
                 <span style="color:#797979">{{_value}}</span>
@@ -34,8 +34,8 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
     @Input()
     options: DatepickerConfig | string = {};
 
-    @Input()
-    label: string;
+    @Input() label: string;
+    @Input() gwClass: string;
 
     @ViewChild('dateHost')
     dateHost: ElementRef;
@@ -106,8 +106,8 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
 
     datepickerInit() {
         this.options = (typeof  this.options === 'string' ? eval('(' + this.options + ')') : this.options);
-        let unDeepCopy =  this.config.unDeepCopy||this.options['unDeepCopy'];
-        let options = $.extend(!unDeepCopy, {}, this.config,this.options );
+        let unDeepCopy = this.config.unDeepCopy || this.options['unDeepCopy'];
+        let options = $.extend(!unDeepCopy, {}, this.config, this.options);
 
         options.singleDatePicker && (options.ranges = undefined);
         this.config = options;

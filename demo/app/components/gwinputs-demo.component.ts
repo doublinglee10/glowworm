@@ -23,9 +23,9 @@ import {Observable} from "rxjs/Observable";
                            name="deviceinfo">
                 </gw-inputs>
             </gw-toolbar>
-            
+
             <button class="btn btn-xs" (click)="disabled = !disabled">toggle disabled</button>
-            
+
             {{value}}
         </p>
         <p>
@@ -64,6 +64,27 @@ import {Observable} from "rxjs/Observable";
             </gw-inputs>
             {{value}}
         </p>
+        <div class="row">
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4">
+                <gw-inputs #gwcontrol
+                           [label]="'设备信息'"
+                           [gwClass]="'form-control'"
+                           [btnSize]="'btn-xs'"
+                           [enabled]="true"
+                           [closeable]="true"
+                           [placeholder]="'... ...'"
+
+                           [(ngModel)]="value"
+                           [clearSave]="true"
+                           (onSave)="log('onSave', $event)"
+                           (onCancel)="log('onCancel', $event)"
+
+                           name="deviceinfo">
+                </gw-inputs>
+            </div>
+        </div>
     `
 })
 export class GwInputsDemoComponent implements OnInit {

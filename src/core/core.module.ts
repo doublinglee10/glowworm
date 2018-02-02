@@ -8,24 +8,30 @@ import {SafeHtmlFilter} from "./safe-html.filter";
 import {ScriptLoaderService} from "./script-loader.service";
 import {SafePipe} from "./safe.pipe";
 import {TriangleComponent} from "./triangle.component";
+import {GwConnectedOverlayComponent} from "./connected-overlay.component";
+import {OverlayModule} from "@angular/cdk/overlay";
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        OverlayModule
     ],
     declarations: [
         GwOverlayDirective,
         MultiKeysFilter,
         SafeHtmlFilter,
         SafePipe,
-        TriangleComponent
+        TriangleComponent,
+        GwConnectedOverlayComponent
     ],
     exports: [
         GwOverlayDirective,
         MultiKeysFilter,
         SafeHtmlFilter,
         SafePipe,
-        TriangleComponent
+        TriangleComponent,
+        GwConnectedOverlayComponent,
+        OverlayModule
     ]
 })
 export class GwCoreModule {

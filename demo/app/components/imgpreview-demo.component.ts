@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 
-let imgUrl = 'https://t12.baidu.com/it/u=221595116,50634168&fm=173&s=B1A9DB1544C457511EBF7C6E03008068&w=500&h=333&img.JPEG';
+let imgUrl = 'http://oa.ourpalm.com/oa/images/newHome1.jpg';
 
 @Component({
     selector: 'gwimgpreview-demo',

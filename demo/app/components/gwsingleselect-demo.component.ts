@@ -58,6 +58,30 @@ import {Observable} from "rxjs/Observable";
             <button class="btn btn-default" (click)="disabled = !disabled">toggleDisabled</button>
         </p>
 
+        <div class="row">
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4">
+                <gw-single-select
+                        [label]="'<span style=color:red;>单选</span>'"
+                        [closeable]="true"
+                        [clearSave]="true"
+                        [gwClass]="'form-control'"
+
+                        [showSelect]="true"
+                        [(selectModel)]="selectModel"
+                        [selectData]="selectData"
+                        (onSelectChange)="log('select', $event)"
+
+                        [onBeforeSave]="onBeforeSave"
+                        [(ngModel)]="ngModel"
+                        [data]="data"
+                        (onSave)="log('save', $event)"
+                        (onCancel)="log('cancel', $event)"
+                >
+                </gw-single-select>
+            </div>
+        </div>
 
         <p>
             {{msg}}

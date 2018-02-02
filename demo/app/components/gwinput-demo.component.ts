@@ -59,28 +59,33 @@ import {Observable} from "rxjs/Observable";
             {{selectModel}}
             {{value}}
         </p>
-        <p>
-            <gw-input #gwcontrol
-                      [label]="'设备信息'"
-                      [btnSize]="'btn-xs'"
-                      [enabled]="true"
-                      [closeable]="true"
+        <div class="row">
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4">
+                <gw-input #gwcontrol
+                          [label]="'设备信息'"
+                          [gwClass]="'form-control'"
+                          [btnSize]="'btn-xs'"
+                          [enabled]="true"
+                          [closeable]="true"
 
-                      [showSelect]="false"
-                      [selectData]="selectData"
-                      [(selectModel)]="selectModel"
-                      (onSelectChange)="log('onSelectChange', $event)"
+                          [showSelect]="false"
+                          [selectData]="selectData"
+                          [(selectModel)]="selectModel"
+                          (onSelectChange)="log('onSelectChange', $event)"
 
-                      [(ngModel)]="value"
-                      [clearSave]="true"
-                      (onSave)="log('onSave', $event)"
-                      (onCancel)="log('onCancel', $event)"
+                          [(ngModel)]="value"
+                          [clearSave]="true"
+                          (onSave)="log('onSave', $event)"
+                          (onCancel)="log('onCancel', $event)"
 
-                      name="deviceinfo">
-            </gw-input>
-            {{selectModel}}
-            {{value}}
-        </p>
+                          name="deviceinfo">
+                </gw-input>
+            </div>
+        </div>
+        {{selectModel}}
+        {{value}}
     `
 })
 export class GwInputDemoComponent implements OnInit {

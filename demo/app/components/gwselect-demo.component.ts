@@ -74,6 +74,31 @@ import {Observable} from "rxjs/Observable";
             {{ngModel2 | json}}
         </p>
 
+        <div class="row">
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4">
+                <gw-select
+                        [label]="'<span style=color:red;>多选</span>'"
+                        [closeable]="true"
+                        [multiple]="true"
+                        [clearSave]="true"
+                        [gwClass]="'form-control'"
+
+                        [showSelect]="true"
+                        [(selectModel)]="selectModel2"
+                        [selectData]="options2"
+                        (onSelectChange)="log('select2', $event)"
+
+                        [onBeforeSave]="onBeforeSave"
+                        [(ngModel)]="ngModel2"
+                        [data]="options2"
+                        (onSave)="log('save2', $event)"
+                        (onCancel)="log('cancel2', $event)"
+                >
+                </gw-select>
+            </div>
+        </div>
         <p>
             {{msg}}
         </p>

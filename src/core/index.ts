@@ -1,4 +1,5 @@
 export * from './component-loader.service';
+export * from './connected-overlay.component';
 export * from './core.module';
 export * from './multikeys.filter';
 export * from './overlay.directive';

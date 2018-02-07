@@ -9,8 +9,6 @@ declare let moment;
     template: `
         <gw-datepicker label="最后回复时间" [options]="myOption"></gw-datepicker>
         <div class="row">
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
             <div class="col-md-4">
                 <gw-datepicker label="最后回复时间"
                                [gwClass]="'form-control form-control-glowworm'"
@@ -18,7 +16,18 @@ declare let moment;
                                [options]="myOption">
                 </gw-datepicker>
             </div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
         </div>
+        <p>
+            <gw-datepicker label="最后回复时间"
+                           [gwClass]="'form-control form-control-glowworm'"
+                           [closeable]="false"
+                           [(ngModel)]="ngModel"
+                           [formatter]="formatter()"
+                           [options]="myOption">
+            </gw-datepicker>
+        </p>
     `
 })
 export class DatepickerDemoComponent {
@@ -29,7 +38,9 @@ export class DatepickerDemoComponent {
                 '2018-01-15', '2018-01-15'
             ]
         }
-    }
+    };
+
+    ngModel: any;
 
     constructor(private contextMenuService: ContextMenuService, private config: DatepickerConfig) {
         console.log(this.contextMenuService);
@@ -79,4 +90,10 @@ export class DatepickerDemoComponent {
         );
     }
 
+    formatter() {
+        let formatter = () => {
+            return `<b>所选时间</b>：${JSON.stringify(this.ngModel)}`;
+        };
+        return formatter.bind(this);
+    }
 }

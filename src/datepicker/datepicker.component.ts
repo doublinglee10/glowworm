@@ -16,16 +16,17 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'gw-datepicker',
     template: `
-        <span class="btn btn-default {{btnSize}}" [ngClass]="gwClass" [hidden]="!enabled">
-            <span #dateHost>
-                <span class="author">{{label}}</span>
-                <span style="color:#797979">{{_value}}</span>
-                <span class="arrow"><span class="caret"></span></span>
-            </span>
-            <ng-container *ngIf="closeable">
-                <span class="glyphicon glyphicon-remove" (click)="remove();"></span>
+        <div class="btn btn-default {{btnSize}}" [ngClass]="gwClass" [hidden]="!enabled" #dateHost>
+            <ng-container *ngIf="formatter">
+                <span [innerHTML]="_values | safe"></span>
             </ng-container>
-        </span>
+            <ng-container *ngIf="!formatter">
+                <span class="author" [innerHTML]="label | safe"></span>
+                <span class="value" [innerHTML]="_values | safe"></span>
+            </ng-container>
+            <span class="arrow"><span class="caret"></span></span>
+            <span *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></span>
+        </div>
     `,
     styleUrls: ['./datepicker.component.css'],
     providers: [GW_DATE_VALUE_ACCESSOR]
@@ -36,6 +37,9 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
 
     @Input() label: string;
     @Input() gwClass: string;
+
+    /** value formatter */
+    @Input() formatter: () => string;
 
     @ViewChild('dateHost')
     dateHost: ElementRef;
@@ -48,8 +52,17 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
         super();
     }
 
+    get _values(): string {
+        if (this.formatter) {
+            return this.formatter();
+        } else {
+            return this._value || '';
+        }
+    }
 
-    remove() {
+    remove(event: Event) {
+        event.stopPropagation();
+
         this._value = null;
         this.enabled = false;
         this.onRemove();

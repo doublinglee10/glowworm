@@ -59,8 +59,6 @@ import {Observable} from "rxjs/Observable";
         </p>
 
         <div class="row">
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
             <div class="col-md-4">
                 <gw-single-select
                         [label]="'<span style=color:red;>单选</span>'"
@@ -81,10 +79,28 @@ import {Observable} from "rxjs/Observable";
                 >
                 </gw-single-select>
             </div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
         </div>
 
         <p>
-            {{msg}}
+            <gw-single-select
+                    [label]="'<span style=color:red;>单选</span>'"
+                    [closeable]="false"
+                    [clearSave]="true"
+                    [gwClass]="'form-control form-control-glowworm'"
+                    [formatter]="formatter()"
+
+                    [showSelect]="true"
+                    [(selectModel)]="selectModel"
+                    [selectData]="selectData"
+                    (onSelectChange)="log('select', $event)"
+
+                    [(ngModel)]="ngModel"
+                    [data]="data"
+                    (onSave)="log('save', $event)"
+                    (onCancel)="log('cancel', $event)">
+            </gw-single-select>
         </p>
     `
 })
@@ -166,5 +182,12 @@ export class GwSingleSelectDemoComponent implements OnInit {
     log(event_type, event) {
         this.msg = `触发事件: ${event_type} ${event}`;
         console.warn(arguments);
+    }
+
+    formatter() {
+        let formatter = () => {
+            return `<b>类型</b>：${this.selectModel}, <b>取值</b>：${this.ngModel}`;
+        };
+        return formatter.bind(this);
     }
 }

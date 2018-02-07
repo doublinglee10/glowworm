@@ -11,7 +11,6 @@ import {ActivatedRoute} from "@angular/router";
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a routerLink="/gwdatepicker">gwdatepicker</a></li>
                         <li><a routerLink="/gwtabs">gwtabs</a></li>
                         <li><a routerLink="/gwpannel">gwpannel</a></li>
                         <li><a routerLink="/gwSwitch">gwSwitch</a></li>
@@ -27,10 +26,14 @@ import {ActivatedRoute} from "@angular/router";
                                 <li><a routerLink="/gwpopselect">gwpopselect</a></li>
                                 <li><a routerLink="/gwcontextmenu">gwcontextmenu</a></li>
                                 <li><a routerLink="/toolbar">gwtoolbar</a></li>
+                                <li role="separator" class="divider"></li>
                                 <li><a routerLink="/gwselect">gwselect</a></li>
                                 <li><a routerLink="/gwsingleselect">gwsingleselect</a></li>
+                                <li role="separator" class="divider"></li>
                                 <li><a routerLink="/gwinput">gwinput</a></li>
                                 <li><a routerLink="/gwinputs">gwinputs</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a routerLink="/gwdatepicker">gwdatepicker</a></li>
                             </ul>
                         </li>
                     </ul>

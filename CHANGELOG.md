@@ -26,6 +26,12 @@
 <!-- * 修复linux x86_64下安装失败问题 -->
 
 
+## v1.1.3
+
+### 新特性
+ * `gw-input`, `gw-inputs`, `gw-select`, `gw-single-select`, `gw-datepicker`, `gw-rangeinput` 组件增加formatter输入属性
+
+
 ## v1.1.2
 
 ### Bugs修复

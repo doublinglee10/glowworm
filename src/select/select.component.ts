@@ -19,8 +19,13 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
              [class.hidden]="!enabled"
              [class.disabled]="disabled"
              cdkOverlayOrigin #overlayOrigin="cdkOverlayOrigin">
-            <span class="author" [innerHTML]="label | safeHtml"></span>
-            <span class="value" [innerHTML]="_values | safeHtml"></span>
+            <ng-container *ngIf="formatter">
+                <span [innerHTML]="_values | safe"></span>
+            </ng-container>
+            <ng-container *ngIf="!formatter">
+                <span class="author" [innerHTML]="label | safe"></span>
+                <span class="value" [innerHTML]="_values | safe"></span>
+            </ng-container>
             <span class="arrow"><span class="caret"></span></span>
             <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
         </div>
@@ -108,6 +113,9 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
+    /** value formatter */
+    @Input() formatter: () => string;
+
     @ViewChild(GwConnectedOverlayComponent) overlay: GwConnectedOverlayComponent;
 
     @Input('disabled') set _disabled(disabled: boolean) {
@@ -147,12 +155,16 @@ export class GwSelectComponent implements ControlValueAccessor {
     registerOnTouched(fn: any): void {
     }
 
-    get _values() {
-        let ngModelValue = this.ngModel ? this.ngModel.map(item => item.text).join(',') : '';
-        if (this.showSelect && this._selectedModel) {
-            return `${this._selectedModel.text} ${ngModelValue}`;
+    get _values(): string {
+        if (this.formatter) {
+            return this.formatter();
+        } else {
+            let ngModelValue = this.ngModel ? this.ngModel.map(item => item.text).join(',') : '';
+            if (this.showSelect && this._selectedModel) {
+                return `${this._selectedModel.text} ${ngModelValue}`;
+            }
+            return ngModelValue;
         }
-        return ngModelValue;
     }
 
     onSelectModelChange() {

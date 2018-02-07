@@ -19,8 +19,13 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
              [class.hidden]="!enabled"
              [class.disabled]="disabled"
              cdkOverlayOrigin #overlayOrigin="cdkOverlayOrigin">
-            <span class="author">{{label}}</span>
-            <span class="value">{{_values}}</span>
+            <ng-container *ngIf="formatter">
+                <span [innerHTML]="_values | safe"></span>
+            </ng-container>
+            <ng-container *ngIf="!formatter">
+                <span class="author" [innerHTML]="label | safe"></span>
+                <span class="value" [innerHTML]="_values | safe"></span>
+            </ng-container>
             <span class="arrow"><span class="caret"></span></span>
             <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
         </div>
@@ -87,6 +92,9 @@ export class GwInputComponent extends GWControl implements ControlValueAccessor 
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
+    /** value formatter */
+    @Input() formatter: () => string;
+
     /** @Input() 双向绑定 */
     ngModel: string;
     /** @Output() */
@@ -112,12 +120,17 @@ export class GwInputComponent extends GWControl implements ControlValueAccessor 
         this._handleSelectData();
     }
 
-    get _values() {
-        if (this.showSelect) {
-            let selectText = this._selectedSelectModel ? this._selectedSelectModel.text || '' : '';
-            return `${selectText} ${this.ngModel || ''}`;
+    get _values(): string {
+        if (this.formatter) {
+            return this.formatter();
+        } else {
+            if (this.showSelect) {
+                let selectText = this._selectedSelectModel ? this._selectedSelectModel.text || '' : '';
+                return `${selectText} ${this.ngModel || ''}`;
+            } else {
+                return this.ngModel || '';
+            }
         }
-        return this.ngModel || '';
     }
 
     onSelectModelChange() {

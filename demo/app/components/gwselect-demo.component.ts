@@ -75,8 +75,6 @@ import {Observable} from "rxjs/Observable";
         </p>
 
         <div class="row">
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
             <div class="col-md-4">
                 <gw-select #select
                            [label]="'<span style=color:red;>多选</span>'"
@@ -100,9 +98,28 @@ import {Observable} from "rxjs/Observable";
                     </ng-template>
                 </gw-select>
             </div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
         </div>
         <p>
-            {{msg}}
+            <gw-select #select
+                       [label]="'<span style=color:red;>多选</span>'"
+                       [closeable]="false"
+                       [multiple]="true"
+                       [clearSave]="true"
+                       [gwClass]="'form-control form-control-glowworm'"
+                       [formatter]="formatter()"
+
+                       [showSelect]="true"
+                       [(selectModel)]="selectModel2"
+                       [selectData]="options2"
+                       (onSelectChange)="log('select2', $event)"
+
+                       [(ngModel)]="ngModel2"
+                       [data]="options2"
+                       (onSave)="log('save2', $event)"
+                       (onCancel)="log('cancel2', $event)">
+            </gw-select>
         </p>
     `
 })
@@ -160,5 +177,12 @@ export class GwSelectDemoComponent implements OnInit {
     log(event_type, event) {
         this.msg = `触发事件: ${event_type} ${event}`;
         console.warn(arguments);
+    }
+
+    formatter() {
+        let formatter = () => {
+            return `<b>类型</b>：${this.selectModel}, <b>取值</b>：${JSON.stringify(this.ngModel2)}`;
+        };
+        return formatter.bind(this);
     }
 }

@@ -60,8 +60,6 @@ import {Observable} from "rxjs/Observable";
             {{value}}
         </p>
         <div class="row">
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
-            <div class="col-md-4"><input type="text" class="form-control"/></div>
             <div class="col-md-4">
                 <gw-input #gwcontrol
                           [label]="'设备信息'"
@@ -83,9 +81,31 @@ import {Observable} from "rxjs/Observable";
                           name="deviceinfo">
                 </gw-input>
             </div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
+            <div class="col-md-4"><input type="text" class="form-control"/></div>
         </div>
-        {{selectModel}}
-        {{value}}
+        <p>
+            <gw-input #gwcontrol
+                      [label]="'设备信息'"
+                      [btnSize]="'btn-xs'"
+                      [closeable]="false"
+                      [placeholder]="'设备信息'"
+                      [formatter]="formatter()"
+
+                      [showSelect]="true"
+                      [selectData]="selectData"
+                      [(selectModel)]="selectModel"
+                      (onSelectChange)="log('onSelectChange', $event)"
+
+                      [(ngModel)]="value"
+
+                      [clearSave]="true"
+                      (onSave)="log('onSave', $event)"
+                      (onCancel)="log('onCancel', $event)"
+
+                      name="deviceinfo">
+            </gw-input>
+        </p>
     `
 })
 export class GwInputDemoComponent implements OnInit {
@@ -113,5 +133,12 @@ export class GwInputDemoComponent implements OnInit {
 
     log(args1, args2) {
         console.warn(arguments);
+    }
+
+    formatter() {
+        let formatter = () => {
+            return `类型：${this.selectModel}, 取值：${this.value}`;
+        };
+        return formatter.bind(this);
     }
 }

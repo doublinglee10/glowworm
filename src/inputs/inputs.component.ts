@@ -19,8 +19,13 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
              [class.hidden]="!enabled"
              [class.disabled]="disabled"
              cdkOverlayOrigin #overlayOrigin="cdkOverlayOrigin">
-            <span class="author">{{label}}</span>
-            <span class="value">{{_values}}</span>
+            <ng-container *ngIf="formatter">
+                <span [innerHTML]="_values | safe"></span>
+            </ng-container>
+            <ng-container *ngIf="!formatter">
+                <span class="author" [innerHTML]="label | safe"></span>
+                <span class="value" [innerHTML]="_values | safe"></span>
+            </ng-container>
             <span class="arrow"><span class="caret"></span></span>
             <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
         </div>
@@ -76,6 +81,9 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
 
+    /** value formatter */
+    @Input() formatter: () => string;
+
     /** @Input() 双向绑定 */
     ngModel: any[] = [];
     /** @Output() */
@@ -92,8 +100,12 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
         return index;
     }
 
-    get _values() {
-        return this.ngModel.join(',');
+    get _values(): string {
+        if (this.formatter) {
+            return this.formatter();
+        } else {
+            return this.ngModel.join(',');
+        }
     }
 
     clear() {

@@ -1,12 +1,15 @@
 button .author {
-  padding-right: 5px;
+    padding-right: 5px;
 }
 
 button .value {
-  color: #797979;
+    color: #797979;
 }
 
 button .arrow {
-  padding: 0px 2px;
+    padding: 0px 2px;
 }
-[hidden] { display: none !important;}
+
+[hidden] {
+    display: none !important;
+}

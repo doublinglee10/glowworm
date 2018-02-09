@@ -50,7 +50,7 @@ export class GwconfirmDemoComponent {
     }
 
     ngOnInit() {
-        alert('init ok');
+        // alert('init ok');
     }
 
     ok() {

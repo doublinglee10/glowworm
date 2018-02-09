@@ -1,7 +1,8 @@
-import {ComponentRef, Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {ComponentRef, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from "@angular/core";
 import {GwPopConfirmComponent} from "./popconfirm.component";
-import {ComponentLoaderService} from "../core/component-loader.service";
 import {Placement} from "../core/placement";
+import {GwOverlayService} from "../core/overlay.service";
+import {OverlayRef} from "@angular/cdk/overlay";
 
 /**
  * <div gw-popconfirm
@@ -17,39 +18,40 @@ import {Placement} from "../core/placement";
 @Directive({
     selector: '[gw-popconfirm]'
 })
-export class GwPopConfirmDirective implements OnInit, OnDestroy {
+export class GwPopConfirmDirective {
 
     @Input() title: string;
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
-    @Input() placement: Placement = 'bottom-left';
-    @Input() zIndex: number = 100;
+    @Input() placement: Placement = Placement.BOTTOM_LEFT;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 
-    private componentRef: ComponentRef<GwPopConfirmComponent>;
+    overlayRef: OverlayRef;
+    componentRef: ComponentRef<GwPopConfirmComponent>;
 
-    constructor(private componentLoader: ComponentLoaderService,
+    constructor(private overlayService: GwOverlayService,
                 private el: ElementRef) {
     }
 
-    ngOnInit() {
-        setTimeout(() => {
-            this.componentRef = this.componentLoader.appendComponentToBody(GwPopConfirmComponent);
-            let confirm: GwPopConfirmComponent = this.componentRef.instance;
-            confirm.source = this.el;
-            confirm.title = this.title;
-            confirm.confirmText = this.confirmText;
-            confirm.cancelText = this.cancelText;
-            confirm.placement = this.placement;
-            confirm.zIndex = this.zIndex;
-            confirm.onConfirm = this.onConfirm;
-            confirm.onCancel = this.onCancel;
-        });
+    @HostListener('click')
+    open() {
+        let {overlayRef, componentRef} = this.overlayService.openConnected(this.el, GwPopConfirmComponent, this.placement);
+        this.overlayRef = overlayRef;
+        this.componentRef = componentRef;
+
+        let confirm: GwPopConfirmComponent = componentRef.instance;
+        confirm.origin = this;
     }
 
-    ngOnDestroy() {
-        this.componentLoader.removeComponentFormBody(this.componentRef);
+    onConfirmEvent(event: Event) {
+        this.overlayRef.dispose();
+        this.onConfirm.emit(event);
+    }
+
+    onCancelEvent(event: Event) {
+        this.overlayRef.dispose();
+        this.onCancel.emit(event);
     }
 }
 

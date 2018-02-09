@@ -82,7 +82,7 @@ div.triangle-top-left:after {
     border-top-color: #fff;
 }
 
-div.triangle-right:before {
+div.triangle-left:before {
     content: "";
     position: absolute;
     top: 50%;
@@ -94,7 +94,7 @@ div.triangle-right:before {
     border-left-color: #aaa;
 }
 
-div.triangle-right:after {
+div.triangle-left:after {
     content: "";
     position: absolute;
     top: 50%;
@@ -107,7 +107,7 @@ div.triangle-right:after {
     border-left-color: #fff;
 }
 
-div.triangle-right-top:before {
+div.triangle-left-top:before {
     content: "";
     position: absolute;
     top: 10px;
@@ -118,7 +118,7 @@ div.triangle-right-top:before {
     border-left-color: #aaa;
 }
 
-div.triangle-right-top:after {
+div.triangle-left-top:after {
     content: "";
     position: absolute;
     top: 10px;
@@ -130,7 +130,7 @@ div.triangle-right-top:after {
     border-left-color: #fff;
 }
 
-div.triangle-right-bottom:before {
+div.triangle-left-bottom:before {
     content: "";
     position: absolute;
     top: 100%;
@@ -142,7 +142,7 @@ div.triangle-right-bottom:before {
     border-left-color: #aaa;
 }
 
-div.triangle-right-bottom:after {
+div.triangle-left-bottom:after {
     content: "";
     position: absolute;
     top: 100%;
@@ -231,7 +231,7 @@ div.triangle-bottom-right:after {
     border-bottom-color: #fff;
 }
 
-div.triangle-left:before {
+div.triangle-right:before {
     content: "";
     position: absolute;
     top: 50%;
@@ -244,7 +244,7 @@ div.triangle-left:before {
     border-right-color: #aaa;
 }
 
-div.triangle-left:after {
+div.triangle-right:after {
     content: "";
     position: absolute;
     top: 50%;
@@ -257,7 +257,7 @@ div.triangle-left:after {
     border-right-color: #fff;
 }
 
-div.triangle-left-top:before {
+div.triangle-right-top:before {
     content: "";
     position: absolute;
     top: 10px;
@@ -269,7 +269,7 @@ div.triangle-left-top:before {
     border-right-color: #aaa;
 }
 
-div.triangle-left-top:after {
+div.triangle-right-top:after {
     content: "";
     position: absolute;
     top: 10px;
@@ -281,7 +281,7 @@ div.triangle-left-top:after {
     border-right-color: #fff;
 }
 
-div.triangle-left-bottom:before {
+div.triangle-right-bottom:before {
     content: "";
     position: absolute;
     top: 100%;
@@ -294,7 +294,7 @@ div.triangle-left-bottom:before {
     border-right-color: #ccc;
 }
 
-div.triangle-left-bottom:after {
+div.triangle-right-bottom:after {
     content: "";
     position: absolute;
     top: 100%;

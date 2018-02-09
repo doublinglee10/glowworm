@@ -128,6 +128,8 @@ import {Component} from "@angular/core";
                 </div>
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
+                            (onConfirm)="yes()"
+                            (onCancel)="no()"
                             [title]="'您确定要删除吗?'"
                             [placement]="'bottom-right'">
                         bottom-right
@@ -142,4 +144,11 @@ import {Component} from "@angular/core";
 })
 export class PopconfirmDemoComponent {
 
+    yes() {
+        alert('yes');
+    }
+
+    no() {
+        alert('no');
+    }
 }

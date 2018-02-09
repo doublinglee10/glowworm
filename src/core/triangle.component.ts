@@ -12,6 +12,6 @@ import {Placement} from "./placement";
 })
 export class TriangleComponent {
 
-    @Input() placement: Placement = 'bottom-left';
+    @Input() placement: Placement = Placement.BOTTOM_LEFT;
 
 }

@@ -5,22 +5,108 @@ import {Component, OnInit} from "@angular/core";
     template: `
         <div style="padding:100px;background-color:pink;">
             <div>
+                <button class="btn btn-default btn-xs" (click)="changeModel()">change modle</button>
+                <button class="btn btn-default btn-xs" (click)="changeData(15)">change data</button>
+                <button class="btn btn-default btn-xs" (click)="changeFilterKeys()">change filterKeys</button>
+                <button class="btn btn-default btn-xs" (click)="changeShowFilter()">change showFilter</button>
+            </div>
+            <div>
                 <button class="btn btn-primary btn-xs" gw-popselect
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [zIndex]="zIndex"
-                        [placement]="placement">
-                    {{popselect || '请选择'}}
+                        [placement]="'top'">
+                    top
                 </button>
-
-                <button class="btn btn-default btn-xs" (click)="changeModel()">change modle</button>
-                <button class="btn btn-default btn-xs" (click)="changeData(15)">change data</button>
-                <button class="btn btn-default btn-xs" (click)="changePlacement()">change placement</button>
-                <button class="btn btn-default btn-xs" (click)="changeFilterKeys()">change filterKeys</button>
-                <button class="btn btn-default btn-xs" (click)="changeZIndex()">change zIndex</button>
-                <button class="btn btn-default btn-xs" (click)="changeShowFilter()">change showFilter</button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'top-left'">
+                    top-left
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'top-right'">
+                    top-right
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'bottom'">
+                    bottom
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'bottom-left'">
+                    bottom-left
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'bottom-right'">
+                    bottom-right
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'left'">
+                    left
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'left-top'">
+                    left-top
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'left-bottom'">
+                    left-bottom
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'right'">
+                    right
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'right-top'">
+                    right-top
+                </button>
+                <button class="btn btn-primary btn-xs" gw-popselect
+                        [(ngModel)]="popselect"
+                        [data]="data"
+                        [showFilter]="showFilter"
+                        [filterKeys]="filterKeys"
+                        [placement]="'right-bottom'">
+                    right-bottom
+                </button>
             </div>
         </div>
     `
@@ -59,16 +145,8 @@ export class PopselectDemoComponent implements OnInit {
         this.data = _data;
     }
 
-    changePlacement() {
-        this.placement = 'bottom';
-    }
-
     changeFilterKeys() {
         this.filterKeys = ['id'];
-    }
-
-    changeZIndex() {
-        this.zIndex = 200000;
     }
 
     changeShowFilter() {

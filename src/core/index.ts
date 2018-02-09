@@ -3,6 +3,7 @@ export * from './connected-overlay.component';
 export * from './core.module';
 export * from './multikeys.filter';
 export * from './overlay.directive';
+export * from './placement';
 export * from './safe.pipe';
 export * from './safe-html.filter';
 export * from './script-loader.service';

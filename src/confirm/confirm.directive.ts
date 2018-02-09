@@ -1,16 +1,7 @@
-import {
-    ComponentRef,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnDestroy,
-    Output,
-    TemplateRef
-} from "@angular/core";
-import {ComponentLoaderService} from "../core/component-loader.service";
+import {ComponentRef, Directive, EventEmitter, HostListener, Input, Output, TemplateRef} from "@angular/core";
 import {GwConfirmComponent} from "./confirm.component";
+import {GwOverlayService} from "../core/overlay.service";
+import {OverlayRef} from "@angular/cdk/overlay";
 
 /**
  *
@@ -28,56 +19,50 @@ import {GwConfirmComponent} from "./confirm.component";
 @Directive({
     selector: '[gw-confirm]'
 })
-export class GwConfirmDirective implements OnDestroy {
+export class GwConfirmDirective {
 
     @Input() title: string;
     @Input() content: string | TemplateRef<any> | any;
-    @Input() confirmClass: string;
-    @Input() zIndex: number = 10001;
+    @Input() gwClass: string;
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
 
     @Output() onConfirm: EventEmitter<void> = new EventEmitter<void>();
     @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
-    private componentRef: ComponentRef<GwConfirmComponent>;
+    componentRef: ComponentRef<GwConfirmComponent>;
+    overlayRef: OverlayRef;
 
-    constructor(private componentLoader: ComponentLoaderService,
-                private el: ElementRef) {
+    constructor(private overlayService: GwOverlayService) {
     }
 
     @HostListener('click')
-    onclick() {
-        if (!this.componentRef) {
-            this.createComponent();
-        }
+    open() {
+        let {overlayRef, componentRef} = this.overlayService.openBlock(GwConfirmComponent);
+        this.componentRef = componentRef;
+        this.overlayRef = overlayRef;
+
+        let input: GwConfirmComponent = componentRef.instance;
+        input.origin = this;
     }
 
-    createComponent(): void {
-        setTimeout(() => {
-            this.componentRef = this.componentLoader.appendComponentToBody(GwConfirmComponent);
-            let confirm: GwConfirmComponent = this.componentRef.instance;
-            confirm.title = this.title;
-            confirm.content = this.content;
-            confirm.confirmClass = this.confirmClass;
-            confirm.confirmText = this.confirmText;
-            confirm.zIndex = this.zIndex;
-            confirm.cancelText = this.cancelText;
-            confirm.onConfirm.subscribe(() => {
-                this.ngOnDestroy();
-                this.onConfirm.emit();
-            });
-            confirm.onCancel.subscribe(() => {
-                this.ngOnDestroy();
-                this.onCancel.emit();
-            });
-        });
+    onConfirmEvent() {
+        this.onConfirm.emit();
+        this.overlayRef.dispose();
     }
 
-    ngOnDestroy(): void {
-        if (this.componentRef) {
-            this.componentLoader.removeComponentFormBody(this.componentRef);
-            this.componentRef = null;
-        }
+    onCancelEvent() {
+        this.onCancel.emit();
+        this.overlayRef.dispose();
+    }
+
+    typeofContent(): string {
+        if (typeof this.content === 'undefined')
+            return 'undefined';
+        if (typeof this.content === 'string')
+            return 'string';
+        if (this.content instanceof TemplateRef)
+            return 'template';
+        return 'component';
     }
 }

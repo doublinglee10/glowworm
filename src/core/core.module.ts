@@ -10,6 +10,7 @@ import {SafePipe} from "./safe.pipe";
 import {TriangleComponent} from "./triangle.component";
 import {GwConnectedOverlayComponent} from "./connected-overlay.component";
 import {OverlayModule} from "@angular/cdk/overlay";
+import {GwOverlayService} from "./overlay.service";
 
 @NgModule({
     imports: [
@@ -25,13 +26,13 @@ import {OverlayModule} from "@angular/cdk/overlay";
         GwConnectedOverlayComponent
     ],
     exports: [
+        OverlayModule,
         GwOverlayDirective,
         MultiKeysFilter,
         SafeHtmlFilter,
         SafePipe,
         TriangleComponent,
-        GwConnectedOverlayComponent,
-        OverlayModule
+        GwConnectedOverlayComponent
     ]
 })
 export class GwCoreModule {
@@ -41,7 +42,8 @@ export class GwCoreModule {
             providers: [
                 ComponentLoaderService,
                 WindowResizeService,
-                ScriptLoaderService
+                ScriptLoaderService,
+                GwOverlayService
             ]
         };
     }

@@ -91,6 +91,7 @@ import {Observable} from "rxjs/Observable";
                       [closeable]="false"
                       [placeholder]="'设备信息'"
                       [formatter]="formatter()"
+                      [placement]="'top'"
 
                       [showSelect]="true"
                       [selectData]="selectData"

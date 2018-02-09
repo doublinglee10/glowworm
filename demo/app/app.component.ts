@@ -20,12 +20,13 @@ import {ActivatedRoute} from "@angular/router";
                                 GwForm <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a routerLink="/gwpopconfirm">gwpopconfirm</a></li>
-                                <li><a routerLink="/popinput">popinput</a></li>
                                 <li><a routerLink="/gwconfirm">gwconfirm</a></li>
-                                <li><a routerLink="/gwpopselect">gwpopselect</a></li>
                                 <li><a routerLink="/gwcontextmenu">gwcontextmenu</a></li>
                                 <li><a routerLink="/toolbar">gwtoolbar</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a routerLink="/gwpopconfirm">gwpopconfirm</a></li>
+                                <li><a routerLink="/popinput">gwpopinput</a></li>
+                                <li><a routerLink="/gwpopselect">gwpopselect</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a routerLink="/gwselect">gwselect</a></li>
                                 <li><a routerLink="/gwsingleselect">gwsingleselect</a></li>

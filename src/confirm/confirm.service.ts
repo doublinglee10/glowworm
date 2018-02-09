@@ -10,22 +10,22 @@ export class GwConfirmService {
     }
 
     show(config: GwConfirmConfig) {
-        let componentRef = this.componentLoader.appendComponentToBody(GwConfirmComponent);
-        let confirm: GwConfirmComponent = componentRef.instance;
-        confirm.title = config.title || confirm.title;
-        confirm.content = config.content || confirm.content;
-        confirm.confirmClass = config.confirmClass || confirm.confirmClass;
-        confirm.confirmText = config.confirmText || confirm.confirmText;
-        confirm.zIndex = config.zIndex || confirm.zIndex;
-        confirm.cancelText = config.cancelText || confirm.cancelText;
-        confirm.onConfirm.subscribe(() => {
-            this._destroy(componentRef);
-            config.onConfirm && config.onConfirm();
-        });
-        confirm.onCancel.subscribe(() => {
-            this._destroy(componentRef);
-            config.onCancel && config.onCancel();
-        });
+        // let componentRef = this.componentLoader.appendComponentToBody(GwConfirmComponent);
+        // let confirm: GwConfirmComponent = componentRef.instance;
+        // confirm.title = config.title || confirm.title;
+        // confirm.content = config.content || confirm.content;
+        // confirm.confirmClass = config.confirmClass || confirm.confirmClass;
+        // confirm.confirmText = config.confirmText || confirm.confirmText;
+        // confirm.zIndex = config.zIndex || confirm.zIndex;
+        // confirm.cancelText = config.cancelText || confirm.cancelText;
+        // confirm.onConfirm.subscribe(() => {
+        //     this._destroy(componentRef);
+        //     config.onConfirm && config.onConfirm();
+        // });
+        // confirm.onCancel.subscribe(() => {
+        //     this._destroy(componentRef);
+        //     config.onCancel && config.onCancel();
+        // });
     }
 
     private _destroy(componentRef: ComponentRef<any>): void {

@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
-import {CdkOverlayOrigin} from "@angular/cdk/overlay";
+import {CdkOverlayOrigin, ConnectionPositionPair} from "@angular/cdk/overlay";
 import {fromEvent} from "rxjs/observable/fromEvent";
 import {Subscription} from "rxjs/Subscription";
 import {filter} from "rxjs/operators";
@@ -20,8 +20,10 @@ import {filter} from "rxjs/operators";
                 cdk-connected-overlay
                 [cdkConnectedOverlayHasBackdrop]="true"
                 [cdkConnectedOverlayBackdropClass]="backdropClass"
-                [cdkConnectedOverlayOrigin]="overlayOrigin"
+                [cdkConnectedOverlayPositions]="positions"
+                [cdkConnectedOverlayOffsetX]="offsetX"
                 [cdkConnectedOverlayOffsetY]="offsetY"
+                [cdkConnectedOverlayOrigin]="overlayOrigin"
                 [cdkConnectedOverlayOpen]="isOpened"
                 (backdropClick)="hide()"
                 (detach)="hide()">
@@ -33,11 +35,21 @@ export class GwConnectedOverlayComponent implements OnInit, OnDestroy {
 
     @Input() isOpened: boolean = false;
     @Input() overlayOrigin: CdkOverlayOrigin;
-    @Input() offsetY: number = 8;
     @Input() backdropClass = 'overlay-backdrop-transparent';
     @Input() disabled: boolean = false;
+    positions: ConnectionPositionPair[];
+    offsetX: number;
+    offsetY: number;
 
     clickSub: Subscription;
+
+    @Input() set position(position: ConnectionPositionPair) {
+        if (position) {
+            this.positions = [position];
+            this.offsetX = position.offsetX;
+            this.offsetY = position.offsetY;
+        }
+    }
 
     ngOnInit() {
         let el = this.overlayOrigin.elementRef.nativeElement;

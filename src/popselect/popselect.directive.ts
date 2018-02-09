@@ -4,15 +4,15 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    HostListener,
     Input,
-    OnDestroy,
-    OnInit,
     Output
 } from "@angular/core";
-import {ComponentLoaderService} from "../core/component-loader.service";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Placement} from "../core/placement";
 import {GwPopSelectComponent} from "./popselect.component";
+import {Placement} from "../core/placement";
+import {GwOverlayService} from "../core/overlay.service";
+import {OverlayRef} from "@angular/cdk/overlay";
 
 @Directive({
     selector: '[gw-popselect]',
@@ -22,132 +22,103 @@ import {GwPopSelectComponent} from "./popselect.component";
         multi: true
     }]
 })
-export class GwPopSelectDirective implements ControlValueAccessor, OnInit, OnDestroy {
+export class GwPopSelectDirective implements ControlValueAccessor {
 
+    @Input() filterKeys: string[] = ['text'];
+    @Input() showFilter: boolean = true;
+    @Input() placement: Placement = Placement.BOTTOM_LEFT;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
+    @Input() data: any[] = [];
 
-    private componentRef: ComponentRef<GwPopSelectComponent>;
-    private _value: any;
-    private _onchangeFun;
-    private _ontouchFun;
 
-    constructor(private componentLoader: ComponentLoaderService,
+    componentRef: ComponentRef<GwPopSelectComponent>;
+    overlayRef: OverlayRef;
+
+    _filterVal: any = '';
+    _data: any[] = [];
+
+    val: any;
+    onChangeFun;
+    onTouchFun;
+
+    constructor(private overlayService: GwOverlayService,
                 private el: ElementRef) {
     }
 
-    ngOnInit() {
-        setTimeout(() => {
-            this.componentRef = this.componentLoader.appendComponentToBody(GwPopSelectComponent);
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.source = this.el;
-            input.data = this.data;
-            input.filterKeys = this.filterKeys;
-            input.showFilter = this.showFilter;
-            input.placement = this.placement;
-            input.zIndex = this.zIndex;
-            input.onConfirm = this.onConfirm;
-            input.onCancel = this.onCancel;
-            input.writeValue(this._value);
-            input.registerOnTouched(this._ontouchFun);
-            input.registerOnChange(this._onchangeFun);
+    @HostListener('click')
+    open() {
+        let {overlayRef, componentRef} = this.overlayService.openConnected(this.el, GwPopSelectComponent, this.placement);
+        this.componentRef = componentRef;
+        this.overlayRef = overlayRef;
+        componentRef.instance.origin = this;
+    }
+
+    @Input('data') set __data(data: any[]) {
+        this._data = data;
+        this._refreshUI();
+    }
+
+    onCheckboxChange(_item: any) {
+        this._data.forEach((item: any) => {
+            if (item !== _item) {
+                item.checked = false;
+            }
         });
     }
 
-    private _data: any[];
-    @Input() set data(data: any[]) {
-        this._data = data;
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.data = data;
+    onConfirmEvent(event: Event) {
+        let values = this._data.filter((item: any) => item.checked);
+        if (values.length == 1) {
+            this.val = values[0].id;
+        } else {
+            this.val = null;
         }
+        this._filterVal = '';
+        this.onTouchFun(this.val);
+        this.onChangeFun(this.val);
+        this.onConfirm.emit(event);
+        this.overlayRef.dispose();
     }
 
-    get data() {
-        return this._data;
-    }
-
-    private _placement: Placement = 'bottom-left';
-    @Input() set placement(placement: Placement) {
-        this._placement = placement;
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.placement = placement;
-        }
-    }
-
-    get placement() {
-        return this._placement
-    }
-
-    private _filterKeys: string[];
-    @Input() set filterKeys(filterKeys: string[]) {
-        this._filterKeys = filterKeys;
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.filterKeys = filterKeys;
-        }
-    }
-
-    get filterKeys() {
-        return this._filterKeys
-    }
-
-    private _zIndex: number = 1000;
-    @Input() set zIndex(zIndex: number) {
-        this._zIndex = zIndex;
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.zIndex = zIndex;
-        }
-    }
-
-    get zIndex() {
-        return this._zIndex
-    }
-
-    private _showFilter: boolean = true;
-    @Input() set showFilter(showFilter: boolean) {
-        this._showFilter = showFilter;
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.showFilter = showFilter;
-        }
-    }
-
-    get showFilter() {
-        return this._showFilter;
+    onCancelEvent(event: Event) {
+        this._filterVal = '';
+        this.onCancel.emit(event);
+        this.writeValue(this.val);
+        this.overlayRef.dispose();
     }
 
     writeValue(obj: any): void {
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.writeValue(obj);
-        } else {
-            this._value = obj;
-        }
+        this.val = obj;
     }
 
     registerOnChange(fn: any): void {
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.registerOnChange(fn);
-        } else {
-            this._onchangeFun = fn;
-        }
+        this.onChangeFun = fn;
     }
 
     registerOnTouched(fn: any): void {
-        if (this.componentRef) {
-            let input: GwPopSelectComponent = this.componentRef.instance;
-            input.registerOnTouched(fn);
-        } else {
-            this._ontouchFun = fn;
-        }
+        this.onTouchFun = fn;
     }
 
-    ngOnDestroy() {
-        this.componentLoader.removeComponentFormBody(this.componentRef);
+
+    private _refreshUI() {
+        if (this._data) {
+            if (this.val) {
+                this._data.forEach((item: any) => {
+                    if (item && item.id == this.val) {
+                        item.checked = true;
+                    } else if (item && item.id != this.val && item.checked) {
+                        item.checked = false;
+                    }
+                });
+            } else {
+                this._data.forEach((item: any) => {
+                    if (item && item.checked) {
+                        item.checked = false;
+                    }
+                });
+            }
+        }
     }
 
 }

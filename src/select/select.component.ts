@@ -263,7 +263,7 @@ export class GwSelectComponent implements ControlValueAccessor {
                 if (item) {
                     _item.checked = true;
                     if (!item.text) {
-                        item.text = _item.text;
+                        Object.assign(item, _item);
                         need_update = true;
                     }
                 } else {

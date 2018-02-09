@@ -5,7 +5,7 @@
 @import "assets/datepicker/daterangepicker.css";
 /*@import "../node_modules/webui-popover/dist/jquery.webui-popover.css";*/
 @import "assets/scrollbar.css";
-/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .form-control.form-control-glowworm {
     overflow: hidden;

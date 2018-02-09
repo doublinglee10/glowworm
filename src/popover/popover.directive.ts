@@ -11,6 +11,10 @@ import {
 } from "@angular/core";
 import {GWPopoverComponent} from "./popover.component";
 
+/**
+ * @deprecated
+ * use gw-connected-overlay or cdk-connected-overlay instead
+ */
 @Directive({
     selector: '[gw-popover]',
     exportAs: 'gw-popover'

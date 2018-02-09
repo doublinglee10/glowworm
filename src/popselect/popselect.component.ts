@@ -1,22 +1,21 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {ChangeDetectorRef, Component, ViewEncapsulation} from "@angular/core";
 import {GwPopSelectDirective} from "./popselect.directive";
 
 @Component({
     selector: 'gw-popselect',
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../styles/triangle.css', '../styles/glowworm.css'],
+    styleUrls: ['../styles/glowworm.css'],
     template: `
         <gw-triangle [placement]="origin.placement">
             <div class="gw-popselect">
-                <div class="gw-popselect-filter" *ngIf="showFilter">
+                <div class="gw-popselect-filter" *ngIf="origin.showFilter">
                     <input type="text" placeholder="过滤..." [(ngModel)]="origin._filterVal">
                 </div>
                 <div class="gw-popselect-body">
                     <ul>
-                        <li *ngFor="let item of (origin.data | multiKeysFilter:_filterVal:filterKeys)">
+                        <li *ngFor="let item of (origin._data | multiKeysFilter:origin._filterVal:origin.filterKeys)">
                             <label>
-                                <input type="checkbox" [(ngModel)]="item.checked" name="checkbox"
-                                       (change)="origin.onCheckboxChange(item)">
+                                <input type="checkbox" [(ngModel)]="item.checked" name="checkbox" (change)="origin.onCheckboxChange(item)">
                                 <span [innerHTML]="item.text | safe"></span>
                             </label>
                         </li>
@@ -33,5 +32,8 @@ import {GwPopSelectDirective} from "./popselect.directive";
 export class GwPopSelectComponent {
 
     origin: GwPopSelectDirective;
+
+    constructor(public cdr: ChangeDetectorRef) {
+    }
 
 }

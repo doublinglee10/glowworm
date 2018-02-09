@@ -1,10 +1,11 @@
+import {TemplateRef} from "@angular/core";
+
 export interface GwConfirmConfig {
     title?: string;
-    content?: string;
-    confirmClass?: string;
+    content?: string | TemplateRef<any> | any;
+    gwClass?: string;
     confirmText?: string;
-    zIndex?: number;
     cancelText?: string;
-    onConfirm?: () => void;
-    onCancel?: () => void;
+    onConfirm?: Function;
+    onCancel?: Function;
 }

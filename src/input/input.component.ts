@@ -4,8 +4,7 @@ import {GWControl} from "../utils/gw-control";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
 import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
-import {ConnectionPositionPair} from "@angular/cdk/overlay";
-import {BOTTOM_LEFT_POSITIONS, getPositions, Placement} from "../core/placement";
+import {Placement} from "../core/placement";
 
 @Component({
     selector: 'gw-input',
@@ -32,7 +31,10 @@ import {BOTTOM_LEFT_POSITIONS, getPositions, Placement} from "../core/placement"
             <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
         </div>
 
-        <gw-connected-overlay [overlayOrigin]="overlayOrigin" [disabled]="disabled" [position]="position">
+        <gw-connected-overlay [overlayOrigin]="overlayOrigin"
+                              [disabled]="disabled"
+                              [(placement)]="placement"
+                              (placementChange)="placementChange.emit($event)">
             <gw-triangle [placement]="placement">
                 <div class="popover-container">
                     <ng-container *ngIf="showSelect">
@@ -78,6 +80,9 @@ export class GwInputComponent extends GWControl implements ControlValueAccessor 
     @Input() disabled: boolean = false;
     @Input() placeholder: string;
 
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
+
     @Input() showSelect: boolean = false;
     @Input() selectData: { id: any, text: string }[] = [];
 
@@ -105,14 +110,6 @@ export class GwInputComponent extends GWControl implements ControlValueAccessor 
     _tmpNgModel: string;
     _tmpSelectModel: any;
     _selectedSelectModel: { id: any, text: string };
-
-    placement: Placement = Placement.BOTTOM_LEFT;
-    position: ConnectionPositionPair = BOTTOM_LEFT_POSITIONS;
-
-    @Input('placement') set _placement(placement: Placement) {
-        this.placement = placement;
-        this.position = getPositions(placement);
-    }
 
     @Input('disabled') set _disabled(disabled: boolean) {
         this.disabled = disabled;

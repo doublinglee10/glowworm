@@ -1,48 +1,58 @@
-import {Component, ViewEncapsulation} from "@angular/core";
-import {GwConfirmDirective} from "./confirm.directive";
+import {Component, TemplateRef, ViewEncapsulation} from "@angular/core";
+import {GwConfirmConfig} from "./confirm.config";
+import {OverlayRef} from "@angular/cdk/overlay";
 
-/**
- <gw-confirm
- [title]=""
- [content]=""
- [confirmClass]=""
- [confirmText]=""
- (onConfirm)=""
- [cancelText]=""
- (onCancel)="">
- </gw-confirm>
- */
 @Component({
     selector: 'gw-confirm',
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../styles/glowworm.css'],
     template: `
-        <div class="gw-confirm" [ngClass]="origin.gwClass">
-            <ng-container *ngIf="origin.title">
-                <div class="gw-confirm-title" [innerHTML]="origin.title | safe"></div>
+        <div class="gw-confirm" [ngClass]="config.gwClass">
+            <ng-container *ngIf="config.title">
+                <div class="gw-confirm-title" [innerHTML]="config.title | safe"></div>
             </ng-container>
-            <ng-container *ngIf="origin.content">
+            <ng-container *ngIf="config.content">
                 <div class="gw-confirm-body">
-                    <ng-container *ngIf="origin.typeofContent() === 'string'">
-                        <span [innerHTML]="origin.content | safe"></span>
+                    <ng-container *ngIf="typeofContent() === 'string'">
+                        <span [innerHTML]="config.content | safe"></span>
                     </ng-container>
-                    <ng-container *ngIf="origin.typeofContent() === 'template'">
-                        <ng-template [ngTemplateOutlet]="origin.content"></ng-template>
+                    <ng-container *ngIf="typeofContent() === 'template'">
+                        <ng-template [ngTemplateOutlet]="config.content"></ng-template>
                     </ng-container>
-                    <ng-container *ngIf="origin.typeofContent() === 'component'">
-                        <ng-container *ngComponentOutlet="origin.content"></ng-container>
+                    <ng-container *ngIf="typeofContent() === 'component'">
+                        <ng-container *ngComponentOutlet="config.content"></ng-container>
                     </ng-container>
                 </div>
             </ng-container>
             <div class="gw-confirm-footer">
-                <button class="btn btn-primary btn-xs" (click)="origin.onConfirmEvent()" [innerHTML]="origin.confirmText | safe"></button>
-                <button class="btn btn-default btn-xs" (click)="origin.onCancelEvent()" [innerHTML]="origin.cancelText | safe"></button>
+                <button class="btn btn-primary btn-xs" (click)="onConfirmEvent()" [innerHTML]="config.confirmText | safe"></button>
+                <button class="btn btn-default btn-xs" (click)="onCancelEvent()" [innerHTML]="config.cancelText | safe"></button>
             </div>
         </div>
     `
 })
 export class GwConfirmComponent {
 
-    origin: GwConfirmDirective;
+    config: GwConfirmConfig;
+    overlayRef: OverlayRef;
 
+    onConfirmEvent() {
+        this.config.onConfirm();
+        this.overlayRef.dispose();
+    }
+
+    onCancelEvent() {
+        this.config.onCancel();
+        this.overlayRef.dispose();
+    }
+
+    typeofContent(): string {
+        if (typeof this.config.content === 'undefined')
+            return 'undefined';
+        if (typeof this.config.content === 'string')
+            return 'string';
+        if (this.config.content instanceof TemplateRef)
+            return 'template';
+        return 'component';
+    }
 }

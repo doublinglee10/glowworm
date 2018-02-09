@@ -1,8 +1,9 @@
-import {Component, Input} from "@angular/core";
+import {ChangeDetectorRef, Component, Input, ViewEncapsulation} from "@angular/core";
 import {GwPopConfirmDirective} from "./popconfirm.directive";
 
 @Component({
     selector: 'gw-popconfirm',
+    encapsulation: ViewEncapsulation.None,
     styleUrls: ['../styles/glowworm.css'],
     template: `
         <gw-triangle [placement]="origin.placement">
@@ -25,5 +26,8 @@ import {GwPopConfirmDirective} from "./popconfirm.directive";
 export class GwPopConfirmComponent {
 
     @Input() origin: GwPopConfirmDirective;
+
+    constructor(public cdr: ChangeDetectorRef) {
+    }
 
 }

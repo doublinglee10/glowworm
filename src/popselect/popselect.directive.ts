@@ -10,9 +10,9 @@ import {
 } from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {GwPopSelectComponent} from "./popselect.component";
-import {Placement} from "../core/placement";
+import {getPlacement, Placement} from "../core/placement";
 import {GwOverlayService} from "../core/overlay.service";
-import {OverlayRef} from "@angular/cdk/overlay";
+import {ConnectedOverlayPositionChange, OverlayRef} from "@angular/cdk/overlay";
 
 @Directive({
     selector: '[gw-popselect]',
@@ -26,17 +26,18 @@ export class GwPopSelectDirective implements ControlValueAccessor {
 
     @Input() filterKeys: string[] = ['text'];
     @Input() showFilter: boolean = true;
-    @Input() placement: Placement = Placement.BOTTOM_LEFT;
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
+
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
     @Input() data: any[] = [];
-
 
     componentRef: ComponentRef<GwPopSelectComponent>;
     overlayRef: OverlayRef;
 
     _filterVal: any = '';
-    _data: any[] = [];
+    _data: { id: any, text: string, checked?: boolean }[] = [];
 
     val: any;
     onChangeFun;
@@ -48,23 +49,33 @@ export class GwPopSelectDirective implements ControlValueAccessor {
 
     @HostListener('click')
     open() {
-        let {overlayRef, componentRef} = this.overlayService.openConnected(this.el, GwPopSelectComponent, this.placement);
+        let {overlayRef, componentRef, onPositionChange} = this.overlayService.openConnected(this.el, GwPopSelectComponent, this.placement);
         this.componentRef = componentRef;
         this.overlayRef = overlayRef;
         componentRef.instance.origin = this;
+        onPositionChange.subscribe((change: ConnectedOverlayPositionChange) => {
+            let placement = getPlacement(change.connectionPair);
+            if (this.placement != placement) {
+                this.placement = placement;
+                this.placementChange.emit(this.placement);
+                this.componentRef.instance.cdr.detectChanges();
+            }
+        });
     }
 
-    @Input('data') set __data(data: any[]) {
+    @Input('data') set __data(data: { id: any, text: string, checked?: boolean }[]) {
         this._data = data;
-        this._refreshUI();
+        this._cascadeData();
     }
 
     onCheckboxChange(_item: any) {
-        this._data.forEach((item: any) => {
-            if (item !== _item) {
-                item.checked = false;
-            }
-        });
+        if (_item.checked) {
+            this._data.forEach((item: any) => {
+                if (item !== _item) {
+                    item.checked = false;
+                }
+            });
+        }
     }
 
     onConfirmEvent(event: Event) {
@@ -90,6 +101,7 @@ export class GwPopSelectDirective implements ControlValueAccessor {
 
     writeValue(obj: any): void {
         this.val = obj;
+        this._cascadeData();
     }
 
     registerOnChange(fn: any): void {
@@ -100,24 +112,15 @@ export class GwPopSelectDirective implements ControlValueAccessor {
         this.onTouchFun = fn;
     }
 
-
-    private _refreshUI() {
+    private _cascadeData() {
         if (this._data) {
-            if (this.val) {
-                this._data.forEach((item: any) => {
-                    if (item && item.id == this.val) {
-                        item.checked = true;
-                    } else if (item && item.id != this.val && item.checked) {
-                        item.checked = false;
-                    }
-                });
-            } else {
-                this._data.forEach((item: any) => {
-                    if (item && item.checked) {
-                        item.checked = false;
-                    }
-                });
-            }
+            this._data.forEach((item) => {
+                if (item.id === this.val) {
+                    item.checked = true;
+                } else {
+                    item.checked = false;
+                }
+            });
         }
     }
 

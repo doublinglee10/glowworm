@@ -4,6 +4,10 @@ export type Config = {
     [key: string]: any
 }
 
+/**
+ * @deprecated
+ * use gw-connected-overlay or cdk-connected-overlay instead
+ */
 @Injectable()
 export class PopoverConfig {
 

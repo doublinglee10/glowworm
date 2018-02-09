@@ -14,13 +14,13 @@ import {Component} from "@angular/core";
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'top-left'">
+                    [placement]="'topLeft'">
                 top-left
             </button>
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'top-right'">
+                    [placement]="'topRight'">
                 top-right
             </button>
             <button class="btn btn-primary btn-xs" gw-popinput
@@ -32,13 +32,13 @@ import {Component} from "@angular/core";
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'bottom-left'">
+                    [placement]="'bottomLeft'">
                 bottom-left
             </button>
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'bottom-right'">
+                    [placement]="'bottomRight'">
                 bottom-right
             </button>
             <button class="btn btn-primary btn-xs" gw-popinput
@@ -50,13 +50,13 @@ import {Component} from "@angular/core";
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'left-top'">
+                    [placement]="'leftTop'">
                 left-top
             </button>
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'left-bottom'">
+                    [placement]="'leftBottom'">
                 left-bottom
             </button>
             <button class="btn btn-primary btn-xs" gw-popinput
@@ -68,13 +68,13 @@ import {Component} from "@angular/core";
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'right-top'">
+                    [placement]="'rightTop'">
                 right-top
             </button>
             <button class="btn btn-primary btn-xs" gw-popinput
                     [title]="'请输入用户名'"
                     [(ngModel)]="val"
-                    [placement]="'right-bottom'">
+                    [placement]="'rightBottom'">
                 right-bottom
             </button>
         </div>

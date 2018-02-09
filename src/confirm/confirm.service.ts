@@ -1,37 +1,25 @@
-import {ComponentRef, Injectable} from "@angular/core";
-import {ComponentLoaderService} from "../core/component-loader.service";
-import {GwConfirmComponent} from "./confirm.component";
+import {Injectable} from "@angular/core";
 import {GwConfirmConfig} from "./confirm.config";
+import {GwOverlayService} from "../core/overlay.service";
+import {GwConfirmComponent} from "./confirm.component";
 
 @Injectable()
 export class GwConfirmService {
 
-    constructor(private componentLoader: ComponentLoaderService) {
+    config: GwConfirmConfig = {
+        confirmText: '确认',
+        cancelText: '取消',
+        onConfirm: Function.prototype,
+        onCancel: Function.prototype
+    };
+
+    constructor(private overlayService: GwOverlayService) {
     }
 
     show(config: GwConfirmConfig) {
-        // let componentRef = this.componentLoader.appendComponentToBody(GwConfirmComponent);
-        // let confirm: GwConfirmComponent = componentRef.instance;
-        // confirm.title = config.title || confirm.title;
-        // confirm.content = config.content || confirm.content;
-        // confirm.confirmClass = config.confirmClass || confirm.confirmClass;
-        // confirm.confirmText = config.confirmText || confirm.confirmText;
-        // confirm.zIndex = config.zIndex || confirm.zIndex;
-        // confirm.cancelText = config.cancelText || confirm.cancelText;
-        // confirm.onConfirm.subscribe(() => {
-        //     this._destroy(componentRef);
-        //     config.onConfirm && config.onConfirm();
-        // });
-        // confirm.onCancel.subscribe(() => {
-        //     this._destroy(componentRef);
-        //     config.onCancel && config.onCancel();
-        // });
-    }
-
-    private _destroy(componentRef: ComponentRef<any>): void {
-        if (componentRef) {
-            this.componentLoader.removeComponentFormBody(componentRef);
-            componentRef = null;
-        }
+        let {overlayRef, componentRef} = this.overlayService.openBlock(GwConfirmComponent);
+        let component: GwConfirmComponent = componentRef.instance;
+        component.overlayRef = overlayRef;
+        component.config = {...this.config, ...config};
     }
 }

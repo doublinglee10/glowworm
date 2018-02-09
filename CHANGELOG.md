@@ -26,6 +26,33 @@
 <!-- * 修复linux x86_64下安装失败问题 -->
 
 
+## v1.2.0
+
+### 改进
+ * 使用cdk-overlay优化组件 `gw-confirm`, `gw-toolbar`, `gw-popconfirm`, `gw-popinput`, `gw-popselect`, `gw-select`, `gw-single-select`, `gw-input`, `gw-inputs`, `gw-rangeinput`
+ * 废弃gw-popover组件,use gw-connected-overlay or cdk-connected-overlay or GwOverlayService instead
+
+### 破坏性变更
+ * gw-confirm组件 @Input('confirmClass') 改为 @Input('gwClass')
+ * gw-confirm组件 删除 @Input('zIndex')
+ * gw-popconfirm组件 删除 @Input('zIndex')
+ * gw-popconfirm组件 @Input('placement')取值范围修改
+ * gw-popinput组件 删除 @Input('zIndex')
+ * gw-popinput组件 @Input('placement')取值范围修改
+ * gw-popselect组件 删除 @Input('zIndex')
+ * gw-popselect组件 @Input('placement')取值范围修改
+
+### 新特性
+ * gw-input组件 增加 @Input('placement') @Output('placementChange')
+ * gw-inputs组件 增加 @Input('placement') @Output('placementChange')
+ * gw-popconfirm组件 增加 @Output('placementChange')
+ * gw-popinput组件 增加 @Output('placementChange')
+ * gw-popselect组件 增加 @Output('placementChange')
+ * gw-rangeinput组件 增加 @Input('placement') @Output('placementChange')
+ * gw-select组件 增加 @Input('placement') @Output('placementChange')
+ * gw-single-select组件 增加 @Input('placement') @Output('placementChange')
+
+
 ## v1.1.3
 
 ### 新特性

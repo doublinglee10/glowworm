@@ -1,7 +1,15 @@
 import {ComponentRef, ElementRef, Injectable} from "@angular/core";
-import {ConnectionPositionPair, Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
+import {
+    ConnectedOverlayPositionChange,
+    ConnectedPositionStrategy,
+    ConnectionPositionPair,
+    Overlay,
+    OverlayConfig,
+    OverlayRef
+} from "@angular/cdk/overlay";
 import {getPositions, Placement} from "./placement";
 import {ComponentPortal, ComponentType} from "@angular/cdk/portal";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class GwOverlayService {
@@ -9,20 +17,25 @@ export class GwOverlayService {
     constructor(private overlay: Overlay) {
     }
 
-    openConnected<T>(elementRef: ElementRef, component: ComponentType<T>, placement: Placement = Placement.BOTTOM_LEFT): { overlayRef: OverlayRef, componentRef: ComponentRef<T> } {
-        let position: ConnectionPositionPair = getPositions(placement);
-        let positionStrategy = this.overlay.position()
-            .connectedTo(elementRef, {
-                originX: position.originX,
-                originY: position.originY
-            }, {
-                overlayX: position.overlayX,
-                overlayY: position.overlayY
+    openConnected<T>(elementRef: ElementRef,
+                     component: ComponentType<T>,
+                     placement: string = Placement.BOTTOM_LEFT): {
+        overlayRef: OverlayRef,
+        componentRef: ComponentRef<T>,
+        onPositionChange: Observable<ConnectedOverlayPositionChange>
+    } {
+        let positions: ConnectionPositionPair[] = getPositions(placement);
+        let first: ConnectionPositionPair = positions[0];
+        let positionStrategy: ConnectedPositionStrategy = this.overlay.position()
+            .connectedTo(elementRef, {originX: first.originX, originY: first.originY}, {
+                overlayX: first.overlayX,
+                overlayY: first.overlayY
             })
-            .withOffsetX(position.offsetX)
-            .withOffsetY(position.offsetY);
+            .withPositions(positions);
+        let scrollStrategy = this.overlay.scrollStrategies.reposition();
         let overlayConfig = new OverlayConfig({
             positionStrategy,
+            scrollStrategy,
             hasBackdrop: true,
             backdropClass: 'overlay-backdrop-transparent'
         });
@@ -31,7 +44,8 @@ export class GwOverlayService {
         let componentRef: ComponentRef<T> = overlayRef.attach(new ComponentPortal(component));
         return {
             overlayRef,
-            componentRef
+            componentRef,
+            onPositionChange: positionStrategy.onPositionChange
         }
     }
 
@@ -41,8 +55,7 @@ export class GwOverlayService {
         let overlayConfig = new OverlayConfig({
             positionStrategy,
             scrollStrategy,
-            hasBackdrop: true,
-            backdropClass: 'overlay-backdrop-transparent'
+            hasBackdrop: true
         });
         let overlayRef: OverlayRef = this.overlay.create(overlayConfig);
         let componentRef: ComponentRef<T> = overlayRef.attach(new ComponentPortal(component));

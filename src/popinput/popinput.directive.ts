@@ -10,10 +10,10 @@ import {
 } from "@angular/core";
 import {GwPopInputComponent} from "./popinput.component";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Placement} from "../core/placement";
+import {getPlacement, Placement} from "../core/placement";
 import {GwOverlayService} from "../core/overlay.service";
 import {Observable} from "rxjs/Observable";
-import {OverlayRef} from "@angular/cdk/overlay";
+import {ConnectedOverlayPositionChange, OverlayRef} from "@angular/cdk/overlay";
 import {first} from "rxjs/operators";
 
 /**
@@ -41,7 +41,9 @@ export class GwPopInputDirective implements ControlValueAccessor {
     @Input() title: string;
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
-    @Input() placement: Placement = Placement.BOTTOM_LEFT;
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
+
     /** 保存前触发 */
     @Input() onBeforeConfirm: (ngModel) => Observable<boolean>;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
@@ -60,12 +62,18 @@ export class GwPopInputDirective implements ControlValueAccessor {
 
     @HostListener('click')
     open() {
-        let {overlayRef, componentRef} = this.overlayService.openConnected(this.el, GwPopInputComponent, this.placement);
+        let {overlayRef, componentRef, onPositionChange} = this.overlayService.openConnected(this.el, GwPopInputComponent, this.placement);
         this.componentRef = componentRef;
         this.overlayRef = overlayRef;
-
-        let input: GwPopInputComponent = componentRef.instance;
-        input.origin = this;
+        componentRef.instance.origin = this;
+        onPositionChange.subscribe((change: ConnectedOverlayPositionChange) => {
+            let placement = getPlacement(change.connectionPair);
+            if (this.placement != placement) {
+                this.placement = placement;
+                this.placementChange.emit(this.placement);
+                this.componentRef.instance.cdr.detectChanges();
+            }
+        });
     }
 
     writeValue(val: any): void {

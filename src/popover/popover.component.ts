@@ -1,5 +1,9 @@
 import {Component, ElementRef, TemplateRef} from "@angular/core";
 
+/**
+ * @deprecated
+ * use gw-connected-overlay or cdk-connected-overlay instead
+ */
 @Component({
     selector: 'md-popover-container',
     styleUrls: ['./popover.component.css'],

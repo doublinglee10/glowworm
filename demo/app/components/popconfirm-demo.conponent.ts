@@ -11,7 +11,7 @@ import {Component} from "@angular/core";
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
                             [title]="'<span style=color:red;>您确定要删除吗?</span>'"
-                            [placement]="'top-left'">
+                            [placement]="'topLeft'">
                         top-left
                     </button>
                 </div>
@@ -25,7 +25,7 @@ import {Component} from "@angular/core";
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
                             [title]="'您确定要删除吗?'"
-                            [placement]="'top-right'">
+                            [placement]="'topRight'">
                         top-right
                     </button>
                 </div>
@@ -37,7 +37,7 @@ import {Component} from "@angular/core";
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
                             [title]="'您确定要删除吗?'"
-                            [placement]="'left-top'">
+                            [placement]="'leftTop'">
                         left-top
                     </button>
                 </div>
@@ -53,7 +53,7 @@ import {Component} from "@angular/core";
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
                             [title]="'您确定要删除吗?'"
-                            [placement]="'right-top'">
+                            [placement]="'rightTop'">
                         right-top
                     </button>
                 </div>
@@ -87,7 +87,7 @@ import {Component} from "@angular/core";
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
                             [title]="'您确定要删除吗?'"
-                            [placement]="'left-bottom'">
+                            [placement]="'leftBottom'">
                         left-bottom
                     </button>
                 </div>
@@ -103,7 +103,7 @@ import {Component} from "@angular/core";
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
                             [title]="'您确定要删除吗?'"
-                            [placement]="'right-bottom'">
+                            [placement]="'rightBottom'">
                         right-bottom
                     </button>
                 </div>
@@ -115,7 +115,7 @@ import {Component} from "@angular/core";
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-xs" gw-popconfirm
                             [title]="'您确定要删除吗?'"
-                            [placement]="'bottom-left'">
+                            [placement]="'bottomLeft'">
                         bottom-left
                     </button>
                 </div>
@@ -131,7 +131,7 @@ import {Component} from "@angular/core";
                             (onConfirm)="yes()"
                             (onCancel)="no()"
                             [title]="'您确定要删除吗?'"
-                            [placement]="'bottom-right'">
+                            [placement]="'bottomRight'">
                         bottom-right
                     </button>
                 </div>

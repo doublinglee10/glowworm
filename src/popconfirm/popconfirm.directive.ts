@@ -1,8 +1,8 @@
 import {ComponentRef, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from "@angular/core";
 import {GwPopConfirmComponent} from "./popconfirm.component";
-import {Placement} from "../core/placement";
+import {getPlacement, Placement} from "../core/placement";
 import {GwOverlayService} from "../core/overlay.service";
-import {OverlayRef} from "@angular/cdk/overlay";
+import {ConnectedOverlayPositionChange, OverlayRef} from "@angular/cdk/overlay";
 
 /**
  * <div gw-popconfirm
@@ -23,7 +23,9 @@ export class GwPopConfirmDirective {
     @Input() title: string;
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
-    @Input() placement: Placement = Placement.BOTTOM_LEFT;
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
+
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 
@@ -36,12 +38,18 @@ export class GwPopConfirmDirective {
 
     @HostListener('click')
     open() {
-        let {overlayRef, componentRef} = this.overlayService.openConnected(this.el, GwPopConfirmComponent, this.placement);
+        let {overlayRef, componentRef, onPositionChange} = this.overlayService.openConnected(this.el, GwPopConfirmComponent, this.placement);
         this.overlayRef = overlayRef;
         this.componentRef = componentRef;
-
-        let confirm: GwPopConfirmComponent = componentRef.instance;
-        confirm.origin = this;
+        componentRef.instance.origin = this;
+        onPositionChange.subscribe((change: ConnectedOverlayPositionChange) => {
+            let placement = getPlacement(change.connectionPair);
+            if (this.placement != placement) {
+                this.placement = placement;
+                this.placementChange.emit(this.placement);
+                this.componentRef.instance.cdr.detectChanges();
+            }
+        });
     }
 
     onConfirmEvent(event: Event) {

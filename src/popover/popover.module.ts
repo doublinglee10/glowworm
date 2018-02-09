@@ -5,6 +5,10 @@ import {PopoverConfig} from "./popover.config";
 import {CommonModule} from "@angular/common";
 import {GWPopoverContainerComponent} from "./popover-container.component";
 
+/**
+ * @deprecated
+ * use gw-connected-overlay or cdk-connected-overlay instead
+ */
 @NgModule({
     imports: [
         CommonModule

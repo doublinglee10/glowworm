@@ -6,7 +6,7 @@ import {Component, OnInit} from "@angular/core";
         <div style="padding:100px;background-color:pink;">
             <div>
                 <button class="btn btn-default btn-xs" (click)="changeModel()">change modle</button>
-                <button class="btn btn-default btn-xs" (click)="changeData(15)">change data</button>
+                <button class="btn btn-default btn-xs" (click)="changeData(8)">change data</button>
                 <button class="btn btn-default btn-xs" (click)="changeFilterKeys()">change filterKeys</button>
                 <button class="btn btn-default btn-xs" (click)="changeShowFilter()">change showFilter</button>
             </div>
@@ -24,7 +24,7 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'top-left'">
+                        [placement]="'topLeft'">
                     top-left
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
@@ -32,7 +32,7 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'top-right'">
+                        [placement]="'topRight'">
                     top-right
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
@@ -48,7 +48,7 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'bottom-left'">
+                        [placement]="'bottomLeft'">
                     bottom-left
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
@@ -56,7 +56,7 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'bottom-right'">
+                        [placement]="'bottomRight'">
                     bottom-right
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
@@ -72,7 +72,7 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'left-top'">
+                        [placement]="'leftTop'">
                     left-top
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
@@ -80,7 +80,7 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'left-bottom'">
+                        [placement]="'leftBottom'">
                     left-bottom
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
@@ -96,7 +96,7 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'right-top'">
+                        [placement]="'rightTop'">
                     right-top
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
@@ -104,9 +104,13 @@ import {Component, OnInit} from "@angular/core";
                         [data]="data"
                         [showFilter]="showFilter"
                         [filterKeys]="filterKeys"
-                        [placement]="'right-bottom'">
+                        [placement]="'rightBottom'">
                     right-bottom
                 </button>
+            </div>
+            
+            <div>
+                {{popselect}}
             </div>
         </div>
     `
@@ -126,7 +130,7 @@ export class PopselectDemoComponent implements OnInit {
     showFilter: boolean = true;
 
     ngOnInit() {
-        this.changeData(10);
+        this.changeData(5);
     }
 
     changeModel() {

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {GWControl} from "../utils/gw-control";
 import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
+import {Placement} from "../core/placement";
 
 @Component({
     selector: 'gw-rangeinput',
@@ -22,8 +23,11 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
             <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
         </div>
 
-        <gw-connected-overlay [overlayOrigin]="overlayOrigin" [disabled]="disabled">
-            <gw-triangle>
+        <gw-connected-overlay [overlayOrigin]="overlayOrigin"
+                              [disabled]="disabled"
+                              [(placement)]="placement"
+                              (placementChange)="placementChange.emit($event)">
+            <gw-triangle [placement]="placement">
                 <div class="popover-container">
                     <ng-container *ngIf="showSelect">
                         <div class="popover-top">
@@ -76,6 +80,9 @@ export class GWRangeInputComponent extends GWControl {
     @Input() min: number = null;
     @Input() max: number = null;
     @Input() step: number = 1;
+
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
 
     /** @Input() 双向绑定 */
     @Input() minModel: number;

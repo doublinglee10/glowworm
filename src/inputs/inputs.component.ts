@@ -4,6 +4,7 @@ import {GWControl} from "../utils/gw-control";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
 import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
+import {Placement} from "../core/placement";
 
 @Component({
     selector: 'gw-inputs',
@@ -30,8 +31,11 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
             <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
         </div>
 
-        <gw-connected-overlay [overlayOrigin]="overlayOrigin" [disabled]="disabled">
-            <gw-triangle>
+        <gw-connected-overlay [overlayOrigin]="overlayOrigin"
+                              [disabled]="disabled"
+                              [(placement)]="placement"
+                              (placementChange)="placementChange.emit($event)">
+            <gw-triangle [placement]="placement">
                 <div class="popover-container">
                     <div class="popover-main">
                         <div *ngFor="let item of _tmpNgModel; let i = index; trackBy: customTrackBy" class="item">
@@ -72,7 +76,6 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     @Input() enabled: boolean = true;
     @Input() placeholder: string;
     @Input() disabled: boolean = false;
-
     /** 清除时立即执行保存 */
     @Input() clearSave: boolean = true;
 
@@ -80,9 +83,11 @@ export class GwInputsComponent extends GWControl implements ControlValueAccessor
     @Input() onBeforeSave: (ngModel) => Observable<boolean>;
     @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     @Output() onCancel: EventEmitter<any> = new EventEmitter<any>();
-
     /** value formatter */
     @Input() formatter: () => string;
+
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
 
     /** @Input() 双向绑定 */
     ngModel: any[] = [];

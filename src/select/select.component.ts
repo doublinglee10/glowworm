@@ -4,6 +4,7 @@ import {GWToolbarComponent} from "../toolbar/toolbar.component";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
 import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
+import {Placement} from "../core/placement";
 
 @Component({
     selector: 'gw-select',
@@ -30,8 +31,11 @@ import {GwConnectedOverlayComponent} from "../core/connected-overlay.component";
             <i *ngIf="closeable" class="glyphicon glyphicon-remove" (click)="remove($event);"></i>
         </div>
 
-        <gw-connected-overlay [overlayOrigin]="overlayOrigin" [disabled]="disabled">
-            <gw-triangle>
+        <gw-connected-overlay [overlayOrigin]="overlayOrigin"
+                              [disabled]="disabled"
+                              [(placement)]="placement"
+                              (placementChange)="placementChange.emit($event)">
+            <gw-triangle [placement]="placement">
                 <div class="popover-container">
                     <ng-container *ngIf="showSelect">
                         <div class="popover-top">
@@ -86,6 +90,10 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Input() closeable: boolean = true;
     @Input() multiple: boolean = false;
     @Input() clearSave: boolean = true;
+
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
+
     @Input() extra: TemplateRef<any>;
     @ContentChild('extra') contentExtra: TemplateRef<any>;
 

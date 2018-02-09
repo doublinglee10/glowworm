@@ -1,16 +1,68 @@
-import {AfterContentInit, Component, ContentChildren, ElementRef, Input, QueryList} from "@angular/core";
+import {
+    AfterContentInit,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    QueryList
+} from "@angular/core";
 import {GWControl} from "../utils/gw-control";
+import {Placement} from "../core/placement";
 
 @Component({
     selector: 'gw-toolbar',
     styleUrls: ['./toolbar.component.css'],
-    templateUrl: './toolbar.component.html'
+    template: `
+        <ng-content></ng-content>
+
+        <button [class.hidden]="!_show" type="button" class="btn btn-default btn-xs"
+                cdkOverlayOrigin #overlayOrigin="cdkOverlayOrigin">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+
+        <gw-connected-overlay #overlay
+                              [overlayOrigin]="overlayOrigin"
+                              [(placement)]="placement"
+                              (placementChange)="placementChange.emit($event)">
+            <gw-triangle [placement]="placement">
+                <div class="popover-container">
+                    <div class="popover-main">
+                        <div class="input">
+                            <input type="text" [(ngModel)]="_filter" name="value" placeholder="过滤...">
+                        </div>
+                        <ul>
+                            <li *ngFor="let item of (data | gwSelectFilter:_filter)">
+                                <label>
+                                    <input type="checkbox" [(ngModel)]="item.__checked__" name="checkbox">
+                                    <span>{{item.label}}</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="popover-hr"></div>
+                    <div class="popover-footer">
+                        <div class="left">
+                            <a class="btn btn-xs" (click)="clear()">清除</a>
+                        </div>
+                        <div class="right">
+                            <button class="btn btn-primary btn-xs" (click)="overlay.hide();save()">保存</button>
+                            <button class="btn btn-default btn-xs" (click)="overlay.hide();cancel()">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </gw-triangle>
+        </gw-connected-overlay>
+    `
 })
 export class GWToolbarComponent implements AfterContentInit {
 
     @ContentChildren('gwcontrol') _fields: QueryList<ElementRef>;
 
     @Input() showType: 'always' | 'withMore' = 'always';
+    @Input() placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
 
     _show: boolean = true;
 

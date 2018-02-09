@@ -1,8 +1,9 @@
-import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
-import {CdkOverlayOrigin, ConnectionPositionPair} from "@angular/cdk/overlay";
+import {Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, ViewEncapsulation} from "@angular/core";
+import {CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair} from "@angular/cdk/overlay";
 import {fromEvent} from "rxjs/observable/fromEvent";
 import {Subscription} from "rxjs/Subscription";
 import {filter} from "rxjs/operators";
+import {getPlacement, getPositions, Placement} from "./placement";
 
 /**
  * use case :
@@ -21,10 +22,9 @@ import {filter} from "rxjs/operators";
                 [cdkConnectedOverlayHasBackdrop]="true"
                 [cdkConnectedOverlayBackdropClass]="backdropClass"
                 [cdkConnectedOverlayPositions]="positions"
-                [cdkConnectedOverlayOffsetX]="offsetX"
-                [cdkConnectedOverlayOffsetY]="offsetY"
                 [cdkConnectedOverlayOrigin]="overlayOrigin"
                 [cdkConnectedOverlayOpen]="isOpened"
+                (positionChange)="positionChangeEvent($event)"
                 (backdropClick)="hide()"
                 (detach)="hide()">
             <ng-content></ng-content>
@@ -37,18 +37,20 @@ export class GwConnectedOverlayComponent implements OnInit, OnDestroy {
     @Input() overlayOrigin: CdkOverlayOrigin;
     @Input() backdropClass = 'overlay-backdrop-transparent';
     @Input() disabled: boolean = false;
-    positions: ConnectionPositionPair[];
-    offsetX: number;
-    offsetY: number;
 
+    /** @Input() */
+    placement: string = Placement.BOTTOM_LEFT;
+    @Output() placementChange: EventEmitter<string> = new EventEmitter();
+
+    positions: ConnectionPositionPair[];
     clickSub: Subscription;
 
-    @Input() set position(position: ConnectionPositionPair) {
-        if (position) {
-            this.positions = [position];
-            this.offsetX = position.offsetX;
-            this.offsetY = position.offsetY;
-        }
+    @Input('placement') set _placement(placement: string) {
+        this.placement = placement;
+        this.positions = getPositions(this.placement);
+    }
+
+    constructor(public ngZone: NgZone) {
     }
 
     ngOnInit() {
@@ -62,6 +64,16 @@ export class GwConnectedOverlayComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.clickSub && this.clickSub.unsubscribe();
+    }
+
+    positionChangeEvent(change: ConnectedOverlayPositionChange) {
+        let placement = getPlacement(change.connectionPair);
+        if (this.placement != placement) {
+            this.ngZone.run(() => {
+                this.placement = placement;
+                this.placementChange.emit(this.placement);
+            });
+        }
     }
 
     show() {

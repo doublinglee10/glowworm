@@ -27,8 +27,8 @@ export class GwConfirmDirective {
     @Input() confirmText: string = '确认';
     @Input() cancelText: string = '取消';
 
-    @Output() onConfirm: EventEmitter<void> = new EventEmitter<void>();
-    @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
+    @Output('onConfirm') onConfirmEvent: EventEmitter<void> = new EventEmitter<void>();
+    @Output('onCancel') onCancelEvent: EventEmitter<void> = new EventEmitter<void>();
 
     componentRef: ComponentRef<GwConfirmComponent>;
     overlayRef: OverlayRef;
@@ -43,26 +43,15 @@ export class GwConfirmDirective {
         this.overlayRef = overlayRef;
 
         let input: GwConfirmComponent = componentRef.instance;
-        input.origin = this;
+        input.config = this;
+        input.overlayRef = overlayRef;
     }
 
-    onConfirmEvent() {
-        this.onConfirm.emit();
-        this.overlayRef.dispose();
+    onConfirm() {
+        this.onConfirmEvent.emit();
     }
 
-    onCancelEvent() {
-        this.onCancel.emit();
-        this.overlayRef.dispose();
-    }
-
-    typeofContent(): string {
-        if (typeof this.content === 'undefined')
-            return 'undefined';
-        if (typeof this.content === 'string')
-            return 'string';
-        if (this.content instanceof TemplateRef)
-            return 'template';
-        return 'component';
+    onCancel() {
+        this.onCancelEvent.emit();
     }
 }

@@ -3,7 +3,7 @@ import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {GWToolbarComponent} from "./toolbar.component";
 import {GwUtilModule} from "../utils/util.module";
-import {GwPopoverModule} from "../popover/popover.module";
+import {GwCoreModule} from "../core/core.module";
 
 @NgModule({
     declarations: [
@@ -12,7 +12,7 @@ import {GwPopoverModule} from "../popover/popover.module";
     imports: [
         CommonModule,
         FormsModule,
-        GwPopoverModule.forRoot(),
+        GwCoreModule.forRoot(),
         GwUtilModule
     ],
     exports: [

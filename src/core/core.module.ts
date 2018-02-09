@@ -1,5 +1,4 @@
 import {ModuleWithProviders, NgModule} from "@angular/core";
-import {GwOverlayDirective} from "./overlay.directive";
 import {ComponentLoaderService} from "./component-loader.service";
 import {CommonModule} from "@angular/common";
 import {WindowResizeService} from "./window-resize.service";
@@ -18,7 +17,6 @@ import {GwOverlayService} from "./overlay.service";
         OverlayModule
     ],
     declarations: [
-        GwOverlayDirective,
         MultiKeysFilter,
         SafeHtmlFilter,
         SafePipe,
@@ -27,7 +25,6 @@ import {GwOverlayService} from "./overlay.service";
     ],
     exports: [
         OverlayModule,
-        GwOverlayDirective,
         MultiKeysFilter,
         SafeHtmlFilter,
         SafePipe,

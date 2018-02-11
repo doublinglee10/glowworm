@@ -142,7 +142,7 @@ export class GwSelectDemoComponent implements OnInit {
         let udid = {text: 'UDID', id: 'udid'};
         let ip = {text: 'IP', id: 'ip'};
         let idfv = {text: 'IDFV', id: 'idfv'};
-        let dUniqueID = {text: 'palmDeviceId', id: 'dUniqueID'};
+        let dUniqueID = {text: '《还珠格格》重播引热议 你为啥对老剧百看不厌？', id: 'dUniqueID'};
 
         this.options = [mac, idfa, idfv, udid, ip, dUniqueID];
         this.options2 = [mac, idfa, idfv, udid, ip, dUniqueID];

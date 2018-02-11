@@ -35,7 +35,8 @@ button /deep/ .popover-content {
 
 .popover-container .popover-main input {
     border: 1px solid #cccccc;
-    width: 180px;
+    min-width: 180px;
+    width: 100%;
 }
 
 .popover-container .popover-footer {

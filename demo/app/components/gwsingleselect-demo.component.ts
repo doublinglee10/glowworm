@@ -147,7 +147,8 @@ export class GwSingleSelectDemoComponent implements OnInit {
                 {id: 'a', text: 'AA'},
                 {id: 'b', text: 'BB'},
                 {id: 'c', text: 'CC'},
-                {id: 'd', text: 'DD'}
+                {id: 'd', text: 'DD'},
+                {id: 'x', text: '《还珠格格》重播引热议 你为啥对老剧百看不厌？'}
             ];
         } else {
             this.selectData = [
@@ -168,13 +169,13 @@ export class GwSingleSelectDemoComponent implements OnInit {
                 {id: '^', text: '^^'},
                 {id: '&', text: '&&'},
                 {id: '*', text: '**'},
-                {id: '-', text: '--'}
+                {id: '-', text: '-- 《还珠格格》重播引热议 你为啥对老剧百看不厌？'}
             ]
         } else {
             this.data = [
                 {id: '@', text: '@@'},
                 {id: '!', text: '!!'},
-                {id: '#', text: '##'}
+                {id: '#', text: '## 《还珠格格》重播引热议 你为啥对老剧百看不厌？'}
             ]
         }
     }

@@ -27,15 +27,16 @@ const ANIMATION_TIMINGS = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
             <img [@fade]="loading ? 'fadeOut' : 'fadeIn'"
                  (load)="onLoad($event)"
                  [style.opacity]="loading ? 0 : 1"
-                 [src]="_imageUrl"/>
+                 [src]="imageUrl"/>
             <div *ngIf="loading" class="loader"></div>
         </div>
     `
 })
 export class GwImgPreviewComponent {
 
+    private _imageUrl: string;
+
     animationState: 'void' | 'enter' | 'leave' = 'enter';
-    _imageUrl: string;
     loading: boolean = false;
 
     animationStateChanged = new EventEmitter<AnimationEvent>();
@@ -43,6 +44,10 @@ export class GwImgPreviewComponent {
     set imageUrl(imageUrl: string) {
         this._imageUrl = imageUrl;
         this.loading = true;
+    }
+
+    get imageUrl() {
+        return this._imageUrl;
     }
 
     onAnimationStart(event: AnimationEvent) {

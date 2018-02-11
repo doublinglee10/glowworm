@@ -49,13 +49,14 @@ export class GwOverlayService {
         }
     }
 
-    openBlock<T>(component: ComponentType<T>): { overlayRef: OverlayRef, componentRef: ComponentRef<T> } {
+    openBlock<T>(component: ComponentType<T>, config: OverlayConfig = {}): { overlayRef: OverlayRef, componentRef: ComponentRef<T> } {
         let positionStrategy = this.overlay.position().global().centerVertically().centerHorizontally();
         let scrollStrategy = this.overlay.scrollStrategies.block();
         let overlayConfig = new OverlayConfig({
             positionStrategy,
             scrollStrategy,
-            hasBackdrop: true
+            hasBackdrop: true,
+            ...config
         });
         let overlayRef: OverlayRef = this.overlay.create(overlayConfig);
         let componentRef: ComponentRef<T> = overlayRef.attach(new ComponentPortal(component));

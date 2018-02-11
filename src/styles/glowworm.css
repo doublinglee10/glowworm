@@ -133,6 +133,7 @@
 }
 
 .gw-popinput .gw-popinput-body input {
+    min-width: 180px;
     width: 100%;
 }
 

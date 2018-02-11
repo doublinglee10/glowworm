@@ -18,6 +18,7 @@ import {typeofTemplateInput} from "../utils/template-input";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
 import {DragulaService} from "ng-dragula";
+import {Subscription} from "rxjs/Subscription";
 
 export type TabOrTabComponent = GwTab | GwTabComponent;
 
@@ -123,6 +124,8 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ContentChildren(GwTabComponent)
     tabComponents: QueryList<GwTabComponent>;
+    tabsSub: Subscription;
+
 
     tabs: TabOrTabComponent[] = [];
     _dragula_key = `gwtabs_${++dragulaId}`;
@@ -174,6 +177,14 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.sortTabs(arr);
             }
         }
+
+        this.tabsSub = this.tabComponents.changes.subscribe(() => {
+            this.tabs = [
+                ...this.tabComponents.toArray(),
+                ...this.tabs.filter((tab) => (tab instanceof GwTab))
+            ];
+            this._checkAndSelect();
+        });
     }
 
     /**
@@ -339,13 +350,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (closed) {
                     this.tabs.splice(indexOf, 1);
                     this.onClose.emit(tab);
-
-                    let filtered = this.tabs.filter(tab => !tab.disabled);
-                    if (filtered.length > 0) {
-                        let firstTab = filtered[0];
-                        firstTab.selected = true;
-                        this.onSelect.emit(firstTab);
-                    }
+                    this._checkAndSelect();
                 }
             };
 
@@ -360,6 +365,15 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
             };
 
             this.onClosing ? this.onClosing(tab).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
+        }
+    }
+
+    _checkAndSelect() {
+        let filtered = this.tabs.filter(tab => !tab.disabled);
+        if (filtered.length > 0) {
+            let firstTab = filtered[0];
+            firstTab.selected = true;
+            this.onSelect.emit(firstTab);
         }
     }
 
@@ -383,6 +397,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * @inner
      */
     ngOnDestroy() {
+        this.tabsSub && this.tabsSub.unsubscribe();
         if (this.sortable) {
             this.dragulaService.destroy(this._dragula_key);
         }

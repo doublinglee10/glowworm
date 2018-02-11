@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild,ReflectiveInjector,Injector} from "@angular/core";
+import {Component, Injector, OnInit, ReflectiveInjector, ViewChild} from "@angular/core";
 import {GwconfirmDemoComponent} from "./gwconfirm-demo.component";
 import {GwTabsComponent} from "../../../src/tabs/tabs.component";
 import {GwTab} from "../../../src/tabs/tab";
@@ -7,12 +7,12 @@ import "rxjs/add/observable/of";
 
 
 @Component({
-    selector:'test',
-    template:`this is a test complate`
+    selector: 'test',
+    template: `this is a test complate`
 })
-export class TestComponent{
-    constructor( injector: Injector){
-        console.log('TestComponent',injector.get('invalidToken'));
+export class TestComponent {
+    constructor(injector: Injector) {
+        console.log('TestComponent', injector.get('invalidToken'));
     }
 }
 
@@ -21,11 +21,11 @@ export class TestComponent{
     template: `
         <h1>Gw tabs</h1>
         <div class="row">
-            <input type="text" [(ngModel)]="tabId"> 
+            <input type="text" [(ngModel)]="tabId">
             <button class="btn btn-xs btn-primary" (click)="addTab()">addTab</button>
             <button class="btn btn-xs btn-primary" (click)="addComPonentTab()">addComPonentTab</button>
             <button class="btn btn-xs btn-primary" (click)="insertTab()">insertTab</button>
-            <button class="btn btn-xs btn-primary" (click)="disabledTab()">disabledTab</button> 
+            <button class="btn btn-xs btn-primary" (click)="disabledTab()">disabledTab</button>
             <button class="btn btn-xs btn-primary" (click)="enabledTab()">enabledTab</button>
             <button class="btn btn-xs btn-primary" (click)="selectTab()">selectTab</button>
             <button class="btn btn-xs btn-primary" (click)="closeTab()">closeTab</button>
@@ -35,9 +35,9 @@ export class TestComponent{
         <gw-tabs [sortable]="true"
                  [storeKey]="'tabsdemo'"
                  [storeType]="'local'"
-                 (onSort)="sorted()" 
-                 (onSortStart)="startSort()" 
-                 (onSelect)="selectThisTab($event)" 
+                 (onSort)="sorted()"
+                 (onSortStart)="startSort()"
+                 (onSelect)="selectThisTab($event)"
                  [onClosing]="onClosing">
             <gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">
                 use content input
@@ -65,7 +65,7 @@ export class TestComponent{
             <gw-tab [closable]="true" [tabId]="'tab4'" [title]="'use ng-content'">
                 use &lt;ng-content&gt;&lt;/ng-content&gt;
             </gw-tab>
-            <gw-tab title="lazy load" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>
+            <gw-tab title="lazy load" *ngIf="showTab" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>
 
             <ng-template #extra>
                 <a class="text-muted"><i class="fa fa-gear"></i></a>
@@ -76,17 +76,28 @@ export class TestComponent{
 })
 export class GwTabsDemoComponent implements OnInit {
 
+    showTab = false;
+
     tabId: string;
 
     component = GwconfirmDemoComponent;
 
     @ViewChild(GwTabsComponent) tabs: GwTabsComponent;
 
-    constructor(private injector:Injector){
+    constructor(private injector: Injector) {
 
     }
 
+    timer: any;
+
     ngOnInit(): void {
+        this.timer = setInterval(() => {
+            this.showTab = !this.showTab;
+        }, 3000);
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.timer);
     }
 
     addTab() {
@@ -99,8 +110,11 @@ export class GwTabsDemoComponent implements OnInit {
     addComPonentTab() {
         this.tabs.addTab(new GwTab({
             title: '标题组件',
-            content:TestComponent,
-            injector: ReflectiveInjector.resolveAndCreate([{provide: 'invalidToken', useValue: 'Value'+new Date().getTime()}],this.injector)
+            content: TestComponent,
+            injector: ReflectiveInjector.resolveAndCreate([{
+                provide: 'invalidToken',
+                useValue: 'Value' + new Date().getTime()
+            }], this.injector)
         }));
     }
 
@@ -136,19 +150,19 @@ export class GwTabsDemoComponent implements OnInit {
         return Observable.of(confirm);
     }
 
-    selectThisTab(tab){
-        console.log('selectThisTab',tab);
+    selectThisTab(tab) {
+        console.log('selectThisTab', tab);
     }
 
-    clear(){
+    clear() {
         this.tabs.clear();
     }
 
-    sorted(){
+    sorted() {
         console.log('sort finished');
     }
 
-    startSort(){
+    startSort() {
         console.log('sort start');
     }
 }

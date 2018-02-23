@@ -1,5 +1,15 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {GwConfirmService} from "../../../src/confirm/confirm.service";
+
+@Component({
+    selector: 'gwconfirm-demox',
+    template: `
+        <h2>this is a component content</h2>
+    `
+})
+export class GwconfirmDemoXComponent {
+
+}
 
 @Component({
     selector: 'gwconfirm-demo',
@@ -42,7 +52,7 @@ import {GwConfirmService} from "../../../src/confirm/confirm.service";
         </p>
     `
 })
-export class GwconfirmDemoComponent {
+export class GwconfirmDemoComponent implements OnInit {
 
     component = GwconfirmDemoXComponent;
 
@@ -73,14 +83,4 @@ export class GwconfirmDemoComponent {
             }
         });
     }
-}
-
-@Component({
-    selector: 'gwconfirm-demox',
-    template: `
-        <h2>this is a component content</h2>
-    `
-})
-export class GwconfirmDemoXComponent {
-
 }

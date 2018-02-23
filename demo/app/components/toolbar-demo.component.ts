@@ -193,7 +193,6 @@ export class ToolbarDemoComponent {
     selectXData = [{id: '0', text: '测试一'}, {id: '1', text: '测试二'}];
 
     constructor(private config: DatepickerConfig) {
-        console.log('app', new Boolean(true) === new Boolean(true));
         this.setDateConfig();
     }
 

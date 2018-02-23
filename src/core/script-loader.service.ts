@@ -20,8 +20,7 @@ export class ScriptLoaderService {
             if (existingScript && existingScript.loaded) {
                 observer.next(existingScript);
                 observer.complete();
-            }
-            else {
+            } else {
                 // Add the script
                 this.scripts = [...this.scripts, script];
 
@@ -36,7 +35,7 @@ export class ScriptLoaderService {
                     observer.complete();
                 };
 
-                scriptElement.onerror = (error: any) => {
+                scriptElement.onerror = () => {
                     observer.error("Couldn't load script " + script.src);
                 };
 

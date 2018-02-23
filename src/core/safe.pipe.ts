@@ -1,4 +1,4 @@
-import {Pipe} from "@angular/core";
+import {Pipe, PipeTransform} from "@angular/core";
 import {DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl} from "@angular/platform-browser";
 
 /***
@@ -12,7 +12,7 @@ import {DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl}
 @Pipe({
     name: 'safe'
 })
-export class SafePipe {
+export class SafePipe implements PipeTransform {
 
     constructor(protected _sanitizer: DomSanitizer) {
 

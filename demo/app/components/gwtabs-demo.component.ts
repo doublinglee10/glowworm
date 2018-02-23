@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit, ReflectiveInjector, ViewChild} from "@angular/core";
+import {Component, Injector, OnDestroy, OnInit, ReflectiveInjector, ViewChild} from "@angular/core";
 import {GwconfirmDemoComponent} from "./gwconfirm-demo.component";
 import {GwTabsComponent} from "../../../src/tabs/tabs.component";
 import {GwTab} from "../../../src/tabs/tab";
@@ -74,7 +74,7 @@ export class TestComponent {
         </gw-tabs>
     `
 })
-export class GwTabsDemoComponent implements OnInit {
+export class GwTabsDemoComponent implements OnInit, OnDestroy {
 
     showTab = false;
 

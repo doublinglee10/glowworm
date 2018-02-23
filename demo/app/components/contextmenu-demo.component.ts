@@ -1,4 +1,4 @@
-import {Component, NgZone} from "@angular/core";
+import {Component, NgZone, OnDestroy, OnInit} from "@angular/core";
 import {ContextMenuService} from "../../../src/context-menu/context-menu.service";
 
 @Component({
@@ -16,7 +16,7 @@ import {ContextMenuService} from "../../../src/context-menu/context-menu.service
         </div>
     `
 })
-export class ContextMenuDemoComponent {
+export class ContextMenuDemoComponent implements OnInit, OnDestroy {
 
     menus = [
         {

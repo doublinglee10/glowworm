@@ -6,7 +6,6 @@
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
-    "curly": true,
     "forin": true,
     "import-blacklist": [
       true,
@@ -79,8 +78,6 @@
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
-    "no-input-rename": true,
-    "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "no-access-missing-member": true,

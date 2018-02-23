@@ -7,12 +7,6 @@ import {GWControl} from "../utils/gw-control";
 
 declare let moment: any, $: any, daterangepicker: any;
 
-export const GW_DATE_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => GWDatepickerComponent),
-    multi: true
-};
-
 @Component({
     selector: 'gw-datepicker',
     template: `
@@ -29,7 +23,11 @@ export const GW_DATE_VALUE_ACCESSOR: any = {
         </div>
     `,
     styleUrls: ['./datepicker.component.css'],
-    providers: [GW_DATE_VALUE_ACCESSOR]
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => GWDatepickerComponent),
+        multi: true
+    }]
 })
 export class GWDatepickerComponent extends GWControl implements OnInit, OnDestroy, ControlValueAccessor {
     @Input()
@@ -118,7 +116,7 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
     }
 
     datepickerInit() {
-        this.options = (typeof  this.options === 'string' ? eval('(' + this.options + ')') : this.options);
+        this.options = (typeof  this.options === 'string' ? JSON.parse(this.options) : this.options);
         let unDeepCopy = this.config.unDeepCopy || this.options['unDeepCopy'];
         let options = $.extend(!unDeepCopy, {}, this.config, this.options);
 

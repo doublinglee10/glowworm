@@ -1,4 +1,4 @@
-import {TemplateRef, Type,Injector} from "@angular/core";
+import {Injector, TemplateRef, Type} from "@angular/core";
 
 export class GwTab {
 
@@ -16,6 +16,7 @@ export class GwTab {
     closable?: boolean;
     selected?: boolean;
     injector?: Injector;
+
     constructor(tab: GwTab | object) {
         Object.assign(this, tab);
     }

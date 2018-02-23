@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 
 
-export interface locale {
+export interface Locale {
     format?: string;
     applyLabel?: string;
     customRangeLabel?: string;
@@ -28,7 +28,7 @@ export class DatepickerConfig {
     alwaysShowCalendars?: boolean = true;
     opens?: string = "right";
     showYear?: boolean = true;
-    locale?: locale = {
+    locale?: Locale = {
         format: 'YYYY-MM-DD HH:mm:ss',
         applyLabel: '确定',
         customRangeLabel: "自定义",
@@ -40,7 +40,8 @@ export class DatepickerConfig {
     ranges?: Object;
     startDate?: string;
     endDate?: string;
-    unDeepCopy?:boolean = false;
+    unDeepCopy?: boolean = false;
+
     constructor() {
         console.log('init DatepickerConfig');
     }

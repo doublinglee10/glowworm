@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from "@angular/core";
 export class LinkAgeFilter implements PipeTransform {
     transform(data: any[], name: string): any {
         return !name ? data : data.filter(item =>
-          item.id.startsWith(name+'-')
+            item.id.startsWith(name + '-')
         );
     }
 }

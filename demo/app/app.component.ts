@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, DoCheck, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -51,7 +51,7 @@ import {ActivatedRoute} from "@angular/router";
     `,
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, DoCheck {
 
     constructor(private route: ActivatedRoute) {
 

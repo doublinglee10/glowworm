@@ -8,7 +8,6 @@ import {GwSwitchComponent} from './gw-switch.component'
     declarations: [GwSwitchComponent],
     imports: [CommonModule]
 })
-
 export class GwSwitchModule {
 
 }

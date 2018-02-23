@@ -15,7 +15,7 @@ import {ActivatedRoute} from "@angular/router";
                         <li><a routerLink="/gwpannel">gwpannel</a></li>
                         <li><a routerLink="/gwSwitch">gwSwitch</a></li>
                         <li><a routerLink="/gwimgpreview">gwimgpreview</a></li>
-                        <li class="dropdown open">
+                        <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown">
                                 GwForm <span class="caret"></span>
                             </a>

@@ -135,13 +135,13 @@ import * as moment from "moment";
             <p>
                 <gw-datepicker #gwcontrol
                                label="日期1"
-                               options='{singleDatePicker:false,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
+                               [options]="{singleDatePicker:false,opens:'center',timePickerIncrement :1,locale:{ format: 'YYYY-MM-DD' }}"
                                [(ngModel)]="dateModel1">
                 </gw-datepicker>
 
                 <gw-datepicker #gwcontrol
                                label="日期2"
-                               options='{singleDatePicker:true,opens:"center",timePickerIncrement :1,locale:{ format: "YYYY-MM-DD"}}'
+                               [options]="{singleDatePicker:true,opens:'center',timePickerIncrement :1,locale:{ format: 'YYYY-MM-DD'}}"
                                [(ngModel)]="dateModel2">
                 </gw-datepicker>
 

@@ -88,15 +88,15 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
 
                 let jq$: Observable<ScriptModel> = this.loader.load({
                     src: jqueryPath
-                })
+                });
 
                 let moment$: Observable<ScriptModel> = this.loader.load({
                     src: momentPath
-                })
+                });
 
                 let daterangepicker$: Observable<ScriptModel> = this.loader.load({
                     src: datepickerPath
-                })
+                });
 
                 jq$.subscribe(res1 => {
                     moment$.subscribe(res2 => {
@@ -105,8 +105,6 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
                         })
                     })
                 })
-
-
             } else {
                 console.warn('datepicker 4.x is missing (moment||jquery||daterangepicker)');
             }
@@ -116,7 +114,7 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
     }
 
     datepickerInit() {
-        this.options = (typeof  this.options === 'string' ? JSON.parse(this.options) : this.options);
+        this.options = (typeof this.options === 'string' ? JSON.parse(this.options) : this.options);
         let unDeepCopy = this.config.unDeepCopy || this.options['unDeepCopy'];
         let options = $.extend(!unDeepCopy, {}, this.config, this.options);
 
@@ -139,7 +137,6 @@ export class GWDatepickerComponent extends GWControl implements OnInit, OnDestro
     }
 
     set value(value: { start: string, end: string, range: string }) {
-
         if (value && !!value.range && this.config.ranges[value.range]) {
             this._value = value.range;
             [value.start, value.end] = this.config.ranges[value.range];

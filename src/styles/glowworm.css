@@ -62,6 +62,14 @@
     z-index: 1000;
 }
 
+.cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0, .6);
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: .48;
+}
+
 /* <div class="loader"></div>  */
 .loader {
     border: 12px solid #3C8DBC; /* Light grey */

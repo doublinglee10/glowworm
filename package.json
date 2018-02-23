@@ -40,11 +40,13 @@
   },
   "dependencies": {
     "@angular/cdk": "^5.1.0",
-    "font-awesome": "4.7.0",
     "ng-dragula": "^1.0.0",
+    "font-awesome": "4.7.0",
     "bootstrap": "3.3.7",
     "admin-lte": "2.3.11",
     "moment": "2.18.1",
+    "jquery": "3.2.1",
+    "bootstrap-daterangepicker": "^2.1.25",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
@@ -73,7 +75,6 @@
     "gulp-sass": "3.1.0",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "jquery": "3.2.1",
     "ng-packagr": "^1.6.0",
     "ngx-bootstrap": "1.8.1",
     "protractor": "~5.1.2",

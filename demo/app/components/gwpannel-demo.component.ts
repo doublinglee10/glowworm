@@ -4,13 +4,16 @@ import {Observable} from "rxjs/Observable";
 @Component({
     selector: 'gwpanel-demo',
     template: `
+        <button class="btn btn-sm btn-primary" (click)="toggleCollapsed();">toggle collapsed</button>
         <gw-panel [title]="title2" [content]="'this is a content'"
+                  [(collapsed)]="collapsed"
                   [lazy]="true"
                   [closable]="true"
                   [onClosing]="onClosing"
                   [gwClass]="'box-warning'">
             <ng-template #title2>
-                <h1>this is a other title</h1>
+                <span style="color:red;">this is a other title</span>
+                <span style="color:blue;">{{collapsed}}</span>
             </ng-template>
             <ng-template #extra>
                 <button class="btn btn-box-tool">
@@ -38,6 +41,12 @@ import {Observable} from "rxjs/Observable";
     `
 })
 export class GwPanelDemoComponent {
+
+    collapsed = false;
+
+    toggleCollapsed() {
+        this.collapsed = !this.collapsed;
+    }
 
     onClosing(): Observable<boolean> {
         const confirm = window.confirm('Do you really want to remove this tag?');

@@ -26,6 +26,12 @@
 <!-- * 修复linux x86_64下安装失败问题 -->
 
 
+## v1.2.2
+
+### 新特性
+ * gw-pane组件 增加 @Output('collapsedChange')事件，使@Input('collapsed')支持双向绑定
+
+
 ## v1.2.1
 
 ### Bugs修复

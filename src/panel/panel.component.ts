@@ -1,4 +1,5 @@
 import {
+    ChangeDetectorRef,
     Component,
     ContentChild,
     EventEmitter,
@@ -18,6 +19,7 @@ import {first} from "rxjs/operators";
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../styles/glowworm.css'],
     template: `
+        {{collapsed}}
         <div class="box {{collapsed ? 'collapsed-box' : ''}}" [ngClass]="gwClass" *ngIf="display">
             <div class="box-header with-border" *ngIf="title">
                 <ng-template #panel_header>
@@ -88,8 +90,11 @@ export class GwPanelComponent implements OnInit {
     @Input() footer: string | TemplateRef<any> | Type<any>;
     @Input() toggle: boolean = true;
     @Input() closable: boolean;
-    @Input() collapsed: boolean;
     @Input() extra: TemplateRef<any>;
+
+    /** @Input()  是否折叠*/
+    collapsed: boolean;
+    @Output() collapsedChange: EventEmitter<boolean> = new EventEmitter();
 
     /** @Input() */
     lazy: boolean;
@@ -108,6 +113,9 @@ export class GwPanelComponent implements OnInit {
     @Input() onClosing: () => Observable<boolean>;
     @Output() onClose: EventEmitter<void> = new EventEmitter<void>();
 
+    constructor(private cdr: ChangeDetectorRef) {
+    }
+
     ngOnInit() {
         this.title = this.title || this._title;
         this.content = this.content || this._content;
@@ -115,15 +123,26 @@ export class GwPanelComponent implements OnInit {
         this.extra = this.extra || this._extra;
     }
 
+    @Input('collapsed') set _collapsed(collapsed: boolean) {
+        this.collapsed = collapsed;
+        this.isFirst = false;
+    }
+
     @Input('lazy') set _lazy(lazy: boolean) {
         this.lazy = lazy;
         if (lazy) {
-            this.collapsed = true;
+            if (!this.collapsed) {
+                this.collapsed = true;
+                setTimeout(() => {
+                    this.collapsedChange.emit(this.collapsed);
+                });
+            }
         }
     }
 
     togglePanel() {
         this.collapsed = !this.collapsed;
+        this.collapsedChange.emit(this.collapsed);
         this.isFirst = false;
     }
 

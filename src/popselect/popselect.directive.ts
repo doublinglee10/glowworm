@@ -13,6 +13,8 @@ import {GwPopSelectComponent} from "./popselect.component";
 import {getPlacement, Placement} from "../core/placement";
 import {GwOverlayService} from "../core/overlay.service";
 import {ConnectedOverlayPositionChange, OverlayRef} from "@angular/cdk/overlay";
+import {Observable} from "rxjs/Observable";
+import {first} from "rxjs/operators";
 
 @Directive({
     selector: '[gw-popselect]',
@@ -24,24 +26,35 @@ import {ConnectedOverlayPositionChange, OverlayRef} from "@angular/cdk/overlay";
 })
 export class GwPopSelectDirective implements ControlValueAccessor {
 
-    @Input() filterKeys: string[] = ['text'];
+    @Input() showSelect: boolean = false;
+    @Input() selectData: { id: any, text: string }[] = [];
+    /**@Input()*/
+    selectModel: any = '';
+    @Output() selectModelChange: EventEmitter<any> = new EventEmitter();
+    @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
+
+    @Input() filterKeys: string[] = ['id', 'text'];
     @Input() showFilter: boolean = true;
+    @Input() multiple: boolean = false;
     @Input() placement: string = Placement.BOTTOM_LEFT;
     @Output() placementChange: EventEmitter<string> = new EventEmitter();
 
+    /** 保存前触发 */
+    @Input() onBeforeConfirm: (ngModel, selectModel) => Observable<boolean>;
     @Output() onConfirm: EventEmitter<Event> = new EventEmitter<Event>();
     @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
-    @Input() data: any[] = [];
 
     componentRef: ComponentRef<GwPopSelectComponent>;
     overlayRef: OverlayRef;
 
+    _selectModel: any = '';
     _filterVal: any = '';
-    _data: { id: any, text: string, checked?: boolean }[] = [];
 
-    val: any;
-    onChangeFun;
-    onTouchFun;
+    ngModel: { id: any, text: string }[];
+    data: { id: any, text: string, checked?: boolean }[] = [];
+
+    onChangeFun = Function.prototype;
+    onTouchFun = Function.prototype;
 
     constructor(private overlayService: GwOverlayService,
                 private el: ElementRef) {
@@ -63,44 +76,66 @@ export class GwPopSelectDirective implements ControlValueAccessor {
         });
     }
 
-    @Input('data') set __data(data: { id: any, text: string, checked?: boolean }[]) {
-        this._data = data;
+    @Input('data') set _setData(data: { id: any, text: string, checked?: boolean }[]) {
+        this.data = data;
         this._cascadeData();
     }
 
-    onCheckboxChange(_item: any) {
-        if (_item.checked) {
-            this._data.forEach((item: any) => {
-                if (item !== _item) {
-                    item.checked = false;
-                }
+    @Input('selectModel') set _setSelectModel(selectModel: any) {
+        this._selectModel = selectModel;
+        this.selectModel = selectModel;
+    }
+
+    onCheckboxChange(item: any) {
+        if (!this.multiple) {
+            this.data.forEach((item: any) => {
+                item.checked = false;
             });
+            item.checked = true;
         }
     }
 
     onConfirmEvent(event: Event) {
-        let values = this._data.filter((item: any) => item.checked);
-        if (values.length == 1) {
-            this.val = values[0].id;
-        } else {
-            this.val = null;
-        }
-        this._filterVal = '';
-        this.onTouchFun(this.val);
-        this.onChangeFun(this.val);
-        this.onConfirm.emit(event);
-        this.overlayRef.dispose();
+        const subscribeFn = (save: boolean) => {
+            if (save) {
+                if (this.data) {
+                    let items = this.data.filter((item: any) => item.checked);
+                    if (this.ngModel) {
+                        this.ngModel.splice(0);
+                    } else {
+                        this.ngModel = [];
+                    }
+                    items.forEach((item) => {
+                        let _item: any = {...item};
+                        delete _item.checked;
+                        this.ngModel.push(_item);
+                    });
+                }
+
+                this.selectModel = this._selectModel;
+                this.selectModelChange.emit(this.selectModel);
+                this._filterVal = '';
+                this.onTouchFun(this.ngModel);
+                this.onChangeFun(this.ngModel);
+                this.onConfirm.emit(event);
+                this.overlayRef.dispose();
+            }
+        };
+
+        const _tmpNgModel = (this.data || []).filter((item: any) => item.checked);
+        this.onBeforeConfirm ? this.onBeforeConfirm(_tmpNgModel, this._selectModel).pipe(first()).subscribe(subscribeFn) : subscribeFn(true);
     }
 
     onCancelEvent(event: Event) {
+        this._selectModel = this.selectModel;
         this._filterVal = '';
         this.onCancel.emit(event);
-        this.writeValue(this.val);
+        this.writeValue(this.ngModel);
         this.overlayRef.dispose();
     }
 
-    writeValue(obj: any): void {
-        this.val = obj;
+    writeValue(obj: { id: any, text: string }[]): void {
+        this.ngModel = obj;
         this._cascadeData();
     }
 
@@ -112,15 +147,31 @@ export class GwPopSelectDirective implements ControlValueAccessor {
         this.onTouchFun = fn;
     }
 
+    onSelectModelChange() {
+        this.onSelectChange.emit(this._selectModel);
+    }
+
     private _cascadeData() {
-        if (this._data) {
-            this._data.forEach((item) => {
-                if (item.id === this.val) {
-                    item.checked = true;
+        if (this.data && this.ngModel) {
+            let need_update = false;
+            this.data.forEach((_item: any) => {
+                let _items = this.ngModel.filter((item) => item.id == _item.id);
+                let item = _items.length > 0 ? _items[0] : null;
+                if (item) {
+                    _item.checked = true;
+                    if (!item.text) {
+                        Object.assign(item, _item);
+                        need_update = true;
+                    }
                 } else {
-                    item.checked = false;
+                    _item.checked = false;
                 }
             });
+
+            if (need_update) {
+                this.onChangeFun(this.ngModel);
+                this.onTouchFun(this.ngModel);
+            }
         }
     }
 

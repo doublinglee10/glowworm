@@ -1,9 +1,10 @@
 import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'popselect-demo',
     template: `
-        <div style="padding:100px;background-color:pink;">
+        <div style="padding:200px 100px;background-color:pink;">
             <div>
                 <button class="btn btn-default btn-xs" (click)="changeModel()">change modle</button>
                 <button class="btn btn-default btn-xs" (click)="changeData(8)">change data</button>
@@ -11,7 +12,17 @@ import {Component, OnInit} from "@angular/core";
                 <button class="btn btn-default btn-xs" (click)="changeShowFilter()">change showFilter</button>
             </div>
             <div>
+                {{selectModel}}
+                {{popselect | json }}
+            </div>
+            <div>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -20,6 +31,12 @@ import {Component, OnInit} from "@angular/core";
                     top
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -28,6 +45,12 @@ import {Component, OnInit} from "@angular/core";
                     top-left
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -36,6 +59,12 @@ import {Component, OnInit} from "@angular/core";
                     top-right
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -44,6 +73,12 @@ import {Component, OnInit} from "@angular/core";
                     bottom
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -52,6 +87,12 @@ import {Component, OnInit} from "@angular/core";
                     bottom-left
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -60,6 +101,12 @@ import {Component, OnInit} from "@angular/core";
                     bottom-right
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -68,6 +115,12 @@ import {Component, OnInit} from "@angular/core";
                     left
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -76,6 +129,12 @@ import {Component, OnInit} from "@angular/core";
                     left-top
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -84,6 +143,12 @@ import {Component, OnInit} from "@angular/core";
                     left-bottom
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -92,6 +157,12 @@ import {Component, OnInit} from "@angular/core";
                     right
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -100,6 +171,12 @@ import {Component, OnInit} from "@angular/core";
                     right-top
                 </button>
                 <button class="btn btn-primary btn-xs" gw-popselect
+                        [showSelect]="true"
+                        [selectData]="selectData"
+                        [(selectModel)]="selectModel"
+                        (onSelectChange)="onSelectChangeEvent($event)"
+                        [onBeforeConfirm]="onBeforeConfirm"
+                        [multiple]="true"
                         [(ngModel)]="popselect"
                         [data]="data"
                         [showFilter]="showFilter"
@@ -108,20 +185,19 @@ import {Component, OnInit} from "@angular/core";
                     right-bottom
                 </button>
             </div>
-            
-            <div>
-                {{popselect}}
-            </div>
         </div>
     `
 })
 export class PopselectDemoComponent implements OnInit {
 
+    selectModel = 'b';
+    selectData = [{id: 'a', text: 'aaaaaa'}, {id: 'b', text: 'bbbbbb'}];
+
     placement: string = 'top';
 
     filterKeys: string[] = ['text'];
 
-    popselect: any;
+    popselect = [{id: 2}]
 
     data: any[];
 
@@ -134,7 +210,7 @@ export class PopselectDemoComponent implements OnInit {
     }
 
     changeModel() {
-        this.popselect = 9;
+        this.popselect = [{id: 9}];
     }
 
     changeData(count: number) {
@@ -155,5 +231,15 @@ export class PopselectDemoComponent implements OnInit {
 
     changeShowFilter() {
         this.showFilter = false;
+    }
+
+    onBeforeConfirm(): Observable<boolean> {
+        console.log(arguments);
+        const confirm = window.confirm('Save ?');
+        return Observable.of(confirm);
+    }
+
+    onSelectChangeEvent(selectModel) {
+        console.log(selectModel);
     }
 }

@@ -10,6 +10,7 @@ export * from './popconfirm/index';
 export * from './popinput/index';
 export * from './popover/index';
 export * from './popselect/index';
+export * from './popsingleselect/index';
 export * from './rangeInput/index';
 export * from './select/index';
 export * from './singleselect/index';

@@ -17,6 +17,7 @@ import {GwPannelModule} from "./panel/panel.module";
 import {GwSelectModule} from "./select/select.module";
 import {GwInputsModule} from "./inputs/inputs.module";
 import {GwImgPreviewModule} from "./imgpreview/imgpreview.module";
+import {GwPopSingleSelectModule} from "./popsingleselect/pop-singleselect.module";
 
 let MODULES = [
     GwCoreModule,
@@ -30,6 +31,7 @@ let MODULES = [
     GwPopInputModule,
     GwConfirmModule,
     GwPopSelectModule,
+    GwPopSingleSelectModule,
     GwContextMenuModule,
     GwTabsModule,
     GwPannelModule,
@@ -52,6 +54,7 @@ let MODULES = [
         GwPopInputModule,
         GwConfirmModule.forRoot(),
         GwPopSelectModule,
+        GwPopSingleSelectModule,
         GwContextMenuModule.forRoot(),
         GwTabsModule,
         GwSwitchModule,

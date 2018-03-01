@@ -124,7 +124,9 @@ export class GwPanelComponent implements OnInit {
 
     @Input('collapsed') set _collapsed(collapsed: boolean) {
         this.collapsed = collapsed;
-        this.isFirst = false;
+        if (!collapsed) {
+            this.isFirst = false;
+        }
     }
 
     @Input('lazy') set _lazy(lazy: boolean) {

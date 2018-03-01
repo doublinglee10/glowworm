@@ -37,6 +37,8 @@ import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
 import {ImgPreviewDemoComponent} from "./components/imgpreview-demo.component";
 import {GwImgPreviewModule} from "../../src/imgpreview/imgpreview.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {PopSingleSelectDemoComponent} from "./components/popsingleselect-demo.conponent";
+import {GwPopSingleSelectModule} from "../../src/popsingleselect/pop-singleselect.module";
 
 @NgModule({
     declarations: [
@@ -55,6 +57,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         GwSelectDemoComponent,
         TestComponent,
         GwSingleSelectDemoComponent,
+        PopSingleSelectDemoComponent,
         GwInputsDemoComponent,
         DatepickerDemoComponent,
         ImgPreviewDemoComponent
@@ -74,6 +77,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         GwPopConfirmModule,
         GwPopInputModule,
         GwPopSelectModule,
+        GwPopSingleSelectModule,
         GwTabsModule,
         GwPannelModule,
         GwSwitchModule,

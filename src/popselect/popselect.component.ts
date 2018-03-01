@@ -8,12 +8,21 @@ import {GwPopSelectDirective} from "./popselect.directive";
     template: `
         <gw-triangle [placement]="origin.placement">
             <div class="gw-popselect">
+                <div class="gw-popselect-select" *ngIf="origin.showSelect">
+                    <select [(ngModel)]="origin._selectModel"
+                            (change)="origin.onSelectModelChange()">
+                        <option *ngFor="let item of origin.selectData"
+                                [value]="item.id"
+                                [innerHTML]="item.text | safe">
+                        </option>
+                    </select>
+                </div>
                 <div class="gw-popselect-filter" *ngIf="origin.showFilter">
                     <input type="text" placeholder="过滤..." [(ngModel)]="origin._filterVal">
                 </div>
                 <div class="gw-popselect-body">
                     <ul>
-                        <li *ngFor="let item of (origin._data | multiKeysFilter:origin._filterVal:origin.filterKeys)">
+                        <li *ngFor="let item of (origin.data | multiKeysFilter:origin._filterVal:origin.filterKeys)">
                             <label>
                                 <input type="checkbox" [(ngModel)]="item.checked" name="checkbox" (change)="origin.onCheckboxChange(item)">
                                 <span [innerHTML]="item.text | safe"></span>

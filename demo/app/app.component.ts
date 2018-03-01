@@ -24,6 +24,7 @@ import {ActivatedRoute} from "@angular/router";
                         <li><a routerLink="/gwpopconfirm"><i class="fa fa-link"></i>gwpopconfirm</a></li>
                         <li><a routerLink="/popinput"><i class="fa fa-link"></i>gwpopinput</a></li>
                         <li><a routerLink="/gwpopselect"><i class="fa fa-link"></i>gwpopselect</a></li>
+                        <li><a routerLink="/gwpopsingleselect"><i class="fa fa-link"></i>gwpopsingleselect</a></li>
                         <li><a routerLink="/gwselect"><i class="fa fa-link"></i>gwselect</a></li>
                         <li><a routerLink="/gwsingleselect"><i class="fa fa-link"></i>gwsingleselect</a></li>
                         <li><a routerLink="/gwinput"><i class="fa fa-link"></i>gwinput</a></li>

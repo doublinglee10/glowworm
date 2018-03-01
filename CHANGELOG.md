@@ -26,6 +26,16 @@
 <!-- * 修复linux x86_64下安装失败问题 -->
 
 
+## v1.3.0
+
+### 破坏性变更
+ * 将`gw-popselect` 改为`gw-popsingleselect`
+
+### 新特性
+ * 命名后的`gw-popsingleselect` 增加 @Input('showSelect')  @Input('selectData')  @Input('selectModel')  @Output('selectModelChange') @Output('onSelectChange') @Input('onBeforeConfirm')
+ * 增加`gw-popselect`组件
+
+
 ## v1.2.2
 
 ### 新特性

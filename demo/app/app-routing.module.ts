@@ -15,6 +15,7 @@ import {GwSingleSelectDemoComponent} from "./components/gwsingleselect-demo.comp
 import {GwInputsDemoComponent} from "./components/gwinputs-demo.component";
 import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
 import {ImgPreviewDemoComponent} from "./components/imgpreview-demo.component";
+import {PopSingleSelectDemoComponent} from "./components/popsingleselect-demo.conponent";
 const routes: Routes = [
     {
         path: 'popinput',
@@ -39,6 +40,10 @@ const routes: Routes = [
     {
         path: 'gwpopselect',
         component: PopselectDemoComponent
+    },
+    {
+        path: 'gwpopsingleselect',
+        component: PopSingleSelectDemoComponent
     },
     {
         path: 'gwcontextmenu',

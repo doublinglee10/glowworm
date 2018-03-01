@@ -98,7 +98,7 @@ export class GwSelectComponent implements ControlValueAccessor {
     @ContentChild('extra') contentExtra: TemplateRef<any>;
 
     @Input() showSelect: boolean = false;
-    @Input() selectData: { id: any, text: string, disabled?: boolean }[] = [];
+    @Input() selectData: { id: any, text: string }[] = [];
 
     /** 双向绑定 */
     @Input() selectModel: any;
@@ -108,11 +108,12 @@ export class GwSelectComponent implements ControlValueAccessor {
     _selectedModel: { id: any, text: string };
     @Output() onSelectChange: EventEmitter<any> = new EventEmitter();
 
-    @Input() data: { id: any, text: string }[];
+    @Input() data: { id: any, text: string, disabled?: boolean }[];
     /** @Input() 双向绑定 */
     ngModel: { id: any, text: string }[];
     /** @Output() */ // ngModelChange: EventEmitter<{ id: any, text: string }[]> = new EventEmitter();
     ngModelChange: any = Function.prototype;
+    ngTouchFun: any = Function.prototype;
 
     _filter: string;
 
@@ -131,7 +132,7 @@ export class GwSelectComponent implements ControlValueAccessor {
         this.disabled && this.overlay && this.overlay.hide();
     }
 
-    @Input('data') set _data(data: { id: any, text: string }[]) {
+    @Input('data') set _data(data: { id: any, text: string, disabled?: boolean }[]) {
         this.data = data ? data.map(item => Object.assign({checked: false}, item)) : [];
         this._cascadeData();
     }
@@ -161,6 +162,7 @@ export class GwSelectComponent implements ControlValueAccessor {
     }
 
     registerOnTouched(fn: any): void {
+        this.ngTouchFun = fn;
     }
 
     get _values(): string {
@@ -241,6 +243,7 @@ export class GwSelectComponent implements ControlValueAccessor {
                 }
 
                 this.ngModelChange(this.ngModel);
+                this.ngTouchFun(this.ngModel);
                 this.selectModelChange.emit(this.selectModel);
                 this.onSave.emit();
                 this.hide();
@@ -281,6 +284,7 @@ export class GwSelectComponent implements ControlValueAccessor {
 
             if (need_update) {
                 this.ngModelChange(this.ngModel);
+                this.ngTouchFun(this.ngModel);
             }
         }
     }

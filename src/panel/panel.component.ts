@@ -19,7 +19,6 @@ import {first} from "rxjs/operators";
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../styles/glowworm.css'],
     template: `
-        {{collapsed}}
         <div class="box {{collapsed ? 'collapsed-box' : ''}}" [ngClass]="gwClass" *ngIf="display">
             <div class="box-header with-border" *ngIf="title">
                 <ng-template #panel_header>

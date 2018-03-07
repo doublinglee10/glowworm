@@ -25,13 +25,16 @@
   "homepage": "https://github.com/lishichao1002/glowworm#readme",
   "scripts": {
     "ng": "ng",
+    "dev": "http-server -a 0.0.0.0 -p 4200 ./dist",
     "start": "ng serve --host 0.0.0.0 --port 4200 --disable-host-check",
     "start:aot": "ng serve --host 0.0.0.0 --port 4200 --aot --disable-host-check",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng-packagr",
-    "publish:lib": "npm publish dist"
+    "build:gh-pages": "ng build --aot --prod --base-href /glowworm/",
+    "publish:gh-pages": "angular-cli-ghpages",
+    "build:npm": "ng-packagr",
+    "publish:npm": "npm publish dist"
   },
   "peerDependencies": {
     "@angular/common": "^5.2.0",
@@ -40,13 +43,13 @@
   },
   "dependencies": {
     "@angular/cdk": "^5.1.0",
-    "ng-dragula": "^1.0.0",
-    "font-awesome": "4.7.0",
-    "bootstrap": "3.3.7",
     "admin-lte": "2.3.11",
-    "moment": "2.18.1",
-    "jquery": "3.2.1",
+    "bootstrap": "3.3.7",
     "bootstrap-daterangepicker": "^2.1.25",
+    "font-awesome": "4.7.0",
+    "jquery": "3.2.1",
+    "moment": "2.18.1",
+    "ng-dragula": "^1.0.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
@@ -64,6 +67,7 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@angular/service-worker": "^5.2.7",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
@@ -73,6 +77,7 @@
     "core-js": "^2.4.1",
     "gulp": "3.9.1",
     "gulp-sass": "3.1.0",
+    "http-server": "^0.11.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "ng-packagr": "^1.6.0",

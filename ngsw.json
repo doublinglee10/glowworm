@@ -7,6 +7,7 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
+        "/glowworm/",
         "/glowworm/favicon.ico",
         "/glowworm/index.html",
         "/glowworm/inline.cf7a055999549ba87ad5.bundle.js",

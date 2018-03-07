@@ -53,7 +53,7 @@ import {environment} from "../environments/environment";
         BrowserAnimationsModule,
         AppRoutingModule,
         GlowwormRootModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
+        ServiceWorkerModule.register('/glowworm/ngsw-worker.js', {enabled: environment.production})
     ],
     bootstrap: [
         AppComponent

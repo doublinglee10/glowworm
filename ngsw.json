@@ -7,12 +7,11 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/glowworm/",
         "/glowworm/favicon.ico",
         "/glowworm/index.html",
-        "/glowworm/inline.cf7a055999549ba87ad5.bundle.js",
-        "/glowworm/main.2bfa4372544377bf4138.bundle.js",
-        "/glowworm/polyfills.7a03cbf541cab1a92696.bundle.js",
+        "/glowworm/inline.fcdc91e30bb57e5bff7f.bundle.js",
+        "/glowworm/main.d169faf8bd3b11227d23.bundle.js",
+        "/glowworm/polyfills.e11ce294e625e76f08ce.bundle.js",
         "/glowworm/scripts.b14d34afdecbb726b47c.bundle.js",
         "/glowworm/styles.60412d27844d7ce6a19f.bundle.css"
       ],
@@ -30,13 +29,13 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/glowworm/inline.cf7a055999549ba87ad5.bundle.js": "ddefda605520d5386ae0bc4e4572dc289fb479e7",
+    "/glowworm/inline.fcdc91e30bb57e5bff7f.bundle.js": "0292f11f174acdff80f5964ff1d9d3cdd3f8dd27",
     "/glowworm/assets/scrollbar.css": "a33e1b0c892ce6a81d10999447e23ff1b7a46fa7",
-    "/glowworm/main.2bfa4372544377bf4138.bundle.js": "1c4b31c8d2bc114c433f3423a66c5925347152e8",
-    "/glowworm/polyfills.7a03cbf541cab1a92696.bundle.js": "a3861ed16c3ddbc13b72d90fee57158a1dd4615a",
+    "/glowworm/main.d169faf8bd3b11227d23.bundle.js": "de21e78493391239367dfaf3e121f18d65bb6c3f",
+    "/glowworm/polyfills.e11ce294e625e76f08ce.bundle.js": "178b06452fab4aaa04afb7685225a687f567d5e5",
     "/glowworm/scripts.b14d34afdecbb726b47c.bundle.js": "eea35aa444802ecc3dcdb147d2ec1a5f3cf11ebe",
     "/glowworm/styles.60412d27844d7ce6a19f.bundle.css": "595251382f0e0bc6f294201c1db6513a09a98e23",
     "/glowworm/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/glowworm/index.html": "ec56e749f431c12efe409a1649967dcfd5be0a63"
+    "/glowworm/index.html": "4d0adacbcd619300eedd3bc079d554c4483db089"
   }
 }

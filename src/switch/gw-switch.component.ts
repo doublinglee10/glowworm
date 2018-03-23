@@ -1,4 +1,4 @@
-import {Component, forwardRef, HostListener, Input, OnInit} from "@angular/core";
+import {Component, ElementRef, forwardRef, HostListener, Input, OnInit, Renderer} from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Observable} from "rxjs/Observable";
 import {first} from "rxjs/operators";
@@ -40,6 +40,21 @@ export class GwSwitchComponent implements ControlValueAccessor, OnInit {
 
     /** 保存前触发 */
     @Input() onBeforeChange: (tmpNgModel) => Observable<boolean>;
+
+    constructor(public elementRef: ElementRef, private renderer: Renderer) {
+    }
+
+    @Input() set hostClass(hostClass: string) {
+        this.renderer.setElementClass(this.elementRef.nativeElement, hostClass, true);
+    }
+
+    @Input() set hostStyle(styles: { [key: string]: string }) {
+        if (styles) {
+            for (let key in styles) {
+                this.renderer.setElementStyle(this.elementRef.nativeElement, key, styles[key]);
+            }
+        }
+    }
 
     @Input()
     set size(value: string) {

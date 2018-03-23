@@ -26,6 +26,11 @@
 <!-- * 修复linux x86_64下安装失败问题 -->
 
 
+## v1.3.2
+
+### 新特性
+ * 将`gw-switch` 增加@Input('hostClass') @Input('hostStyle')
+
 ## v1.3.0
 
 ### 破坏性变更

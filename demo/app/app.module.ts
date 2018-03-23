@@ -1,5 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
+import {ErrorHandler, NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {FormsModule} from "@angular/forms";
 import {ServiceWorkerModule} from "@angular/service-worker";
@@ -25,7 +25,16 @@ import {PopSingleSelectDemoComponent} from "./components/popsingleselect-demo.co
 import {GlowwormRootModule} from "../../src/glowworm.module";
 import {environment} from "../environments/environment";
 
+export class GlobalErrorHandler implements ErrorHandler {
+    handleError(error) {
+        console.error(error);
+    }
+}
+
 @NgModule({
+    providers: [
+        {provide: ErrorHandler, useClass: GlobalErrorHandler}
+    ],
     declarations: [
         AppComponent,
         PopconfirmDemoComponent,

@@ -6,7 +6,6 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/glowworm",
           "/favicon.ico",
           "/index.html"
         ],

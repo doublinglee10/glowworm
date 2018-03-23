@@ -1,4 +1,4 @@
-import {Component} from "@angular/core"
+import {Component} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 
 @Component({
@@ -6,7 +6,11 @@ import {Observable} from "rxjs/Observable";
     template: `
         <div>
             <h2>basic switch</h2>
-            <gw-switch [(ngModel)]="basicSwitch" [checkValue]="'1'" [unCheckValue]="'2'" [onBeforeChange]="onBeforeChange">
+            <gw-switch [(ngModel)]="basicSwitch" 
+                       [hostStyle]="{display: 'block'}"
+                        [checkValue]="'1'" 
+                        [unCheckValue]="'2'" 
+                        [onBeforeChange]="onBeforeChange">
                 <span checked>开</span>
                 <span unchecked>关</span>
             </gw-switch>
@@ -19,7 +23,7 @@ import {Observable} from "rxjs/Observable";
                 <span checked>on</span>
                 <span unchecked>off</span>
             </gw-switch>
-            <gw-switch [(ngModel)]="basicTextSwitch2">
+            <gw-switch [(ngModel)]="basicTextSwitch2" [hostClass]="'block'">
                 <span class="glyphicon glyphicon-ok" checked></span>
                 <span class="glyphicon glyphicon-remove" unchecked></span>
             </gw-switch>

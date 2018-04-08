@@ -31,12 +31,16 @@ declare let moment;
     `
 })
 export class DatepickerDemoComponent {
+
     myOption = {
         unDeepCopy: true,
         ranges: { //今天、昨天  本周、上周 本月、上月
             '今天2': [
                 '2018-01-15', '2018-01-15'
             ]
+        },
+        locale: {
+            format: 'YYYY-MM-DD'
         }
     };
 

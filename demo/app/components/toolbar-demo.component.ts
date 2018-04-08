@@ -1,174 +1,154 @@
 import {Component} from "@angular/core";
-import {DatepickerConfig} from "../../../src/datepicker/config.server";
-import * as moment from "moment";
+import {OurpalmTable} from "ngx-ourpalm-table";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'popconfirm-demo',
     template: `
-        <h1>gw-toolbar</h1>
+        <gw-panel [title]="'gw-toolbar'">
+            <div style="margin-bottom:10px;">
+                <gw-toolbar #bar [showType]="'withMore'">
+                    <gw-input #gwcontrol #input
+                              [label]="'公司'"
+                              [(ngModel)]="inputModel"
+                              [closeable]="true"
+                              [enabled]="true"
+                              [showSelect]="false">
+                    </gw-input>
+                    <gw-input #gwcontrol #input
+                              [label]="'公司'"
+                              [(ngModel)]="inputSelectModel"
+                              [closeable]="true"
+                              [enabled]="true"
+                              [showSelect]="true"
+                              [selectData]="inputSelectData">
+                    </gw-input>
+                    <gw-rangeinput #gwcontrol #input
+                                   [label]="'年龄'"
+                                   [closeable]="true"
+                                   [enabled]="true"
+                                   [(minModel)]="minModel"
+                                   [(maxModel)]="maxModel"
+                                   [min]="18"
+                                   [max]="50"
+                                   [step]="2"
+                                   [showSelect]="true"
+                                   [(selectModel)]="rangeSelectModel"
+                                   [selectData]="[{id: '0', text: '先生'}, {id: '1', text: '女士'}]"
+                                   (onSelectChange)="log($event)"
+                                   (onSave)="log($event)"
+                                   (onCancel)="log($event)">
+                    </gw-rangeinput>
 
-        <gw-toolbar #bar [showType]="'withMore'">
+                    <gw-single-select #gwcontrol
+                                      [label]="'配置singleSelect'"
+                                      [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                                      [(ngModel)]="selectModel"
+                                      [closeable]="true"
+                                      [enabled]="true"
+                                      [showSelect]="false"
+                                      (onSave)="log($event)">
+                    </gw-single-select>
+                    <gw-single-select #gwcontrol
+                                      [label]="'配置singleSelect--linkAge'"
+                                      [selectData]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
+                                      [data]="linkAgeData"
+                                      [(ngModel)]="selectModel"
+                                      [closeable]="true"
+                                      [enabled]="true"
+                                      [showSelect]="true"
+                                      (onSave)="log($event)">
+                    </gw-single-select>
+                    <gw-single-select #gwcontrol
+                                      [label]="'配置singleSelect'"
+                                      [data]="selectXData"
+                                      [(ngModel)]="selectXModel"
+                                      [closeable]="true"
+                                      [enabled]="true"
+                                      [showSelect]="true"
+                                      [selectData]="singleSelectData"
+                                      (onSave)="log($event)">
+                    </gw-single-select>
 
-            <p>
-                <gw-input #gwcontrol #input
-                          [label]="'公司'"
-                          [(ngModel)]="inputModel"
-                          [closeable]="true"
-                          [enabled]="true"
-                          [showSelect]="false"
-                >
-                </gw-input>
+                    <gw-single-select #gwcontrol
+                                      [label]="'配置singleSelect'"
+                                      [data]="selectXData"
+                                      [(ngModel)]="selectX2Model"
+                                      [closeable]="true"
+                                      [enabled]="true"
+                                      [showSelect]="true"
+                                      [selectData]="singleSelectData"
+                                      (onSave)="log($event)">
+                    </gw-single-select>
 
-                {{inputModel}}
+                    <gw-datepicker #gwcontrol
+                                   label="日期1"
+                                   [options]="{singleDatePicker:false,opens:'center',timePickerIncrement :1,locale:{ format: 'YYYY-MM-DD' }}"
+                                   [(ngModel)]="dateModel1">
+                    </gw-datepicker>
 
-                <button class="btn btn-xs" (click)="inputModel=null;">set null</button>
-            </p>
+                    <gw-datepicker #gwcontrol
+                                   label="日期2"
+                                   [options]="{singleDatePicker:true,opens:'center',timePickerIncrement :1,locale:{ format: 'YYYY-MM-DD'}}"
+                                   [(ngModel)]="dateModel2">
+                    </gw-datepicker>
+                </gw-toolbar>
+                <button class="btn btn-xs btn-default pull-right"><i class="fa fa-search"></i>查询</button>
+            </div>
 
-            <p>
-                <gw-input #gwcontrol #input
-                          [label]="'公司'"
-                          [(ngModel)]="inputSelectModel"
-                          [closeable]="true"
-                          [enabled]="true"
-                          [showSelect]="true"
-                          [selectData]="inputSelectData"
-                >
-                </gw-input>
-
-                {{inputSelectModel | json}}
-
-                <button class="btn btn-xs" (click)="inputSelectModel=null;">set null</button>
-                <button class="btn btn-xs" (click)="changeInputSelectData()">change data</button>
-                <button class="btn btn-xs" (click)="changeInputSelectValue()">change value</button>
-            </p>
-
-            <p>
-                <gw-rangeinput #gwcontrol #input
-                               [label]="'年龄'"
-                               [closeable]="true"
-                               [enabled]="true"
-                               [(minModel)]="rangeStart"
-                               [(maxModel)]="rangeEnd"
-                               [min]="18"
-                               [max]="50"
-                               [step]="2"
-                               [showSelect]="true"
-                               [(selectModel)]="rangeSelectModel"
-                               [selectData]="[{id: '0', text: '先生'}, {id: '1', text: '女士'}]"
-                               (onSelectChange)="log($event)"
-                               (onSave)="log($event)"
-                               (onCancel)="log($event)"
-                >
-                </gw-rangeinput>
-                {{rangeStart}}
-                {{rangeEnd}}
-                {{rangeSelectModel}}
-            </p>
-
-            <p>
-                <gw-single-select #gwcontrol
-                                  [label]="'配置singleSelect'"
-                                  [data]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                                  [(ngModel)]="selectModel"
-                                  [closeable]="true"
-                                  [enabled]="true"
-                                  [showSelect]="false"
-                                  (onSave)="log($event);"
-                >
-                </gw-single-select>
-
-                {{selectModel | json}}
-
-                <button class="btn btn-xs" (click)="selectModel=null;">set null</button>
-            </p>
-
-            <p>
-                <gw-single-select #gwcontrol
-                                  [label]="'配置singleSelect--linkAge'"
-                                  [selectData]="[{id: '0', text: '测试一'}, {id: '1', text: '测试二'}]"
-                                  [data]="linkAgeData"
-                                  [(ngModel)]="selectModel"
-                                  [closeable]="true"
-                                  [enabled]="true"
-                                  [showSelect]="true"
-                                  (onSelectChange)="changeData($event)"
-                                  (onSave)="log($event);"
-                >
-                </gw-single-select>
-
-                {{selectModel | json}}
-
-                <button class="btn btn-xs" (click)="selectModel=null;">set null</button>
-            </p>
-
-            <p>
-                <gw-single-select #gwcontrol
-                                  [label]="'配置singleSelect'"
-                                  [data]="selectXData"
-                                  [(ngModel)]="selectXModel"
-                                  [closeable]="true"
-                                  [enabled]="true"
-                                  [showSelect]="true"
-                                  [selectData]="singleSelectData"
-                                  (onSave)="log($event)"
-                >
-                </gw-single-select>
-
-                <gw-single-select #gwcontrol
-                                  [label]="'配置singleSelect'"
-                                  [data]="selectXData"
-                                  [(ngModel)]="selectX2Model"
-                                  [closeable]="true"
-                                  [enabled]="true"
-                                  [showSelect]="true"
-                                  [selectData]="singleSelectData"
-                                  (onSave)="log($event)"
-                >
-                </gw-single-select>
-
-
-                {{selectXModel | json}}
-
-                <button class="btn btn-xs" (click)="selectXModel=null;">set null</button>
-            </p>
-
-            <p>
-                <gw-datepicker #gwcontrol
-                               label="日期1"
-                               [options]="{singleDatePicker:false,opens:'center',timePickerIncrement :1,locale:{ format: 'YYYY-MM-DD' }}"
-                               [(ngModel)]="dateModel1">
-                </gw-datepicker>
-
-                <gw-datepicker #gwcontrol
-                               label="日期2"
-                               [options]="{singleDatePicker:true,opens:'center',timePickerIncrement :1,locale:{ format: 'YYYY-MM-DD'}}"
-                               [(ngModel)]="dateModel2">
-                </gw-datepicker>
-
-                {{dateModel1 | json}}
-                {{dateModel2 | json}}
-            </p>
-
-
-            <!-- <app-test [toolbar]="bar"></app-test>-->
-
-        </gw-toolbar>
+            <div class="table-responsive">
+                <ourpalm-table [table]="table">
+                    <ourpalm-table-column
+                            [column]="{header: 'Select', field: 'checkAll', checkbox: true}"></ourpalm-table-column>
+                    <ourpalm-table-column
+                            [column]="{header: 'Number', field: 'number', rownumbers: true}"></ourpalm-table-column>
+                    <ourpalm-table-column [column]="{header: 'ID', field: 'ID'}">
+                        <ng-template let-row="$row">
+                            {{row.ID}}
+                        </ng-template>
+                    </ourpalm-table-column>
+                    <ourpalm-table-column [column]="{header: 'Price', field: 'Price', sort: true}">
+                        <ng-template let-row="$row">
+                            {{row.Price}}
+                        </ng-template>
+                    </ourpalm-table-column>
+                    <ourpalm-table-column [column]="{header: 'Cost', field: 'Cost'}">
+                        <ng-template let-row="$row">
+                            {{row.Cost}}
+                        </ng-template>
+                    </ourpalm-table-column>
+                    <ourpalm-table-column [column]="{header: 'Url', field: 'Url'}">
+                        <ng-template let-row="$row">
+                            {{row.Url}}
+                        </ng-template>
+                    </ourpalm-table-column>
+                    <ourpalm-table-column [column]="{header: 'Other', field: 'Other'}">
+                        <ng-template let-row="$row">
+                            {{row.Other}}
+                        </ng-template>
+                    </ourpalm-table-column>
+                </ourpalm-table>
+            </div>
+        </gw-panel>
     `
 })
 export class ToolbarDemoComponent {
     title = 'app';
+
+    inputModel: any;
+    inputSelectModel: any;
+    minModel: any;
+    maxModel: any;
+    rangeSelectModel: any;
+    selectModel: any;
+    selectXModel: any;
+    selectX2Model: any;
     dateModel1: any;
     dateModel2: any;
-
-    inputModel: string = 'app';
-    inputSelectModel = {
-        value: 'app ...',
-        selectValue: '0'
-    };
-
-    rangeStart: number = 20;
-    rangeEnd: number = 23;
-    rangeSelectModel: any;
+    inputSelectData: any;
+    linkAgeData: any;
+    selectXData: any;
+    singleSelectData: any;
 
     selectData = [
         {label: '012', id: 0},
@@ -182,92 +162,22 @@ export class ToolbarDemoComponent {
         {label: '8', id: 8}
     ];
 
-    selectModel: any;
+    table: OurpalmTable;
 
-    selectXModel: string;
-
-    selectX2Model: string;
-
-    singleSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}];
-
-    selectXData = [{id: '0', text: '测试一'}, {id: '1', text: '测试二'}];
-
-    constructor(private config: DatepickerConfig) {
-        this.setDateConfig();
-    }
-
-    setDateConfig() {
-        const format = this.config.locale.format, timePickerIncrement = this.config.timePickerIncrement;
-        const today_s = moment(moment().format('YYYY-MM-DD')).format(format),
-            today_e = moment(today_s).add(1, 'days').subtract(timePickerIncrement, 's').format(format),
-            yesterday_s = moment(moment().format('YYYY-MM-DD')).subtract(1, 'days').format(format),
-            yesterday_e = moment(yesterday_s).add(1, 'days').subtract(timePickerIncrement, 's').format(format),
-            week_s = moment(today_s).subtract(moment().isoWeekday() - 1, 'days').format(format),
-            week_e = moment(week_s).add(7, 'days').subtract(timePickerIncrement, 's').format(format),
-            lastWeek_s = moment(week_s).subtract(7, 'days').format(format),
-            lastWeek_e = moment(week_e).subtract(7, 'days').format(format),
-            month_s = moment(moment().format('YYYY-MM-DD')).subtract(moment().date() - 1, 'days').format(format),
-            month_e = moment(month_s).add(1, 'month').subtract(timePickerIncrement, 's').format(format),
-            lastMonth_s = moment(month_s).subtract(1, 'month').format(format),
-            lastMonth_e = moment(month_e).subtract(1, 'month').format(format);
-        Object.assign(
-            this.config,
-            {
-                opens: 'center',
-                singleDatePicker: false,
-                jqueryPath: '/assets/jquery.min.js',
-                momentPath: '/assets/datepicker/moment.min.js',
-                datepickerPath: '/assets/datepicker/daterangepicker.js',
-                startDate: today_s,
-                endDate: today_e,
-                ranges: {
-                    //今天、昨天  本周、上周 本月、上月
-                    '今天': [
-                        today_s, today_e
-                    ],
-                    '昨天': [
-                        yesterday_s, yesterday_e
-                    ],
-                    '本周': [
-                        week_s, week_e
-                    ],
-                    '上周': [
-                        lastWeek_s, lastWeek_e
-                    ],
-                    '本月': [
-                        month_s, month_e
-                    ],
-                    '上月': [
-                        lastMonth_s, lastMonth_e
-                    ]
-                }
+    constructor(private http: HttpClient) {
+        this.table = new OurpalmTable({
+            loadData: (table: OurpalmTable, callback: (page: any) => {}) => {
+                this.http
+                    .get('http://rapapi.org/mockjsdata/3828/ngx-ourpalm-table/cardview.do')
+                    .subscribe((result: any) => {
+                        console.log(result);
+                        callback({
+                            total: result.data.length,
+                            rows: result.data
+                        });
+                    });
             }
-        );
-    }
-
-    linkAgeData = [{id: '0-01', text: '测试一01'}, {id: '0-02', text: '测试一02'}, {id: '1-01', text: '测试二01'}, {
-        id: '2-02',
-        text: '测试二02'
-    }];
-
-    changeData(ev: any) {
-        this.linkAgeData = this.linkAgeData.filter(item => {
-            return item.id.startsWith(ev + '-');
         });
-        console.log(this.linkAgeData);
-    }
-
-    inputSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}];
-
-    changeInputSelectData() {
-        this.inputSelectData = [{id: '0', text: 'woman'}, {id: '1', text: 'man'}, {id: '', text: '请选择'}];
-    }
-
-    changeInputSelectValue() {
-        this.inputSelectModel = {
-            value: 'app ...',
-            selectValue: ''
-        };
     }
 
     log(xxx) {

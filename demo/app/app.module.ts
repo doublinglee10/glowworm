@@ -24,6 +24,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {PopSingleSelectDemoComponent} from "./components/popsingleselect-demo.conponent";
 import {GlowwormRootModule} from "../../src/glowworm.module";
 import {environment} from "../environments/environment";
+import {OurpalmTableModule} from "ngx-ourpalm-table";
+import {HttpClientModule} from "@angular/common/http";
 
 export class GlobalErrorHandler implements ErrorHandler {
     handleError(error) {
@@ -62,6 +64,8 @@ export class GlobalErrorHandler implements ErrorHandler {
         BrowserAnimationsModule,
         AppRoutingModule,
         GlowwormRootModule,
+        HttpClientModule,
+        OurpalmTableModule,
         ServiceWorkerModule.register('/glowworm/ngsw-worker.js', {enabled: environment.production})
     ],
     bootstrap: [

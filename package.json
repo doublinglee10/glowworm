@@ -1,6 +1,6 @@
 {
   "name": "glowworm",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "pordVersion": "1.1.0",
   "betaVersion": "1.0.19-beta.1",
   "license": "MIT",
@@ -84,6 +84,7 @@
     "jasmine-spec-reporter": "~4.2.1",
     "ng-packagr": "^1.6.0",
     "ngx-bootstrap": "1.8.1",
+    "ngx-ourpalm-table": "^2.1.5",
     "protractor": "~5.1.2",
     "to-string-loader": "1.1.5",
     "ts-node": "~4.1.0",

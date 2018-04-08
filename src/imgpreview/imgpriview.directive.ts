@@ -1,4 +1,13 @@
-import {ChangeDetectorRef, ComponentRef, Directive, EventEmitter, HostListener, Input, Output} from "@angular/core";
+import {
+    ChangeDetectorRef,
+    ComponentRef,
+    Directive,
+    EventEmitter,
+    HostListener,
+    Input,
+    NgZone,
+    Output
+} from "@angular/core";
 import {OverlayRef} from "@angular/cdk/overlay";
 import {GwImgPreviewComponent} from "./imgpreview.component";
 import {GwOverlayService} from "../core/overlay.service";
@@ -22,16 +31,24 @@ export class GwImgPreviewDirective {
     private _componentRef: ComponentRef<GwImgPreviewComponent>;
 
     constructor(private overlayService: GwOverlayService,
+                private ngZone: NgZone,
                 private cdr: ChangeDetectorRef) {
     }
 
     @Input() set isOpen(isOpen: boolean) {
         if (isOpen !== this._isOpen) {
-            if (isOpen) {
-                this.open();
-            } else {
-                this.close();
-            }
+            this.ngZone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    this.ngZone.run(() => {
+                        if (isOpen) {
+                            this.open();
+                        } else {
+                            this.close();
+                        }
+                    });
+                });
+            });
+            // this.cdr.detectChanges();
         }
     }
 
@@ -64,7 +81,7 @@ export class GwImgPreviewDirective {
                 filter((event: any) => event.phaseName === 'done' && event.toState === 'enter'),
                 take(1)
             )
-            .subscribe((event) => {
+            .subscribe(() => {
                 this._isOpen = true;
                 this.isOpenChange.emit(this.isOpen);
                 this.cdr.detectChanges();

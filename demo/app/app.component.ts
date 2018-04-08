@@ -9,7 +9,12 @@ import {ActivatedRoute} from "@angular/router";
                 <a routerLink="/" class="logo">
                     <span class="logo-lg"><b>Glowworm</b></span>
                 </a>
-                <nav class="navbar navbar-static-top"></nav>
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </nav>
             </header>
             <aside class="main-sidebar">
                 <section class="sidebar">

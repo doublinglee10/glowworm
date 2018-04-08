@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 
-let imgUrl = 'http://oa.ourpalm.com/oa/images/newHome1.jpg';
+let imgUrl = '//bbsimg.gamebean.com/bbsimg/slideshow/3dtankezhengbafuli.jpg';
 
 @Component({
     selector: 'gwimgpreview-demo',

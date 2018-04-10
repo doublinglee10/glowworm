@@ -11,7 +11,9 @@ let imgUrl = '//bbsimg.gamebean.com/bbsimg/slideshow/3dtankezhengbafuli.jpg';
                  style="width:500px;"
                  [(isOpen)]="isOpen"
                  [attr.src]="imageUrl"
-                 [lgSrc]="imageUrl">
+                 [lgSrc]="imageUrl"
+                 [panelClass]="'img-prev-wrapper'"
+            >
         </div>
         <div>
             {{isOpen}}

@@ -93,9 +93,8 @@ import {HttpClient} from "@angular/common/http";
                                    [(ngModel)]="dateModel2">
                     </gw-datepicker>
                 </gw-toolbar>
-                <button class="btn btn-xs btn-default pull-right"><i class="fa fa-search"></i>查询</button>
+                <button class="btn btn-xs btn-default pull-right" (click)='search()'><i class="fa fa-search" ></i>查询</button>
             </div>
-
             <div class="table-responsive">
                 <ourpalm-table [table]="table">
                     <ourpalm-table-column
@@ -179,7 +178,8 @@ export class ToolbarDemoComponent {
             }
         });
     }
-
+    search(){
+    }
     log(xxx) {
         console.warn(arguments);
     }

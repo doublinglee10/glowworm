@@ -54,3 +54,7 @@ button /deep/ .popover-content {
 .popover-container .popover-footer .right {
     float: right;
 }
+
+.error-outline{
+    outline-color: red;
+}

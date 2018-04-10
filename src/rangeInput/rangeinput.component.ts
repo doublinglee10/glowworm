@@ -40,12 +40,14 @@ import {Placement} from "../core/placement";
                     </ng-container>
                     <div class="popover-main">
                         <input type="number" class="pull-left"
+                               [ngClass]="{'error-outline':(_tmpMinModel<min || _tmpMinModel > _tmpMaxModel)}"
                                [(ngModel)]="_tmpMinModel"
                                [attr.min]="min"
                                [attr.max]="_tmpMaxModel"
                                [attr.step]="step"/>
                         <span> - </span>
                         <input type="number" class="pull-right"
+                               [ngClass]="{'error-outline':(_tmpMaxModel<_tmpMinModel || _tmpMaxModel > max)}"
                                [(ngModel)]="_tmpMaxModel"
                                [attr.max]="max"
                                [attr.min]="_tmpMinModel"
@@ -115,10 +117,16 @@ export class GWRangeInputComponent extends GWControl {
         this._tmpMinModel = minModel;
         this.minModel = minModel;
     }
+    get _minModel():number{
+        return this.minModel
+    }
 
     @Input('maxModel') set _maxModel(maxModel: number) {
         this._tmpMaxModel = maxModel;
         this.maxModel = maxModel;
+    }
+    get _maxModel():number{
+        return this.maxModel
     }
 
     @Input('selectModel') set _selectModel(selectModel: any) {
@@ -161,7 +169,7 @@ export class GWRangeInputComponent extends GWControl {
         this.maxModel = this._tmpMaxModel;
         this.maxModelChange.emit(Number(this.maxModel));
         this._selectModel = this._tmpSelectModel;
-        this.selectModelChange.emit(this.selectModel);
+        this._selectModel && this.selectModelChange.emit(this.selectModel);
         this.onSave.emit();
         this.overlay.hide();
     }

@@ -5,7 +5,6 @@
 @import "~admin-lte/dist/css/skins/skin-blue.css";
 @import "~bootstrap-daterangepicker/daterangepicker.css";
 /*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
-
 .form-control.form-control-glowworm {
     overflow: hidden;
     line-height: 30px;
@@ -15,7 +14,14 @@
 .form-control.form-control-glowworm .arrow {
     float: right;
 }
-
+.img-prev-wrapper{
+    overflow: auto;
+    text-align: center;
+    margin: 0 auto;
+    pointer-events: initial !important;
+    max-height: 100%;
+    max-width: 80%;
+}
 /* 滚动条 */
 ::-webkit-scrollbar-thumb:horizontal { /*水平滚动条的样式*/
     width: 5px;

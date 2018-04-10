@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/lib
 /lib2
 /aot
 /tmp

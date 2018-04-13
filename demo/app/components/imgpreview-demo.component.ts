@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 
 let imgUrl = '//bbsimg.gamebean.com/bbsimg/slideshow/3dtankezhengbafuli.jpg';
+let imgUrl2 = 'assets/test.png';
 
 @Component({
     selector: 'gwimgpreview-demo',
@@ -8,10 +9,17 @@ let imgUrl = '//bbsimg.gamebean.com/bbsimg/slideshow/3dtankezhengbafuli.jpg';
         <div>
             <img gw-imgpreview
                  #imgpreview="gw-imgpreview"
-                 style="width:500px;"
+                 style="max-width:500px;max-height:300px;"
                  [(isOpen)]="isOpen"
                  [attr.src]="imageUrl"
                  [lgSrc]="imageUrl"
+                 [panelClass]="'img-prev-wrapper'"
+            >
+            <img gw-imgpreview
+                 #imgpreview="gw-imgpreview"
+                 style="max-width:500px;max-height:300px;"
+                 [attr.src]="imageUrl2"
+                 [lgSrc]="imageUrl2"
                  [panelClass]="'img-prev-wrapper'"
             >
         </div>
@@ -26,6 +34,7 @@ export class ImgPreviewDemoComponent {
 
     isOpen = false;
     imageUrl = imgUrl;
+    imageUrl2 = imgUrl2;
 
     openImg() {
         this.isOpen = true;

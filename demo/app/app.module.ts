@@ -26,6 +26,7 @@ import {GlowwormRootModule} from "../../src/glowworm.module";
 import {environment} from "../environments/environment";
 import {OurpalmTableModule} from "ngx-ourpalm-table";
 import {HttpClientModule} from "@angular/common/http";
+import {ModalModule} from "ngx-bootstrap/modal";
 
 export class GlobalErrorHandler implements ErrorHandler {
     handleError(error) {
@@ -65,6 +66,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         AppRoutingModule,
         GlowwormRootModule,
         HttpClientModule,
+        ModalModule.forRoot(),
         OurpalmTableModule,
         ServiceWorkerModule.register('/glowworm/ngsw-worker.js', {enabled: environment.production})
     ],

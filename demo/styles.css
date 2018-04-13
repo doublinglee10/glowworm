@@ -5,16 +5,39 @@
 @import "~admin-lte/dist/css/skins/skin-blue.css";
 @import "~bootstrap-daterangepicker/daterangepicker.css";
 /*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+/* 去除圆角 */
+@import "assets/no-border-radius.css";
+
+/************************/
+span.form-control {
+    overflow-x: hidden;
+    overflow-y: auto;
+    line-height: 22px;
+}
+
+.cdk-overlay-container {
+    z-index: 1100 !important;
+}
+
+.cdk-overlay-pane {
+    position: absolute;
+    pointer-events: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+
 .form-control.form-control-glowworm {
     overflow: hidden;
-    line-height: 30px;
     text-align: left;
 }
 
 .form-control.form-control-glowworm .arrow {
     float: right;
 }
-.img-prev-wrapper{
+
+.img-prev-wrapper {
     overflow: auto;
     text-align: center;
     margin: 0 auto;
@@ -22,6 +45,7 @@
     max-height: 100%;
     max-width: 80%;
 }
+
 /* 滚动条 */
 ::-webkit-scrollbar-thumb:horizontal { /*水平滚动条的样式*/
     width: 5px;
@@ -52,4 +76,9 @@
     height: 50px;
     background-color: #9f9f9f;
     -webkit-border-radius: 4px;
+}
+
+.modal-lg-x {
+    width: 80%;
+    min-width: 1024px;
 }

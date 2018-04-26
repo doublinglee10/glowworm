@@ -1,7 +1,7 @@
 import {Component, TemplateRef, ViewChild} from "@angular/core";
 import {OurpalmTable} from "ngx-ourpalm-table";
 import {HttpClient} from "@angular/common/http";
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 @Component({
     selector: 'popconfirm-demo',

@@ -26,6 +26,11 @@
 <!-- * 修复linux x86_64下安装失败问题 -->
 
 
+## v1.3.5
+
+### 新特性
+ * `gw-input` 新增@Input('multiLine') @Input('maxHeight')
+
 ## v1.3.3
 
 ### Bugs修复

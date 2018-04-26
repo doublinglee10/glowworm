@@ -10,6 +10,7 @@ import {TriangleComponent} from "./triangle.component";
 import {GwConnectedOverlayComponent} from "./connected-overlay.component";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {GwOverlayService} from "./overlay.service";
+import {TextareaAutoHeight} from "./textarea-autoheight.directive";
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import {GwOverlayService} from "./overlay.service";
         SafeHtmlFilter,
         SafePipe,
         TriangleComponent,
-        GwConnectedOverlayComponent
+        GwConnectedOverlayComponent,
+        TextareaAutoHeight
     ],
     exports: [
         OverlayModule,
@@ -29,7 +31,8 @@ import {GwOverlayService} from "./overlay.service";
         SafeHtmlFilter,
         SafePipe,
         TriangleComponent,
-        GwConnectedOverlayComponent
+        GwConnectedOverlayComponent,
+        TextareaAutoHeight
     ]
 })
 export class GwCoreModule {

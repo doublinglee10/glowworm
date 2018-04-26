@@ -49,8 +49,9 @@ import {Placement} from "../core/placement";
                         <div class="popover-hr"></div>
                     </ng-container>
                     <div class="popover-main">
-                        <input type="text" [(ngModel)]="_tmpNgModel" [attr.placeholder]="placeholder"
+                        <input *ngIf="!multiLine" type="text" [(ngModel)]="_tmpNgModel" [attr.placeholder]="placeholder"
                                [attr.name]="name">
+                        <textarea *ngIf="multiLine" [(ngModel)]="_tmpNgModel" [attr.placeholder]="placeholder" [attr.name]="name" autoHeight [maxHeight]="maxHeight"></textarea>
                     </div>
                     <div class="popover-hr"></div>
                     <div class="popover-footer">
@@ -79,6 +80,10 @@ export class GwInputComponent extends GWControl implements ControlValueAccessor 
     @Input() enabled: boolean = true;
     @Input() disabled: boolean = false;
     @Input() placeholder: string;
+    /** 是否多行展示，单行展示时为input，多行展示时为textarea */
+    @Input() multiLine: boolean = false;
+    /** 多行展示时的最大高度 */
+    @Input() maxHeight: number = 300;
 
     @Input() placement: string = Placement.BOTTOM_LEFT;
     @Output() placementChange: EventEmitter<string> = new EventEmitter();

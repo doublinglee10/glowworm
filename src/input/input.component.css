@@ -39,6 +39,14 @@ button /deep/ .popover-content {
     width: 100%;
 }
 
+.popover-container .popover-main textarea {
+    border: 1px solid #cccccc;
+    min-width: 180px;
+    width: 100%;
+    min-height: 21px;
+    height: 21px;
+}
+
 .popover-container .popover-footer {
     display: inline-block;
     width: 100%;

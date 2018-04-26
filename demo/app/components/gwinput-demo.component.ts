@@ -15,6 +15,7 @@ import {Observable} from "rxjs/Observable";
                           [disabled]="disabled"
                           [closeable]="true"
                           [placeholder]="'设备信息'"
+                          [multiLine]="true"
 
                           [showSelect]="true"
                           [selectData]="selectData"

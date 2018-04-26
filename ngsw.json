@@ -9,11 +9,11 @@
       "urls": [
         "/glowworm/favicon.ico",
         "/glowworm/index.html",
-        "/glowworm/inline.841ded6777220474413f.bundle.js",
-        "/glowworm/main.81879951dd0dd55db436.bundle.js",
+        "/glowworm/inline.afbf9c73b7a72d8c41d5.bundle.js",
+        "/glowworm/main.2c85045ec7d7dd994143.bundle.js",
         "/glowworm/polyfills.cbeafe4b7534d642e480.bundle.js",
         "/glowworm/scripts.b14d34afdecbb726b47c.bundle.js",
-        "/glowworm/styles.fdedc91586197c4e6eb8.bundle.css"
+        "/glowworm/styles.c2a1bcbbaed17bb0d4b4.bundle.css"
       ],
       "patterns": []
     },
@@ -22,20 +22,24 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "urls": [
-        "/glowworm/assets/scrollbar.css"
+        "/glowworm/assets/no-border-radius.css",
+        "/glowworm/assets/scrollbar.css",
+        "/glowworm/assets/test.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/glowworm/inline.841ded6777220474413f.bundle.js": "82b0295cf07a90a406a761aac3dda0e786ba51cd",
+    "/glowworm/inline.afbf9c73b7a72d8c41d5.bundle.js": "b2da27ca1095838959929670d5aa2168bf2d13d2",
+    "/glowworm/assets/no-border-radius.css": "5ceb7c1c42ced60bd1eeaf0bc84d9597c4f89d1e",
+    "/glowworm/main.2c85045ec7d7dd994143.bundle.js": "152a2ccf09a41fa5f790e5e3cc3330e4bc0d5c1f",
     "/glowworm/assets/scrollbar.css": "a33e1b0c892ce6a81d10999447e23ff1b7a46fa7",
-    "/glowworm/main.81879951dd0dd55db436.bundle.js": "829c4476872635ff803125abb340fa6283417b9c",
     "/glowworm/polyfills.cbeafe4b7534d642e480.bundle.js": "430aa4a938f0a20516ec5b722dac1b61147e105c",
+    "/glowworm/assets/test.png": "e94daba1850d220185bab2cd28e958b8318aad95",
     "/glowworm/scripts.b14d34afdecbb726b47c.bundle.js": "eea35aa444802ecc3dcdb147d2ec1a5f3cf11ebe",
-    "/glowworm/styles.fdedc91586197c4e6eb8.bundle.css": "73bf39a3acff5c114eb1fea5ecab7026be74a08f",
+    "/glowworm/styles.c2a1bcbbaed17bb0d4b4.bundle.css": "d09788cbd9755d763ac88e9f40f3060ab6955ead",
     "/glowworm/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/glowworm/index.html": "96bbdf962a8a14c7fc6695594e8904a34916ca81"
+    "/glowworm/index.html": "7b4a58fd34c5dfbb2f4da995ff9ec37cd6eb4afc"
   }
 }

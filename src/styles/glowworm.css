@@ -70,6 +70,13 @@
     opacity: .48;
 }
 
+.cdk-global-overlay-wrapper.cdk-overlay-pane.gw-imgpreview {
+    justify-content: center;
+    align-items: center;
+    pointer-events: none !important;
+    overflow-y: scroll;
+}
+
 /* <div class="loader"></div>  */
 .loader {
     border: 12px solid #3C8DBC; /* Light grey */

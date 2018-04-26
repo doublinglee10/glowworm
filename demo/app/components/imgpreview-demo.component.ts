@@ -13,14 +13,12 @@ let imgUrl2 = 'assets/test.png';
                  [(isOpen)]="isOpen"
                  [attr.src]="imageUrl"
                  [lgSrc]="imageUrl"
-                 [panelClass]="'img-prev-wrapper'"
             >
             <img gw-imgpreview
                  #imgpreview="gw-imgpreview"
                  style="max-width:500px;max-height:300px;"
                  [attr.src]="imageUrl2"
                  [lgSrc]="imageUrl2"
-                 [panelClass]="'img-prev-wrapper'"
             >
         </div>
         <div>

@@ -6,7 +6,7 @@ import {
     HostListener,
     Input,
     NgZone,
-    Output,
+    Output
 } from "@angular/core";
 import {OverlayRef} from "@angular/cdk/overlay";
 import {GwImgPreviewComponent} from "./imgpreview.component";
@@ -14,15 +14,13 @@ import {GwOverlayService} from "../core/overlay.service";
 import {filter, take} from "rxjs/operators";
 import {EventManager} from "@angular/platform-browser";
 
-const ESCAPE = 27;
-
 @Directive({
     selector: '[gw-imgpreview]',
     exportAs: 'gw-imgpreview'
 })
 export class GwImgPreviewDirective {
-    escEvent
-    @Input() panelClass:string = '';
+    private escEvent: any;
+    @Input() panelClass: string | string[] = ['cdk-global-overlay-wrapper', 'gw-imgpreview'];
     @Input() src: string;
     @Input() lgSrc: string;
     @Output() isOpenChange: EventEmitter<boolean> = new EventEmitter();
@@ -35,8 +33,7 @@ export class GwImgPreviewDirective {
     constructor(private overlayService: GwOverlayService,
                 private ngZone: NgZone,
                 private cdr: ChangeDetectorRef,
-                private eventManger: EventManager
-    ) {
+                private eventManger: EventManager) {
     }
 
     @Input() set isOpen(isOpen: boolean) {
@@ -52,7 +49,6 @@ export class GwImgPreviewDirective {
                     });
                 });
             });
-            // this.cdr.detectChanges();
         }
     }
 
@@ -63,7 +59,7 @@ export class GwImgPreviewDirective {
     @HostListener('click')
     open() {
         this.createOverlay();
-        this.escEvent=this.eventManger.addGlobalEventListener('document', 'keyup.Escape', (e: KeyboardEvent) => {
+        this.escEvent = this.eventManger.addGlobalEventListener('document', 'keyup.Escape', (e: KeyboardEvent) => {
             this.close()
         });
 
@@ -73,7 +69,7 @@ export class GwImgPreviewDirective {
     private createOverlay() {
         let {overlayRef, componentRef} = this.overlayService.openBlock(GwImgPreviewComponent, {
             backdropClass: 'overlay-backdrop-class',
-            panelClass:this.panelClass
+            panelClass: this.panelClass
         });
         this._componentRef = componentRef;
         this._overlayRef = overlayRef;

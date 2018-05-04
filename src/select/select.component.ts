@@ -92,7 +92,7 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Input() clearSave: boolean = true;
     @Input() saveText: string = '保存';
     @Input() showCancel: boolean = true;
-    @Input() showClear: boolean = true;
+    @Input() showClear: boolean = true; 
 
     @Input() placement: string = Placement.BOTTOM_LEFT;
     @Output() placementChange: EventEmitter<string> = new EventEmitter();

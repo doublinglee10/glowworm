@@ -67,12 +67,12 @@ import {Placement} from "../core/placement";
                     <div class="popover-hr"></div>
                     <div class="popover-footer">
                         <div class="left">
-                            <a class="btn btn-xs" (click)="clear()">清除</a>
+                            <a class="btn btn-xs" *ngIf="showClear"  (click)="clear()">清除</a>
                             <ng-template *ngTemplateOutlet="extra || contentExtra"></ng-template>
                         </div>
                         <div class="right">
-                            <button class="btn btn-primary btn-xs" (click)="save()">保存</button>
-                            <button class="btn btn-default btn-xs" (click)="cancel()">取消</button>
+                            <button class="btn btn-primary btn-xs" (click)="save()">{{saveText}}</button>
+                            <button class="btn btn-default btn-xs" *ngIf="showCancel" (click)="cancel()">取消</button>
                         </div>
                     </div>
                 </div>
@@ -90,6 +90,9 @@ export class GwSelectComponent implements ControlValueAccessor {
     @Input() closeable: boolean = true;
     @Input() multiple: boolean = false;
     @Input() clearSave: boolean = true;
+    @Input() saveText: string = '保存';
+    @Input() showCancel: boolean = true;
+    @Input() showClear: boolean = true;
 
     @Input() placement: string = Placement.BOTTOM_LEFT;
     @Output() placementChange: EventEmitter<string> = new EventEmitter();

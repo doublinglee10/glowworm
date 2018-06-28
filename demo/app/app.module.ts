@@ -4,6 +4,7 @@ import {AppComponent} from "./app.component";
 import {FormsModule} from "@angular/forms";
 import {ServiceWorkerModule} from "@angular/service-worker";
 
+
 import {AppRoutingModule} from "./app-routing.module";
 import {PopconfirmDemoComponent} from "./components/popconfirm-demo.conponent";
 import {ToolbarDemoComponent} from "./components/toolbar-demo.component";
@@ -27,6 +28,7 @@ import {environment} from "../environments/environment";
 import {OurpalmTableModule} from "ngx-ourpalm-table";
 import {HttpClientModule} from "@angular/common/http";
 import {ModalModule} from "ngx-bootstrap/modal";
+import {GWTabDymaticDemoComponent} from "./components/gw-tab-dymatic-demo.component";
 
 export class GlobalErrorHandler implements ErrorHandler {
     handleError(error) {
@@ -57,7 +59,8 @@ export class GlobalErrorHandler implements ErrorHandler {
         PopSingleSelectDemoComponent,
         GwInputsDemoComponent,
         DatepickerDemoComponent,
-        ImgPreviewDemoComponent
+        ImgPreviewDemoComponent,
+        GWTabDymaticDemoComponent
     ],
     imports: [
         FormsModule,

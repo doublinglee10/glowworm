@@ -8,6 +8,7 @@ export type StringLike = string | TemplateRef<any> | Type<any>;
 })
 export class GwTabComponent implements OnInit {
 
+    _lazy: boolean = false;
     /**
      * @inner
      */
@@ -17,7 +18,13 @@ export class GwTabComponent implements OnInit {
     @Input() title: StringLike;
     @Input() content: StringLike;
 
-    @Input() lazy: boolean;
+    @Input()
+    set lazy( value: boolean ) {
+        this._lazy = value
+    }
+    get lazy( ): boolean {
+      return this._lazy
+    }
     @Input() disabled: boolean;
     @Input() closable: boolean;
     @Input() selected: boolean;

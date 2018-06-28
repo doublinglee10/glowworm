@@ -1,5 +1,6 @@
 import {ComponentRef, ElementRef, Injectable} from "@angular/core";
 import {
+    BlockScrollStrategy,
     ConnectedOverlayPositionChange,
     ConnectedPositionStrategy,
     ConnectionPositionPair,

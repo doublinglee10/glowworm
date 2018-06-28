@@ -28,3 +28,6 @@ li.gu-transit {
     -ms-user-select: none !important;
     user-select: none !important;
 }
+.nav-tabs li{
+    cursor: pointer;
+}

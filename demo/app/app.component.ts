@@ -20,6 +20,7 @@ import {ActivatedRoute} from "@angular/router";
                 <section class="sidebar">
                     <ul class="sidebar-menu" data-widget="tree">
                         <li><a routerLink="/gwtabs"><i class="fa fa-link"></i><span>gwtabs</span></a></li>
+                        <li><a routerLink="/gwtabsDymatic"><i class="fa fa-link"></i><span>gwtabs1</span></a></li>
                         <li><a routerLink="/gwpannel"><i class="fa fa-link"></i>gwpannel</a></li>
                         <li><a routerLink="/gwSwitch"><i class="fa fa-link"></i>gwSwitch</a></li>
                         <li><a routerLink="/gwimgpreview"><i class="fa fa-link"></i>gwimgpreview</a></li>

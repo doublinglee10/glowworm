@@ -10,6 +10,7 @@ import {
     Output,
     QueryList,
     TemplateRef,
+    ChangeDetectorRef,
     ViewEncapsulation
 } from "@angular/core";
 import {GwTabComponent} from "./tab.component";
@@ -26,7 +27,7 @@ let dragulaId: number = 0;
 
 @Component({
     selector: 'gw-tabs',
-    template: `
+    template: `        
         <div class="nav-tabs-custom tabs-{{position}}">
             <ng-template #tabs_header>
                 <ng-container *ngFor="let tab of tabs">
@@ -67,7 +68,7 @@ let dragulaId: number = 0;
             <div class="tab-content no-padding">
                 <ng-container *ngFor="let tab of tabs">
                     <div class="tab-pane" [class.active]="tab.selected">
-                        <ng-container *ngIf="!tab.lazy || !tab.isFirstSelected">
+                        <ng-container *ngIf="!tab._lazy || !tab.isFirstSelected">
                             <ng-container *ngIf="_typeofContent(tab.content) === 'string'">
                                 {{tab.content}}
                             </ng-container>
@@ -131,7 +132,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
     _dragula_key = `gwtabs_${++dragulaId}`;
     _store_prefix = 'gwtabs_';
 
-    constructor(private dragulaService: DragulaService) {
+    constructor(private dragulaService: DragulaService, private cdf: ChangeDetectorRef) {
         dragulaService.drop.subscribe((value) => {
             this.onSort.emit();
             this._onOrderChangeEvent();
@@ -185,6 +186,8 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
             ];
             this._checkAndSelect();
         });
+        this.cdf.detectChanges()
+        console.log(this.tabs)
     }
 
     /**
@@ -330,9 +333,10 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
         if (tab == selected || tab.disabled) {
             return;
         }
-
-        selected.selected = false;
-        this.onUnSelect.emit(selected);
+        if(selected){
+            selected.selected = false;
+            this.onUnSelect.emit(selected);
+        }
 
         tab.isFirstSelected = false;
         tab.selected = true;

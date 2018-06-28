@@ -16,6 +16,7 @@ import {GwInputsDemoComponent} from "./components/gwinputs-demo.component";
 import {DatepickerDemoComponent} from "./components/datePicker-demo.component";
 import {ImgPreviewDemoComponent} from "./components/imgpreview-demo.component";
 import {PopSingleSelectDemoComponent} from "./components/popsingleselect-demo.conponent";
+import {GWTabDymaticDemoComponent} from "./components/gw-tab-dymatic-demo.component";
 const routes: Routes = [
     {
         path: 'popinput',
@@ -52,6 +53,10 @@ const routes: Routes = [
     {
         path: 'gwtabs',
         component: GwTabsDemoComponent
+    },
+    {
+      path: 'gwtabsDymatic',
+        component: GWTabDymaticDemoComponent
     },
     {
         path: 'gwpannel',

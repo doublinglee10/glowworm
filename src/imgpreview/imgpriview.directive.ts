@@ -36,6 +36,9 @@ export class GwImgPreviewDirective {
                 private eventManger: EventManager) {
     }
 
+    @Input()
+    showToolBar: boolean = false;
+
     @Input() set isOpen(isOpen: boolean) {
         if (isOpen !== this._isOpen) {
             this.ngZone.runOutsideAngular(() => {
@@ -62,7 +65,9 @@ export class GwImgPreviewDirective {
         this.escEvent = this.eventManger.addGlobalEventListener('document', 'keyup.Escape', (e: KeyboardEvent) => {
             this.close()
         });
-
+        this._componentRef.instance.closeBtnClick.subscribe(event => {
+            this.close()
+        })
     }
 
 
@@ -86,6 +91,8 @@ export class GwImgPreviewDirective {
                 this.cdr.detectChanges();
             });
     }
+
+
 
     close() {
         if (this.isOpen) {

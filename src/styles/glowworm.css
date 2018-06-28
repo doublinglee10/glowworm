@@ -76,6 +76,25 @@
     pointer-events: none !important;
     overflow-y: scroll;
 }
+/*图片预览*/
+.image-toolbar{
+    padding:0 20px;
+    font-size: 1.5em;
+    color: #fff;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg,rgba(0,0,0,.65) 0,transparent);
+    width: 100%;
+    z-index: 1;
+    pointer-events: auto;
+}
+.image-toolbar .fa {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
 
 /* <div class="loader"></div>  */
 .loader {

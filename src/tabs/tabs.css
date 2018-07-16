@@ -31,3 +31,21 @@ li.gu-transit {
 .nav-tabs li{
     cursor: pointer;
 }
+/**/
+.dashed.nav-tabs-custom {
+
+}
+.nav-tabs-custom.none  > .nav-tabs > li{
+    border:none;
+}
+.nav-tabs-custom.none  > .nav-tabs > li.active{
+    border-top: none;
+    background-color: #00c1ef;
+}
+.nav-tabs-custom.none > .nav-tabs > li > a{
+    border: none;
+    padding:0;
+}
+.nav-tabs-custom.none > .nav-tabs > li.active > a{
+    background-color: #00c1ef;
+}

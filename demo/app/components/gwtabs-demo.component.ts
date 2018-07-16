@@ -33,13 +33,17 @@ export class TestComponent {
             <button class="btn btn-xs btn-primary" (click)="clear()">clear</button>
         </div>
         <gw-tabs [sortable]="true"
+                 [tabsType]="'none'"
                  [storeKey]="'tabsdemo'"
                  [storeType]="'local'"
                  (onSort)="sorted()"
                  (onSortStart)="startSort()"
                  (onSelect)="selectThisTab($event)"
                  [onClosing]="onClosing">
-            <gw-tab title="this is a title" content="this is a content" [tabId]="'tab1'">
+            <gw-tab content="this is a content" [tabId]="'tab1'">
+                <ng-template #title>
+                    <span >测试文字</span>
+                </ng-template>
                 use content input
             </gw-tab>
             <gw-tab title="this is a title 2" content="this is a disabled tab"
@@ -68,11 +72,11 @@ export class TestComponent {
             <gw-tab title="lazy load" *ngIf="showTab" [lazy]="true" [content]="component" [tabId]="'tab4'"></gw-tab>
 
             <ng-template #extra>
-                <a class="text-muted"><i class="fa fa-gear"></i></a>
+                <a class="text-muted "><i class="fa fa-gear"></i></a>
             </ng-template>
 
         </gw-tabs>
-    `
+    `,
 })
 export class GwTabsDemoComponent implements OnInit, OnDestroy {
 

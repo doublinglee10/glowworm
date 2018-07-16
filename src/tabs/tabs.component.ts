@@ -1,3 +1,4 @@
+
 import {
     AfterViewInit,
     Component,
@@ -10,8 +11,7 @@ import {
     Output,
     QueryList,
     TemplateRef,
-    ChangeDetectorRef,
-    ViewEncapsulation
+    ChangeDetectorRef, ViewEncapsulation
 } from "@angular/core";
 import {GwTabComponent} from "./tab.component";
 import {GwTab} from "./tab";
@@ -28,7 +28,7 @@ let dragulaId: number = 0;
 @Component({
     selector: 'gw-tabs',
     template: `        
-        <div class="nav-tabs-custom tabs-{{position}}">
+        <div class="nav-tabs-custom tabs-{{position}}" [ngClass]="tabsType">
             <ng-template #tabs_header>
                 <ng-container *ngFor="let tab of tabs">
                     <li [class.active]="tab.selected"
@@ -99,6 +99,7 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() storeType: 'local' | 'remote';
     @Input() position: 'top' | 'bottom' | 'left' | 'right' = 'top';
 
+    @Input() tabsType: 'dashed'|'normal'|'none'|'' = '';
     /**
      * 是否启用排序
      */

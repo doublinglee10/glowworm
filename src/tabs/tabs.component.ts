@@ -330,13 +330,12 @@ export class GwTabsComponent implements OnInit, AfterViewInit, OnDestroy {
      * @inner
      */
     _selectTab(tab: TabOrTabComponent) {
-        let selected = this.tabs.filter(tab => tab.selected)[0];
+        let selected = this.tabs.filter(tab => tab.selected);
         if (tab == selected || tab.disabled) {
             return;
         }
-        if(selected){
-            selected.selected = false;
-            this.onUnSelect.emit(selected);
+        if (selected.length > 0) {
+            selected.forEach(select => {select.selected = false;this.onUnSelect.emit(select)})
         }
 
         tab.isFirstSelected = false;

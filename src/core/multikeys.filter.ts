@@ -19,7 +19,7 @@ export class MultiKeysFilter implements PipeTransform {
             for (let i = 0; i < keys.length; i++) {
                 let key = keys[i];
                 let val = item[key];
-                if (val && `${val}`.includes(name)) {
+                if (val && `${val}`.toLocaleLowerCase().includes(name.toLocaleLowerCase())) {
                     return true;
                 }
             }
